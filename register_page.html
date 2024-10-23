@@ -10,20 +10,25 @@
 </head>
 
 <body>
+  <!-- Navbar -->
   <nav class="navbar sticky-top bg-body-tertiary">
+
+    <!-- navigate to home/dashboard by clicking logo/name -->
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="dashboard_pembeli.html">
         <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24"
           class="d-inline-block align-text-top" />
         UMKMku
       </a>
+
+      <!-- Button login/register -->
       <div class="ms-auto">
-        <button class="btn btn-outline-success me-2" type="button">
-          Login
-        </button>
-        <button class="btn btn-outline-success me-2" type="button">
-          Sign In
-        </button>
+        <a href="login_page.html" class="btn btn-outline-success me-2" role="button">
+          Masuk
+        </a>
+        <a href="register_page.html" class="btn btn-outline-success me-2" role="button">
+          Daftar
+        </a>
       </div>
     </div>
   </nav>
@@ -53,9 +58,11 @@
             <input type="password" class="form-control" id="exampleInputPassword1">
           </div>
 
-          <!-- Button submit -->
+          <!-- Button daftar -->
           <div class="d-flex flex-column justify-content-center"> <!-- Use d-flex and justify-content-center -->
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='login_page.html'">
+              Daftar
+          </button>
           </div>
 
           <!-- Lempar ke masuk -->

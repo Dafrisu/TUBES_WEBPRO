@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Customer Service</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showChatSection('inbox')">Kotak Masuk</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showChatSection('open')">Terbuka (0)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showChatSection('unread')">Belum Dibaca (0)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showChatSection('unreplied')">Belum Dibalas (0)</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <div class="header-logo">
+                        <img src="assets/logo2.png" alt="UMKM Icon" width="80">
+                        <h1 class="h2 mb-0">UMKM Chat</h1> <!-- Ensures heading aligns with the logo -->
+                    </div>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Lihat Perincian</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters Bar -->
+                <div class="filters-bar" id="filtersBar">
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="form-control me-2" placeholder="Cari semua chat">
+                        <select class="form-select me-2">
+                            <option>Urutkan</option>
+                            <option>Terbaru</option>
+                            <option>Terlama</option>
+                        </select>
+                        <button class="btn btn-outline-secondary">Semua</button>
+                        <button class="btn btn-outline-secondary">Purnajual</button>
+                        <button class="btn btn-outline-secondary">Logistik</button>
+                        <button class="btn btn-outline-secondary">Sebelum</button>
+                    </div>
+                    <p class="text-center mt-3">Daftar ini kosong</p>
+                </div>
+
+                <!-- Chat Interface -->
+                <div class="chat-interface" id="chatInterface">
+                    <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function showChatSection(section) {
+            // Hide the chat interface and show the filters bar based on the section clicked
+            const filtersBar = document.getElementById('filtersBar');
+            const chatInterface = document.getElementById('chatInterface');
+
+            if (section === 'open' || section === 'unread' || section === 'unreplied') {
+                filtersBar.style.display = 'block';
+                chatInterface.style.display = 'none';
+            } else {
+                filtersBar.style.display = 'none';
+                chatInterface.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

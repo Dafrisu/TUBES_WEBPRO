@@ -127,3 +127,17 @@ body {
 .btn:hover {
     background-color: #d92148;
 }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.submenu {
+    display: none;
+    padding-left: 20px;
+}
+
+.submenu li {
+    border: none;
+}

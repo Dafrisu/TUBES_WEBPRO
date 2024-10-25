@@ -1,45 +1,6 @@
-html, body { 
-  height: 100%;
-  margin: 0;
-}
-
 body {
-  display: block;
-  align-items: center;
   font-family: 'Montserrat', sans-serif;
   background-color: #FCFAFA;
-}
-
-.background {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-}
-
-#form_box {
-  background: transparent;
-  border: 1px solid rgba(101, 136, 100, 0.3);
-  backdrop-filter: blur(5px);
-  border-radius: 10px;
-  padding: 4%;
-  min-width: fit-content;
-  max-width: 45%;
-}
-
-.fs-2 {
-  font-family: 'Montserrat';
-}
-
-.fs-4 {
-  font-family: 'Merriweather';
-}
-
-.btn {
-  font-family: 'Montserrat';
-  font-size: medium;
 }
 
 .sidebar {

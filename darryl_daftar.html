@@ -13,7 +13,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
   <!-- Connect CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/darryl.css">
 
   <!-- Import Fonts -->
   <link
@@ -29,17 +29,18 @@
   <nav class="navbar sticky-top">
 
     <div class="container-fluid">
-
       <!-- navigate to home/dashboard by clicking logo/name -->
       <a class="navbar-brand brand-name" href="dashboard_pembeli.html">
-        <img src="assets/Sample 1 copy.png" alt="Logo" width="64" height="64" class="d-inline-block" />
+        <img src="assets/Sample 1 copy.png.png" alt="Logo" width="64" height="64" class="d-inline-block" />
         UMKMku
       </a>
 
+
+
       <!-- Button login/register -->
       <div class="ms-auto">
-        <a href="register_page.html" class="btn me-2" role="button">
-          Daftar
+        <a href="darryl_masuk.html" class="btn me-2" role="button">
+          Masuk
         </a>
       </div>
     </div>
@@ -48,8 +49,8 @@
   <!-- Wrapper untuk form masuk -->
   <div class="container" id="form_box">
     <!-- Insert bacotan formalitas -->
-    <div class="fs-2 fw-bold text-center">Masuk</div>
-    <div class="fs-4 fw-medium mb-4 text-center">Masuk ke akun UMKMku</div>
+    <div class="fs-2 fw-bold text-center">Daftar</div>
+    <div class="fs-4 fw-medium mb-4 text-center">Bergabung dengan UMKMku</div>
     <form>
       <!-- Isi Email -->
       <div class="mb-2">
@@ -61,30 +62,21 @@
       <div class="mb-4">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword1">
-
-        <!-- Lempar ke ubah sandi -->
-        <div class="d-flex justify-content-end mt-3">
-          <div class="fs-6">Lupa kata sandi?</div>
-          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-            href="#">
-            Ubah kata sandi
-          </a>
-        </div>
       </div>
 
       <!-- Button masuk -->
       <div class="d-flex flex-column justify-content-center"> <!-- Use d-flex and justify-content-center -->
-        <button type="button" class="btn btn-primary" onclick="window.location.href='dashboard_pembeli.html'">
-          Masuk
+        <button type="button" class="btn" onclick="window.location.href='darryl_daftar.html'">
+          Daftar Sekarang
         </button>
       </div>
 
       <!-- Lempar ke daftar -->
       <div class="d-flex justify-content-center mt-2">
-        <div class="fs-6">Belum punya akun?</div>
+        <div class="fs-6">Sudah punya akun?</div>
         <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-          href="register_page.html">
-          Daftar
+          href="darryl_masuk.html">
+          Masuk
         </a>
       </div>
     </form>

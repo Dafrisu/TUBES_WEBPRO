@@ -7,6 +7,7 @@ body {
   display: block;
   align-items: center;
   background-color: #FCFAFA;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .background {
@@ -58,4 +59,44 @@ body {
   font-family: 'Montserrat';
   font-size: 28px;
   font-weight: bold;
+}
+
+.sidebar {
+  height: 100vh;
+  padding-top: 1rem;
+  background-color: #F0F0F0;
+}
+
+.sidebar .nav-link {
+  color: #333;
+  font-weight: 500;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #e0e0e0;
+}
+
+.sidebar .sidebar-heading {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.chat-interface {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #dedede;
+  padding: 2rem;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+.header-logo img {
+  margin-right: 10px;
 }

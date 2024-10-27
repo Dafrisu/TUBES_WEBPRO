@@ -34,18 +34,21 @@ body {
 
 /* untuk clickable nama web yang ada pada navbar */
 .brand-name {
-  font-size: 2rem;
+  font-size: 24px;
   font-weight: bold;
+  color: #191716;
   font-family: 'Montserrat';
 }
 
 /* untuk headline login/register */
 .fs-2 {
+  color: #191716;
   font-family: 'Montserrat';
 }
 
 /* untuk keterangan dari headline login/register */
 .fs-4 {
+  color: #191716;
   font-family: 'Merriweather';
 }
 
@@ -53,8 +56,8 @@ body {
 .btn {
   font-family: 'Montserrat';
   font-size: medium;
-  background-color: transparent;
-  color: #658864;
+  background-color: #658864;
+  color: #FCFAFA;
   border: solid 2px #658864;
   font-weight: bold;
   min-width: 150px;
@@ -67,8 +70,36 @@ body {
   background-color: #658864;
   color: #FCFAFA;
   border: solid 2px #658864;
+  opacity: 0.9;
 }
 
+/* might be temporary buat ngeliat sebesar apa container 2 doang */
 .content2 {
-  background-color: #658864;
+  background-color: #F2F0F0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* background navbar */
+.navbar {
+  background: #F2F0F0;
+  border: 1px solid rgba(101, 136, 100, 0.3);
+  padding: 0;
+  margin: 0;
+}
+
+/* remove padding navbar-brand (container yang membungkus logo dan nama web)
+biar navbar keliatan lebih tipis */
+.navbar-brand {
+  padding: 0;
+}
+
+/* untuk button yang dikanan */
+#navbar_button a {
+  color: #191716;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: bold;
+  font-size: medium;
 }

@@ -1,0 +1,74 @@
+html, body { 
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: block;
+  align-items: center;
+  background-color: #FCFAFA;
+}
+
+/* untuk background */
+.background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  max-height: fit-content;
+}
+
+/* untuk box yang membungkus form login/register */
+#form_box {
+  background: transparent;
+  border: 1px solid rgba(101, 136, 100, 0.3);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  padding: 4%;
+  min-width: fit-content;
+  max-width: 45%;
+  margin-top: 8rem;
+}
+
+/* untuk clickable nama web yang ada pada navbar */
+.brand-name {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Montserrat';
+}
+
+/* untuk headline login/register */
+.fs-2 {
+  font-family: 'Montserrat';
+}
+
+/* untuk keterangan dari headline login/register */
+.fs-4 {
+  font-family: 'Merriweather';
+}
+
+/* untuk semua button */
+.btn {
+  font-family: 'Montserrat';
+  font-size: medium;
+  background-color: transparent;
+  color: #658864;
+  border: solid 2px #658864;
+  font-weight: bold;
+  min-width: 150px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* untuk menambahkan effect hover pada semua button */
+.btn:hover {
+  background-color: #658864;
+  color: #FCFAFA;
+  border: solid 2px #658864;
+}
+
+.content2 {
+  background-color: #658864;
+}

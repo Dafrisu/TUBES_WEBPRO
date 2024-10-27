@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky pt-3">
+                    <!-- Profile Section -->
+                    <div class="profile-section text-center">
+                        <img src="assets/Profilepic.png" alt="Profile Picture" class="rounded-circle mb-2" width="80">
+                        <h6>Customer Service</h6>
+                        <p class="text-muted">Welcome, User</p>
+                    </div>
+                    <ul class="nav flex-column">
+                        <!-- Kotak Masuk with Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="inboxDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Kotak Masuk
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="inboxDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="showChatSection('open')">Terbuka (5)</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="showChatSection('unread')">Belum Dibaca (5)</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="showChatSection('unreplied')">Belum Dibalas (5)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <div class="header-logo">
+                        <img src="assets/Sample 1 copy.png" alt="UMKM Icon" width="80">
+                        <h1 class="h2 mb-0">UMKM Chat</h1>
+                    </div>
+                </div>
+
+                <!-- Filters Bar -->
+                <div class="filters-bar" id="filtersBar">
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="form-control me-2" placeholder="Cari semua chat" onkeyup="searchMessages(event)">
+                        <select class="form-select me-2" onchange="sortMessages(event)">
+                            <option value="">Urutkan</option>
+                            <option value="newest">Terbaru</option>
+                            <option value="oldest">Terlama</option>
+                        </select>
+                    </div>
+                    <p class="text-center mt-3" id="emptyMessage" style="display: none;">Daftar ini kosong</p>
+                </div>
+
+                <!-- Chat Interface -->
+                <div class="chat-interface" id="chatInterface">
+                    <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+                </div>
+
+                <!-- Example Message Section -->
+                <div class="example-messages" id="exampleMessages"></div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Convert time string to Date object for proper sorting
+        function timeToDate(timeStr) {
+            const today = new Date();
+            const [time, period] = timeStr.split(' ');
+            const [hours, minutes] = time.split(':');
+            let hour = parseInt(hours);
+            
+            if (period === 'PM' && hour !== 12) {
+                hour += 12;
+            } else if (period === 'AM' && hour === 12) {
+                hour = 0;
+            }
+            
+            today.setHours(hour, parseInt(minutes), 0);
+            return today;
+        }
+
+        const messages = {
+            open: [
+                { name: "Customer A", message: "Kapan barang saya dikirim?", time: "10:00 AM" },
+                { name: "Customer B", message: "Apakah produk ini tersedia?", time: "10:15 AM" },
+                { name: "Customer C", message: "Saya ingin mengubah alamat pengiriman.", time: "10:30 AM" },
+                { name: "Customer D", message: "Bisa tolong update status pesanan saya?", time: "10:45 AM" },
+                { name: "Customer E", message: "Ada promo untuk bulan ini?", time: "11:00 AM" }
+            ],
+            unread: [
+                { name: "Customer F", message: "Bagaimana cara mengklaim garansi?", time: "11:15 AM" },
+                { name: "Customer G", message: "Saya tertarik dengan produk ini, bisa minta detailnya?", time: "11:30 AM" },
+                { name: "Customer H", message: "Kapan pesanan saya akan tiba?", time: "11:45 AM" },
+                { name: "Customer I", message: "Apakah ada diskon untuk pembelian grosir?", time: "12:00 PM" },
+                { name: "Customer J", message: "Bisa tolong kirim faktur pembelian?", time: "12:15 PM" }
+            ],
+            unreplied: [
+                { name: "Customer K", message: "Saya ingin mengajukan retur barang.", time: "12:30 PM" },
+                { name: "Customer L", message: "Apakah produk ini asli?", time: "12:45 PM" },
+                { name: "Customer M", message: "Bisa bantu saya melacak pesanan?", time: "1:00 PM" },
+                { name: "Customer N", message: "Bagaimana cara pembayaran?", time: "1:15 PM" },
+                { name: "Customer O", message: "Apakah ada opsi pengiriman ekspres?", time: "1:30 PM" }
+            ]
+        };
+
+        let currentMessages = [];
+
+        function showChatSection(section) {
+            const filtersBar = document.getElementById('filtersBar');
+            const chatInterface = document.getElementById('chatInterface');
+            const exampleMessages = document.getElementById('exampleMessages');
+            const emptyMessage = document.getElementById('emptyMessage');
+
+            filtersBar.style.display = 'block';
+            chatInterface.style.display = 'none';
+            exampleMessages.style.display = 'block';
+            
+            currentMessages = [...messages[section]];
+            displayMessages(currentMessages);
+        }
+
+        function searchMessages(event) {
+            const query = event.target.value.toLowerCase();
+            const filteredMessages = currentMessages.filter(msg => 
+                msg.name.toLowerCase().includes(query) || 
+                msg.message.toLowerCase().includes(query)
+            );
+            displayMessages(filteredMessages);
+        }
+
+        function sortMessages(event) {
+            const sortBy = event.target.value;
+            if (!sortBy) return;
+
+            const sortedMessages = [...currentMessages].sort((a, b) => {
+                const dateA = timeToDate(a.time);
+                const dateB = timeToDate(b.time);
+                return sortBy === 'newest' ? dateB - dateA : dateA - dateB;
+            });
+            
+            displayMessages(sortedMessages);
+        }
+
+        function displayMessages(messageList) {
+            const exampleMessages = document.getElementById('exampleMessages');
+            const emptyMessage = document.getElementById('emptyMessage');
+            
+            exampleMessages.innerHTML = "";
+            
+            if (messageList.length === 0) {
+                emptyMessage.style.display = 'block';
+            } else {
+                emptyMessage.style.display = 'none';
+                messageList.forEach(msg => {
+                    exampleMessages.innerHTML += `
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h5 class="card-title">${msg.name}</h5>
+                                <p class="card-text">${msg.message}</p>
+                                <p class="text-muted">${msg.time}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+    </script>
+</body>
+</html>

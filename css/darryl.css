@@ -17,6 +17,7 @@ body {
   left: 0;
   right: 0;
   z-index: -1;
+  max-height: fit-content;
 }
 
 /* untuk box yang membungkus form login/register */
@@ -28,6 +29,7 @@ body {
   padding: 4%;
   min-width: fit-content;
   max-width: 45%;
+  margin-top: 8rem;
 }
 
 /* untuk clickable nama web yang ada pada navbar */
@@ -65,4 +67,8 @@ body {
   background-color: #658864;
   color: #FCFAFA;
   border: solid 2px #658864;
+}
+
+.content2 {
+  background-color: #658864;
 }

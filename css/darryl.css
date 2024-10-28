@@ -30,6 +30,7 @@ body {
   min-width: fit-content;
   max-width: 45%;
   margin-top: 8rem;
+  margin-bottom: 8rem;
 }
 
 /* untuk clickable nama web yang ada pada navbar */
@@ -76,8 +77,28 @@ body {
 /* might be temporary buat ngeliat sebesar apa container 2 doang */
 .content2 {
   background-color: #F2F0F0;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 3 doang */
+.content3 {
+  background-color: #658864;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 4 doang */
+.content4 {
+  background-color: #FCFAFA;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* background navbar */

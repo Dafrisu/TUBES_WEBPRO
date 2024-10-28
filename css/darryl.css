@@ -9,7 +9,7 @@ body {
   background-color: #FCFAFA;
 }
 
-/* untuk background */
+/* untuk background (bawaan dari web) */
 .background {
   position: absolute;
   top: 0;
@@ -27,7 +27,7 @@ body {
   backdrop-filter: blur(4px);
   border-radius: 10px;
   padding: 4%;
-  min-width: fit-content;
+  min-width: 20%;
   max-width: 45%;
   margin-top: 8rem;
   margin-bottom: 8rem;
@@ -42,15 +42,17 @@ body {
 }
 
 /* untuk headline login/register */
-.fs-2 {
+.fs-2, .fs-4, .fs-1, .fs-3 {
   color: #191716;
   font-family: 'Montserrat';
 }
 
-/* untuk keterangan dari headline login/register */
-.fs-4 {
-  color: #191716;
-  font-family: 'Merriweather';
+.fs-1 {
+  font-weight: bold;
+}
+
+.fs-3 {
+  font-weight: normal;
 }
 
 /* untuk semua button */

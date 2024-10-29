@@ -83,7 +83,7 @@
             .container {
                 padding: 1rem;
             }
-            
+
             .col-md-3 {
                 margin-bottom: 1rem;
             }
@@ -183,25 +183,25 @@
             data: {
                 labels: mockData.dates,
                 datasets: [{
-                        label: 'Sales (Rp)',
-                        data: mockData.sales,
-                        borderColor: '#4CAF50',
-                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4,
-                        yAxisID: 'y'
-                    },
-                    {
-                        label: 'Orders',
-                        data: mockData.orders,
-                        borderColor: '#2196F3',
-                        backgroundColor: 'rgba(33, 150, 243, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4,
-                        yAxisID: 'y1'
-                    }
+                    label: 'Sales (Rp)',
+                    data: mockData.sales,
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Orders',
+                    data: mockData.orders,
+                    borderColor: '#2196F3',
+                    backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }
                 ]
             },
             options: {
@@ -233,7 +233,7 @@
                             }
                         },
                         ticks: {
-                            callback: function(value) {
+                            callback: function (value) {
                                 return 'Rp ' + value.toLocaleString();
                             }
                         }

@@ -79,26 +79,26 @@ body {
 /* might be temporary buat ngeliat sebesar apa container 2 doang */
 .content2 {
   background-color: #F2F0F0;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
 /* might be temporary buat ngeliat sebesar apa container 3 doang */
 .content3 {
-  background-color: #658864;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  background-color: #FCFAFA;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
 /* might be temporary buat ngeliat sebesar apa container 4 doang */
 .content4 {
-  background-color: #FCFAFA;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  background-color: #658864;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -125,4 +125,8 @@ biar navbar keliatan lebih tipis */
   padding-right: 8px;
   font-weight: bold;
   font-size: medium;
+}
+
+#sellerStoryCarousel {
+  padding-top: 2rem;
 }

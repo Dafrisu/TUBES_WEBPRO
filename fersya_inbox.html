@@ -32,7 +32,7 @@
 
         <!--Announcement-->
         <div class="announcement-bar fixed-top p-3 mb-3" style="background-color: #ffb700; text-align: center;">
-            <p><strong>Pengumuman:</strong> test. <a href="#" class="text-dark">Lihat detailnya</a></p>
+            <p><strong>Pengumuman :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  <a href="#" class="text-dark">x</a></p>
             <button class="close-btn" onclick="document.querySelector('.announcement-bar').style.display='none'" style="position: fixed; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
         </div>
 
@@ -58,10 +58,10 @@
                     <a class="nav-link" href="#" onclick="showPesananPrioritas()">Prioritas Pesanan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Dafa_pesananDitolak.html">Aktivitas toko</a>
+                    <a class="nav-link" href="#" onclick="">Aktivitas toko</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Dafa_pesananSelesai.html">Pemasaran</a>
+                    <a class="nav-link" href="#" onclick="showPemasaran()">Pemasaran</a>
                 </li>
             </ul>
 
@@ -134,14 +134,73 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Card Pemasaran -->
+            <div id="pemasaranContent" style="display: none; margin-top: 20px;">
+                <h4>Pemasaran</h4>
+                <div class="row">
+                    <!-- Card 1 -->
+                    <div class="col-md-4">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="assets/Sample 1 copy.png" class="img-fluid rounded-start" alt="Campaign 1">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Campaign 1</h5>
+                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <p class="card-text"><small class="text-body-secondary">Last updated 2 days ago</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             
+                    <!-- Card 2 -->
+                    <div class="col-md-4">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="assets/sample 3 -copy.png" class="img-fluid rounded-start" alt="Campaign 2">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Campaign 2</h5>
+                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <p class="card-text"><small class="text-body-secondary">Last updated 1 week ago</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Card 3 -->
+                    <div class="col-md-4">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="assets/UMKMKU.png" class="img-fluid rounded-start" alt="Campaign 3">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Campaign 3</h5>
+                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <p class="card-text"><small class="text-body-secondary">Last updated 3 days ago</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Tab Settings -->
             <div class="mt-4" id="pilihTab">
                 <h5>Pilih Tab</h5>
             </div>
         </div>
-
+            
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="javascript/fersya_inbox.js"></script>

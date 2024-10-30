@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MyUMKM</title>
+        <!-- Jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <!-- CSS-->
         <link rel="stylesheet" href="css/fersya_inbox_2.css">
         <!-- Import Fonts -->
@@ -19,12 +21,15 @@
                 <li><a href="Dafa_Dashboard.html">Dashboard</a></li>
                 <li><a href="Haikal_TambahBarang.html">Manage Products</a></li>
                 <ul>
-                    <li onclick="toggleSubmenu()">Orders</li>
+                    <li onclick="toggleSubmenu()">Pesanan</li>
                     <ul id="submenu" class="submenu">
-                        <li><a href="#">Pesanan Gagal</a></li>
+                        <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
+                        <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
+                        <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
+                        <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
                     </ul>
                 </ul>
-                <li><a href="#">Statistics</a></li>
+                <li><a href="statistik_penjualan.html">Statistics</a></li>
                 <li><a href="message_penjual.html">Messages</a></li>
                 <li><a href="#">Settings</a></li>
             </ul>
@@ -58,15 +63,19 @@
                     <a class="nav-link" href="#" onclick="showPesananPrioritas()">Prioritas Pesanan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="">Aktivitas toko</a>
+                    <a class="nav-link" href="Raphael_message_penjual.html" onclick="">Aktivitas toko</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="showPemasaran()">Pemasaran</a>
                 </li>
             </ul>
+            <!-- Aktivitas Toko  -->
+            
+            
 
             <!-- Table for Inbox -->
             <div id="pesananMasukTable" style="display: none; margin-top: 20px;">
+                <h4>Table inbox</h4>
                 <table class="table  table-hover">
                     <thead>
                         <tr>
@@ -134,6 +143,8 @@
                     </tbody>
                 </table>
             </div>
+            <!-- Aktivitas Toko -->
+
 
             <!-- Card Pemasaran -->
             <div id="pemasaranContent" style="display: none; margin-top: 20px;">

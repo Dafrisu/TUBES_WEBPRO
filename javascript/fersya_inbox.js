@@ -25,3 +25,10 @@ function showPemasaran() {
     document.getElementById("prioritasPesananTable").style.display = "none";
     document.getElementById('pilihTab').style.display = 'none';
 }
+// function showAktivitas() {
+//     document.getElementById("aktivitas").style.display = "block";
+//     document.getElementById("pemasaranContent").style.display = "none";
+//     document.getElementById("pesananMasukTable").style.display = "none";
+//     document.getElementById("prioritasPesananTable").style.display = "none";
+//     document.getElementById('pilihTab').style.display = 'none';
+// }

@@ -58,7 +58,6 @@ body {
 
 /* Main Content */
 .main-content {
-    margin-top: 60px;
     flex: 1;
     padding: 20px;
 }

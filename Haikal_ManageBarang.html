@@ -18,7 +18,7 @@
         .addproduk {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #fe2c55;
+            background-color: #658864;
             color: white;   
             border-radius: 4px;
             text-align: center;
@@ -27,7 +27,7 @@
         }
 
         .btn:hover {
-            background-color: #d92148;
+            background-color: #3e583d;
         }
 
         #id_manage {
@@ -37,6 +37,8 @@
         #tambahbarang a button{
             text-decoration: none;
         }
+
+
 
         /* not used, but just leave it there, just in case
         table{
@@ -59,14 +61,17 @@
         <ul>
             <li id="id_dashboard"><a href="Dafa_Dashboard.html">Dashboard</a></li>
             <li id="id_manage"><a href="#" id="link_manage">Manage Products</a></li>
-            <li id="id_orders"><a href="#">Orders</a></li>
-            <li id="id_stats"><a href="#">Statistics</a></li>
-            <li id="id_message"><a href="Raphael_message_penjual.html">Messages</a></li>
-            <li id="id_setting"><a href="#">Settings</a></li>
+            <li id="id_orders"><a href="Dafa_kelolaPesanan.html">Orders</a></li>
+            <li id="id_stats"><a href="statistik_penjualan.html">Statistics</a></li>
+            <li id="id_message"><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
+            <li id="id_setting"><a href="fersya_inbox.html">Inbox Penjual</a></li>
         </ul>
     </div>
 
-    <!-- Modal untuk input barang -->
+
+    
+    
+    <!-- Modal untuk input barang ( gak jadi dipake )
     <div class="modal fade" id="modaltambahbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -75,7 +80,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Isi modal di sini -->
+                    Isi modal di sini
                     <p>Masukkan detail produk baru Anda di sini.</p>
                     <form id="formBarang">
                         <div class="mb-2">
@@ -95,7 +100,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- yang membungkus -->
     <div class="container ms-4 me-4 mt-4">
@@ -151,56 +156,6 @@
     <script>
         let allData = []; // Variabel untuk menyimpan semua data barang
 
-        // modal func
-        document.addEventListener("DOMContentLoaded", function () {
-            const hargaInput = document.getElementById("id_harga");
-            const formBarang = document.getElementById("formBarang");
-            const saveChangesButton = document.getElementById("savedata");
-
-            const modalElement = document.getElementById("modaltambahbarang");
-            const modalInstance = new bootstrap.Modal(modalElement);
-
-            hargaInput.addEventListener("input", function () {
-                // Pastikan awalan "RP." tetap ada
-                if (!hargaInput.value.startsWith("RP.")) {
-                    hargaInput.value = "RP.";
-                }
-            });
-
-            hargaInput.addEventListener("focus", function () {
-                // Tempatkan kursor setelah awalan "RP."
-                if (hargaInput.value === "") {
-                    hargaInput.value = "RP.";
-                }
-                setTimeout(() => {
-                    hargaInput.setSelectionRange(3, 3);
-                }, 1);
-            });
-
-            hargaInput.addEventListener("keydown", function (e) {
-                // Cegah pengguna menghapus awalan "RP."
-                if (hargaInput.selectionStart < 3 && (e.key === "Backspace" || e.key === "Delete")) {
-                    e.preventDefault();
-                }
-            });
-
-            saveChangesButton.addEventListener("click", function () {
-                // Validasi form
-                if (formBarang.checkValidity()) {
-                    // Reset form
-                    formBarang.reset();
-                    hargaInput.value = "RP."; // Set "RP." sebagai awalan
-
-                    // Tutup modal menggunakan instance modal
-                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById("modaltambahbarang"));
-                    modalInstance.hide();
-                } else {
-                    // Tampilkan validasi jika form tidak valid
-                    formBarang.reportValidity();
-                }
-            });
-        });
-
         // untuk tabel func
         $(document).ready(function () {
             // Load barang saat halaman dibuka
@@ -229,7 +184,7 @@
             // Fungsi untuk menampilkan data di tabel
             function tampilkanBarang(data) {
                 const produktable = $("#produktable");
-                produktable.empty(); // Bersihkan isi tabel
+                produktable.empty(); 
 
                 data.forEach((barang, index) => {
                     const row = `
@@ -244,12 +199,12 @@
                 });
             }
 
-            // Fungsi untuk memuat data JSON
+            // Fungsi untuk load data JSON
             function loadBarang() {
                 $.getJSON('databarang.json', function (data) {
                     if (data.databarang && data.databarang.length > 0) {
                         allData = data.databarang; // Simpan semua data
-                        tampilkanBarang(allData); // Tampilkan data awal
+                        tampilkanBarang(allData); // Tampilkan data
                     } else {
                         alert("Data barang tidak tersedia atau kosong.");
                     }

@@ -103,6 +103,10 @@ body {
   padding-right: 1rem;
 }
 
+.content4 .fs-1 {
+  color: #FCFAFA;
+}
+
 /* background navbar */
 .navbar {
   background: #F2F0F0;

@@ -3,8 +3,6 @@ function toggleSubmenu() {
     submenu.style.display = submenu.style.display === "block" ? "none" : "block";
 }
 
-
-
 function showPesananMasuk() {
     document.getElementById('prioritasPesananTable').style.display = 'none';
     document.getElementById('pesananMasukTable').style.display = 'block';

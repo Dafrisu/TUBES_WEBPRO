@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<<<<<<< HEAD
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMKMku Seller Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .btn-group .btn {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+
+        .btn-group .btn:hover {
+            background-color: #e9ecef;
+        }
+
+        .border-top {
+            border-top-width: 4px !important;
+        }
+
+        .text-success {
+            color: #28a745 !important;
+        }
+
+        .chart-container {
+            margin-top: 2rem;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .col-md-3 {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+=======
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+>>>>>>> af37bc1669b7354f246d71e056e8006e53a33cd0
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <h1>Dashboard</h1>
+    
+    <!-- Stats -->
+    <div class="row g-4 my-4">
+      <div class="col-md-3">
+        <div class="card border-primary border-top border-3">
+          <div class="card-body">
+            <div class="text-muted">Sales</div>
+            <h3>Rp 7.5M</h3>
+            <small class="text-success">↑ 12.5%</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-success border-top border-3">
+          <div class="card-body">
+            <div class="text-muted">Orders</div>
+            <h3>91</h3>
+            <small class="text-success">↑ 8.2%</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-info border-top border-3">
+          <div class="card-body">
+            <div class="text-muted">Visitors</div>
+            <h3>268</h3>
+            <small class="text-success">↑ 15.3%</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card border-warning border-top border-3">
+          <div class="card-body">
+            <div class="text-muted">Views</div>
+            <h3>740</h3>
+            <small class="text-success">↑ 18.7%</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="card">
+      <div class="card-body">
+        <h5>Overview</h5>
+        <canvas id="chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+<<<<<<< HEAD
+        // Initialize chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: mockData.dates,
+                datasets: [{
+                    label: 'Sales (Rp)',
+                    data: mockData.sales,
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Orders',
+                    data: mockData.orders,
+                    borderColor: '#2196F3',
+                    backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Sales (Rp)',
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            callback: function (value) {
+                                return 'Rp ' + value.toLocaleString();
+                            }
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Orders',
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+=======
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    new Chart('chart', {
+      type: 'line',
+      data: {
+        labels: ['1', '8', '15', '22', '29'],
+        datasets: [{
+          label: 'Sales',
+          data: [1200, 1500, 1350, 1800, 1650],
+          borderColor: '#198754'
+        }, {
+          label: 'Orders',
+          data: [15, 18, 16, 22, 20],
+          borderColor: '#0d6efd'
+        }]
+      }
+    });
+  </script>
+>>>>>>> af37bc1669b7354f246d71e056e8006e53a33cd0
+</body>
+</html>

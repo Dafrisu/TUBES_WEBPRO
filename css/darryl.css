@@ -9,7 +9,7 @@ body {
   background-color: #FCFAFA;
 }
 
-/* untuk background */
+/* untuk background (bawaan dari web) */
 .background {
   position: absolute;
   top: 0;
@@ -27,9 +27,10 @@ body {
   backdrop-filter: blur(4px);
   border-radius: 10px;
   padding: 4%;
-  min-width: fit-content;
+  min-width: 20%;
   max-width: 45%;
   margin-top: 8rem;
+  margin-bottom: 8rem;
 }
 
 /* untuk clickable nama web yang ada pada navbar */
@@ -41,15 +42,17 @@ body {
 }
 
 /* untuk headline login/register */
-.fs-2 {
+.fs-2, .fs-4, .fs-1, .fs-3 {
   color: #191716;
   font-family: 'Montserrat';
 }
 
-/* untuk keterangan dari headline login/register */
-.fs-4 {
-  color: #191716;
-  font-family: 'Merriweather';
+.fs-1 {
+  font-weight: bold;
+}
+
+.fs-3 {
+  font-weight: normal;
 }
 
 /* untuk semua button */
@@ -76,8 +79,28 @@ body {
 /* might be temporary buat ngeliat sebesar apa container 2 doang */
 .content2 {
   background-color: #F2F0F0;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 3 doang */
+.content3 {
+  background-color: #658864;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 4 doang */
+.content4 {
+  background-color: #FCFAFA;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* background navbar */

@@ -1,7 +1,16 @@
 function toggleSubmenu() {
     var submenu = document.getElementById("submenu");
+    var arrowdrop = document.getElementById("dropdownArrow");
+
+
     submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+    if (submenu.style.display === "none") {
+        arrowdrop.style.transform = 'rotate(0deg)';
+    } else {
+        arrowdrop.style.transform = 'rotate(90deg)';
+    }
 }
+
 
 $(document).ready(function () {
     $("#load-pesanan").click(function () {

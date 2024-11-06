@@ -1,21 +1,53 @@
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #FCFAFA;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: row; 
+}
+
+.header-logo h1 {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.header-logo img {
+  margin-right: auto;
+  width: 120px;
 }
 
 .sidebar {
-  height: 100vh;
+  background-color: #658864 !important;
+  width: 34vh;
+  min-height: 100vh; 
   padding-top: 1rem;
-  background-color: #F0F0F0;
+  display: flex;
+  flex-direction: column; 
+  position: sticky;
+  top: 0;
+}
+
+.sidebar h6 {
+  color: #FFFFFF !important;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.sidebar p {
+  color: #FFFFFF !important;
+  font-weight: bold;
 }
 
 .sidebar .nav-link {
-  color: #333;
+  color: #FFFFFF;
+  background-color: #658864;
   font-weight: 500;
 }
 
 .sidebar .nav-link:hover {
-  background-color: #e0e0e0;
+  background-color: #444444;
 }
 
 .sidebar .sidebar-heading {
@@ -23,8 +55,17 @@ body {
   color: #888;
 }
 
+.dropdown-menu {
+  background-color: #FFFFFF;
+}
+
+.filters-bar {
+  margin-bottom: 20px;
+  width: 170vh;
+}
+
 .chat-interface {
-  height: 80vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,49 +74,33 @@ body {
   border-radius: 8px;
   border: 1px solid #dedede;
   padding: 2rem;
+  flex-grow: 1; 
+  overflow-y: auto; 
 }
 
 .header-logo {
   display: flex;
   align-items: center;
 }
+
 .header-logo img {
   margin-right: 10px;
 }
 
-/* Ensure sidebar takes up full height on smaller screens */
-@media (max-width: 768px) {
-  .sidebar {
-    height: auto;
-  }
-}
-
-/* Adjust main content area to prevent overflow */
-main {
-  overflow-y: auto;
-  padding-bottom: 2rem;
-}
-
-/* Style for active state of sidebar links */
-.sidebar .nav-link.active {
-  color: #fff;
-  background-color: #007bff;
-}
-
-/* Card styles for each message */
 .example-messages .card {
   border: 1px solid #ddd;
   border-radius: 5px;
+  width: 169vh;
 }
 
-/* Additional padding for message text */
 .example-messages .card .card-text {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-/* Adjust empty message text styling */
 #emptyMessage {
   font-size: 1rem;
   color: #888;
   font-weight: 500;
+  width: auto;
+  display: none;
 }

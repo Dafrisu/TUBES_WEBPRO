@@ -61,9 +61,17 @@ body {
     align-items: center;
 }
 
+.nav-tabs .nav-link {
+    color: black;
+}
+
+.nav-tabs .nav-link:hover {
+    color: black;
+}
+
 .header-bar h1 {
     font-size: 20px;
-    color: #333;
+    color: #fff;
 }
 
 .header-bar .profile {
@@ -145,4 +153,8 @@ ul {
 #dropdownArrow {
     height: 1rem;
     rotate: 270deg;
+}
+
+div span {
+    color: #fff;
 }

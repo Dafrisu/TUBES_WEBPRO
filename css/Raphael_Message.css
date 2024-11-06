@@ -8,7 +8,7 @@ body {
 
 .header-logo h1 {
   font-weight: bold;
-  font-size: 3rem; /* Ukuran default adalah 2rem, ini membuatnya lebih besar */
+  font-size: 3rem; 
 }
 
 .header-logo img {
@@ -54,7 +54,7 @@ body {
 }
 
 .filters-bar {
-  margin-bottom: 20px; /* Menambahkan jarak antara filter dan chat */
+  margin-bottom: 20px; /*jarak antara filter dan chat */
   width: 168vh;
 }
 
@@ -81,18 +81,15 @@ body {
   margin-right: 10px;
 }
 
-/* Card styles for each message */
 .example-messages .card {
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-/* Additional padding for message text */
 .example-messages .card .card-text {
   margin-bottom: 1rem;
 }
 
-/* Adjust empty message text styling */
 #emptyMessage {
   font-size: 1rem;
   color: #888;

@@ -20,7 +20,7 @@ body {
 
 .sidebar {
   background-color: #658864 !important;
-  width: 34vh;
+  width: 250px;
   min-height: 100vh; 
   padding-top: 1rem;
   display: flex;

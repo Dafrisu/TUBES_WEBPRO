@@ -16,23 +16,27 @@
     </head>
     <body>
         <!--Sidebar-->
+        <script src="javascript/Dafa_Dashboard.js"></script>
         <div class="sidebar">
             <h2>Seller Center</h2>
             <ul>
                 <li><a href="Dafa_Dashboard.html">Dashboard</a></li>
                 <li><a href="Haikal_ManageBarang.html">Manage Products</a></li>
                 <li onclick="toggleSubmenu()">
-                    <div class="container">Pesanan<img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow"
-                            id="dropdownArrow" style="margin-left: 8px;">
-                    </div>
+                        <!-- <div class="container"> -->
+                        <div>    
+                            Pesanan
+                            <img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow" id="dropdownArrow"
+                                style="margin-left: 8px;">
+                        </div>
                 </li>
                 <ul id="submenu" class="submenu">
-                    <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
-                    <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
-                    <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
-                    <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
+                        <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
+                        <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
+                        <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
+                        <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
                 </ul>
-                <li><a href="Mahesa_Statistik_Penjualan.html">Statistics</a></li>
+                <li><a href="statistik_penjualan.html">Statistics</a></li>
                 <li><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
                 <li><a href="fersya_inbox.html">Inbox Penjual</a></li>
             </ul>
@@ -72,6 +76,9 @@
                     <a class="nav-link" href="#" onclick="showPemasaran()">Pemasaran</a>
                 </li>
             </ul>
+            <!-- Aktivitas Toko  -->
+            
+            
 
             <!-- Table for Inbox -->
             <div id="pesananMasukTable" style="display: none; margin-top: 20px;">
@@ -153,62 +160,7 @@
                     <h4>Pemasaran</h4>
                     <!-- <button class="btn" id="TambahPemasaran" >Tambah Pemasaran</button> -->
                 </div>
-                
-                <div class="row">
-                    <!-- Card 1 -->
-                    <div class="col-md-4" st>
-                        <div class="card mb-3" style="max-width: 540px; min-width: fit-content;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="assets/Sample 1 copy.png" class="img-fluid rounded-start" alt="Campaign 1">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Campaign 1</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet.</p>
-                                        <p class="card-text"><small class="text-body-secondary">Last updated 2 days ago</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- Card 2 -->
-                    <div class="col-md-4">
-                        <div class="card mb-3" style="max-width: 540px; min-width: fit-content;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="assets/sample 3 -copy.png" class="img-fluid rounded-start" alt="Campaign 2">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Campaign 2</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet. </p>
-                                        <p class="card-text"><small class="text-body-secondary">Last updated 1 week ago</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- Card 3 -->
-                    <div class="col-md-4">
-                        <div class="card mb-3" style="max-width: 540px; min-width: fit-content;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="assets/UMKMKU.png" class="img-fluid rounded-start" alt="Campaign 3">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Campaign 3</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet.</p>
-                                        <p class="card-text"><small class="text-body-secondary">Last updated 3 days ago</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="row" id="campaignContainer"></div>
             </div>
 
             <!-- Tab Settings -->
@@ -219,7 +171,6 @@
             
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="javascript/Dafa_Dashboard.js"></script>
-        <script src="javascript/Mahesa_Mahesa_Statistik_Penjualan_penjual_prioritas.js"></script>
+        <script src="javascript/fersya_inbox.js"></script>
     </body>
     </html>

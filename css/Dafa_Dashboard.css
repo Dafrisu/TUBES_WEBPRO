@@ -34,6 +34,11 @@ body {
     cursor: pointer;
 }
 
+.sidebar ul li div {
+    padding: 15px 0;
+    cursor: pointer;
+}
+
 .sidebar ul li:hover {
     background-color: #444444;
     padding-left: 10px;
@@ -61,9 +66,17 @@ body {
     align-items: center;
 }
 
+.nav-tabs .nav-link {
+    color: black;
+}
+
+.nav-tabs .nav-link:hover {
+    color: black;
+}
+
 .header-bar h1 {
     font-size: 20px;
-    color: #333;
+    color: #fff;
 }
 
 .header-bar .profile {
@@ -116,8 +129,6 @@ body {
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #fe2c55;
-    color: white;
     border-radius: 4px;
     text-align: center;
     margin-top: 10px;
@@ -145,4 +156,8 @@ ul {
 #dropdownArrow {
     height: 1rem;
     rotate: 270deg;
+}
+
+div span {
+    color: #fff;
 }

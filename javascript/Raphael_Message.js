@@ -15,30 +15,6 @@ function timeToDate(timeStr) {
     return today;
 }
 
-const messages = {
-    open: [
-        { name: "Customer A", message: "Kapan barang saya dikirim?", time: "10:00 AM" },
-        { name: "Customer B", message: "Apakah produk ini tersedia?", time: "10:15 AM" },
-        { name: "Customer C", message: "Saya ingin mengubah alamat pengiriman.", time: "10:30 AM" },
-        { name: "Customer D", message: "Bisa tolong update status pesanan saya?", time: "10:45 AM" },
-        { name: "Customer E", message: "Ada promo untuk bulan ini?", time: "11:00 AM" }
-    ],
-    unread: [
-        { name: "Customer F", message: "Bagaimana cara mengklaim garansi?", time: "11:15 AM" },
-        { name: "Customer G", message: "Saya tertarik dengan produk ini, bisa minta detailnya?", time: "11:30 AM" },
-        { name: "Customer H", message: "Kapan pesanan saya akan tiba?", time: "11:45 AM" },
-        { name: "Customer I", message: "Apakah ada diskon untuk pembelian grosir?", time: "12:00 PM" },
-        { name: "Customer J", message: "Bisa tolong kirim faktur pembelian?", time: "12:15 PM" }
-    ],
-    unreplied: [
-        { name: "Customer K", message: "Saya ingin mengajukan retur barang.", time: "12:30 PM" },
-        { name: "Customer L", message: "Apakah produk ini asli?", time: "12:45 PM" },
-        { name: "Customer M", message: "Bisa bantu saya melacak pesanan?", time: "1:00 PM" },
-        { name: "Customer N", message: "Bagaimana cara pembayaran?", time: "1:15 PM" },
-        { name: "Customer O", message: "Apakah ada opsi pengiriman ekspres?", time: "1:30 PM" }
-    ]
-};
-
 let currentMessages = [];
 
 function showChatSection(section) {
@@ -50,35 +26,44 @@ function showChatSection(section) {
     filtersBar.style.display = 'block';
     chatInterface.style.display = 'none';
     exampleMessages.style.display = 'block';
-    
-    currentMessages = [...messages[section]];
-    displayMessages(currentMessages);
+
+    // Fetch the messages from the JSON file
+    fetch('javascript/messages.json')  // Adjust the path if necessary
+        .then(response => response.json())  // Parse the JSON response
+        .then(data => {
+            currentMessages = [...data[section]];  // Access the specific section (open, unread, unreplied)
+            displayMessages(currentMessages);  // Display the messages
+        })
+        .catch(error => {
+            console.error('Error loading messages:', error);  // Error handling
+        });
 }
 
 function searchMessages(event) {
     if (event.key === 'Enter') {
-        event.target.blur();
+        event.target.blur();  // Blur the input field when Enter is pressed
         return;
     }
-    const query = event.target.value.toLowerCase();
+    const query = event.target.value.toLowerCase();  // Get the search query in lowercase
     const filteredMessages = currentMessages.filter(msg => 
-        msg.name.toLowerCase().includes(query) || 
-        msg.message.toLowerCase().includes(query)
+        msg.name.toLowerCase().includes(query) ||  // Filter by name
+        msg.message.toLowerCase().includes(query)   // Filter by message
     );
-    displayMessages(filteredMessages);
+    displayMessages(filteredMessages);  // Display the filtered messages
 }
 
 function sortMessages(event) {
-    const sortBy = event.target.value;
+    const sortBy = event.target.value;  // Get the selected sort option
     if (!sortBy) return;
 
+    // Sort the messages based on time
     const sortedMessages = [...currentMessages].sort((a, b) => {
         const dateA = timeToDate(a.time);
         const dateB = timeToDate(b.time);
         return sortBy === 'newest' ? dateB - dateA : dateA - dateB;
     });
     
-    displayMessages(sortedMessages);
+    displayMessages(sortedMessages);  // Display the sorted messages
 }
 
 function displayMessages(messageList) {
@@ -86,11 +71,11 @@ function displayMessages(messageList) {
     const emptyMessage = document.getElementById('emptyMessage');
     
     exampleMessages.innerHTML = "";
-    
+
     if (messageList.length === 0) {
-        emptyMessage.style.display = 'block';
+        emptyMessage.style.display = 'block';  // Show "No messages" if the list is empty
     } else {
-        emptyMessage.style.display = 'none';
+        emptyMessage.style.display = 'none';  // Hide "No messages" if there are messages
         messageList.forEach(msg => {
             exampleMessages.innerHTML += `
                 <div class="card mb-2">
@@ -105,8 +90,9 @@ function displayMessages(messageList) {
     }
 }
 
+// Hamburger menu toggle functionality
 const hamBurger = document.querySelector(".toggle-btn");
 
 hamBurger.addEventListener("click", function () {
-  document.querySelector("#sidebar").classList.toggle("expand");
+  document.querySelector("#sidebar").classList.toggle("expand");  // Toggle sidebar expansion
 });

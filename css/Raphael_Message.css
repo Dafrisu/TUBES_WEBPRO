@@ -1,11 +1,18 @@
+html,
 body {
   font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  width: 100%;
   background-color: #FCFAFA;
   margin: 0;
   padding: 0;
-  height: 100vh;
   display: flex;
-  flex-direction: row;
+}
+
+body {
+  display: block;
+  align-items: center;
+  background-color: #FCFAFA;
 }
 
 .header-logo h1 {
@@ -20,13 +27,18 @@ body {
 
 .sidebar {
   background-color: #658864 !important;
-  width: 245px;
+  width: 250px;
   min-height: 100vh;
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
 }
 
 .sidebar h6 {
@@ -59,23 +71,31 @@ body {
   background-color: #FFFFFF;
 }
 
+.filters-bar-container {
+  width: 100%; /* Ensure full width of the container */
+}
+
 .filters-bar {
   margin-bottom: 20px;
-  width: 170vh;
+  display: flex;
+  flex-wrap: nowrap; /* Avoid wrapping to make the input span fully */
+  width: 100%; /* Make filters-bar take the full width */
 }
+
+.form-control .flex-grow-1 {
+  flex-grow: 1; /* Expand the input to fill available space */
+}
+
 
 .chat-interface {
   height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   background-color: #FFFFFF;
   border-radius: 8px;
   border: 1px solid #dedede;
   padding: 2rem;
-  flex-grow: 1;
-  overflow-y: auto;
 }
 
 .header-logo {

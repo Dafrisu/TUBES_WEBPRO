@@ -22,23 +22,32 @@ function toggler() {
 
 togglesandi.addEventListener("change", toggler);
 
-const nums = [
-  "0","1","2","3","4","5","6","7","8","9"
-];
+// const nums = [
+//   "0","1","2","3","4","5","6","7","8","9"
+// ];
 
 
 function Login() {
   const email = document.getElementById("inputEmail");
   const sandi = document.getElementById("inputPassword");
   const konfirmasiEmail = document.getElementById("konfirmasiSandi");
-  var login = false;
+  var confirmSandi = false;
+  var confirmEmail = false;
 
   if (sandi.value != konfirmasiEmail.value) {
     alert("Sandi tidak sama");
+  } else {
+    confirmSandi = true;
   }
 
   if (!email.value.includes("@gmail.com")) {
     alert("Email tidak valid");
+  } else {
+    confirmEmail = true;
+  }
+
+  if(confirmEmail && confirmSandi) {
+    window.location.href = "darryl_masuk.html"
   }
 
   // if (!sandi.value.includes(nums)) {
@@ -46,10 +55,6 @@ function Login() {
   // } else {
   //   login = true;
   // }
-
-  if (login) {
-    window.location.href = "darryl_masuk.html";
-  }
 }
 
 // password tidak sama

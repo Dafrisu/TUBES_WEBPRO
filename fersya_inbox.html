@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MyUMKM</title>
+        <title>UMKMku</title>
         <!-- Jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <!-- CSS-->
         <link rel="stylesheet" href="css/fersya_inbox_2.css">
+        <link rel="stylesheet" href="css/Dafa_Dashboard.css">
         <!-- Import Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
         <!-- Bootstrap -->
@@ -15,26 +16,32 @@
     </head>
     <body>
         <!--Sidebar-->
+        <script src="javascript/Dafa_Dashboard.js"></script>
         <div class="sidebar">
             <h2>Seller Center</h2>
             <ul>
                 <li><a href="Dafa_Dashboard.html">Dashboard</a></li>
-                <li><a href="Haikal_TambahBarang.html">Manage Products</a></li>
-                <ul>
-                    <li onclick="toggleSubmenu()">Pesanan</li>
-                    <ul id="submenu" class="submenu">
+                <li><a href="Haikal_ManageBarang.html">Manage Products</a></li>
+                <li onclick="toggleSubmenu()">
+                        <!-- <div class="container"> -->
+                        <div>    
+                            Pesanan
+                            <img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow" id="dropdownArrow"
+                                style="margin-left: 8px;">
+                        </div>
+                </li>
+                <ul id="submenu" class="submenu">
                         <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
                         <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
                         <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
                         <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
-                    </ul>
                 </ul>
-                <li><a href="Mahesa_Statistik_Penjualan.html">Statistics</a></li>
-                <li><a href="message_penjual.html">Messages</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="statistik_penjualan.html">Statistics</a></li>
+                <li><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
+                <li><a href="fersya_inbox.html">Inbox Penjual</a></li>
             </ul>
         </div>
-
+    
         <!--Announcement-->
         <div class="announcement-bar fixed-top p-3 mb-3" style="background-color: #ffb700; text-align: center;">
             <p><strong>Pengumuman :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  <a href="#" class="text-dark">x</a></p>
@@ -43,14 +50,14 @@
 
         <!--Main Content-->
         <div class="col-md-10 main-content mx-auto border" style="border: 1px solid #ddd; border-radius: 10px; padding: 20px; "> 
-            <h3>Kotak Masuk</h3>
+            <h2 style="color: white; background-color: #658864; padding: 1rem; max-width: fit-content;" >Informasi Pesanan Masuk</h2>
             
             <!-- Header Bar -->
             <div class="header-bar">
-                <h1>Welcome to Order</h1>
+                <h3 style="color: white;">Inbox Penjual</h3>
                 <div class="profile">
                     <img src="assets/Profilepic.png" alt="Profile Image">
-                    <span>Frixky</span>
+                    <span style="color: white;">Frixky</span>
                 </div>
             </div>
             
@@ -69,13 +76,10 @@
                     <a class="nav-link" href="#" onclick="showPemasaran()">Pemasaran</a>
                 </li>
             </ul>
-            <!-- Aktivitas Toko  -->
-            
-            
 
             <!-- Table for Inbox -->
             <div id="pesananMasukTable" style="display: none; margin-top: 20px;">
-                <h4>Table inbox</h4>
+                <h3>Table Inbox</h3>
                 <table class="table  table-hover">
                     <thead>
                         <tr>
@@ -89,7 +93,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
+                            <td>1</td>  
                             <td>001</td>
                             <td>A</td>
                             <td>Product A</td>
@@ -109,6 +113,7 @@
             </div>
             
             <div id="prioritasPesananTable" style="display: none; margin-top: 20px;">
+                <h3>Table Prioritas Pesanan</h3>
                 <table class="table  table-hover">
                     <thead>
                         <tr>
@@ -148,11 +153,15 @@
 
             <!-- Card Pemasaran -->
             <div id="pemasaranContent" style="display: none; margin-top: 20px;">
-                <h4>Pemasaran</h4>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Pemasaran</h4>
+                    <!-- <button class="btn" id="TambahPemasaran" >Tambah Pemasaran</button> -->
+                </div>
+                
                 <div class="row">
                     <!-- Card 1 -->
-                    <div class="col-md-4">
-                        <div class="card mb-3" style="max-width: 540px;">
+                    <div class="col-md-4" st>
+                        <div class="card mb-3" style="max-width: 540px; min-width: fit-content;">
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img src="assets/Sample 1 copy.png" class="img-fluid rounded-start" alt="Campaign 1">
@@ -160,7 +169,7 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">Campaign 1</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <p class="card-text">Lorem ipsum dolor sit amet.</p>
                                         <p class="card-text"><small class="text-body-secondary">Last updated 2 days ago</small></p>
                                     </div>
                                 </div>
@@ -170,7 +179,7 @@
             
                     <!-- Card 2 -->
                     <div class="col-md-4">
-                        <div class="card mb-3" style="max-width: 540px;">
+                        <div class="card mb-3" style="max-width: 540px; min-width: fit-content;">
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img src="assets/sample 3 -copy.png" class="img-fluid rounded-start" alt="Campaign 2">
@@ -178,7 +187,7 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">Campaign 2</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <p class="card-text">Lorem ipsum dolor sit amet. </p>
                                         <p class="card-text"><small class="text-body-secondary">Last updated 1 week ago</small></p>
                                     </div>
                                 </div>
@@ -188,7 +197,7 @@
             
                     <!-- Card 3 -->
                     <div class="col-md-4">
-                        <div class="card mb-3" style="max-width: 540px;">
+                        <div class="card mb-3" style="max-width: 540px; min-width: fit-content;">
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     <img src="assets/UMKMKU.png" class="img-fluid rounded-start" alt="Campaign 3">
@@ -196,7 +205,7 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">Campaign 3</h5>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <p class="card-text">Lorem ipsum dolor sit amet.</p>
                                         <p class="card-text"><small class="text-body-secondary">Last updated 3 days ago</small></p>
                                     </div>
                                 </div>
@@ -207,7 +216,7 @@
             </div>
 
             <!-- Tab Settings -->
-            <div class="mt-4" id="pilihTab">
+            <div class="mt-4" id="pilihTab" style="background-color: #658864; color: white; max-width: fit-content; padding: 8px;">
                 <h5>Pilih Tab</h5>
             </div>
         </div>

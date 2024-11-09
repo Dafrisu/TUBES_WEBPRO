@@ -89,21 +89,20 @@
                 <p><input type="file" id="id_gambar" accept="image/*"></p>
             </div>
             <div>
-                <a href="Haikal_ManageBarang.html">
-                    <button type="submit" class="btn btn-primary" id="addbarangbtn">
+                    <button type="button" class="btn btn-primary" id="addbarangbtn">
                         Tambahkan Barang
                     </button>
-                </a>
             </div>
         </form> 
     </div>
     <script src="javascript/Haikal_managebarang.js"></script>
 
     <script>
-        document.getElementById("formbarang").addEventListener("submit", function(event){
+        document.getElementById("formbarang").addEventListener("button", function(event){
             event.preventDefault();
             window.location.href = "Haikal_ManageBarang.html";
         })
+        
     </script>
 </body>
 

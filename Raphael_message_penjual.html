@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="javascript/messages.json"></script>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -27,13 +29,17 @@
                     <ul class="nav flex-column">
                         <!-- Kotak Masuk with Dropdown -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="inboxDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="inboxDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Kotak Masuk
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="inboxDropdown">
-                                <li><a class="dropdown-item" href="#" onclick="showChatSection('open')">Terbuka (5)</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="showChatSection('unread')">Belum Dibaca (5)</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="showChatSection('unreplied')">Belum Dibalas (5)</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="showChatSection('open')">Terbuka (5)</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#" onclick="showChatSection('unread')">Belum Dibaca
+                                        (5)</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="showChatSection('unreplied')">Belum
+                                        Dibalas (5)</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -42,7 +48,8 @@
 
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <div class="header-logo">
                         <img src="assets/Sample 1 copy.png" alt="UMKM Icon" width="80">
                         <h1 class="h2 mb-0">UMKM CHAT</h1>
@@ -52,7 +59,8 @@
                 <!-- Filters Bar -->
                 <div class="filters-bar" id="filtersBar">
                     <div class="d-flex align-items-center">
-                        <input type="text" class="form-control me-2" placeholder="Cari semua chat" onkeyup="searchMessages(event)">
+                        <input type="text" class="form-control me-2" placeholder="Cari semua chat"
+                            onkeyup="searchMessages(event)">
                         <select class="form-select me-2" onchange="sortMessages(event)">
                             <option value="">Urutkan</option>
                             <option value="newest">Terbaru</option>
@@ -73,4 +81,5 @@
         </div>
     </div>
 </body>
+
 </html>

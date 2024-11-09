@@ -1,49 +1,70 @@
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   height: 100vh;
-  display: flex;
+  width: 100vh;
 }
 
 body {
   width: 100%;
-  display: block;
+  color: #FCFAFA;
 }
 
 #sidebar {
-  display: inline-block;
-  background-color: aliceblue;
+  background-color: #658864;
   height: 100vh;
-  min-width: fit-content;
-  padding: 2rem;
+  margin: 0;
+  width: 300px;
+  max-width: 400px;
+  padding: 1.5rem;
+  align-items: center;
 }
 
-main {
-  display: flex; 
+#sidebar h2 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
 }
 
-/* List chat dari pembeli */
-#list-pembeli {
-  background-color: aqua;
-  display: inline;
-  height: 100vh;
-  min-width: fit-content;
+li a {
+  text-decoration: none;
+  color: #FCFAFA;
+  vertical-align: middle;
 }
 
-#chat-interface {
-  display: inline;
-  background-color: antiquewhite;
-  width: 100%;
+li {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  align-items: center;
 }
 
-#chat-interface header {
-  background-color: brown;
+li svg {
+  margin-right: 8px;
+  width: 10%;
+  height: 10%;
 }
 
-header #info {
-  background-color: aliceblue;
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-footer {
-  position: bottom;
+ul ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul ul li {
+  padding-left: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+li:hover {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  align-items: center;
+  border-radius: 10px;
+  opacity: 0.5;
 }

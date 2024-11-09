@@ -1,0 +1,49 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+}
+
+body {
+  width: 100%;
+  display: block;
+}
+
+#sidebar {
+  display: inline-block;
+  background-color: aliceblue;
+  height: 100vh;
+  min-width: fit-content;
+  padding: 2rem;
+}
+
+main {
+  display: flex; 
+}
+
+/* List chat dari pembeli */
+#list-pembeli {
+  background-color: aqua;
+  display: inline;
+  height: 100vh;
+  min-width: fit-content;
+}
+
+#chat-interface {
+  display: inline;
+  background-color: antiquewhite;
+  width: 100%;
+}
+
+#chat-interface header {
+  background-color: brown;
+}
+
+header #info {
+  background-color: aliceblue;
+}
+
+footer {
+  position: bottom;
+}

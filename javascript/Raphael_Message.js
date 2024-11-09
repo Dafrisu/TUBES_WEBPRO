@@ -35,7 +35,7 @@ function showChatSection(section) {
             displayMessages(currentMessages);  // Display the messages
         })
         .catch(error => {
-            console.error('Error loading messages:', error);  // Error handling
+            alert("Tidak ada");
         });
 }
 

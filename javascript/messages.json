@@ -67,17 +67,17 @@
         {
             "name": "Customer M",
             "message": "Bisa bantu saya melacak pesanan?",
-            "time": "1:00 PM"
+            "time": "13:00 PM"
         },
         {
             "name": "Customer N",
             "message": "Bagaimana cara pembayaran?",
-            "time": "1:15 PM"
+            "time": "13:15 PM"
         },
         {
             "name": "Customer O",
             "message": "Apakah ada opsi pengiriman ekspres?",
-            "time": "1:30 PM"
+            "time": "13:30 PM"
         }
     ]
 }

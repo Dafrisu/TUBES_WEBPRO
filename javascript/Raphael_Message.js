@@ -38,6 +38,9 @@ function showChatSection(section) {
             console.error("Error loading messages:", error);
             alert("Gagal memuat pesan, periksa kembali tautan file JSON.");
         });
+
+    sortDropdown.selectedIndex = 0;
+    
 }
 
 
@@ -102,5 +105,5 @@ if (hamBurger) {
 }
 
 function goBack() {
-    window.location.href = 'Dafa_Dashboard.html'
+    window.location.href = 'Dafa_Dashboard.html';
 }

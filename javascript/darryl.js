@@ -1,13 +1,15 @@
 const togglesandi = document.getElementById("togglePassword");
 const email = document.getElementById("inputEmail");
 const sandi = document.getElementById("inputPassword");
-const konfirmasiEmail = document.getElementById("konfirmasiSandi");
+const konfirmasiSandi = document.getElementById("konfirmasiSandi");
 
 function toggler() {
   if (togglesandi.checked) {
     sandi.type = "text";
+    konfirmasiSandi.type = "text";
   } else {
     sandi.type = "password";
+    konfirmasiSandi.type = "password";
   }
 }
 
@@ -18,11 +20,10 @@ togglesandi.addEventListener("change", toggler);
 // ];
 
 function cekLanding() {
-
   var confirmSandi = false;
   var confirmEmail = false;
 
-  if (sandi.value != konfirmasiEmail.value) {
+  if (sandi.value != konfirmasiSandi.value) {
     alert("Sandi tidak sama");
   } else {
     confirmSandi = true;

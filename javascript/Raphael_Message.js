@@ -4,13 +4,13 @@ function timeToDate(timeStr) {
     const [time, period] = timeStr.split(' ');
     const [hours, minutes] = time.split(':');
     let hour = parseInt(hours);
-    
+
     if (period === 'PM' && hour !== 12) {
         hour += 12;
     } else if (period === 'AM' && hour === 12) {
         hour = 0;
     }
-    
+
     today.setHours(hour, parseInt(minutes), 0);
     return today;
 }
@@ -22,11 +22,11 @@ function showChatSection(section) {
     const chatInterface = document.getElementById('chatInterface');
     const exampleMessages = document.getElementById('exampleMessages');
     const emptyMessage = document.getElementById('emptyMessage');
-
+    
     filtersBar.style.display = 'block';
     chatInterface.style.display = 'none';
     exampleMessages.style.display = 'block';
-
+    
     // Fetch the messages from the JSON file
     fetch('javascript/messages.json')  // Adjust the path if necessary
         .then(response => response.json())  // Parse the JSON response
@@ -35,9 +35,11 @@ function showChatSection(section) {
             displayMessages(currentMessages);  // Display the messages
         })
         .catch(error => {
-            console.error('Error loading messages:', error);  // Error handling
+            console.error("Error loading messages:", error);
+            alert("Gagal memuat pesan, periksa kembali tautan file JSON.");
         });
 }
+
 
 function searchMessages(event) {
     if (event.key === 'Enter') {
@@ -78,7 +80,7 @@ function displayMessages(messageList) {
         emptyMessage.style.display = 'none';  // Hide "No messages" if there are messages
         messageList.forEach(msg => {
             exampleMessages.innerHTML += `
-                <div class="card mb-2">
+                <div class="card mb-2" style="width: 100%;">
                     <div class="card-body">
                         <h5 class="card-title">${msg.name}</h5>
                         <p class="card-text">${msg.message}</p>
@@ -93,6 +95,12 @@ function displayMessages(messageList) {
 // Hamburger menu toggle functionality
 const hamBurger = document.querySelector(".toggle-btn");
 
-hamBurger.addEventListener("click", function () {
-  document.querySelector("#sidebar").classList.toggle("expand");  // Toggle sidebar expansion
-});
+if (hamBurger) {
+    hamBurger.addEventListener("click", function () {
+      document.querySelector("#sidebar").classList.toggle("expand");
+    });
+}
+
+function goBack() {
+    window.location.href = 'Dafa_Dashboard.html'
+}

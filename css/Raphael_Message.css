@@ -20,21 +20,27 @@ body {
   font-size: 3rem;
 }
 
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
 .header-logo img {
-  margin-right: auto;
+  margin-right: 10px;
   width: 120px;
 }
 
 .sidebar {
   background-color: #658864 !important;
-  width: 250px;
+  width: 250px; /* Fixed width */
   min-height: 100vh;
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
-}
+  flex-shrink: 0;
+}  
 
 .container-fluid {
   margin: 0;
@@ -67,8 +73,30 @@ body {
   color: #888;
 }
 
+
+
+.back-button-container {
+  margin-bottom: 10px;
+}
+
+.back-button-container .btn {
+  background-color: #658864;
+  color: #FFFFFF;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;  /* Space between icon and text */
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+.back-button-container .btn i {
+  font-size: 1.2rem;  /* Increase icon size */
+}
+
 .dropdown-menu {
   background-color: #FFFFFF;
+  width: 200px;
 }
 
 .filters-bar-container {
@@ -78,14 +106,16 @@ body {
 .filters-bar {
   margin-bottom: 20px;
   display: flex;
-  flex-wrap: nowrap; /* Avoid wrapping to make the input span fully */
-  width: 100%; /* Make filters-bar take the full width */
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
-.form-control .flex-grow-1 {
-  flex-grow: 1; /* Expand the input to fill available space */
+.filters-bar .form-control,
+.filters-bar .form-select {
+  width: 100%;
+  flex: 1;
 }
-
 
 .chat-interface {
   height: 70vh;
@@ -98,19 +128,11 @@ body {
   padding: 2rem;
 }
 
-.header-logo {
-  display: flex;
-  align-items: center;
-}
-
-.header-logo img {
-  margin-right: 10px;
-}
 
 .example-messages .card {
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 169vh;
+  width: 180vh;
 }
 
 .example-messages .card .card-text {
@@ -124,3 +146,4 @@ body {
   width: auto;
   display: none;
 }
+

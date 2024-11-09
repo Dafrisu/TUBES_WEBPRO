@@ -12,6 +12,7 @@
     <script src="javascript/Raphael_Message.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="javascript/messages.json"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -19,6 +20,14 @@
         <!-- Sidebar -->
         <nav class="d-md-block bg-light sidebar">
             <div class="position-sticky pt-3">
+                <!-- BackButton -->
+                <div class="col ms-auto px-10">
+                    <div class="back-button-container">
+                        <button onclick="goBack()" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
                 <!-- Profile Section -->
                 <div class="profile-section text-center">
                     <img src="assets/Profilepic.png" alt="Profile Picture" class="rounded-circle mb-2" width="80" />
@@ -75,15 +84,16 @@
                 </p>
             </div>
 
-
-
             <!-- Chat Interface -->
             <div class="chat-interface" id="chatInterface">
                 <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
             </div>
 
             <!-- Example Message Section -->
-            <div class="example-messages" id="exampleMessages"></div>
+            <div class="example-messages-container">
+                <div class="example-messages" id="exampleMessages">
+                </div>
+            </div>
         </div>
     </div>
 </body>

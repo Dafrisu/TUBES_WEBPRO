@@ -9,13 +9,14 @@ body {
 body {
   width: 100%;
   color: #FCFAFA;
+  display: flex;
 }
 
 #sidebar {
   background-color: #658864;
   height: 100vh;
   margin: 0;
-  width: 300px;
+  min-width: 300px;
   max-width: 400px;
   padding: 1.5rem;
   align-items: center;
@@ -67,4 +68,29 @@ li:hover {
   align-items: center;
   border-radius: 10px;
   opacity: 0.5;
+}
+
+#list-pembeli {
+  background-color: aqua;
+  display: inline;
+  height: 100vh;
+  min-width: fit-content;
+}
+
+#chat-interface {
+  display: inline;
+  background-color: antiquewhite;
+  width: 100vh;
+}
+
+#chat-interface header {
+  background-color: brown;
+}
+
+header #info {
+  background-color: aliceblue;
+}
+
+footer {
+  position: bottom;
 }

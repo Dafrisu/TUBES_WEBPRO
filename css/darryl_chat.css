@@ -2,8 +2,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  height: 100vh;
-  width: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 body {
@@ -12,13 +12,20 @@ body {
   display: flex;
 }
 
+body main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
 #sidebar {
   background-color: #658864;
   height: 100vh;
   margin: 0;
-  min-width: 300px;
-  max-width: 400px;
-  padding: 1.5rem;
+  min-width: 250px;
+  max-width: 300px;
+  padding: 1rem;
   align-items: center;
 }
 
@@ -42,8 +49,8 @@ li {
 
 li svg {
   margin-right: 8px;
-  width: 10%;
-  height: 10%;
+  width: 28px;
+  height: 28px;
 }
 
 ul {
@@ -74,13 +81,28 @@ li:hover {
   background-color: aqua;
   display: inline;
   height: 100vh;
-  min-width: fit-content;
+  max-width: fit-content;
+  padding: 1rem;
+  margin: 0;
+}
+
+#list-pembeli a{
+  display: block;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #chat-interface {
   display: inline;
   background-color: antiquewhite;
-  width: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 #chat-interface header {
@@ -93,4 +115,31 @@ header #info {
 
 footer {
   position: bottom;
+}
+
+#chat-interface header {
+  align-items: center;
+  display: flex;
+  padding: 1rem;
+}
+
+#chat-interface header svg {
+  width: 24px;
+  height: 24px;
+}
+
+header img {
+  height: 48px;
+}
+
+.UMKMku {
+  align-self: self-end;
+}
+
+.keyboard svg {
+  width: 24px;
+  height: 24px;
+}
+.keyboard {
+  padding: 1rem;
 }

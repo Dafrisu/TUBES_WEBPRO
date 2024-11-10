@@ -119,41 +119,56 @@
   <!-- end sidebar -->
 
   <!-- list chat -->
-  <section id="list-pembeli">
-    <header>
-      Search
-    </header>
-    <a href="#">Pembeli 1</a>
-    <a href="#">Pembeli 2</a>
-    <a href="#">Pembeli 3</a>
-    <a href="#">Pembeli 4</a>
-  </section>
-  <!--  end list chat -->
-  <!-- isi chat -->
-  <section id="chat-interface">
-    <header>
-      <div class="info d-flex">
+  <main>
+    <div class="container" id="list-pembeli">
+      <header>
+        <input type="text" class="form-control" placeholder="Cari semua chat"
+          onkeyup="searchMessages(event)" />
+      </header>
+      <a href="#">Pembeli 1</a>
+      <a href="#">Pembeli 2</a>
+      <a href="#">Pembeli 3</a>
+      <a href="#">Pembeli 4</a>
+    </div>
+    <!--  end list chat -->
+    <!-- isi chat -->
+    <div class="container" id="chat-interface">
+      <header>
         <img src="assets/Profilepic.png" alt="zoomed jett">
         <p>Pembeli</p>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6 ms-auto">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+
+      </header>
+      <div class="row-cols-auto UMKMku">
+        Pesanan otw mas
       </div>
-    </header>
-    <div class="UMKMku">
-      Pesanan otw mas
-    </div>
-    <div class="pembeli">
-      sip mas ditunggu
-    </div>
-    <!-- keyboard -->
-    <footer>
-      <div class="keyboard">
+      <div class="row-cols-auto pembeli">
+        sip mas ditunggu
+      </div>
+      <!-- keyboard -->
+      <div class="keyboard row-cols-auto d-flex">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
         <img src="" alt="">
         <p>
           Masukan isi chat
         </p>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6 ms-auto">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+        </svg>
+
       </div>
-    </footer>
-    <!-- end keyboard -->
-  </section>
+      <!-- end keyboard -->
+    </div>
+  </main>
   <!-- end isi chat -->
 
 

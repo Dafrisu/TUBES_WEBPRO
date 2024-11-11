@@ -62,6 +62,7 @@ body, html {
     align-items: flex-end;
     margin-bottom: 15px;
     animation: fadeIn 0.3s ease-in;
+    position: relative;
 }
 
 @keyframes fadeIn {
@@ -71,11 +72,19 @@ body, html {
 
 .message.left {
     justify-content: flex-start;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
 }
 
 .message.right {
     justify-content: flex-end;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    position: relative;
 }
+
 
 .message-bubble {
     padding: 12px 16px;
@@ -83,21 +92,29 @@ body, html {
     max-width: 70%;
     word-wrap: break-word;
     position: relative;
+    
 }
 
-.left .message-bubble {
+.message.left .message-bubble {
     background-color: white;
     color: #333;
     border-bottom-left-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
     margin-left: 10px;
+    padding: 12px 16px;
+    border-radius: 15px;
+    position: relative;
+    max-width: 70%;
 }
 
-.right .message-bubble {
-    background-color: #5a7c64;
+.message.right .message-bubble {
+    background-color: #5a7c64; /* Green background for the right-side message */
     color: white;
     border-bottom-right-radius: 5px;
     margin-right: 10px;
+    padding: 12px 16px;
+    border-radius: 15px;
+    position: relative;
+    max-width: 70%;
 }
 
 .avatar {
@@ -105,6 +122,22 @@ body, html {
     height: 35px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.message.right .avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px; /* Space between the avatar and the message bubble */
+}
+
+.message.left .avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px; /* Space between the avatar and the message bubble */
 }
 
 .chat-input {

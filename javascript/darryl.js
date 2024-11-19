@@ -50,7 +50,7 @@ function cekMasuk() {
   var confirmEmail = false;
 
   if (!email.value.includes("@gmail.com")) {
-    alert("Email tidak valid");
+    alert("Email tidak valid. harus menggunakan format email yang benar!");
   } else {
     confirmEmail = true;
   }
@@ -59,10 +59,6 @@ function cekMasuk() {
     window.location.href = "Dafa_Dashboard.html"
   }
 }
-
-// password tidak sama
-// minimal ada Char, angka, huruf besar, huruf kecil, special char (#$%)
-// email kalo tidak contains @gmail salahin
 
 // Background control
 var particles = Particles.init({

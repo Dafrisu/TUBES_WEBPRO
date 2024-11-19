@@ -1,68 +1,76 @@
-const togglesandi = document.getElementById("togglePassword");
-const email = document.getElementById("inputEmail");
-const sandi = document.getElementById("inputPassword");
+const inputEmail = document.getElementById("inputEmail");
+const inputSandi = document.getElementById("inputPassword");
 const konfirmasiSandi = document.getElementById("konfirmasiSandi");
+
+const togglesandi = document.getElementById("togglePassword");
 
 function toggler() {
   if (togglesandi.checked) {
-    sandi.type = "text";
+    inputSandi.type = "text";
     konfirmasiSandi.type = "text";
   } else {
-    sandi.type = "password";
+    inputSandi.type = "password";
     konfirmasiSandi.type = "password";
   }
 }
 
 togglesandi.addEventListener("change", toggler);
 
-// const nums = [
-//   "0","1","2","3","4","5","6","7","8","9"
-// ];
 
-function cekLanding() {
-  var confirmSandi = false;
-  var confirmEmail = false;
-
-  if (sandi.value != konfirmasiSandi.value) {
-    alert("Sandi tidak sama");
-  } else {
-    confirmSandi = true;
+function cekEmail(email) {
+  if (!email.includes("@gmail.com")) {
+    alert("Invalid Email");
+    return false;
   }
-
-  if (!email.value.includes("@gmail.com")) {
-    alert("Email tidak valid");
-  } else {
-    confirmEmail = true;
-  }
-
-  if (confirmEmail && confirmSandi) {
-    window.location.href = "darryl_masuk.html"
-  }
-
-  // if (!sandi.value.includes(nums)) {
-  //   alert("Sandi harus mengandung nomor");
-  // } else {
-  //   login = true;
-  // }
+  return true;
 }
 
-function cekMasuk() {
-  var confirmEmail = false;
-
-  if (!email.value.includes("@gmail.com")) {
-    alert("Email tidak valid");
-  } else {
-    confirmEmail = true;
+function cekSama(p1, p2) {
+  if (p1 !== p2) {
+    alert("Sandi tidak sesuai");
+    return false;
   }
+  return true;
+}
 
-  if (confirmEmail) {
-    window.location.href = "Dafa_Dashboard.html"
+function validate() {
+  const currentPage = window.location.pathname;
+
+  switch (currentPage) {
+    case "/darryl_landing.html":
+      if (cekEmail(inputEmail.value) && cekSama(konfirmasiSandi.value, inputSandi.value)) {
+        window.location.href = "darryl_masuk.html";
+      }
+      break;
+    case "/darryl_masuk.html":
+      if (cekEmail(inputEmail.value)) {
+        window.location.href = "Dafa_Dashboard.html"
+      } 
   }
 }
 
-// password tidak sama
-// minimal ada Char, angka, huruf besar, huruf kecil, special char (#$%)
-// email kalo tidak contains @gmail salahin
+// function cek(pass) {
+//   const hasNumber = /\d/.test(pass); // Check for at least one digit
+//   const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(pass); // Check for at least one special character
+//   const hasUpperCase = /[A-Z]/.test(pass); // Check for at least one uppercase letter
+//   const hasLowerCase = /[a-z]/.test(pass); // Check for at least one lowercase letter
+//   const hasMinLength = pass.length >= 8; // Check for minimum length of 8 characters
+
+//   // Return validation result as an object
+//   return {
+//     hasNumber,
+//     hasSpecialChar,
+//     hasUpperCase,
+//     hasLowerCase,
+//     hasMinLength,
+//     isValid:
+//       hasNumber &&
+//       hasSpecialChar &&
+//       hasUpperCase &&
+//       hasLowerCase &&
+//       hasMinLength,
+//   };
+// }
 
 // Background control
 var particles = Particles.init({

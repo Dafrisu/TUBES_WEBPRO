@@ -60,6 +60,24 @@ function cekMasuk() {
   }
 }
 
+function cek(pass) {
+  const hasNumber = /\d/.test(pass); // Check for at least one digit
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(pass); // Check for at least one special character
+  const hasUpperCase = /[A-Z]/.test(pass); // Check for at least one uppercase letter
+  const hasLowerCase = /[a-z]/.test(pass); // Check for at least one lowercase letter
+  const hasMinLength = pass.length >= 8; // Check for minimum length of 8 characters
+
+  // Return validation result as an object
+  return {
+    hasNumber,
+    hasSpecialChar,
+    hasUpperCase,
+    hasLowerCase,
+    hasMinLength,
+    isValid: hasNumber && hasSpecialChar && hasUpperCase && hasLowerCase && hasMinLength,
+  };
+}
+
 // Background control
 var particles = Particles.init({
   selector: ".background",

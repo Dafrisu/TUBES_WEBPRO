@@ -126,3 +126,6 @@ document
 
 // Back button
 document.getElementById("backButton").addEventListener("click", goBackChat);
+
+
+

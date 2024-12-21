@@ -1,0 +1,159 @@
+html,
+body {
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  width: 100%;
+  background-color: #FCFAFA;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+body {
+  display: block;
+  align-items: center;
+  background-color: #FCFAFA;
+}
+
+.header-logo h1 {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
+  margin-right: 10px;
+  width: 120px;
+}
+
+.sidebar {
+  background-color: #658864 !important;
+  width: 250px; /* Fixed width */
+  min-height: 100vh;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+}  
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar h6 {
+  color: #FFFFFF !important;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.sidebar p {
+  color: #FFFFFF !important;
+  font-weight: bold;
+}
+
+.sidebar .nav-link {
+  color: #FFFFFF;
+  background-color: #658864;
+  font-weight: 500;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #444444;
+}
+
+.sidebar .sidebar-heading {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+
+
+.back-button-container {
+  margin-bottom: 10px;
+}
+
+.back-button-container .btn {
+  background-color: #658864;
+  color: #FFFFFF;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;  /* Space between icon and text */
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+
+.back-button-container .btn i {
+  font-size: 1.2rem;  /* Increase icon size */
+}
+
+.dropdown-menu {
+  background-color: #FFFFFF;
+  width: 200px;
+}
+
+.filters-bar-container {
+  width: 100%; /* Ensure full width of the container */
+}
+
+.filters-bar {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.filters-bar .form-control,
+.filters-bar .form-select {
+  width: 100%;
+  flex: 1;
+}
+
+.chat-interface {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #dedede;
+  padding: 2rem;
+}
+
+
+.example-messages .card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 180vh;
+}
+
+.example-messages .card .card-text {
+  margin-bottom: 1rem;
+}
+
+#emptyMessage {
+  font-size: 1rem;
+  color: #888;
+  font-weight: 500;
+  width: auto;
+  display: none;
+}
+
+
+.card {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+

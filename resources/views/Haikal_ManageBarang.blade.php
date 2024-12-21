@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="css/haikal_manage.css">
+    <link rel="stylesheet" href="{{ asset('css/haikal_manage.css') }}">
     <title>Manage Barang</title>
     <style>
         /* Main content area styling */
@@ -56,30 +56,7 @@
 
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>Seller Center</h2>
-        <ul>
-            <li><a href="Dafa_Dashboard.html">Dashboard</a></li>
-            <li><a href="Haikal_ManageBarang.html">Manage Products</a></li>
-            <li onclick="toggleSubmenu()">
-                <div class="container">Pesanan<img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow"
-                        id="dropdownArrow" style="margin-left: 8px;">
-                </div>
-            </li>
-            <ul id="submenu" class="submenu">
-                <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
-                <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
-                <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
-                <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
-            </ul>
-            <li><a href="Mahesa_Statistik_Penjualan.html">Statistics</a></li>
-            <li><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
-            <li><a href="fersya_inbox.html">Inbox Penjual</a></li>
-        </ul>
-    </div>
-
-
-    
+    <Sidebar-component></Sidebar-component>
     
     <!-- Modal untuk input barang ( gak jadi dipake )
     <div class="modal fade" id="modaltambahbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -116,7 +93,7 @@
     <div class="container ms-4 me-4 mt-4">
         <div class="d-flex align-items-center">
             <div class="fs-3 align-bottom">Kelola Produk</div>
-            <div class="ms-auto" id="tambahbarang"><a href="Haikal_PageTambahBarang.html"><button class="btn ms-auto addproduk">tambah</button></a></div>
+            <div class="ms-auto" id="tambahbarang"><a href="{{ route('umkm.tambahbarang') }}"><button class="btn ms-auto addproduk">tambah</button></a></div>
         </div>
 
         <!-- container dan opsi -->
@@ -163,7 +140,8 @@
         </script>
 
     <!-- Script buat pills -->
-    <script src="javascript/Haikal_managebarang.js"> </script>
+    <script src="{{ asset('js/Haikal_managebarang.js') }}"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 
 </body>
 

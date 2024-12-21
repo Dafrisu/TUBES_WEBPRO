@@ -34,5 +34,6 @@
         </div>
     </div>
     <script src="{{ asset('js/Raphael_Chat.js') }}"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>
 </html>

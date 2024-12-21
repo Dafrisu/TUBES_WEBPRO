@@ -37,14 +37,14 @@ function validate() {
   const currentPage = window.location.pathname;
 
   switch (currentPage) {
-    case "/darryl_landing.html":
+    case "/":
       if (cekEmail(inputEmail.value) && cekSama(konfirmasiSandi.value, inputSandi.value)) {
-        window.location.href = "darryl_masuk.html";
+        window.location.href = "/masuk";
       }
       break;
-    case "/darryl_masuk.html":
+    case "/masuk":
       if (cekEmail(inputEmail.value)) {
-        window.location.href = "Dafa_Dashboard.html"
+        window.location.href = "/dashboard"
       } 
   }
 }

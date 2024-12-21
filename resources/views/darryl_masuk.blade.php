@@ -13,7 +13,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
   <!-- Connect CSS -->
-  <link rel="stylesheet" href="css/darryl.css">
+  <link rel="stylesheet" href="{{ asset('css/darryl.css') }}">
 
   <!-- Import Fonts -->
   <link
@@ -31,14 +31,14 @@
     <div class="container-fluid">
 
       <!-- navigate to home/dashboard by clicking logo/name -->
-      <a class="navbar-brand brand-name" href="dashboard_pembeli.html">
-        <img src="assets/Sample 1 copy.png" alt="Logo" width="64" height="64" class="d-inline-block" />
+      <a class="navbar-brand brand-name" href="{{ route('umkm.dashboard') }}">
+        <img src="{{ asset('images/logoU.png') }}" alt="Logo" width="64" height="64" class="d-inline-block" />
         UMKMku
       </a>
 
       <!-- Button login/register -->
       <div class="ms-auto" id="navbar_button">
-        <a href="darryl_landing.html">
+        <a href="{{ route('umkm.landing') }}">
           Daftar
         </a>
       </div>
@@ -85,7 +85,7 @@
         <div class="d-flex justify-content-center mt-2">
           <div class="fs-6">Belum punya akun?</div>
           <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
-            href="darryl_landing.html">
+            href="{{ route('umkm.landing') }}">
             Daftar
           </a>
         </div>
@@ -99,7 +99,7 @@
     crossorigin="anonymous"></script>
 
   <!-- Connect Custom JS -->
-  <script src="javascript/darryl.js"></script>
+  <script src="{{ asset('js/darryl.js') }}"></script>
 </body>
 
 </html>

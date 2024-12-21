@@ -86,7 +86,8 @@
             </table>
         </div>
     </div>
-    <script src="javascript/Dafa_Dashboard.js"></script>
+    <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>
 
 </html>

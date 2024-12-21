@@ -11,32 +11,7 @@
 </head>
 
 <body>
-
-    <div class="sidebar">
-        <h2>Seller Center</h2>
-        <ul>
-            <li><a href="Dafa_Dashboard.html">Dashboard</a></li>
-            <li><a href="Haikal_ManageBarang.html">Manage Products</a></li>
-            <ul>
-                <li onclick="toggleSubmenu()">
-                    <div class="container">
-                        Pesanan
-                        <img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow" id="dropdownArrow"
-                            style="margin-left: 8px;">
-                    </div>
-                </li>
-                <ul id="submenu" class="submenu">
-                    <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
-                    <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
-                    <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
-                    <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
-                </ul>
-            </ul>
-            <li><a href="Mahesa_Statistik_Penjualan.html">Statistics</a></li>
-            <li><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
-            <li><a href="fersya_inbox.html">Inbox Penjual</a></li>
-        </ul>
-    </div>
+    <Sidebar-component></Sidebar-component>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -86,7 +61,8 @@
             </table>
         </div>
     </div>
-    <script src="javascript/Dafa_Dashboard.js"></script>
+    <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>
 
 </html>

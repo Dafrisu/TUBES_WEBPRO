@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyUMKM</title>
-    <link rel="stylesheet" href="css/Dafa_Dashboard.css">
+    <link rel="stylesheet" href="{{ asset('css/Dafa_Dashboard.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -30,16 +30,16 @@
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="Dafa_kelolaPesanan.html">Pesanan masuk</a>
+                <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan masuk</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananDiterima.html">Pesanan Diterima</a>
+                <a class="nav-link" href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananDitolak.html">Pesanan Ditolak</a>
+                <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Diterima</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananSelesai.html">Pesanan Selesai</a>
+                <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Diterima</a>
             </li>
         </ul>
 

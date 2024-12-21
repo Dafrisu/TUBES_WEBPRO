@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- CSS-->
-    <link rel="stylesheet" href="css/fersya_inbox.css">
+    <link rel="stylesheet" href="{{ asset('css/fersya_inbox.css') }}">
     <!-- Import Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap"
@@ -21,9 +21,9 @@
         <div class="container ">
             <div class="d-flex flex-wrap col-auto justify-content align-items-center justify-content-lg-start">
                 <!--Logo UMKM KU-->
-                <a href="1302223156.html"
+                <a href="{{ route('umkm.dashboard') }}"
                     class="d-flex align-items-center mb-2  mb-lg-0 link-body-emphasis text-decoration-none">
-                    <a href="1302223156.html"
+                    <a href="{{ route('umkm.dashboard') }}"
                         class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
                         <img src="assets/sample 3 -copy.png" alt="UMKMku Logo" class="img-fluid rounded bg-white"
                             width="45" height="auto">
@@ -37,7 +37,7 @@
                         <a href="#" class="nav-link m-1 px-2 link-body-emphasis text-white" style="border-radius: 8px;">Dasvb</a>
                     </li> -->
                     <!--<li><a href="#" class="nav-link m-1 px-2 link-body-emphasis text-white" style="border-radius: 8px;">Inventory</a></li> -->
-                    <li><a href="Haikal_TambahBarang.html" class="nav-link m-1 px-2 link-body-emphasis text-white"
+                    <li><a href="{{ route('umkm.tambahbarang') }}" class="nav-link m-1 px-2 link-body-emphasis text-white"
                             style="border-radius: 8px;">Tambah Barang</a></li>
                 </ul>
                 <!--Search Form Navbar-->
@@ -94,7 +94,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="darryl_daftar.html">Sign out</a></li>
+                        <li><a class="dropdown-item" href="{{ route('umkm.landing') }}">Sign out</a></li>
                     </ul>
                 </div>
             </div>
@@ -113,16 +113,16 @@
         <!-- Navigation Tabs -->
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_kelolaPesanan.html">Pesanan masuk</a>
+                <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan masuk</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananDiterima.html">Pesanan Diterima</a>
+                <a class="nav-link" href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananDitolak.html">Pesanan Ditolak</a>
+                <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Diterima</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananSelesai.html">Pesanan Selesai</a>
+                <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Diterima</a>
             </li>
         </ul>
 

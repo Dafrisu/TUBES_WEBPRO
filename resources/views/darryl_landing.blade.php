@@ -31,13 +31,13 @@
     <div class="container-fluid">
       <!-- navigate to home/dashboard by clicking logo/name -->
       <a class="navbar-brand brand-name" href="dashboard_pembeli.html">
-        <img src="assets/Sample 1 copy.png" alt="Logo" width="64" height="64" class="d-inline-block" />
+        <img src="{{ asset('images/logoU.png') }}" alt="Logo" width="64" height="64" class="d-inline-block" />
         UMKMku
       </a>
 
       <!-- Button login/register -->
       <div class="ms-auto" id="navbar_button">
-        <a href="darryl_masuk.html">
+        <a href="{{ route('umkm.masuk') }}">
           Masuk
         </a>
       </div>
@@ -86,7 +86,7 @@
         <div class="d-flex justify-content-center mt-2">
           <div class="fs-6">Sudah punya akun?</div>
           <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
-            href="darryl_masuk.html">
+            href="{{ route('umkm.masuk') }}">
             Masuk
           </a>
         </div>
@@ -106,13 +106,13 @@
     <!-- Row gambar/content utama -->
     <div class="row row-cols-3 text-center">
       <div class="col-4">
-        <img class="img-fluid" src="assets/widejoy.jfif" alt="widejoy">
+        <img class="img-fluid" src="{{ asset('images/widejoy.jfif') }}" alt="widejoy">
       </div>
       <div class="col-4">
-        <img class="img-fluid" src="assets/widejoy.jfif" alt="widejoy">
+        <img class="img-fluid" src="{{ asset('images/widejoy.jfif') }}" alt="widejoy">
       </div>
       <div class="col-4">
-        <img class="img-fluid" src="assets/widejoy.jfif" alt="widejoy">
+        <img class="img-fluid" src="{{ asset('images/widejoy.jfif') }}" alt="widejoy">
       </div>
     </div>
 
@@ -155,13 +155,13 @@
       <div id="sellerStoryCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="3000">
-            <img src="assets/img1.png" class="d-block mx-auto w-50 h-50" alt="img1">
+            <img src="{{ asset('images/img1.png') }}" class="d-block mx-auto w-50 h-50" alt="img1">
           </div>
           <div class="carousel-item" data-bs-interval="3000">
-            <img src="assets/widejoy.jfif" class="d-block mx-auto w-50 h-50" alt="widejoy">
+            <img src="{{ asset('images/img2.png') }}" class="d-block mx-auto w-50 h-50" alt="img1">
           </div>
           <div class="carousel-item" data-bs-interval="3000">
-            <img src="assets/img2.png" class="d-block mx-auto w-50 h-50" alt="img2">
+            <img src="{{ asset('images/widejoy.jfif') }}" class="d-block mx-auto w-50 h-50" alt="widejoy">
           </div>
         </div>
       </div>
@@ -180,7 +180,7 @@
     crossorigin="anonymous"></script>
 
   <!-- Connect Custom JS -->
-  <script src="javascript/darryl.js"></script>
+  <script src="{{ asset('js/darryl.js') }}"></script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');
-Route::view('/login', 'darryl_masuk')->name('umkm.login');
+Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
 Route::view('/sidebar2', 'darryl_sidebar')->name('umkm.sidebar2');
 
 Route::view('/dashboard', 'Dafa_Dashboard')->name('umkm.dashboard');

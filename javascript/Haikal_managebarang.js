@@ -1,8 +1,10 @@
 let allData = []; // Variabel untuk menyimpan semua data barang
+console.log(allData)
 
 $(document).ready(function () {
-    // Load barang saat halaman dibuka
+    // Load barang saat halaman pertama kali dibuka
     loadBarang();
+
 
     // Tombol refresh data
     $("#refreshbutton").click(function () {
@@ -43,8 +45,8 @@ $(document).ready(function () {
         };
 
         allData.push(newbarang);
-        saveDataToLocalStorage(); // Simpan data ke localStorage
         tampilkansemuaBarang(allData); // Tampilkan data terbaru di tabel
+        console.log(allData)
 
         // Reset input setelah ditambahkan
         $("#id_namabarang").val('');
@@ -91,30 +93,18 @@ $(document).ready(function () {
         });
     }
 
-    // Fungsi untuk load data JSON atau dari localStorage
+    // Fungsi untuk load data JSON
     function loadBarang() {
-        const storedData = localStorage.getItem('allData');
-        if (storedData) {
-            allData = JSON.parse(storedData); // Load dari localStorage jika tersedia
-            tampilkansemuaBarang(allData);
-        } else {
-            $.getJSON('databarang.json', function (data) {
-                if (data.databarang && data.databarang.length > 0) {
-                    allData = data.databarang;
-                    saveDataToLocalStorage(); // Simpan data awal ke localStorage
-                    tampilkansemuaBarang(allData);
-                } else {
-                    alert("Data barang tidak tersedia atau kosong.");
-                }
-            }).fail(function () {
-                alert("Gagal memuat JSON. Periksa path atau format file.");
-            });
-        }
-    }
-
-    // Fungsi untuk menyimpan data ke localStorage
-    function saveDataToLocalStorage() {
-        localStorage.setItem('allData', JSON.stringify(allData));
+        $.getJSON('databarang.json', function (data) {
+            if (data.databarang && data.databarang.length > 0) {
+                allData = data.databarang; // Tambahkan data dari JSON ke allData
+                tampilkansemuaBarang(allData); // Tampilkan data
+            } else {
+                alert("Data barang tidak tersedia atau kosong.");
+            }
+        }).fail(function () {
+            alert("Gagal memuat JSON. Periksa path atau format file.");
+        });
     }
 
     // Function untuk refresh button

@@ -102,32 +102,7 @@
 </head>
 
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>Seller Center</h2>
-        <ul>
-            <li><a href="Dafa_Dashboard.html">Dashboard</a></li>
-            <li><a href="Haikal_ManageBarang.html">Manage Products</a></li>
-            <ul>
-                <li onclick="toggleSubmenu()">
-                    <div class="container">
-                        Pesanan
-                        <img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow" id="dropdownArrow"
-                            style="margin-left: 8px;">
-                    </div>
-                </li>
-                <ul id="submenu" class="submenu">
-                    <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
-                    <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
-                    <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
-                    <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
-                </ul>
-            </ul>
-            <li><a href="Mahesa_Mahesa_Statistik_Penjualan.html">Statistics</a></li>
-            <li><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
-            <li><a href="fersya_inbox_penjual_prioritas.html">Inbox Penjual</a></li>
-        </ul>
-    </div>
+    <Sidebar-component></Sidebar-component>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -202,7 +177,7 @@
     </div>
 
     <!-- External JavaScript File -->
-    <script src="javascript/Mahesa_Statistik.js"></script>
+    <script src="{{ asset('js/Mahesa_Statistik.js') }}"></script>
 </body>
 
 </html>

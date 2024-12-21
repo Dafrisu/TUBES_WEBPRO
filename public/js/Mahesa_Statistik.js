@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Fetch the JSON file (ensure the correct path to the JSON file)
-    $.getJSON("javascript/Mahesa_Statistik.json", function(data) {
+    $.getJSON("{{ asset('json/Mahesa_Statistik') }}", function(data) {
         updateDashboard(data);
     });
 });

@@ -7,7 +7,7 @@
     <title>Tambahkan barang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <link rel="stylesheet" href="css/haikal_manage.css">
+    <link rel="stylesheet" href="{{ asset('css/haikal_manage.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
@@ -53,19 +53,8 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>Seller Center</h2>
-        <ul>
-            <li id="id_dashboard"><a href="Dafa_Dashboard.html">Dashboard</a></li>
-            <li id="id_manage"><a href="Haikal_ManageBarang.html" id="link_manage">Manage Products</a></li>
-            <li id="id_orders"><a href="Dafa_kelolaPesanan.html">Orders</a></li>
-            <li id="id_stats"><a href="Mahesa_Mahesa_Statistik_Penjualan.html">Statistics</a></li>
-            <li id="id_message"><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
-            <li id="id_setting"><a href="fersya_inbox_penjual_prioritas.html">Inbox Penjual</a></li>
-        </ul>
-    </div>
+    <Sidebar-component></Sidebar-component>
 
-    
     <div class="main-content">
         <div class="headertitle">
             <h2 id="headtitle">Tambah barang</h2>
@@ -95,7 +84,8 @@
             </div>
         </form> 
     </div>
-    <script src="javascript/Haikal_managebarang.js"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
+    <script src="{{ asset('js/Haikal_managebarang.js') }}"></script>
 
     <script>
         document.getElementById("formbarang").addEventListener("button", function(event){

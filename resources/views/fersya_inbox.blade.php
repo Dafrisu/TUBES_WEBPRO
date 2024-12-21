@@ -7,40 +7,15 @@
         <!-- Jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <!-- CSS-->
-        <link rel="stylesheet" href="css/fersya_inbox_2.css">
-        <link rel="stylesheet" href="css/Dafa_Dashboard.css">
+        <link rel="stylesheet" href="{{ asset('css/fersya_inbox_2.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/Dafa_Dashboard.css') }}">
         <!-- Import Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
     <body>
-        <!--Sidebar-->
-        <script src="javascript/Dafa_Dashboard.js"></script>
-        <div class="sidebar">
-            <h2>Seller Center</h2>
-            <ul>
-                <li><a href="Dafa_Dashboard.html">Dashboard</a></li>
-                <li><a href="Haikal_ManageBarang.html">Manage Products</a></li>
-                <li onclick="toggleSubmenu()">
-                        <!-- <div class="container"> -->
-                        <div>    
-                            Pesanan
-                            <img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow" id="dropdownArrow"
-                                style="margin-left: 8px;">
-                        </div>
-                </li>
-                <ul id="submenu" class="submenu">
-                        <li><a href="Dafa_kelolaPesanan.html">Kelola Pesanan</a></li>
-                        <li><a href="Dafa_pesananDiterima.html">Pesanan Diterima</a></li>
-                        <li><a href="Dafa_pesananDitolak.html">Pesanan Ditolak</a></li>
-                        <li><a href="Dafa_pesananSelesai.html">Pesanan Selesai</a></li>
-                </ul>
-                <li><a href="statistik_penjualan.html">Statistics</a></li>
-                <li><a href="Raphael_message_penjual.html">Kotak Masuk</a></li>
-                <li><a href="fersya_inbox.html">Inbox Penjual</a></li>
-            </ul>
-        </div>
+        <Sidebar-component></Sidebar-component>
     
         <!--Announcement-->
         <div class="announcement-bar fixed-top p-3 mb-3" style="background-color: #ffb700; text-align: center;">
@@ -171,6 +146,7 @@
             
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="javascript/fersya_inbox.js"></script>
+        <script src="{{ asset('js/fersya_inbox.js') }}"></script>
+        <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
     </body>
     </html>

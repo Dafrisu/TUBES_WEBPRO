@@ -13,7 +13,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
   <!-- Connect CSS -->
-  <link rel="stylesheet" href="css/darryl_chat.css">
+  <link rel="stylesheet" href="{{ asset('css/darryl_chat.css') }}">
 
   <!-- Import Fonts -->
   <link
@@ -179,7 +179,7 @@
     crossorigin="anonymous"></script>
 
   <!-- Connect Custom JS -->
-  <script src="javascript/Dafa_Sidebar.js"></script>
+  <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>
 
 </html>

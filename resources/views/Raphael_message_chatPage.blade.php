@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     
-    <link rel="stylesheet" href="css/Raphael_Chat.css" />
+    <link rel="stylesheet" href="{{ asset('css/Raphael_Chat.css') }}">
 </head>
 <body>
     <div class="chat-container">
@@ -33,7 +33,7 @@
             </button>
         </div>
     </div>
-    <script src="javascript/Raphael_Chat.js"></script>
-    
+    <script src="{{ asset('js/Raphael_Chat.js') }}"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>
 </html>

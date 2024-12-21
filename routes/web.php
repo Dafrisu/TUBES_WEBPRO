@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::view('/landing', 'darryl_landing')->name('umkm.landing');
+Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/login', 'darryl_masuk')->name('umkm.login');
 Route::view('/sidebar2', 'darryl_sidebar')->name('umkm.sidebar2');
 

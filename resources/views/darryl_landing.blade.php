@@ -13,7 +13,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 
   <!-- Connect CSS -->
-  <link rel="stylesheet" href="css/darryl.css">
+  <link rel="stylesheet" href="{{ asset('css/darryl.css') }}">
 
   <!-- Import Fonts -->
   <link

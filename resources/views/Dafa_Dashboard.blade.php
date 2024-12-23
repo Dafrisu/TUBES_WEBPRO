@@ -11,6 +11,20 @@
 </head>
 
 <body>
+    <script>
+        window.routes = {
+            umkm_dashboard: "{{ route('umkm.dashboard') }}",
+            umkm_managebarang: "{{ route('umkm.managebarang') }}",
+            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
+            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
+            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
+            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
+            umkm_statistik: "{{ route('umkm.statistik') }}",
+            umkm_message: "{{ route('umkm.message') }}",
+            umkm_inbox: "{{ route('umkm.inbox') }}"
+        };
+    </script>
+
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
 
@@ -51,7 +65,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>

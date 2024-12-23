@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HaikalController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -20,7 +21,7 @@ Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
 Route::view('/inbox', 'fersya_inbox')->name('umkm.inbox');
 
-Route::view('/managebarang', 'Haikal_ManageBarang')->name('umkm.managebarang');
+route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
 Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');

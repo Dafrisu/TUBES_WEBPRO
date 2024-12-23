@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HaikalController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
@@ -22,6 +20,7 @@ Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name(
 Route::view('/inbox', 'fersya_inbox')->name('umkm.inbox');
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
+route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm.addbarang');
 Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');

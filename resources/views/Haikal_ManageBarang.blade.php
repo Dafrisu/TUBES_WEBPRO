@@ -19,7 +19,7 @@
             display: inline-block;
             padding: 10px 20px;
             background-color: #658864;
-            color: white;   
+            color: white;
             border-radius: 4px;
             text-align: center;
             margin-top: 10px;
@@ -34,8 +34,11 @@
             background-color: grey;
             opacity: 50%;
         }
-        #tambahbarang a button{
+
+        #tambahbarang a button {
             text-decoration: none;
+            color: white;
+            background-color: #658864;
         }
 
 
@@ -56,38 +59,24 @@
 
 <body>
     <!-- Sidebar -->
-    <Sidebar-component></Sidebar-component>
-    
-    <!-- Modal untuk input barang ( gak jadi dipake )
-    <div class="modal fade" id="modaltambahbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="labelmodal">Input Barang</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-                </div>
-                <div class="modal-body">
-                    Isi modal di sini
-                    <p>Masukkan detail produk baru Anda di sini.</p>
-                    <form id="formBarang">
-                        <div class="mb-2">
-                            <label for="id_barang">Nama Barang</label>
-                            <input type="text" class="form-control" id="id_barang" required>
-                        </div>
-                        <div class="mb-2">
-                            <label for="id_harga">Harga Barang</label>
-                            <input type="text" class="form-control" id="id_harga" placeholder="RP." required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="savedata">Save
-                        changes</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    <script>
+        window.routes = {
+            umkm_dashboard: "{{ route('umkm.dashboard') }}",
+            umkm_managebarang: "{{ route('umkm.managebarang') }}",
+            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
+            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
+            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
+            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
+            umkm_statistik: "{{ route('umkm.statistik') }}",
+            umkm_message: "{{ route('umkm.message') }}",
+            umkm_inbox: "{{ route('umkm.inbox') }}",
+        };
+    </script>
+
+
+    <sidebar-component>
+    </sidebar-component>
+
 
     <!-- yang membungkus -->
     <div class="container ms-4 me-4 mt-4">
@@ -98,6 +87,16 @@
 
         <!-- container dan opsi -->
         <div class="container-sm mt-3">
+            @if (session(' success'))
+            <div class="alert alert-sucess" , role="alert">
+                {{session('success')}}
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+            </div>
+            @endif
             <div class="row d-flex">
                 <div class="col-auto">
                     <ul class="nav nav-underline d-flex overflow-auto" style="white-space: nowrap;">
@@ -117,7 +116,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Tables -->
         <table class="table table-hover mt-3">
             <thead>
@@ -127,20 +125,43 @@
                     <th scope="col">Nama Barang</th>
                     <th scope="col">Harga</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Berat</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody id="produktable">
                 <!-- isi tabel dari json dan js -->
+                @if (isset($produk) && is_array($produk) && count($produk) > 0)
+                @foreach ($produk as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item['id'] }}</td>
+                    <td>{{ $item['nama_barang'] }}</td>
+                    <td>{{ number_format($item['harga'], 0, ',', '.') }}</td>
+                    <td>{{ $item['stok'] }}</td>
+                    <td>{{ $item['berat'] }} kg</td>
+                    <td>
+                        <button type="button" class="btn btn-warning">Edit</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                @endforeach
+                @else
+                <tr>
+
+                    <td colspan="6" class="text-center">Data produk tidak tersedia.</td>
+                </tr>
+                @endif
             </tbody>
         </table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
+    </script>
 
     <!-- Script buat pills -->
-    <script src="{{ asset('js/Haikal_managebarang.js') }}"></script>
+    <!--<script src="{{ asset('js/Haikal_managebarang.js') }}"></script> -->
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 
 </body>

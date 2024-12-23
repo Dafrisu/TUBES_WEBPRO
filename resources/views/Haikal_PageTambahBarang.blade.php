@@ -11,9 +11,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        
         /* misc */
-        .main-content{
+        .main-content {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -46,7 +45,8 @@
             height: auto;
             max-width: 500px;
         }
-        .btn{
+
+        .btn {
             background-color: #658864;
         }
     </style>
@@ -58,7 +58,7 @@
     <div class="main-content">
         <div class="headertitle">
             <h2 id="headtitle">Tambah barang</h2>
-            
+
         </div>
         <form id="formbarang">
             <div style="margin-bottom: 20px;">
@@ -74,25 +74,27 @@
                 <p><input type="number" class="form-control" placeholder="QTY" id="id_stok" required></p>
             </div>
             <div style="margin-bottom: 20px;">
+                <label for="">Berat</label>
+                <input type="number" class="form-control" placeholder="berat" id="id_berat" required>
+            </div>
+            <div style="margin-bottom: 20px;">
                 <p><label for="id_gambar">Gambar Barang</label></p>
                 <p><input type="file" id="id_gambar" accept="image/*"></p>
             </div>
             <div>
-                    <button type="button" class="btn btn-primary" id="addbarangbtn">
-                        Tambahkan Barang
-                    </button>
+                <button type="button" class="btn btn-primary" id="addbarangbtn">
+                    Tambahkan Barang
+                </button>
             </div>
-        </form> 
+        </form>
     </div>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
-    <script src="{{ asset('js/Haikal_managebarang.js') }}"></script>
 
     <script>
-        document.getElementById("formbarang").addEventListener("button", function(event){
+        document.getElementById("formbarang").addEventListener("button", function(event) {
             event.preventDefault();
             window.location.href = "Haikal_ManageBarang.html";
         })
-        
     </script>
 </body>
 

@@ -11,6 +11,19 @@
 </head>
 
 <body>
+    <script>
+        window.routes = {
+            umkm_dashboard: "{{ route('umkm.dashboard') }}",
+            umkm_managebarang: "{{ route('umkm.managebarang') }}",
+            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
+            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
+            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
+            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
+            umkm_statistik: "{{ route('umkm.statistik') }}",
+            umkm_message: "{{ route('umkm.message') }}",
+            umkm_inbox: "{{ route('umkm.inbox') }}"
+        };
+    </script>
     <Sidebar-component></Sidebar-component>
 
     <!-- Main Content -->
@@ -26,16 +39,17 @@
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_kelolaPesanan.html">Pesanan masuk</a>
+                <a class="nav-link" href={{route('umkm.kelolapesanan')}}>Pesanan masuk</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="Dafa_pesananDiterima.html">Pesanan Diterima</a>
+                <a class="nav-link active" aria-current="page" href={{route('umkm.pesananditerima')}}>Pesanan
+                    Diterima</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananDitolak.html">Pesanan Ditolak</a>
+                <a class="nav-link" href={{route('umkm.pesananditolak')}}>Pesanan Ditolak</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Dafa_pesananSelesai.html">Pesanan Selesai</a>
+                <a class="nav-link" href={{route('umkm.pesananselesai')}}>Pesanan Selesai</a>
             </li>
         </ul>
 

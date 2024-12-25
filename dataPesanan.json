@@ -1,0 +1,24 @@
+{
+    "dataPesanan": [
+        {
+            "NamaBarang": "Fantech ATOM PRO SERIES Wireless Keyboard Mechanical Gaming Hotswap",
+            "KuantitasBarang": 1,
+            "harga": "RP.490.000"
+        },
+        {
+            "NamaBarang": "ASEP GAMINK RGB KEYBOARD 100% AIMBOT",
+            "KuantitasBarang": 2,
+            "harga": "RP.10.090.000"
+        },
+        {
+            "NamaBarang": "Logitech G102 Gaming Mouse",
+            "KuantitasBarang": 1,
+            "harga": "RP.255.000"
+        },
+        {
+            "NamaBarang": "Zifriend Mechanical Keyboard 60% Z78",
+            "KuantitasBarang": 1,
+            "harga": "RP.700.000"
+        }
+    ]
+}

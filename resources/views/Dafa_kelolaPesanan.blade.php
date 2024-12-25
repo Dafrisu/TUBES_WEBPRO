@@ -15,8 +15,22 @@
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 
+    <script>
+        window.routes = {
+            umkm_dashboard: "{{ route('umkm.dashboard') }}",
+            umkm_managebarang: "{{ route('umkm.managebarang') }}",
+            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
+            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
+            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
+            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
+            umkm_statistik: "{{ route('umkm.statistik') }}",
+            umkm_message: "{{ route('umkm.message') }}",
+            umkm_inbox: "{{ route('umkm.inbox') }}"
+        };
+    </script>
+
     <Sidebar-component></Sidebar-component>
-    
+
     <!-- Main Content -->
     <div class="main-content">
         <!-- Header Bar -->
@@ -30,16 +44,17 @@
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan masuk</a>
+                <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan
+                    masuk</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Diterima</a>
+                <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Ditolak</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Diterima</a>
+                <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Selesai</a>
             </li>
         </ul>
 
@@ -51,13 +66,23 @@
                 <thead>
                     <tr>
                         <th scope="col">NO</th>
-                        <th scope="col">Nama Barang</th>
-                        <th scope="col">Quantitas Barang</th>
-                        <th scope="col">Harga</th>
+                        <th scope="col">Status pesanan</th>
+                        <th scope="col">Total belanja</th>
+                        <th scope="col">Id Keranjang</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody id="list-Pesanan">
+                    @foreach ($pesanan as $pesanans)
+                        <tr>
+                            <td>{{$pesanans['id_pesanan']}}</td>
+                            <td>{{$pesanans['status_pesanan']}}</td>
+                            <td>{{$pesanans['total_belanja']}}</td>
+                            <td>{{$pesanans['id_keranjang']}}</td>
+                            <td>NULL</td>
+                        </tr>
+
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Statistics Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -64,25 +64,6 @@
             background-color: #f4f4f4;
         }
 
-        .submenu {
-            display: none;
-            padding-left: 20px;
-        }
-
-        .submenu.active {
-            display: block;
-        }
-
-        .submenu li {
-            border: none;
-        }
-
-        #dropdownArrow {
-            height: 1rem;
-            rotate: 270deg;
-            transition: transform 0.3s;
-        }
-
         /* Stats card hover effect */
         .stats-card {
             transition: transform 0.2s;
@@ -91,86 +72,79 @@
         .stats-card:hover {
             transform: translateY(-5px);
         }
-
-        /* Container for Pesanan menu */
-        .container {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
     </style>
 </head>
 
 <body>
-    <Sidebar-component></Sidebar-component>
+    <!-- Sidebar -->
+    <script>
+        window.routes = {
+            umkm_dashboard: "{{ route('umkm.dashboard') }}",
+            umkm_managebarang: "{{ route('umkm.managebarang') }}",
+            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
+            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
+            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
+            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
+            umkm_statistik: "{{ route('umkm.statistik') }}",
+            umkm_message: "{{ route('umkm.message') }}",
+            umkm_inbox: "{{ route('umkm.inbox') }}",
+        };
+    </script>
+
+
+    <sidebar-component>
+    </sidebar-component>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="container-fluid">
-            <h1 class="mb-4">Dashboard</h1>
+            <h1 class="mb-4">Sales and Orders Statistics</h1>
 
-            <!-- Stats Cards -->
-            <!-- Stats Cards -->
+            <!-- Month Selector -->
+            <div class="mb-4">
+                <label for="monthSelect" class="form-label">Select Month or Year</label>
+                <select id="monthSelect" class="form-select">
+                    <option value="">-- Select Month or Year --</option>
+                    <option value="yearly">Yearly</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+
+ <!-- Stats Cards -->
             <div class="row">
                 <div class="col-md-3 mb-4">
                     <div class="card stats-card border-primary border-top border-3">
                         <div class="card-body">
-                            <div class="text-muted mb-2">Sales</div>
+                            <div class="text-muted mb-2">Total Sales</div>
                             <h3 class="mb-2" id="salesValue">Loading...</h3>
-                            <small class="text-success d-flex align-items-center">
-                                <span class="me-1">↑</span>
-                                <span id="salesChange">Loading...</span>
-                            </small>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-3 mb-4">
                     <div class="card stats-card border-success border-top border-3">
                         <div class="card-body">
-                            <div class="text-muted mb-2">Orders</div>
+                            <div class="text-muted mb-2">Total Orders</div>
                             <h3 class="mb-2" id="ordersValue">Loading...</h3>
-                            <small class="text-success d-flex align-items-center">
-                                <span class="me-1">↑</span>
-                                <span id="ordersChange">Loading...</span>
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="card stats-card border-info border-top border-3">
-                        <div class="card-body">
-                            <div class="text-muted mb-2">Visitors</div>
-                            <h3 class="mb-2" id="visitorsValue">Loading...</h3>
-                            <small class="text-success d-flex align-items-center">
-                                <span class="me-1">↑</span>
-                                <span id="visitorsChange">Loading...</span>
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="card stats-card border-warning border-top border-3">
-                        <div class="card-body">
-                            <div class="text-muted mb-2">Views</div>
-                            <h3 class="mb-2" id="viewsValue">Loading...</h3>
-                            <small class="text-success d-flex align-items-center">
-                                <span class="me-1">↑</span>
-                                <span id="viewsChange">Loading...</span>
-                            </small>
                         </div>
                     </div>
                 </div>
             </div>
 
-
-            <!-- Chart -->
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title mb-4">Overview</h5>
-                    <canvas id="chart"></canvas>
+            <!-- Chart Container -->
+            <div class="row">
+                <div class="col-md-12">
+                    <canvas id="salesChart" width="400" height="150"></canvas>
                 </div>
             </div>
         </div>

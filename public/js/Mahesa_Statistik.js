@@ -1,135 +1,126 @@
-$(document).ready(function() {
-    // Fetch the JSON file (ensure the correct path to the JSON file)
-    $.getJSON("{{ asset('json/Mahesa_Statistik') }}", function(data) {
-        updateDashboard(data);
+$(document).ready(function () {
+    const umkmId = 2; // Replace with the actual UMKM ID as needed
+    let salesChart; // Declare the salesChart variable outside the function to access it globally
+
+    // Event listener for month selection
+    $('#monthSelect').change(function () {
+        const selectedValue = $(this).val();
+        const currentYear = new Date().getFullYear();
+
+        if (selectedValue === "yearly") {
+            fetchYearlyStats(umkmId);
+        } else if (selectedValue) {
+            const month = parseInt(selectedValue);
+            fetchDailyStats(umkmId, month, currentYear);
+        } else {
+            resetChart();
+        }
     });
-});
 
-function updateDashboard(data) {
-    updateStatsCards(data.stats, data.chart);
-    initializeChart(data.chart);
-}
+    // Function to fetch daily statistics from the API
+    function fetchDailyStats(umkmId, month, year) {
+        const url = `http://localhost:3000/daily-stats/${umkmId}?month=${month}&year=${year}`; // Use the correct URL
 
-function updateStatsCards(stats, chartData) {
-    const totalSales = chartData.datasets.sales.data.reduce((sum, value) => sum + value, 0);
-    const totalOrders = chartData.datasets.orders.data.reduce((sum, value) => sum + value, 0);
-
-    $('#salesValue').text(`Rp ${totalSales.toLocaleString()}`);
-    $('#salesChange').text(`${stats.sales.change}% from last month`);
-
-    $('#ordersValue').text(totalOrders.toLocaleString());
-    $('#ordersChange').text(`${stats.orders.change}% from last month`);
-
-    $('#visitorsValue').text(stats.visitors.value.toLocaleString());
-    $('#visitorsChange').text(`${stats.visitors.change}% from last month`);
-
-    $('#viewsValue').text(stats.views.value.toLocaleString());
-    $('#viewsChange').text(`${stats.views.change}% from last month`);
-}
-
-function initializeChart(chartData) {
-    new Chart('chart', {
-        type: 'line',
-        data: {
-            labels: chartData.labels,
-            datasets: [
-                {
-                    label: 'Sales',
-                    data: chartData.datasets.sales.data,
-                    borderColor: chartData.datasets.sales.borderColor,
-                    backgroundColor: chartData.datasets.sales.backgroundColor,
-                    fill: true,
-                    tension: 0.4,
-                    yAxisID: 'y-sales',
-                },
-                {
-                    label: 'Orders',
-                    data: chartData.datasets.orders.data,
-                    borderColor: chartData.datasets.orders.borderColor,
-                    backgroundColor: chartData.datasets.orders.backgroundColor,
-                    fill: true,
-                    tension: 0.4,
-                    yAxisID: 'y-orders',
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+                updateStats(data);
+                updateChart(data);
             },
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        usePointStyle: true,
-                        padding: 10
-                    }
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    titleColor: '#000',
-                    bodyColor: '#666',
-                    borderColor: '#ddd',
-                    borderWidth: 1,
-                    padding: 10,
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.datasetIndex === 0) {
-                                label += 'Rp ' + context.parsed.y.toLocaleString();
-                            } else {
-                                label += context.parsed.y + ' orders';
-                            }
-                            return label;
-                        }
-                    }
-                }
+            error: function (error) {
+                console.error('Error fetching daily stats:', error);
+                $('#salesValue').text('Error loading sales data');
+                $('#ordersValue').text('Error loading orders data');
+            }
+        });
+    }
+
+    // Function to fetch monthly statistics from the API
+    function fetchYearlyStats(umkmId) {
+        const url = `http://localhost:3000/monthly-stats/${umkmId}`; // Use the correct URL
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+                updateStats(data);
+                updateChart(data, 'yearly'); // Pass 'yearly' for yearly data
             },
-            scales: {
-                x: {
-                    grid: {
-                        display: false
+            error: function (error) {
+                console.error('Error fetching yearly stats:', error);
+                $('#salesValue').text('Error loading sales data');
+                $('#ordersValue').text('Error loading orders data');
+            }
+        });
+    }
+
+    // Function to update the displayed statistics
+    function updateStats(data) {
+        const totalSales = data.reduce((sum, record) => sum + record.total_sales, 0);
+        const totalOrders = data.reduce((sum, record) => sum + record.total_orders, 0);
+
+        $('#salesValue').text(`$${totalSales.toFixed(2)}`);
+        $('#ordersValue').text(totalOrders);
+    }
+
+    // Function to update the chart with fetched data
+    function updateChart(data, type = 'daily') {
+        const labels = type === 'yearly'
+            ? data.map(record => monthNames[record.month - 1]) // Use month names for yearly data
+            : data.map(record => record.tanggal); // Use dates for daily data
+        const salesData = data.map(record => record.total_sales);
+        const ordersData = data.map(record => record.total_orders);
+
+        if (salesChart) {
+            salesChart.destroy(); // Destroy previous chart instance if it exists
+        }
+
+        salesChart = new Chart(document.getElementById('salesChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Total Sales',
+                        data: salesData,
+                        backgroundColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
                     },
-                    title: {
-                        display: true,
-                        text: 'Date'
+                    {
+                        label: 'Total Orders',
+                        data: ordersData,
+                        backgroundColor: 'rgba(192, 75, 192, 1)',
+                        borderWidth: 2,
                     }
-                },
-                'y-sales': {
-                    type: 'linear',
-                    position: 'left',
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Sales (Rp)'
-                    },
-                    grid: {
-                        borderDash: [2, 2]
-                    },
-                    ticks: {
-                        callback: function(value) {
-                            return 'Rp ' + value.toLocaleString();
-                        }
-                    }
-                },
-                'y-orders': {
-                    type: 'linear',
-                    position: 'right',
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Orders'
-                    },
-                    grid: {
-                        display: false
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
+        });
+    }
+
+    // Array of month names for labeling the chart
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    // Function to reset the chart when no selection is made
+    function resetChart() {
+        if (salesChart) {
+            salesChart.destroy(); // Destroy previous chart instance if it exists
         }
-    });
-}
+        $('#salesValue').text(''); // Clear sales value
+        $('#ordersValue').text(''); // Clear orders value
+    }
+
+    // Initial fetch for the current month
+    fetchDailyStats(umkmId, new Date().getMonth() + 1, new Date().getFullYear());
+});

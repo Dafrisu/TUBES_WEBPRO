@@ -1,3 +1,4 @@
+/* Raphael_Message.css */
 html,
 body {
   font-family: 'Montserrat', sans-serif;
@@ -79,19 +80,34 @@ body {
   margin-bottom: 10px;
 }
 
+.back-button-container {
+  margin-bottom: 10px;
+  padding-left: 10px; 
+}
+
 .back-button-container .btn {
-  background-color: #658864;
+  background-color: transparent;
   color: #FFFFFF;
-  font-weight: bold;
-  display: flex;
+  border: none;
+  padding: 0;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;  /* Space between icon and text */
-  padding: 8px 16px;
-  border-radius: 5px;
+  justify-content: center;
+}
+
+.back-button-container .btn:hover {
+  color: #d4d4d4; 
 }
 
 .back-button-container .btn i {
-  font-size: 1.2rem;  /* Increase icon size */
+  font-size: 1.5rem;
+}
+
+.back-button-container .btn i {
+  font-size: 1.5rem; 
 }
 
 .dropdown-menu {

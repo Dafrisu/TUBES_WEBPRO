@@ -1,0 +1,33 @@
+{
+    "stats": {
+        "sales": {
+            "change": 12
+        },
+        "orders": {
+            "change": 12
+        },
+        "visitors": {
+            "value": 268,
+            "change": 15.3
+        },
+        "views": {
+            "value": 740,
+            "change": 18.7
+        }
+    },
+    "chart": {
+        "labels": ["1", "8", "15", "22", "29"],
+        "datasets": {
+            "sales": {
+                "data": [12000, 17500, 16000, 21000, 20000],
+                "borderColor": "#198754",
+                "backgroundColor": "rgba(25, 135, 84, 0.1)"
+            },
+            "orders": {
+                "data": [15, 22, 18, 25, 28],
+                "borderColor": "#0d6efd",
+                "backgroundColor": "rgba(13, 110, 253, 0.1)"
+            }
+        }
+    }
+}

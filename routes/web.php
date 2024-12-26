@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DafaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HaikalController;
 
@@ -10,7 +11,7 @@ Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
 Route::view('/sidebar2', 'darryl_sidebar')->name('umkm.sidebar2');
 
 Route::view('/dashboard', 'Dafa_Dashboard')->name('umkm.dashboard');
-Route::view('/kelola_pesanan', 'Dafa_kelolaPesanan')->name('umkm.kelolapesanan');
+Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
 Route::view('/pesanan_diterima', 'Dafa_pesananDiterima')->name('umkm.pesananditerima');
 Route::view('/pesanan_ditolak', 'Dafa_pesananDitolak')->name('umkm.pesananditolak');
 Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');

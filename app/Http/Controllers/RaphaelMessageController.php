@@ -2,99 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RaphaelMessage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log; // Add this line
 
 class RaphaelMessageController extends Controller
 {
-    public function index()
+    // Show chat page with messages
+    public function showChatPage(Request $request)
     {
-        return view('Raphael_message_penjual');
+        $customerId = $request->query('customerId'); // Get the customerId from the URL
+        // Call the external API to fetch messages for the given customerId
+        $messages = $this->getMessagesFromAPI($customerId);
+
+        return view('Raphael_message_chatPage', compact('messages', 'customerId'));
     }
 
-    public function getMessages(Request $request)
+    // Get messages from external API
+    private function getMessagesFromAPI($customerId)
     {
-        $section = $request->input('section', 'open');
-        $search = $request->input('search');
-        $sort = $request->input('sort', 'newest');
+        $apiUrl = "https://umkmapi.azurewebsites.net/message/{$customerId}";
 
-        $query = RaphaelMessage::query();
+        // Use Laravel's HTTP Client to fetch messages
+        $response = Http::get($apiUrl);
 
-        // Apply section filter
-        switch ($section) {
-            case 'open':
-                $query->open();
-                break;
-            case 'unread':
-                $query->unread();
-                break;
-            case 'unreplied':
-                $query->unreplied();
-                break;
-        }
-
-        // Apply search if provided
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('message', 'like', "%{$search}%");
-            });
-        }
-
-        // Apply sorting
-        if ($sort === 'newest') {
-            $query->orderBy('time', 'desc');
+        if ($response->successful()) {
+            return $response->json(); // Return the response as an array
         } else {
-            $query->orderBy('time', 'asc');
+            // Handle error, log it, or return a default empty array
+            Log::error('Failed to fetch messages from API', ['customerId' => $customerId]);
+            return [];
         }
-
-        $messages = $query->get();
-
-        return Response::json($messages);
     }
 
+    // Send message via API
     public function sendMessage(Request $request)
     {
+        // Validate the incoming request
         $request->validate([
-            'message' => 'required|string',
-            'name' => 'required|string',
+            'message' => 'required|string|max:255',
+            'sender_id' => 'required|string',
+            'sender_type' => 'required|string',
+            'receiver_id' => 'required|string',
+            'receiver_type' => 'required|string',
         ]);
 
-        $message = RaphaelMessage::create([
-            'name' => $request->name,
-            'message' => $request->message,
-            'time' => now(),
-            'status' => 'open',
-            'is_seller_message' => true
-        ]);
+        // Retrieve the data from the form
+        $message = $request->input('message');
+        $senderId = $request->input('sender_id');
+        $senderType = $request->input('sender_type');
+        $receiverId = $request->input('receiver_id');
+        $receiverType = $request->input('receiver_type');
 
-        return Response::json($message);
-    }
+        $apiUrl = 'https://umkmapi.azurewebsites.net/message';
 
-    public function updateMessageStatus(Request $request, RaphaelMessage $message)
-    {
-        $request->validate([
-            'status' => 'required|in:open,unread,unreplied'
-        ]);
+        // Prepare the data to be sent to the API
+        $data = [
+            'message' => $message,
+            'sender_id' => $senderId,
+            'sender_type' => $senderType,
+            'receiver_id' => $receiverId,
+            'receiver_type' => $receiverType,
+        ];
 
-        $message->update([
-            'status' => $request->status
-        ]);
+        // Send the message to the API using Laravel's HTTP Client
+        $response = Http::post($apiUrl, $data);
 
-        return Response::json($message);
-    }
+        // Check for a successful response from the API
+        if ($response->successful()) {
+            // Return to the previous page with a success message
+            return back()->with('message', 'Message sent successfully!');
+        } else {
+            // Log the error if the API call fails
+            Log::error('Failed to send message', ['data' => $data, 'error' => $response->body()]);
 
-    public function getChatHistory(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string'
-        ]);
-
-        $messages = RaphaelMessage::where('name', $request->name)
-            ->orderBy('time', 'asc')
-            ->get();
-
-        return Response::json($messages);
+            // Return to the previous page with an error message
+            return back()->withErrors(['error' => 'Failed to send message. Please try again later.']);
+        }
     }
 }

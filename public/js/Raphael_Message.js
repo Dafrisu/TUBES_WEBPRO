@@ -203,7 +203,7 @@ function goBackChat() {
 function navigateToChat(name, message) {
   const encodedName = encodeURIComponent(name);
   const encodedMessage = encodeURIComponent(message);
-  window.location.href = `/chat?name=${encodedName}&message=${encodedMessage}`;
+  window.location.href = `/umkm/message`;
 }
 
 

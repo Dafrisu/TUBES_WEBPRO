@@ -21,6 +21,7 @@ Route::view('/inbox', 'fersya_inbox')->name('umkm.inbox');
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
 route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm.addbarang');
+route::delete('/deleteproduk/{id}', [HaikalController::class, 'deleteProduk'])->name('umkm.deletebarang');
 Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');

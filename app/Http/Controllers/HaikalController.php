@@ -34,19 +34,19 @@ class HaikalController extends Controller
         try {
             Log::info('addproduk called', ['data' => $request->all()]);
 
-            // Prepare the data to send
+            // Prepare data
             $data = [
                 'nama_barang' => $request->input('nama_barang'),
                 'harga' => $request->input('harga'),
-                'deskripsi_barang' => $request->input('deskripsi_barang', ''), // Use empty string if not provided
+                'deskripsi_barang' => $request->input('deskripsi_barang', ''), // kosong jika desc kosong
                 'stok' => $request->input('stok'),
                 'berat' => $request->input('berat'),
-                'id_umkm' => 1 // Hardcoding the id_umkm or can be dynamic
+                'id_umkm' => 1 // test only, id umkm masih static
             ];
 
             Log::info('Data prepared', ['data' => $data]);
 
-            // Create a Guzzle client
+            // pakai guzzle
             $client = new Client(['verify' => false]);
 
             // Send the POST request using Guzzle
@@ -65,6 +65,21 @@ class HaikalController extends Controller
         } catch (\Exception $e) {
             // Handle any exceptions that occur
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function deleteProduk($id)
+    {
+        try {
+            $response = Http::withOptions(['verify' => false])->get("https://umkmapi.azurewebsites.net/produk/" . $id);
+            if ($response->successful()) {
+                $response = Http::withOptions(["verify" => false])->delete("https://umkmapi.azurewebsites.net/produk/" . $id);
+                return redirect()->route("umkm.managebarang")->with("success", "Berhasil meghapus barang");
+            } else {
+                return back()->with("error", "Barang Tidak ditemukan, gagal menghapus barang");
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

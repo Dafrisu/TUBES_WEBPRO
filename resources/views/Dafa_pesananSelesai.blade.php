@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
+
     <script>
         window.routes = {
             umkm_dashboard: "{{ route('umkm.dashboard') }}",

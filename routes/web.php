@@ -29,7 +29,7 @@ Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');
 
-// View routes (removed since they don't need dynamic data passing)
+// // View routes (removed since they don't need dynamic data passing)
 Route::view('/message', 'Raphael_message_penjual')->name('umkm.message');
 
 // Chat routes for dynamic content

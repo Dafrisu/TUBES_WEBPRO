@@ -40,11 +40,22 @@ async function loadMessages() {
 
         customerChat.forEach((chatItem) => {
             const messageHTML = `
-                <div class="message ${chatItem.sender_type === "self" ? "right" : "left"}">
-                    <img src="/images/${chatItem.sender_type === "self" ? "umkm" : "customer"}_Profilepic.png" alt="User Avatar" class="avatar">
+                <div class="message ${
+                    chatItem.sender_type === "self" ? "right" : "left"
+                }">
+                    <img src="/images/${
+                        chatItem.sender_type === "self" ? "umkm" : "customer"
+                    }_Profilepic.png" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
                         <p>${chatItem.message}</p>
-                        <div class="message-time">${chatItem.sent_at}</div>
+                        <div class="message-time">${new Date(
+                            chatItem.sent_at
+                        ).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                            hour12: false,
+                        })}</div>
                     </div>
                 </div>
             `;
@@ -67,18 +78,18 @@ async function sendMessage() {
 
     if (message && customerId) {
         try {
-            const receiverId = "receiverId";  // Set your dynamic receiverId here
-            const receiverType = "Pembeli";  // Set the dynamic receiver type here
+            const receiverId = "receiverId"; // Set your dynamic receiverId here
+            const receiverType = "Pembeli"; // Set the dynamic receiver type here
 
             const response = await fetch("/umkm/message/send", {
-                method: "POST",  // Make sure the method is POST
+                method: "POST", // Make sure the method is POST
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     message,
                     sender_id: customerId, // Dynamic customerId
-                    sender_type: "UMKM",   // Sender type
+                    sender_type: "UMKM", // Sender type
                     receiver_id: receiverId, // Dynamic receiverId
                     receiver_type: receiverType, // Dynamic receiverType
                 }),
@@ -96,7 +107,14 @@ async function sendMessage() {
                     <img src="/images/Profilepic.png" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
                         <p>${newMessage.message}</p>
-                        <div class="message-time">${newMessage.sent_at}</div>
+                        <div class="message-time">${new Date(
+                            newMessage.sent_at
+                        ).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                            hour12: false,
+                        })}</div>
                     </div>
                 </div>
             `;
@@ -109,20 +127,69 @@ async function sendMessage() {
     }
 }
 
-document.getElementById("sendButton").addEventListener("click", function() {
-    console.log("Send button clicked");
-    sendMessage();
-});
+document
+    .getElementById("sendButton")
+    .addEventListener("click", async function () {
+        const messageInput = document.getElementById("messageInput");
+        const message = messageInput.value.trim();
+        const customerId = document.getElementById("customerId").value;
 
+        if (message && customerId) {
+            try {
+                const receiverId = "receiver_Id"; // Gantilah dengan receiverId yang sesuai
+                const receiverType = "Pembeli"; // Gantilah dengan receiverType yang sesuai
 
+                const response = await fetch("/umkm/message/send", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content, // CSRF token
+                    },
+                    body: JSON.stringify({
+                        message,
+                        sender_id: customerId, // ID pengirim
+                        sender_type: "UMKM", // Tipe pengirim
+                        receiver_id: receiverId, // ID penerima
+                        receiver_type: receiverType, // Tipe penerima
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const newMessage = await response.json();
+
+                const chatWindow = document.getElementById("chatWindow");
+                const messageHTML = `
+                <div class="message right">
+                    <img src="/images/Profilepic.png" alt="User Avatar" class="avatar">
+                    <div class="message-bubble">
+                        <p>${newMessage.message}</p>
+                        <div class="message-time">${newMessage.sent_at}</div>
+                    </div>
+                </div>
+            `;
+                chatWindow.insertAdjacentHTML("beforeend", messageHTML);
+                messageInput.value = ""; // Kosongkan input
+                chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll ke bawah
+            } catch (error) {
+                console.error("Error sending message:", error);
+            }
+        }
+    });
 
 // Add event listener to "Enter" key to send the message
-document.getElementById("messageInput").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        sendMessage();
-    }
-});
+document
+    .getElementById("messageInput")
+    .addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            document.getElementById("sendButton").click();
+        }
+    });
 
 // Add event listener to back button
 document.getElementById("backButton").addEventListener("click", () => {

@@ -31,27 +31,19 @@
                     <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
                         <p>{{ $message['message'] }}</p>
-                        <div class="message-time">{{ $message['sent_at'] }}</div>
+                        <div class="message-time">{{ \Carbon\Carbon::parse($message['sent_at'])->format('H:i:s') }}</div>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <!-- Form to send message -->
-        <form action="{{ route('umkm.message.send') }}" method="POST">
-            @csrf
-            <div class="chat-input">
-                <input type="text" id="messageInput" name="message" placeholder="Type a message..." required />
-                <input type="hidden" name="sender_id" value="{{ $customerId }}"> <!-- Sender ID -->
-                <input type="hidden" name="sender_type" value="UMKM"> <!-- Sender Type -->
-                <input type="hidden" name="receiver_id" value="{{ $receiverId }}"> <!-- Receiver ID (buyer) -->
-                <input type="hidden" name="receiver_type" value="Pembeli"> <!-- Receiver Type -->
-
-                <button type="submit" class="send-button">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </form>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type a message..." required />
+            <input type="hidden" id="customerId" value="{{ $customerId }}">
+            <button type="button" id="sendButton" class="send-button" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
 
     </div>
 </body>

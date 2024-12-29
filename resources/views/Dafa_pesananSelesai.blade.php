@@ -50,7 +50,7 @@
         <h2>Pesanan Selesai</h2>
     </div>
     <div class="container-fluid">
-        <table class="table table-hover">
+        <table class="table table-hover table-stripped">
             <thead>
                 <tr>
                     <th scope="col">NO</th>
@@ -60,7 +60,6 @@
                     <th scope="col">Kuantitas Barang</th>
                     <th scope="col">Total Belanja</th>
                     <th scope="col">Alamat Pembeli</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody id="list-Pesanan">
@@ -73,7 +72,6 @@
                         <td>{{$pesananselesais['kuantitas_barang']}}</td>
                         <td>{{$pesananselesais['total_belanja']}}</td>
                         <td>{{$pesananselesais['alamat_pembeli']}}</td>
-                        <td>NULL</td>
                     </tr>
                 @endforeach
             </tbody>

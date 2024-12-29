@@ -75,7 +75,18 @@
                         <td>{{$pesananmasuks['kuantitas_barang']}}</td>
                         <td>{{$pesananmasuks['total_belanja']}}</td>
                         <td>{{$pesananmasuks['alamat_pembeli']}}</td>
-                        <td>NULL</td>
+                        <form method="POST"
+                            action="{{route('umkm.updatestatuspesananditerima', $pesananmasuks['id_pesanan'])}}">
+                            @csrf
+                            @METHOD('PUT')
+                            <td><button type="submit" class="btn btn-primary">Terima</button></td>
+                        </form>
+                        <form method="POST"
+                            action="{{route('umkm.updatestatuspesananditolak', $pesananmasuks['id_pesanan'])}}">
+                            @csrf
+                            @METHOD('PUT')
+                            <td><button type="submit" class="btn btn-danger">Ditolak</button></td>
+                        </form>
                     </tr>
                 @endforeach
             </tbody>

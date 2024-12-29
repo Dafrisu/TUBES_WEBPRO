@@ -105,7 +105,7 @@
         <!-- Alamat -->
         <div class="mb-2">
           <label for="alamat" class="form-label">Alamat</label>
-          <input type="text" class="form-control" id="konfirmasiSandi" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="alamat" aria-describedby="emailHelp">
         </div>
 
         <!-- NIK KTP -->

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DafaController;
 use App\Http\Controllers\HaikalController;
 use App\Http\Controllers\RaphaelMessageController;
+use App\Http\Controllers\DarrylController;
 
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');

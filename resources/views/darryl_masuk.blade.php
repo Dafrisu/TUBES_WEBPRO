@@ -52,6 +52,7 @@
       <div class="fs-2 fw-bold text-center">Masuk</div>
       <div class="fs-4 fw-medium mb-4 text-center">Masuk ke akun UMKMku</div>
       <form method = "POST" action = "userLogin.php">
+        @csrf
         <!-- Isi Email -->
         <div class="mb-2">
           <label for="inputEmail" class="form-label">Alamat email</label>

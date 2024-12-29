@@ -10,13 +10,18 @@ Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
 Route::view('/sidebar2', 'darryl_sidebar')->name('umkm.sidebar2');
 
+//Route Punya Dapa
 Route::view('/dashboard', 'Dafa_Dashboard')->name('umkm.dashboard');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
 Route::get('/pesananselesai', [DafaController::class, 'getpesananselesai'])->name('umkm.pesananselesai');
+route::put('/updatestatuspesananditerima/{id}', [DafaController::class, 'updatestatuspesananditerima'])->name('umkm.updatestatuspesananditerima');
+route::put('/updatestatuspesananditolak/{id}', [DafaController::class, 'updatestatuspesananditolak'])->name('umkm.updatestatuspesananditolak');
 // Route::view('/pesanan_ditolak', 'Dafa_pesananDitolak')->name('umkm.pesananditolak');
 // Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');
+//End Route Punya Dapa
+
 Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');

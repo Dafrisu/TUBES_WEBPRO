@@ -11,7 +11,7 @@ class DafaController extends Controller
     public function getpesananmasuk()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('localhost/getpesananmasuk');
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananmasuk');
 
             if ($response->successful()) {
                 $pesananmasuk = $response->json();
@@ -27,7 +27,7 @@ class DafaController extends Controller
     public function getpesananditerima()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('localhost/getpesananditerima');
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananditerima');
 
             if ($response->successful()) {
                 $pesananditerima = $response->json();
@@ -44,7 +44,7 @@ class DafaController extends Controller
     public function getpesananditolak()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('localhost/getpesananditolak');
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananditolak');
 
             if ($response->successful()) {
                 $pesananditolak = $response->json();
@@ -61,7 +61,7 @@ class DafaController extends Controller
     public function getpesananselesai()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('localhost/getpesananselesai');
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananselesai');
 
             if ($response->successful()) {
                 $pesananselesai = $response->json();
@@ -72,6 +72,43 @@ class DafaController extends Controller
             }
         } catch (\Exception $e) {
             return view('Dafa_pesananSelesai')->with('error', $e->getMessage());
+        }
+    }
+
+    public function updatestatuspesananditerima($id)
+    {
+        try {
+
+            // Kirim data ke API untuk update
+            $response = Http::withOptions(['verify' => false])
+                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditerima/" . $id);
+
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm.kelolapesanan')->with('success', 'Produk Berhasil Diterima');
+            } else {
+                throw new \Exception('Produk gagal diterima womp womp');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.kelolapesanan')->with('error', $e->getMessage());
+        }
+    }
+
+    public function updatestatuspesananditolak(Request $request, $id)
+    {
+        try {
+            // Kirim data ke API untuk update
+            $response = Http::withOptions(['verify' => false])
+                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id, );
+
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm.kelolapesanan')->with('success', 'Produk Telah Ditolak');
+            } else {
+                throw new \Exception('Produk gagal Ditolak womp womp');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.kelolapesanan')->with('error', $e->getMessage());
         }
     }
 }

@@ -67,7 +67,7 @@
             umkm_inbox: "{{ route('umkm.inbox') }}"
         };
     </script>
-    <Sidebar-component></Sidebar-component>
+    <x-semua_-sidebar />
 
     <div class="main-content">
         <div class="headertitle">

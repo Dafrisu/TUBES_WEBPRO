@@ -29,63 +29,58 @@
         };
     </script>
 
-    <Sidebar-component></Sidebar-component>
+    <x-semua_-sidebar />
+    <x-profilebar />
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header Bar -->
-        <div class="header-bar">
-            <h1>Kelola Pesanan</h1>
-            <div class="profile">
-                <img src="assets/Profilepic.png" alt="Profile Image">
-                <span>Frixky</span>
-            </div>
-        </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan
+                masuk</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Ditolak</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Selesai</a>
+        </li>
+    </ul>
 
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan
-                    masuk</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Ditolak</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Selesai</a>
-            </li>
-        </ul>
-
-        <div class="content">
-            <h2>Pesanan masuk</h2>
-        </div>
-        <div class="container-fluid">
-            <table class="table table-hover">
-                <thead>
+    <div class="content">
+        <h2>Pesanan masuk</h2>
+    </div>
+    <div class="container-fluid">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">NO</th>
+                    <th scope="col">ID Pesanan</th>
+                    <th scope="col">Status Pesanan</th>
+                    <th scope="col">Nama Barang</th>
+                    <th scope="col">Kuantitas Barang</th>
+                    <th scope="col">Total Belanja</th>
+                    <th scope="col">Alamat Pembeli</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="list-Pesanan">
+                @foreach ($pesananmasuk as $pesananmasuks)
                     <tr>
-                        <th scope="col">NO</th>
-                        <th scope="col">Status pesanan</th>
-                        <th scope="col">Total belanja</th>
-                        <th scope="col">Id Keranjang</th>
-                        <th scope="col">Action</th>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$pesananmasuks['id_pesanan']}}</td>
+                        <td>{{$pesananmasuks['status_pesanan']}}</td>
+                        <td>{{$pesananmasuks['nama_barang']}}</td>
+                        <td>{{$pesananmasuks['kuantitas_barang']}}</td>
+                        <td>{{$pesananmasuks['total_belanja']}}</td>
+                        <td>{{$pesananmasuks['alamat_pembeli']}}</td>
+                        <td>NULL</td>
                     </tr>
-                </thead>
-                <tbody id="list-Pesanan">
-                    @foreach ($pesanan as $pesanans)
-                        <tr>
-                            <td>{{$pesanans['id_pesanan']}}</td>
-                            <td>{{$pesanans['status_pesanan']}}</td>
-                            <td>{{$pesanans['total_belanja']}}</td>
-                            <td>{{$pesanans['id_keranjang']}}</td>
-                            <td>NULL</td>
-                        </tr>
-
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     </div>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>

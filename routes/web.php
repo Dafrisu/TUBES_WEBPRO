@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\DafaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DafaController;
 use App\Http\Controllers\HaikalController;
+use App\Http\Controllers\RaphaelMessageController;
 
 
 
@@ -26,5 +27,9 @@ Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');
 
-Route::view('/chat', 'Raphael_message_chatPage')->name('umkm.chatpage');
+// View routes (removed since they don't need dynamic data passing)
 Route::view('/message', 'Raphael_message_penjual')->name('umkm.message');
+
+// Chat routes for dynamic content
+Route::get('/umkm/message', [RaphaelMessageController::class, 'showChatPage'])->name('umkm.message');
+Route::post('/umkm/message/send', [RaphaelMessageController::class, 'sendMessage'])->name('umkm.message.send');

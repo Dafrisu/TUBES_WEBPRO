@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
+
     <div class="sidebar">
         <h2>Seller Center</h2>
         <ul>

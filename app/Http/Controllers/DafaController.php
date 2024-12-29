@@ -11,16 +11,33 @@ class DafaController extends Controller
     public function getpesananmasuk()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/pesananmasuk');
+            $response = Http::withOptions(['verify' => false,])->get('localhost/getpesananmasuk');
 
             if ($response->successful()) {
-                $pesanan = $response->json(); // Decode JSON
-                return view('Dafa_kelolaPesanan', compact('pesanan'));
+                $pesananmasuk = $response->json();
+                return view('Dafa_kelolaPesanan', compact('pesananmasuk'));
             } else {
                 return view('Dafa_kelolaPesanan')->with('error', 'Gagal mendapatkan data pesanan dari API');
             }
         } catch (\Exception $e) {
             return view('Dafa_kelolaPesanan')->with('error', $e->getMessage());
+        }
+    }
+
+    public function getpesananditerima()
+    {
+        try {
+            $response = Http::withOptions(['verify' => false,])->get('localhost/getpesananditerima');
+
+            if ($response->successful()) {
+                $pesananditerima = $response->json();
+
+                return view('Dafa_pesananDiterima', compact('pesananditerima'));
+            } else {
+                return view('Dafa_pesananDiterima')->with('error', 'Gagal mendapatkan data pesanan dari API');
+            }
+        } catch (\Exception $e) {
+            return view('Dafa_pesananDiterima')->with('error', $e->getMessage());
         }
     }
 }

@@ -73,15 +73,14 @@
                     </tr>
                 </thead>
                 <tbody id="list-Pesanan">
-                    @foreach ($pesanan as $pesanans)
+                    @foreach ($pesananmasuk as $pesananmasuks)
                         <tr>
-                            <td>{{$pesanans['id_pesanan']}}</td>
-                            <td>{{$pesanans['status_pesanan']}}</td>
-                            <td>{{$pesanans['total_belanja']}}</td>
-                            <td>{{$pesanans['id_keranjang']}}</td>
+                            <td>{{$pesananmasuks['id_pesanan']}}</td>
+                            <td>{{$pesananmasuks['status_pesanan']}}</td>
+                            <td>{{$pesananmasuks['total_belanja']}}</td>
+                            <td>{{$pesananmasuks['id_keranjang']}}</td>
                             <td>NULL</td>
                         </tr>
-
                     @endforeach
                 </tbody>
             </table>

@@ -61,16 +61,25 @@
                 <thead>
                     <tr>
                         <th scope="col">NO</th>
+                        <th scope="col">ID Pesanan</th>
+                        <th scope="col">Nama Pembeli</th>
                         <th scope="col">Nama Barang</th>
                         <th scope="col">Quantitas Barang</th>
                         <th scope="col">Harga</th>
                     </tr>
                 </thead>
                 <tbody id="list-Pesanan">
-                    <td>1</td>
-                    <td>Logitech G502 HERO High Performance Gaming Mouse</td>
-                    <td>1</td>
-                    <td>RP.500.000</td>
+                    @foreach ($pesananditerima as $pesananditerimas)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$pesananditerimas['id_pesanan']}}</td>
+                            <td>NULL</td>
+                            <td>{{$pesananditerimas['status_pesanan']}}</td>
+                            <td>{{$pesananditerimas['total_belanja']}}</td>
+                            <td>{{$pesananditerimas['id_keranjang']}}</td>
+                            <td>NULL</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

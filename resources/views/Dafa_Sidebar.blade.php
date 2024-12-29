@@ -15,15 +15,15 @@
     <div class="sidebar">
         <h2>Seller Center</h2>
         <ul>
-            
+
             <li><a href="{{ route('umkm.dashboard') }}">Dashboard</a></li>
             <li><a href="{{ route('umkm.managebarang') }}">Manage Products</a></li>
             <ul>
                 <li onclick="toggleSubmenu()">
                     <div class="container">
                         Pesanan
-                        <img src="{{ asset('images/arrow-down-sign-to-navigate.png') }}" alt="dropdownArrow" id="dropdownArrow"
-                            style="margin-left: 8px;">
+                        <img src="{{ asset('images/arrow-down-sign-to-navigate.png') }}" alt="dropdownArrow"
+                            id="dropdownArrow" style="margin-left: 8px;">
                     </div>
                 </li>
                 <ul id="submenu" class="submenu">

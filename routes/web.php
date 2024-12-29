@@ -12,7 +12,7 @@ Route::view('/sidebar2', 'darryl_sidebar')->name('umkm.sidebar2');
 
 Route::view('/dashboard', 'Dafa_Dashboard')->name('umkm.dashboard');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
-Route::view('/pesanan_diterima', 'Dafa_pesananDiterima')->name('umkm.pesananditerima');
+Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::view('/pesanan_ditolak', 'Dafa_pesananDitolak')->name('umkm.pesananditolak');
 Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');
 Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');

@@ -205,6 +205,3 @@ function navigateToChat(name, message) {
   const encodedMessage = encodeURIComponent(message);
   window.location.href = `/umkm/message`;
 }
-
-
-

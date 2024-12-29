@@ -52,7 +52,27 @@
       <!-- Insert bacotan formalitas -->
       <div class="fs-2 fw-bold text-center">Daftar</div>
       <div class="fs-4 fw-medium mb-4 text-center">Bergabung dengan UMKMku</div>
-      <form>
+      <form action="umkm.landing" method="PUT">
+        @csrf
+        @METHOD("PUT")
+        
+        <!-- Nama Lengkap -->
+        <div class="mb-2">
+          <label for="namaLengkap" class="form-label">Nama lengkap</label>
+          <input type="text" class="form-control" id="namaLengkap" aria-describedby="emailHelp">
+        </div>
+
+        <!-- Nama Usaha -->
+        <div class="mb-2">
+          <label for="namaUsaha" class="form-label">Nama Usaha</label>
+          <input type="text" class="form-control" id="namaUsaha" aria-describedby="emailHelp">
+        </div>
+
+        <!-- Username -->
+        <div class="mb-2">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
+        </div>
 
         <!-- Isi Email -->
         <div class="mb-2">
@@ -68,12 +88,30 @@
 
         <!-- Konfirmasi sandi -->
         <div class="mb-2">
-          <label for="konfirmasiSandi" class="form-label">Konfrimasi sandi</label>
+          <label for="konfirmasiSandi" class="form-label">Konfirmasi sandi</label>
           <input type="password" class="form-control" id="konfirmasiSandi" aria-describedby="emailHelp">
         </div>
-        
+
         <div class="mb-4">
           <input type="checkbox" id="togglePassword"> Tunjukan sandi
+        </div>
+
+        <!-- Nomor Telepon -->
+        <div class="mb-2">
+          <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
+          <input type="text" class="form-control" id="nomorTelepon" aria-describedby="emailHelp">
+        </div>
+
+        <!-- Alamat -->
+        <div class="mb-2">
+          <label for="alamat" class="form-label">Alamat</label>
+          <input type="text" class="form-control" id="konfirmasiSandi" aria-describedby="emailHelp">
+        </div>
+
+        <!-- NIK KTP -->
+        <div class="mb-2">
+          <label for="nikKtp" class="form-label">NIK KTP</label>
+          <input type="text" class="form-control" id="nikKtp" aria-describedby="emailHelp">
         </div>
 
         <!-- Button masuk -->

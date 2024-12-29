@@ -2,37 +2,37 @@
     {
         "title": "Campaign 1",
         "description": "Lorem ipsum dolor sit amet.",
-        "imageUrl": "assets/Sample1copy.png",
+        "imageUrl": "images/Sample1copy.png",
         "lastUpdated": "2 days ago"
     },
     {
         "title": "Campaign 2",
         "description": "Lorem ipsum dolor sit amet.",
-        "imageUrl": "assets/sample3-copy.png",
+        "imageUrl": "images/sample3-copy.png",
         "lastUpdated": "1 week ago"
     },
     {
         "title": "Campaign 3",
         "description": "Lorem ipsum dolor sit amet.",
-        "imageUrl": "assets/UMKMKU.png",
+        "imageUrl": "images/UMKMKU.png",
         "lastUpdated": "3 days ago"
     },
     {
         "title": "Campaign 4",
         "description": "Lorem ipsum dolor sit amet.",
-        "imageUrl": "assets/UMKMKU.png",
+        "imageUrl": "images/UMKMKU.png",
         "lastUpdated": "3 days ago"
     },
     {
         "title": "Campaign 5",
         "description": "Lorem ipsum dolor sit amet.",
-        "imageUrl": "assets/UMKMKU.png",
+        "imageUrl": "images/UMKMKU.png",
         "lastUpdated": "3 days ago"
     },
     {
         "title": "Campaign 6",
         "description": "Lorem ipsum dolor sit amet.",
-        "imageUrl": "assets/UMKMKU.png",
+        "imageUrl": "images/UMKMKU.png",
         "lastUpdated": "3 days ago"
     }
 ]

@@ -16,17 +16,32 @@
 </head>
 <body>
     <!-- Sidebar Component -->
-    <Sidebar-component></Sidebar-component>
+    <script>
+        window.routes = {
+            umkm_dashboard: "{{ route('umkm.dashboard') }}",
+            umkm_managebarang: "{{ route('umkm.managebarang') }}",
+            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
+            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
+            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
+            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
+            umkm_statistik: "{{ route('umkm.statistik') }}",
+            umkm_message: "/message",
+            umkm_inbox: "{{ route('umkm.inbox') }}"
+        };
+    </script>
+
+
+    <x-semua_-sidebar />
 
     <!-- Announcement Bar -->
-    <div class="announcement-bar fixed-top p-3 mb-3" style="background-color: #ffb700; text-align: center;">
+    <!-- <div class="announcement-bar fixed-top p-3 mb-3" style="background-color: #ffb700; text-align: center;">
         <p><strong>Pengumuman :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  
             <a href="#" class="text-dark">x</a>
         </p>
         <button class="close-btn" onclick="document.querySelector('.announcement-bar').style.display='none'" 
                 style="position: fixed; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;
         </button>
-    </div>
+    </div> -->
 
     <!-- Main Content -->
     <div class="col-md-10 main-content mx-auto border" style="border: 1px solid #ddd; border-radius: 10px; padding: 20px;">
@@ -48,9 +63,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" onclick="showPesananPrioritas()">Prioritas Pesanan</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Raphael_message_penjual.html">Aktivitas Toko</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" onclick="showPemasaran()">Pemasaran</a>
@@ -105,24 +117,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>001</td>
-                        <td>A</td>
-                        <td>Product A</td>
-                        <td>2</td>
-                        <td>Pending</td>
-                        <td><input type="checkbox" name="orderSelect" value="001"></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>002</td>
-                        <td>B</td>
-                        <td>Product B</td>
-                        <td>1</td>
-                        <td>Pending</td>
-                        <td><input type="checkbox" name="orderSelect" value="002"></td>
-                    </tr>
+                @foreach($inbox as $item)
+                        <tr id="row-{{ $item['id_pesanan'] }}">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item['id_pesanan'] }}</td>
+                            <td>{{ $item['nama_lengkap'] }}</td>
+                            <td>{{ $item['Nama_Barang'] }}</td>
+                            <td>{{ $item['quantity'] }}</td>
+                            <td>{{ $item['status_pesanan'] }}</td>
+                                        <td>
+                                <input type="checkbox" id="checkbox-{{ $item['id_pesanan'] }}" 
+                                    class="prioritas-checkbox" 
+                                    data-id="{{ $item['id_pesanan'] }}"> <!-- Checkbox for setting priority -->
+                            </td>
+                            
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -144,6 +154,6 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ asset('js/fersya_inbox.js') }}"></script>
-    
+    <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
 </body>
 </html>

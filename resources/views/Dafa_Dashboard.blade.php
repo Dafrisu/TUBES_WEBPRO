@@ -23,7 +23,7 @@
             umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
             umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
             umkm_statistik: "{{ route('umkm.statistik') }}",
-            umkm_message: "/message",
+            umkm_message: "{{ route('umkm.message') }}",
             umkm_inbox: "{{ route('umkm.inbox') }}"
         };
     </script>

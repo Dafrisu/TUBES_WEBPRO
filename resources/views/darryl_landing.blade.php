@@ -23,9 +23,6 @@
 </head>
 
 <body>
-  <!-- Background -->
-  <canvas class="background"></canvas>
-
   <!-- Navbar -->
   <nav class="navbar fixed-top">
 
@@ -47,6 +44,8 @@
 
   <!-- Wrapper untuk form masuk -->
   <div class="container content1">
+    <!-- Background -->
+    <canvas class="background"></canvas>
     <div class="container" id="form_box">
 
       <!-- Insert bacotan formalitas -->

@@ -74,8 +74,8 @@
     </script>
 
 
-    <sidebar-component>
-    </sidebar-component>
+    <x-semua_-sidebar />
+
 
 
     <!-- yang membungkus -->

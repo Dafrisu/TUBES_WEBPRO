@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
+    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
+
     <script>
         window.routes = {
             umkm_dashboard: "{{ route('umkm.dashboard') }}",
@@ -24,56 +27,58 @@
             umkm_inbox: "{{ route('umkm.inbox') }}"
         };
     </script>
-    <Sidebar-component></Sidebar-component>
+    <x-semua_-sidebar />
+    <x-profilebar />
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header Bar -->
-        <div class="header-bar">
-            <h1>Kelola Pesanan</h1>
-            <div class="profile">
-                <img src="assets/Profilepic.png" alt="Profile Image">
-                <span>Frixky</span>
-            </div>
-        </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href={{route('umkm.kelolapesanan')}}>Pesanan masuk</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href={{route('umkm.pesananditerima')}}>Pesanan
+                Diterima</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href={{route('umkm.pesananditolak')}}>Pesanan Ditolak</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href={{route('umkm.pesananselesai')}}>Pesanan Selesai</a>
+        </li>
+    </ul>
 
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href={{route('umkm.kelolapesanan')}}>Pesanan masuk</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href={{route('umkm.pesananditerima')}}>Pesanan
-                    Diterima</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href={{route('umkm.pesananditolak')}}>Pesanan Ditolak</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href={{route('umkm.pesananselesai')}}>Pesanan Selesai</a>
-            </li>
-        </ul>
-
-        <div class="content">
-            <h2>Pesanan Selesai</h2>
-        </div>
-        <div class="container-fluid">
-            <table class="table table-hover">
-                <thead>
+    <div class="content">
+        <h2>Pesanan Selesai</h2>
+    </div>
+    <div class="container-fluid">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">NO</th>
+                    <th scope="col">ID Pesanan</th>
+                    <th scope="col">Status Pesanan</th>
+                    <th scope="col">Nama Barang</th>
+                    <th scope="col">Kuantitas Barang</th>
+                    <th scope="col">Total Belanja</th>
+                    <th scope="col">Alamat Pembeli</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="list-Pesanan">
+                @foreach ($pesananselesai as $pesananselesais)
                     <tr>
-                        <th scope="col">NO</th>
-                        <th scope="col">Nama Barang</th>
-                        <th scope="col">Quantitas Barang</th>
-                        <th scope="col">Harga</th>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$pesananselesais['id_pesanan']}}</td>
+                        <td>{{$pesananselesais['status_pesanan']}}</td>
+                        <td>{{$pesananselesais['nama_barang']}}</td>
+                        <td>{{$pesananselesais['kuantitas_barang']}}</td>
+                        <td>{{$pesananselesais['total_belanja']}}</td>
+                        <td>{{$pesananselesais['alamat_pembeli']}}</td>
+                        <td>NULL</td>
                     </tr>
-                </thead>
-                <tbody id="list-Pesanan">
-                    <td>1</td>
-                    <td>Logitech G502 HERO High Performance Gaming Mouse</td>
-                    <td>1</td>
-                    <td>RP.500.000</td>
-                </tbody>
-            </table>
-        </div>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     </div>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>

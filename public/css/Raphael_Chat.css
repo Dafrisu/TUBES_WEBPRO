@@ -1,3 +1,4 @@
+/* Raphael_Chat.css */
 body, html {
     margin: 0;
     padding: 0;
@@ -22,8 +23,13 @@ body, html {
     color: white;
 }
 
+.chat-header a.back-button {
+    text-decoration: none;
+}
+
 .back-button {
     background: transparent;
+    text-decoration: none;
     color: white;
     border: none;
     padding: 8px;

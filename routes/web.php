@@ -13,9 +13,11 @@ Route::view('/sidebar2', 'darryl_sidebar')->name('umkm.sidebar2');
 
 Route::view('/dashboard', 'Dafa_Dashboard')->name('umkm.dashboard');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
-Route::view('/pesanan_diterima', 'Dafa_pesananDiterima')->name('umkm.pesananditerima');
-Route::view('/pesanan_ditolak', 'Dafa_pesananDitolak')->name('umkm.pesananditolak');
-Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');
+Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
+Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
+Route::get('/pesananselesai', [DafaController::class, 'getpesananselesai'])->name('umkm.pesananselesai');
+// Route::view('/pesanan_ditolak', 'Dafa_pesananDitolak')->name('umkm.pesananditolak');
+// Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');
 Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
@@ -33,3 +35,7 @@ Route::view('/message', 'Raphael_message_penjual')->name('umkm.message');
 // Chat routes for dynamic content
 Route::get('/umkm/message', [RaphaelMessageController::class, 'showChatPage'])->name('umkm.message');
 Route::post('/umkm/message/send', [RaphaelMessageController::class, 'sendMessage'])->name('umkm.message.send');
+
+
+//testing sidebar
+Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');

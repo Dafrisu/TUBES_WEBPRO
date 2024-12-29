@@ -25,7 +25,7 @@ class Sidebar extends HTMLElement {
                 <li onclick="toggleSubmenu()">
                     <div class="container">
                         Pesanan
-                        <img src="assets/arrow-down-sign-to-navigate.png" alt="dropdownArrow" id="dropdownArrow"
+                        <img src={{"assets/arrow-down-sign-to-navigate.png"}} alt="dropdownArrow" id="dropdownArrow"
                             style="margin-left: 8px;">
                     </div>
                 </li>

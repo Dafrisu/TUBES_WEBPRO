@@ -52,10 +52,8 @@
       <!-- Insert bacotan formalitas -->
       <div class="fs-2 fw-bold text-center">Daftar</div>
       <div class="fs-4 fw-medium mb-4 text-center">Bergabung dengan UMKMku</div>
-      <form action="umkm.landing" method="PUT">
+      <form action="{{ route('umkm.register') }}" method="POST">
         @csrf
-        @METHOD("PUT")
-        
         <!-- Nama Lengkap -->
         <div class="mb-2">
           <label for="namaLengkap" class="form-label">Nama lengkap</label>

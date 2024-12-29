@@ -9,8 +9,8 @@ use App\Http\Controllers\DarrylController;
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
-route::post('/masuk', [DarrylController::class, 'masuk'])->name('umkm.masuk');
-route::post('/', [DarrylController::class, 'daftar'])->name('umkm.landing');
+route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.register');
+route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 
 //Route Punya Dapa
 Route::view('/dashboard', 'Dafa_Dashboard')->name('umkm.dashboard');

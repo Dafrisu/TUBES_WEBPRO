@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HaikalController;
-
+use App\Http\Controllers\FersyaController;
 
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');
@@ -17,7 +17,7 @@ Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesa
 Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
-Route::view('/inbox', 'fersya_inbox')->name('umkm.inbox');
+route::get('/inboxMasuk', [FersyaController::class, 'getviewinbox'])->name('umkm.inboxMasuk');
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
 route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm.addbarang');

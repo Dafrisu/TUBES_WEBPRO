@@ -63,6 +63,7 @@
         <div class="mb-4">
           <label for="inputPassword" class="form-label">Kata sandi</label>
           <input type="password" class="form-control" id="inputPassword">
+          <input type="checkbox" id="RememberMe" name="RememberMe"> Remember me
           <input type="checkbox" id="togglePassword"> Tunjukan sandi
 
           <!-- Lempar ke ubah sandi !soon

@@ -1,4 +1,3 @@
-// Raphael_Message.js
 // Convert time string to Date object for proper sorting
 function timeToDate(timeStr) {
   const today = new Date();
@@ -29,7 +28,7 @@ function showChatSection(section) {
   exampleMessages.style.display = "block";
 
   // Fetch the messages from the JSON file
-  fetch("json/messages.json") // Adjust the path if necessary
+  fetch("javascript/messages.json") // Adjust the path if necessary
     .then((response) => response.json()) // Parse the JSON response
     .then((data) => {
       currentMessages = [...data[section]]; // Access the specific section (open, unread, unreplied)
@@ -96,7 +95,7 @@ function displayMessages(messageList) {
 }
 
 function loadChatMessages(userName) {
-  fetch("json/messages.json")
+  fetch("javascript/messages.json")
     .then((response) => response.json())
     .then((data) => {
       // Flatten all messages into a single list
@@ -203,7 +202,7 @@ function goBackChat() {
 function navigateToChat(name, message) {
   const encodedName = encodeURIComponent(name);
   const encodedMessage = encodeURIComponent(message);
-  window.location.href = `/chat?name=${encodedName}&message=${encodedMessage}`;
+  window.location.href = `Raphael_message_chatPage.html?name=${encodedName}&message=${encodedMessage}`;
 }
 
 

@@ -141,7 +141,7 @@
                     <td>{{ $item['stok'] }}</td>
                     <td>{{ $item['berat'] }} kg</td>
                     <td>
-                        <button type="button" class="btn btn-warning">Edit</button>
+                        <a href="{{route('umkm.viewupdate', $item['id'])}}"><button type="button" class="btn btn-warning">Edit</button></a>
                         <form action="{{route('umkm.deletebarang', $item['id'])}}" method="post">
                             @csrf
                             @method('DELETE')

@@ -1,3 +1,4 @@
+<!-- Raphael_message_penjual.blade -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,14 +25,14 @@
                 <!-- BackButton -->
                 <div class="col ms-auto px-10">
                     <div class="back-button-container">
-                        <button onclick="goBackDashboard()" class="btn btn-secondary">
+                        <a href="{{ route('umkm.dashboard') }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <!-- Profile Section -->
                 <div class="profile-section text-center">
-                    <img src="assets/Profilepic.png" alt="Profile Picture" class="rounded-circle mb-2" width="80" />
+                    <img src="images/Profilepic.png" alt="Profile Picture" class="rounded-circle mb-2" width="80" />
                     <h6>Customer Service</h6>
                     <p>Welcome, User</p>
                 </div>
@@ -64,7 +65,7 @@
         <div class="col ms-auto px-4">
             <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">
                 <div class="header-logo">
-                    <img src="assets/Sample 1 copy.png" alt="UMKM Icon" width="80" />
+                    <img src="images/logoU.png" alt="UMKM Icon" width="80" />
                     <h1 class="h2 mb-0">UMKM CHAT</h1>
                 </div>
             </div>

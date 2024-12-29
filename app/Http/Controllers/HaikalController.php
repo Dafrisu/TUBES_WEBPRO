@@ -29,6 +29,26 @@ class HaikalController extends Controller
         }
     }
 
+    public function getUpdateprodukview($id)
+    {
+        try {
+            if (!$id) {
+                throw new \Exception('ID Produk tidak ditemukan');
+            }
+
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/produk/' . $id);
+
+            if ($respose->successful()) {
+                $produk = $respose->json();
+                return view('Haikal_pageUpdatebarang', compact('produk'));
+            } else {
+                throw new \Exception('Tidak menemukan barang ang dicari');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.managebarang')->with('error', $e->getMessage());
+        }
+    }
+
     public function addproduk(Request $request)
     {
         try {
@@ -65,6 +85,29 @@ class HaikalController extends Controller
         } catch (\Exception $e) {
             // Handle any exceptions that occur
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function editproduk(Request $request, $id)
+    {
+        try {
+            // Validasi semua input
+            $validatedData = $request->validate([
+                '*' => 'required' // Semua field harus ada dan tidak boleh kosong
+            ]);
+
+            // Kirim data ke API untuk update
+            $response = Http::withOptions(['verify' => false])
+                ->put("https://umkmapi.azurewebsites.net/updateproduk/" . $id, $validatedData);
+
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm.managebarang')->with('success', 'Produk berhasil diperbarui');
+            } else {
+                throw new \Exception('Gagal memperbarui produk di API');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.managebarang')->with('error', $e->getMessage());
         }
     }
 

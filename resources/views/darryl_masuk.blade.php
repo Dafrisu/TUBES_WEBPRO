@@ -78,7 +78,7 @@
 
         <!-- Button masuk -->
         <div class="d-flex flex-column justify-content-center">
-          <button type="button" class="btn" onclick="validate()">
+          <button type="submit" class="btn" onclick="validate()">
             Masuk
           </button>
         </div>

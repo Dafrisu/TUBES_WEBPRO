@@ -113,7 +113,7 @@
 
         <!-- Button masuk -->
         <div class="d-flex flex-column justify-content-center">
-          <button type="button" class="btn Daftar" onclick="validate()">
+          <button type="submit" class="btn Daftar" onclick="validate()">
             Daftar Sekarang
           </button>
         </div>

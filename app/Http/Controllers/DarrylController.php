@@ -34,7 +34,7 @@ class DarrylController extends Controller
             ]);
 
             if ($response->getStatusCode() == 200) {
-                return redirect()->route('umkm.login')
+                return redirect()->route('umkm.masuk')
                     ->with('success', 'Berhasil Mendaftar! (emote mantap)');
             } else {
                 return redirect()->back()

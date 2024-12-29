@@ -1,0 +1,142 @@
+html, body { 
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: block;
+  align-items: center;
+  background-color: #FCFAFA;
+}
+
+/* untuk background (bawaan dari web) */
+.background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  max-height: 100vh;
+}
+
+/* untuk box yang membungkus form login/register */
+#form_box {
+  background: transparent;
+  border: 1px solid rgba(101, 136, 100, 0.3);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  padding: 4%;
+  max-width: 70%;
+  max-height: fit-content;
+}
+
+/* untuk clickable nama web yang ada pada navbar */
+.brand-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #191716;
+  font-family: 'Montserrat';
+}
+
+/* untuk headline login/register */
+.fs-2, .fs-4, .fs-1, .fs-3 {
+  color: #191716;
+  font-family: 'Montserrat';
+}
+
+.fs-1 {
+  font-weight: bold;
+}
+
+.fs-3 {
+  font-weight: normal;
+}
+
+/* untuk semua button */
+.btn {
+  font-family: 'Montserrat';
+  font-size: medium;
+  background-color: #658864;
+  color: #FCFAFA;
+  border: solid 2px #658864;
+  font-weight: bold;
+  min-width: 150px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* untuk menambahkan effect hover pada semua button */
+.btn:hover {
+  background-color: #658864;
+  color: #FCFAFA;
+  border: solid 2px #658864;
+  opacity: 0.9;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 2 doang */
+.content1 {
+  display: flex;
+  background-color: transparent;
+  width: 100vh;
+  height: 100vh;
+  align-items: center;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 2 doang */
+.content2 {
+  background-color: #F2F0F0;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 3 doang */
+.content3 {
+  background-color: #FCFAFA;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* might be temporary buat ngeliat sebesar apa container 4 doang */
+.content4 {
+  background-color: #658864;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.content4 .fs-1 {
+  color: #FCFAFA;
+}
+
+/* background navbar */
+.navbar {
+  background: #F2F0F0;
+  border: 1px solid rgba(101, 136, 100, 0.3);
+  padding: 0;
+  margin: 0;
+}
+
+/* remove padding navbar-brand (container yang membungkus logo dan nama web)
+biar navbar keliatan lebih tipis */
+.navbar-brand {
+  padding: 0;
+}
+
+/* untuk button yang dikanan */
+#navbar_button a {
+  color: #191716;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: bold;
+  font-size: medium;
+}
+
+#sellerStoryCarousel {
+  padding-top: 2rem;
+}

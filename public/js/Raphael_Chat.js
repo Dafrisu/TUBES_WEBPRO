@@ -1,131 +1,197 @@
+// Raphael_Chat.js
+// Base API URL
+const API_BASE_URL = "https://umkmapi.azurewebsites.net/message";
+
+// Function to navigate to the chat page
 function navigateToChat(customerId) {
-  window.location.href = `Raphael_message_chatPage.html?customerId=${customerId}`;
+    window.location.href = `{{ route('umkm.message') }}?customerId=${customerId}`;
 }
 
-document.querySelectorAll(".customer").forEach((customerElement) => {
-  customerElement.addEventListener("click", () => {
-    const customerId = customerElement.dataset.customerId; // Ensure you have this dataset in HTML
-    navigateToChat(customerId);
-  });
-});
-
+// Load messages when the page is loaded
 window.onload = function () {
-  loadMessages(); // Load the messages when the page loads
+    loadMessages();
 };
 
-function loadMessages() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const customerId = urlParams.get("customerId");
+// Function to load chat messages
+async function loadMessages() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const customerId = urlParams.get("customerId");
 
-  if (!customerId) {
-    console.error("No customerId in the URL");
-    return;
-  }
+    if (!customerId) {
+        console.error("No customerId in the URL");
+        return;
+    }
 
-  console.log("Customer ID:", customerId); // Debugging output to check customerId
+    const userNameElement = document.getElementById("userName");
+    if (userNameElement) {
+        userNameElement.innerText = `Customer ID: ${customerId}`;
+    }
 
-  // Set the customer name in the header
-  const userNameElement = document.getElementById("userName");
-  if (userNameElement) {
-    userNameElement.innerText = customerId; // Update the header with customer name
-    console.log("Updated userName to:", customerId); // Debugging output
-  } else {
-    console.error("User name element not found.");
-  }
+    try {
+        const response = await fetch(`/umkm/message?customerId=${customerId}`); // Updated endpoint
 
-  fetch("javascript/chat.json")
-    .then((response) => response.json())
-    .then((data) => {
-      const customerChat = data.chats.find(
-        (chat) => chat.customerId === customerId
-      );
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-      if (customerChat) {
+        const customerChat = await response.json();
         const chatWindow = document.getElementById("chatWindow");
-        // Clear previous messages
+        chatWindow.innerHTML = ""; // Clear any previous messages
 
-        customerChat.messages.forEach((chatItem) => {
-          const messageHTML = `
-            <div class="message ${
-              chatItem.sender === "self" ? "right" : "left"
-            }">
-              <img src="assets/Profilepic.png" alt="User Avatar" class="avatar">
-              <div class="message-bubble">
-                <p>${chatItem.message}</p>
-                <div class="message-time">${chatItem.time}</div>
-              </div>
-            </div>
-          `;
-          chatWindow.insertAdjacentHTML("beforeend", messageHTML);
+        customerChat.forEach((chatItem) => {
+            const messageHTML = `
+                <div class="message ${
+                    chatItem.sender_type === "self" ? "right" : "left"
+                }">
+                    <img src="/images/${
+                        chatItem.sender_type === "self" ? "umkm" : "customer"
+                    }_Profilepic.png" alt="User Avatar" class="avatar">
+                    <div class="message-bubble">
+                        <p>${chatItem.message}</p>
+                        <div class="message-time">${new Date(
+                            chatItem.sent_at
+                        ).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                            hour12: false,
+                        })}</div>
+                    </div>
+                </div>
+            `;
+            chatWindow.insertAdjacentHTML("beforeend", messageHTML);
         });
 
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-      } else {
-        console.log("Chat data for this customer not found.");
-      }
-    })
-    .catch((error) => console.error("Error loading chat:", error));
+        chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to the bottom
+    } catch (error) {
+        console.error("Error loading chat:", error);
+    }
 }
 
-// Send message
-function sendMessage() {
-  const messageInput = document.getElementById("messageInput");
-  const message = messageInput.value.trim();
-  const urlParams = new URLSearchParams(window.location.search);
-  const customerId = urlParams.get("customerId"); // fetch customerId
+// Function to send a message
+async function sendMessage() {
+    console.log("Send message triggered");
+    const messageInput = document.getElementById("messageInput");
+    const message = messageInput.value.trim();
+    const urlParams = new URLSearchParams(window.location.search);
+    const customerId = urlParams.get("customerId");
 
-  if (message && customerId) {
-    const timestamp = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
+    if (message && customerId) {
+        try {
+            const receiverId = "receiverId"; // Set your dynamic receiverId here
+            const receiverType = "Pembeli"; // Set the dynamic receiver type here
+
+            const response = await fetch("/umkm/message/send", {
+                method: "POST", // Make sure the method is POST
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    message,
+                    sender_id: customerId, // Dynamic customerId
+                    sender_type: "UMKM", // Sender type
+                    receiver_id: receiverId, // Dynamic receiverId
+                    receiver_type: receiverType, // Dynamic receiverType
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const newMessage = await response.json();
+
+            const chatWindow = document.getElementById("chatWindow");
+            const messageHTML = `
+                <div class="message right">
+                    <img src="/images/Profilepic.png" alt="User Avatar" class="avatar">
+                    <div class="message-bubble">
+                        <p>${newMessage.message}</p>
+                        <div class="message-time">${new Date(
+                            newMessage.sent_at
+                        ).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                            hour12: false,
+                        })}</div>
+                    </div>
+                </div>
+            `;
+            chatWindow.insertAdjacentHTML("beforeend", messageHTML);
+            messageInput.value = ""; // Clear input
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to the bottom
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
+    }
+}
+
+document
+    .getElementById("sendButton")
+    .addEventListener("click", async function () {
+        const messageInput = document.getElementById("messageInput");
+        const message = messageInput.value.trim();
+        const customerId = document.getElementById("customerId").value;
+
+        if (message && customerId) {
+            try {
+                const receiverId = "receiver_Id"; // Gantilah dengan receiverId yang sesuai
+                const receiverType = "Pembeli"; // Gantilah dengan receiverType yang sesuai
+
+                const response = await fetch("/umkm/message/send", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content, // CSRF token
+                    },
+                    body: JSON.stringify({
+                        message,
+                        sender_id: customerId, // ID pengirim
+                        sender_type: "UMKM", // Tipe pengirim
+                        receiver_id: receiverId, // ID penerima
+                        receiver_type: receiverType, // Tipe penerima
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const newMessage = await response.json();
+
+                const chatWindow = document.getElementById("chatWindow");
+                const messageHTML = `
+                <div class="message right">
+                    <img src="/images/Profilepic.png" alt="User Avatar" class="avatar">
+                    <div class="message-bubble">
+                        <p>${newMessage.message}</p>
+                        <div class="message-time">${newMessage.sent_at}</div>
+                    </div>
+                </div>
+            `;
+                chatWindow.insertAdjacentHTML("beforeend", messageHTML);
+                messageInput.value = ""; // Kosongkan input
+                chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll ke bawah
+            } catch (error) {
+                console.error("Error sending message:", error);
+            }
+        }
     });
 
-    // cek user
-    const isSelf = true; // jika true berarti di kirim oleh user
-    const avatarPositionClass = isSelf ? "right" : "left"; // assign class berdasarkan user
-    const avatarHtml = isSelf
-      ? `<img src="assets/Profilepic.png" alt="User Avatar" class="avatar">`
-      : "";
-
-    const messageHTML = `
-      <div class="message ${avatarPositionClass}">
-        ${avatarPositionClass === "left" ? avatarHtml : ""}
-        <div class="message-bubble">
-          <p>${message}</p>
-          <div class="message-time">${timestamp}</div>
-        </div>
-        ${avatarPositionClass === "right" ? avatarHtml : ""}
-      </div>
-    `;
-
-    const chatWindow = document.getElementById("chatWindow");
-    chatWindow.insertAdjacentHTML("beforeend", messageHTML);
-    messageInput.value = ""; //reset chat
-    chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll
-  }
-}
-
-//navigasi back
-function goBackChat() {
-  window.location.href = "Raphael_message_penjual.html";
-}
-
-// inisiasi chat pada page
-window.onload = function () {
-  loadMessages();
-};
-
-// mengirim msg pencet enter
+// Add event listener to "Enter" key to send the message
 document
-  .getElementById("messageInput")
-  .addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
-  });
+    .getElementById("messageInput")
+    .addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            document.getElementById("sendButton").click();
+        }
+    });
 
-// Back button
-document.getElementById("backButton").addEventListener("click", goBackChat);
-
-
-
+// Add event listener to back button
+document.getElementById("backButton").addEventListener("click", () => {
+    window.location.href = `/message`;
+});

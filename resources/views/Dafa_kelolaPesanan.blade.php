@@ -15,52 +15,72 @@
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 
-    <Sidebar-component></Sidebar-component>
-    
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header Bar -->
-        <div class="header-bar">
-            <h1>Kelola Pesanan</h1>
-            <div class="profile">
-                <img src="assets/Profilepic.png" alt="Profile Image">
-                <span>Frixky</span>
-            </div>
-        </div>
+    <script>
+        window.routes = {
+            umkm_dashboard: "{{ route('umkm.dashboard') }}",
+            umkm_managebarang: "{{ route('umkm.managebarang') }}",
+            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
+            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
+            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
+            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
+            umkm_statistik: "{{ route('umkm.statistik') }}",
+            umkm_message: "{{ route('umkm.message') }}",
+            umkm_inbox: "{{ route('umkm.inbox') }}"
+        };
+    </script>
 
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan masuk</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Diterima</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Diterima</a>
-            </li>
-        </ul>
+    <x-semua_-sidebar />
+    <x-profilebar />
 
-        <div class="content">
-            <h2>Pesanan masuk</h2>
-        </div>
-        <div class="container-fluid">
-            <table class="table table-hover">
-                <thead>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ route('umkm.kelolapesanan') }}">Pesanan
+                masuk</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('umkm.pesananditolak') }}">Pesanan Ditolak</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('umkm.pesananselesai') }}">Pesanan Selesai</a>
+        </li>
+    </ul>
+
+    <div class="content">
+        <h2>Pesanan masuk</h2>
+    </div>
+    <div class="container-fluid">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">NO</th>
+                    <th scope="col">ID Pesanan</th>
+                    <th scope="col">Status Pesanan</th>
+                    <th scope="col">Nama Barang</th>
+                    <th scope="col">Kuantitas Barang</th>
+                    <th scope="col">Total Belanja</th>
+                    <th scope="col">Alamat Pembeli</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="list-Pesanan">
+                @foreach ($pesananmasuk as $pesananmasuks)
                     <tr>
-                        <th scope="col">NO</th>
-                        <th scope="col">Nama Barang</th>
-                        <th scope="col">Quantitas Barang</th>
-                        <th scope="col">Harga</th>
-                        <th scope="col">Action</th>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$pesananmasuks['id_pesanan']}}</td>
+                        <td>{{$pesananmasuks['status_pesanan']}}</td>
+                        <td>{{$pesananmasuks['nama_barang']}}</td>
+                        <td>{{$pesananmasuks['kuantitas_barang']}}</td>
+                        <td>{{$pesananmasuks['total_belanja']}}</td>
+                        <td>{{$pesananmasuks['alamat_pembeli']}}</td>
+                        <td>NULL</td>
                     </tr>
-                </thead>
-                <tbody id="list-Pesanan">
-                </tbody>
-            </table>
-        </div>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     </div>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>

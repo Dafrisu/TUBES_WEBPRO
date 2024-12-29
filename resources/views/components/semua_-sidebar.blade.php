@@ -12,10 +12,10 @@
 
 <body>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
+
     <div class="sidebar">
         <h2>Seller Center</h2>
         <ul>
-
             <li><a href="{{ route('umkm.dashboard') }}">Dashboard</a></li>
             <li><a href="{{ route('umkm.managebarang') }}">Manage Products</a></li>
             <ul>

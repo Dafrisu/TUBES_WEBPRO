@@ -74,8 +74,8 @@
     </script>
 
 
-    <sidebar-component>
-    </sidebar-component>
+    <x-semua_-sidebar />
+
 
 
     <!-- yang membungkus -->
@@ -87,8 +87,8 @@
 
         <!-- container dan opsi -->
         <div class="container-sm mt-3">
-            @if (session(' success'))
-            <div class="alert alert-sucess" , role="alert">
+            @if (session('success'))
+            <div class="alert alert-success" , role="alert">
                 {{session('success')}}
             </div>
             @endif
@@ -141,8 +141,12 @@
                     <td>{{ $item['stok'] }}</td>
                     <td>{{ $item['berat'] }} kg</td>
                     <td>
-                        <button type="button" class="btn btn-warning">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <a href="{{route('umkm.viewupdate', $item['id'])}}"><button type="button" class="btn btn-warning">Edit</button></a>
+                        <form action="{{route('umkm.deletebarang', $item['id'])}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

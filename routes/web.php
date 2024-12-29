@@ -6,7 +6,6 @@ use App\Http\Controllers\HaikalController;
 use App\Http\Controllers\RaphaelMessageController;
 
 
-
 Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
 Route::view('/sidebar2', 'darryl_sidebar')->name('umkm.sidebar2');
@@ -25,6 +24,9 @@ Route::view('/inbox', 'fersya_inbox')->name('umkm.inbox');
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
 route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm.addbarang');
+route::get('/updatebarang/{id}', [HaikalController::class, 'getUpdateprodukview'])->name('umkm.viewupdate');
+route::put('/updateproduk/{id}', [HaikalController::class, 'editproduk'])->name('umkm.updateproduk');
+route::delete('/deleteproduk/{id}', [HaikalController::class, 'deleteProduk'])->name('umkm.deletebarang');
 Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');

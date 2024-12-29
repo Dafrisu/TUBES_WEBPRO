@@ -32,12 +32,14 @@ Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');
 
 // // View routes (removed since they don't need dynamic data passing)
-Route::view('/message', 'Raphael_message_penjual')->name('umkm.message');
+Route::view('/message', 'Raphael_message_penjual')->name('message');
+Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('umkm.message');
+
 
 // Chat routes for dynamic content
-Route::get('/umkm/message', [RaphaelMessageController::class, 'showChatPage'])->name('umkm.message');
-
-Route::post('/umkm/message/send', [RaphaelMessageController::class, 'sendMessage'])->name('umkm.message.send');
+Route::get('/umkm/message', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
+Route::post('/send-message', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
+Route::get('/chat', [RaphaelMessageController::class, 'showChatPage'])->name('chatPage');
 
 
 //testing sidebar

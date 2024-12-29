@@ -56,13 +56,13 @@
         <!-- Isi Email -->
         <div class="mb-2">
           <label for="inputEmail" class="form-label">Alamat email</label>
-          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+          <input type="email" class="form-control" @if(isset($_COOKIE['LoginEmail'])) value="{{ $_COOKIE['LoginEmail'] }}" @endif id="inputEmail" name="inputEmail">
         </div>
 
         <!-- Isi kata sandi -->
         <div class="mb-4">
           <label for="inputPassword" class="form-label">Kata sandi</label>
-          <input type="password" class="form-control" id="inputPassword">
+          <input type="password" class="form-control" @if(isset($_COOKIE['LoginPassword'])) value="{{ $_COOKIE['LoginPassword'] }}" @endif id="inputPassword" name="inputPassword">
           <input type="checkbox" id="RememberMe" name="RememberMe"> Remember me
           <input type="checkbox" id="togglePassword"> Tunjukan sandi
 

@@ -57,37 +57,37 @@
         <!-- Nama Lengkap -->
         <div class="mb-2">
           <label for="namaLengkap" class="form-label">Nama lengkap</label>
-          <input type="text" class="form-control" id="namaLengkap" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="namaLengkap" name="namaLengkap">
         </div>
 
         <!-- Nama Usaha -->
         <div class="mb-2">
           <label for="namaUsaha" class="form-label">Nama Usaha</label>
-          <input type="text" class="form-control" id="namaUsaha" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="namaUsaha" name="namaUsaha">
         </div>
 
         <!-- Username -->
         <div class="mb-2">
           <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="username" name="username">
         </div>
 
         <!-- Isi Email -->
         <div class="mb-2">
           <label for="inputEmail" class="form-label">Alamat email</label>
-          <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+          <input type="email" class="form-control" id="inputEmail" name="inputEmail">
         </div>
 
         <!-- Isi kata sandi -->
         <div class="mb-2">
           <label for="inputPassword" class="form-label">Kata sandi</label>
-          <input type="password" class="form-control" id="inputPassword">
+          <input type="password" class="form-control" id="inputPassword" name="inputPassword">
         </div>
 
         <!-- Konfirmasi sandi -->
         <div class="mb-2">
           <label for="konfirmasiSandi" class="form-label">Konfirmasi sandi</label>
-          <input type="password" class="form-control" id="konfirmasiSandi" aria-describedby="emailHelp">
+          <input type="password" class="form-control" id="konfirmasiSandi" name="konfirmasiSandi">
         </div>
 
         <div class="mb-4">
@@ -97,19 +97,19 @@
         <!-- Nomor Telepon -->
         <div class="mb-2">
           <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
-          <input type="text" class="form-control" id="nomorTelepon" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="nomorTelepon" name="nomorTelepon">
         </div>
 
         <!-- Alamat -->
         <div class="mb-2">
           <label for="alamat" class="form-label">Alamat</label>
-          <input type="text" class="form-control" id="alamat" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="alamat" name="alamat">
         </div>
 
         <!-- NIK KTP -->
         <div class="mb-2">
           <label for="nikKtp" class="form-label">NIK KTP</label>
-          <input type="text" class="form-control" id="nikKtp" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="nikKtp" name="nikKtp">
         </div>
 
         <!-- Button masuk -->

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class DarrylController extends Controller
 {
-    function Register(Request $request) {
+    function daftar(Request $request) {
         try {
             Log::info('Register Attempt', ['data' => $request->all()]);
 
@@ -45,7 +45,7 @@ class DarrylController extends Controller
         }
     }
 
-    function Login(Request $request) {
+    function masuk(Request $request) {
         try {
             Log::info('Login Attempt', ['data' => $request->all()]);
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DafaController;
 use App\Http\Controllers\HaikalController;
+use App\Http\Controllers\FersyaController;
 use App\Http\Controllers\RaphaelMessageController;
 use App\Http\Controllers\DarrylController;
 use Illuminate\Support\Facades\Http;
@@ -29,7 +30,7 @@ route::put('/updatestatuspesananditolak/{id}', [DafaController::class, 'updatest
 Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
-Route::view('/inbox', 'fersya_inbox')->name('umkm.inbox');
+route::get('/inbox', [FersyaController::class, 'getviewinbox'])->name('umkm.inbox');
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
 route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm.addbarang');

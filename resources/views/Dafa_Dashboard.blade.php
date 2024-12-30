@@ -14,7 +14,7 @@
 <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
 
 <body>
-    <script>
+    <!-- <script>
         window.routes = {
             umkm_dashboard: "{{ route('umkm.dashboard') }}",
             umkm_managebarang: "{{ route('umkm.managebarang') }}",
@@ -26,8 +26,7 @@
             umkm_message: "{{ route('umkm.message') }}",
             umkm_inbox: "{{ route('umkm.inbox') }}"
         };
-    </script>
-
+    </script> -->
 
     <x-semua_-sidebar />
     <x-profilebar />

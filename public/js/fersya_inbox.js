@@ -22,11 +22,17 @@ function showPemasaran() {
     document.getElementById("pesananMasukTable").style.display = "none";
     document.getElementById("prioritasPesananTable").style.display = "none";
     document.getElementById('pilihTab').style.display = 'none';
+    loadCampaigns();  // Load campaigns when the "Pemasaran" tab is displayed
 }
 
 function loadCampaigns() {
-    fetch('dataPemasaran.json')
-        .then(response => response.json())
+    fetch('/json/dataPemasaran.json') 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(campaigns => {
             const container = document.getElementById("campaignContainer");
             container.innerHTML = ""; 
@@ -55,15 +61,24 @@ function loadCampaigns() {
         .catch(error => console.error('Error loading campaigns:', error));
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll(".prioritas-checkbox");
 
-function showPemasaran() {
-    document.getElementById("pemasaranContent").style.display = "block";
-    loadCampaigns();
-}
-// function showAktivitas() {
-//     document.getElementById("aktivitas").style.display = "block";
-//     document.getElementById("pemasaranContent").style.display = "none";
-//     document.getElementById("pesananMasukTable").style.display = "none";
-//     document.getElementById("prioritasPesananTable").style.display = "none";
-//     document.getElementById('pilihTab').style.display = 'none';
-// }
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener("change", function(event) {
+            const orderId = event.target.dataset.id; 
+            const isChecked = event.target.checked; 
+            const row = document.getElementById(`row-${orderId}`);
+            const tbody = row.closest("tbody");
+
+            if (isChecked) {
+                
+                tbody.insertBefore(row, tbody.firstChild); 
+            } else {
+                
+                const originalPosition = Array.from(tbody.rows).findIndex(r => r.id === `row-${orderId}`);
+                tbody.appendChild(row); 
+            }
+        });
+    });
+});

@@ -1,8 +1,7 @@
 $(document).ready(function () {
-    const umkmId = 2; // Replace with the actual UMKM ID as needed
-    let salesChart; // Declare the salesChart variable outside the function to access it globally
+    const umkmId = 2;
+    let salesChart;
 
-    // Event listener for month selection
     $('#monthSelect').change(function () {
         const selectedValue = $(this).val();
         const currentYear = new Date().getFullYear();
@@ -17,9 +16,8 @@ $(document).ready(function () {
         }
     });
 
-    // Function to fetch daily statistics from the API
     function fetchDailyStats(umkmId, month, year) {
-        const url = `http://localhost:3000/daily-stats/${umkmId}?month=${month}&year=${year}`; // Use the correct URL
+        const url = `http://umkmapi.azurewebsites.net/daily-stats/${umkmId}?month=${month}&year=${year}`;
 
         $.ajax({
             url: url,
@@ -30,65 +28,62 @@ $(document).ready(function () {
             },
             error: function (error) {
                 console.error('Error fetching daily stats:', error);
-                $('#salesValue').text('Error loading sales data');
-                $('#ordersValue').text('Error loading orders data');
+                $('#salesValue').text('Terjadi kesalahan');
+                $('#ordersValue').text('Terjadi kesalahan');
             }
         });
     }
 
-    // Function to fetch monthly statistics from the API
     function fetchYearlyStats(umkmId) {
-        const url = `http://localhost:3000/monthly-stats/${umkmId}`; // Use the correct URL
+        const url = `http://umkmapi.azurewebsites.net/monthly-stats/${umkmId}`;
 
         $.ajax({
             url: url,
             method: 'GET',
             success: function (data) {
                 updateStats(data);
-                updateChart(data, 'yearly'); // Pass 'yearly' for yearly data
+                updateChart(data, 'yearly');
             },
             error: function (error) {
                 console.error('Error fetching yearly stats:', error);
-                $('#salesValue').text('Error loading sales data');
-                $('#ordersValue').text('Error loading orders data');
+                $('#salesValue').text('Terjadi kesalahan');
+                $('#ordersValue').text('Terjadi kesalahan');
             }
         });
     }
 
-    // Function to update the displayed statistics
     function updateStats(data) {
         const totalSales = data.reduce((sum, record) => sum + record.total_sales, 0);
         const totalOrders = data.reduce((sum, record) => sum + record.total_orders, 0);
 
-        $('#salesValue').text(`$${totalSales.toFixed(2)}`);
+        $('#salesValue').text(`Rp${totalSales.toFixed(2)}`);
         $('#ordersValue').text(totalOrders);
     }
 
-    // Function to update the chart with fetched data
     function updateChart(data, type = 'daily') {
         const labels = type === 'yearly'
-            ? data.map(record => monthNames[record.month - 1]) // Use month names for yearly data
-            : data.map(record => record.tanggal); // Use dates for daily data
+            ? data.map(record => monthNames[record.month - 1])
+            : data.map(record => record.tanggal);
         const salesData = data.map(record => record.total_sales);
         const ordersData = data.map(record => record.total_orders);
 
         if (salesChart) {
-            salesChart.destroy(); // Destroy previous chart instance if it exists
+            salesChart.destroy();
         }
 
-        salesChart = new Chart(document.getElementById('salesChart').getContext('2d'), {
+        salesChart = new Chart(document.getElementById('salesChart'), {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Total Sales',
+                        label: 'Total Penjualan',
                         data: salesData,
                         backgroundColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 2,
                     },
                     {
-                        label: 'Total Orders',
+                        label: 'Total Pesanan',
                         data: ordersData,
                         backgroundColor: 'rgba(192, 75, 192, 1)',
                         borderWidth: 2,
@@ -106,21 +101,18 @@ $(document).ready(function () {
         });
     }
 
-    // Array of month names for labeling the chart
     const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
     ];
 
-    // Function to reset the chart when no selection is made
     function resetChart() {
         if (salesChart) {
-            salesChart.destroy(); // Destroy previous chart instance if it exists
+            salesChart.destroy();
         }
-        $('#salesValue').text(''); // Clear sales value
-        $('#ordersValue').text(''); // Clear orders value
+        $('#salesValue').text('');
+        $('#ordersValue').text('');
     }
 
-    // Initial fetch for the current month
     fetchDailyStats(umkmId, new Date().getMonth() + 1, new Date().getFullYear());
 });

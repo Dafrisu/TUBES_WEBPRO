@@ -49,12 +49,9 @@ class DarrylController extends Controller
         try {
             Log::info('Login Attempt', ['data' => $request->all()]);
 
-            // check RememberMe
-            $remember = $request->has('RememberMe');
-
             $data = [
-                'email' => $request->input('inputEmail'),
-                'password' => $request->input('inputPassword'),
+                'inputEmail' => $request->input('inputEmail'),
+                'inputPassword' => $request->input('inputPassword'),
             ];
 
             Log::info('Data prepared', ['data' => $data]);
@@ -67,6 +64,8 @@ class DarrylController extends Controller
                 'json' => $data,
             ]);
 
+            // check RememberMe
+            $remember = $request->has('RememberMe');
             if ($remember) {
                 // isi cookie dengan session yang sudah disimpan kalo RememberMe
                 setcookie("LoginEmail", session('LoginEmail'), time()+3600); // set cookie expire sejam
@@ -85,6 +84,7 @@ class DarrylController extends Controller
                     ->with('error', 'Gagal Masuk! :(' . $response->getBody());
             }
         } catch (\Exception $e) {
+            Log::error('Login failed', ['message' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Gagal total pokoknya dah' . $e->getMessage());
         }
     }

@@ -47,7 +47,7 @@
     </ul>
 
     <div class="content">
-        <h2>Pesanan Diterima</h2>
+        <h2>Pesanan Ditolak</h2>
     </div>
     <div class="container-fluid">
         <table class="table table-hover">
@@ -60,22 +60,27 @@
                     <th scope="col">Kuantitas Barang</th>
                     <th scope="col">Total Belanja</th>
                     <th scope="col">Alamat Pembeli</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody id="list-Pesanan">
-                @foreach ($pesananditolak as $pesananditolaks)
+                @if (isset($pesananditolak) && is_array($pesananditolak) && count($pesananditolak) > 0)
+                    @foreach ($pesananditolak as $pesananditolaks)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$pesananditolaks['id_pesanan']}}</td>
+                            <td>{{$pesananditolaks['status_pesanan']}}</td>
+                            <td>{{$pesananditolaks['nama_barang']}}</td>
+                            <td>{{$pesananditolaks['kuantitas_barang']}}</td>
+                            <td>{{$pesananditolaks['total_belanja']}}</td>
+                            <td>{{$pesananditolaks['alamat_pembeli']}}</td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$pesananditolaks['id_pesanan']}}</td>
-                        <td>{{$pesananditolaks['status_pesanan']}}</td>
-                        <td>{{$pesananditolaks['nama_barang']}}</td>
-                        <td>{{$pesananditolaks['kuantitas_barang']}}</td>
-                        <td>{{$pesananditolaks['total_belanja']}}</td>
-                        <td>{{$pesananditolaks['alamat_pembeli']}}</td>
-                        <td>NULL</td>
+
+                        <td colspan="6" class="text-center">Tidak Ada Pesanan Yang Ditolak</td>
                     </tr>
-                @endforeach
+                @endif
             </tbody>
         </table>
     </div>

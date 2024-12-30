@@ -50,7 +50,7 @@
         <h2>Pesanan Selesai</h2>
     </div>
     <div class="container-fluid">
-        <table class="table table-hover">
+        <table class="table table-hover table-stripped">
             <thead>
                 <tr>
                     <th scope="col">NO</th>
@@ -60,22 +60,27 @@
                     <th scope="col">Kuantitas Barang</th>
                     <th scope="col">Total Belanja</th>
                     <th scope="col">Alamat Pembeli</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody id="list-Pesanan">
-                @foreach ($pesananselesai as $pesananselesais)
+                @if (isset($pesananselesai) && is_array($pesananselesai) && count($pesananselesai) > 0)
+                    @foreach ($pesananselesai as $pesananselesais)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$pesananselesais['id_pesanan']}}</td>
+                            <td>{{$pesananselesais['status_pesanan']}}</td>
+                            <td>{{$pesananselesais['nama_barang']}}</td>
+                            <td>{{$pesananselesais['kuantitas_barang']}}</td>
+                            <td>{{$pesananselesais['total_belanja']}}</td>
+                            <td>{{$pesananselesais['alamat_pembeli']}}</td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$pesananselesais['id_pesanan']}}</td>
-                        <td>{{$pesananselesais['status_pesanan']}}</td>
-                        <td>{{$pesananselesais['nama_barang']}}</td>
-                        <td>{{$pesananselesais['kuantitas_barang']}}</td>
-                        <td>{{$pesananselesais['total_belanja']}}</td>
-                        <td>{{$pesananselesais['alamat_pembeli']}}</td>
-                        <td>NULL</td>
+
+                        <td colspan="6" class="text-center">Tidak Ada Pesanan Yang Sudah Selesai</td>
                     </tr>
-                @endforeach
+                @endif
             </tbody>
         </table>
     </div>

@@ -14,13 +14,14 @@
 </head>
 
 <body>
+    
     <div class="chat-container">
         <div class="chat-header">
             <a href="/message" class="back-button">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div class="chat-user-info">
-                <h1 id="userName">Customer ID: {{ $customerId }}</h1>
+                <h1 id="userName">Customer {{ $customerId }}</h1>
                 <p id="userStatus">Online</p>
             </div>
         </div>
@@ -37,14 +38,20 @@
             @endforeach
         </div>
 
-        <div class="chat-input">
-            <input type="text" id="messageInput" placeholder="Type a message..." required />
-            <input type="hidden" id="customerId" value="{{ $customerId }}">
-            <button type="button" id="sendButton" class="send-button" onclick="sendMessage()">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-
+        <!-- Message Form -->
+        <form action="{{ route('sendMessage') }}" method="POST">
+            @csrf
+            <div class="chat-input">
+                <input type="text" name="message" id="messageInput" placeholder="Type a message..." required />
+                <input type="hidden" name="sender_id" value=1>
+                <input type="hidden" name="sender_type" value="UMKM">
+                <input type="hidden" name="receiver_id" value="{{ $customerId }}">
+                <input type="hidden" name="receiver_type" value="Pembeli">
+                <button type="submit" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
     </div>
 </body>
 

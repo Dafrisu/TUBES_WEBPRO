@@ -1,63 +1,60 @@
-let allData = []; // Variabel untuk menyimpan semua data barang
-console.log(allData)
+// Variabel global untuk menyimpan data
+let allData = [];
 
-$(document).ready(function () {
-    // Load barang saat halaman pertama kali dibuka
+document.addEventListener("DOMContentLoaded", function () {
+    // Load data barang saat halaman pertama kali dibuka
     loadBarang();
 
-
     // Tombol refresh data
-    $("#refreshbutton").click(function () {
+    document.getElementById("refreshbutton").addEventListener("click", function () {
         if (allData.length > 0) {
             refreshData();
         }
     });
 
     // Event handler untuk pills "Semua"
-    $("#brg-semua").click(function () {
+    document.getElementById("brg-semua").addEventListener("click", function () {
         tampilkansemuaBarang(allData);
         aktifkanPill(this);
     });
 
     // Event handler untuk pills "Stok Habis"
-    $("#brg-habis").click(function () {
-        const stokHabis = allData.filter(barang => barang.stok == 0);
+    document.getElementById("brg-habis").addEventListener("click", function () {
+        const stokHabis = allData.filter(barang => barang.stok === 0);
         tampillkanbaranghabis(stokHabis);
         aktifkanPill(this);
     });
 
-    // Fungsi tambah barang
-    $("#addbarangbtn").click(function () {
-        const nama = $("#id_namabarang").val();
-        const harga = $("#id_harga").val();
-        const stok = $("#id_stok").val();
+    // Fungsi untuk load data menggunakan fetch
+    function loadBarang() {
+        fetch('localhost/produk')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Response Data:", data); // Debug: Periksa data yang diterima
 
-        if (!nama || !harga || !stok) {
-            alert("Silakan isi semua field.");
-            return;
-        }
+                if (Array.isArray(data) && data.length > 0) {
+                    allData = data; // Simpan data dari respons API
+                    tampilkansemuaBarang(allData); // Tampilkan data di tabel
+                } else {
+                    alert("Data barang tidak tersedia atau kosong.");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                alert("Gagal memuat data. Periksa koneksi atau backend.");
+            });
+    }
 
-        const newbarang = {
-            id: `brg${allData.length + 1}`,
-            nama: nama,
-            harga: harga,
-            stok: parseInt(stok)
-        };
 
-        allData.push(newbarang);
-        tampilkansemuaBarang(allData); // Tampilkan data terbaru di tabel
-        console.log(allData)
-
-        // Reset input setelah ditambahkan
-        $("#id_namabarang").val('');
-        $("#id_harga").val('');
-        $("#id_stok").val('');
-    });
-
-    // Fungsi untuk menampilkan semua data yang ada stoknya di tabel
+    // Fungsi untuk menampilkan semua barang
     function tampilkansemuaBarang(data) {
-        const produktable = $("#produktable");
-        produktable.empty();
+        const produktable = document.getElementById("produktable");
+        produktable.innerHTML = ""; // Kosongkan tabel
 
         data.forEach((barang, index) => {
             if (barang.stok != 0) {
@@ -65,63 +62,72 @@ $(document).ready(function () {
                     <tr>
                         <td>${index + 1}</td>
                         <td>${barang.id}</td>
-                        <td>${barang.nama}</td>
-                        <td>${barang.harga}</td>
+                        <td>${barang.nama_barang}</td>
+                        <td>${barang.harga.toLocaleString()}</td>
                         <td>${barang.stok}</td>
+                        <td>${barang.berat} kg</td>
+                        <td>
+                            <a href="/umkm/viewupdate/${barang.id}">
+                                <button type="button" class="btn btn-warning">Edit</button>
+                            </a>
+                            <form action="/umkm/deletebarang/${barang.id}" method="post" style="display:inline;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').content}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>`;
-                produktable.append(row);
+                produktable.insertAdjacentHTML('beforeend', row);
             }
         });
     }
 
+    // Fungsi untuk menampilkan barang habis stok
     function tampillkanbaranghabis(data) {
-        const produktable = $("#produktable");
-        produktable.empty();
+        const produktable = document.getElementById("produktable");
+        produktable.innerHTML = ""; // Kosongkan tabel
 
         data.forEach((barang, index) => {
-            if (barang.stok == 0) {
+            if (barang.stok === 0) {
                 const row = `
                     <tr>
                         <td>${index + 1}</td>
                         <td>${barang.id}</td>
-                        <td>${barang.nama}</td>
-                        <td>${barang.harga}</td>
+                        <td>${barang.nama_barang}</td>
+                        <td>${barang.harga.toLocaleString()}</td>
                         <td>${barang.stok}</td>
+                        <td>${barang.berat} kg</td>
+                        <td>
+                            <a href="/umkm/viewupdate/${barang.id}">
+                                <button type="button" class="btn btn-warning">Edit</button>
+                            </a>
+                            <form action="/umkm/deletebarang/${barang.id}" method="post" style="display:inline;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').content}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>`;
-                produktable.append(row);
+                produktable.insertAdjacentHTML('beforeend', row);
             }
         });
     }
 
-    // Fungsi untuk load data JSON
-    function loadBarang() {
-        $.getJSON('databarang.json', function (data) {
-            if (data.databarang && data.databarang.length > 0) {
-                allData = data.databarang; // Tambahkan data dari JSON ke allData
-                tampilkansemuaBarang(allData); // Tampilkan data
-            } else {
-                alert("Data barang tidak tersedia atau kosong.");
-            }
-        }).fail(function () {
-            alert("Gagal memuat JSON. Periksa path atau format file.");
-        });
-    }
-
-    // Function untuk refresh button
+    // Fungsi untuk refresh data
     function refreshData() {
-        const activePill = $(".nav-link.active").data("filter");
+        const activePill = document.querySelector(".nav-link.active").dataset.filter;
 
         if (activePill === "semua") {
             tampilkansemuaBarang(allData);
         } else if (activePill === "stokhabis") {
             const stokHabis = allData.filter(barang => barang.stok === 0);
-            tampilkansemuaBarang(stokHabis);
+            tampillkanbaranghabis(stokHabis);
         }
     }
 
     // Fungsi untuk menandai pill yang aktif
     function aktifkanPill(pill) {
-        $(".nav-link").removeClass("active");
-        $(pill).addClass("active");
+        document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+        pill.classList.add("active");
     }
 });

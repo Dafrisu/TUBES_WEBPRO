@@ -77,6 +77,22 @@ class DarrylController extends Controller
             }
 
             if ($response->getStatusCode() == 200) {
+                $responseData = json_decode($response->getBody()->getContents(), true);
+
+                // Assuming the API response includes 'id_umkm' (adjust based on actual response structure)
+                if (isset($responseData['id_umkm'])) {
+                    // Store umkmID in the session
+                    session(['umkmID' => $responseData['id_umkm']]);
+                    session(['LoginEmail' => $data['email']]); // Optional: Store email in the session too
+
+                    // Optionally log the session creation
+                    Log::info('Session created', ['umkmID' => $responseData['id_umkm']]);
+
+                    return redirect()->route('umkm.dashboard')
+                        ->with('success', 'Berhasil Masuk! (emote mantap)');
+                } else {
+                    return redirect()->back()->with('error', 'Gagal Masuk! ID UMKM tidak ditemukan.');
+                }
                 return redirect()->route('umkm.dashboard')
                     ->with('success', 'Berhasil Masuk! (emote mantap)');
             } else {

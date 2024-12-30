@@ -48,10 +48,15 @@
   <!-- Wrapper untuk form masuk -->
   <div class="container content1">
     <div class="container" id="form_box">
+      @if (session('error'))
+      <div class="alert alert-danger">
+        {{session('error')}}
+      </div>
+      @endif
       <!-- Insert bacotan formalitas -->
       <div class="fs-2 fw-bold text-center">Masuk</div>
       <div class="fs-4 fw-medium mb-4 text-center">Masuk ke akun UMKMku</div>
-      <form method = "POST" action = "{{ route('umkm.login') }}">
+      <form method="POST" action="{{ route('umkm.login') }}">
         @csrf
         <!-- Isi Email -->
         <div class="mb-2">

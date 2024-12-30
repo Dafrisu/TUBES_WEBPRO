@@ -1,11 +1,13 @@
 $(document).ready(function () {
-    const umkmId = 2;
+    const umkmId = 1; // Hardcoded for now
     let salesChart;
 
+    // Event listener for dropdown change
     $('#monthSelect').change(function () {
         const selectedValue = $(this).val();
         const currentYear = new Date().getFullYear();
 
+        // Check if the selected value is "yearly"
         if (selectedValue === "yearly") {
             fetchYearlyStats(umkmId);
         } else if (selectedValue) {
@@ -17,7 +19,7 @@ $(document).ready(function () {
     });
 
     function fetchDailyStats(umkmId, month, year) {
-        const url = `http://umkmapi.azurewebsites.net/daily-stats/${umkmId}?month=${month}&year=${year}`;
+        const url = `https://umkmapi.azurewebsites.net/daily-stats/${umkmId}?month=${month}&year=${year}`;
 
         $.ajax({
             url: url,
@@ -35,7 +37,7 @@ $(document).ready(function () {
     }
 
     function fetchYearlyStats(umkmId) {
-        const url = `http://umkmapi.azurewebsites.net/monthly-stats/${umkmId}`;
+        const url = `https://umkmapi.azurewebsites.net/monthly-stats/${umkmId}`;
 
         $.ajax({
             url: url,
@@ -113,6 +115,4 @@ $(document).ready(function () {
         $('#salesValue').text('');
         $('#ordersValue').text('');
     }
-
-    fetchDailyStats(umkmId, new Date().getMonth() + 1, new Date().getFullYear());
 });

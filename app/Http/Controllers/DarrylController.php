@@ -80,6 +80,18 @@ class DarrylController extends Controller
             }
 
             if ($response->getStatusCode() == 200) {
+                $responseData = json_decode($response->getBody()->getContents(), true);
+
+                if (isset($responseData['id_umkm'])) {
+                    session(['umkmID' => $responseData['id_umkm']]);
+
+                    Log::info('Session created', ['umkmID' => $responseData['id_umkm']]);
+
+                    return redirect()->route('umkm.dashboard')
+                        ->with('success', 'Berhasil Masuk! (emote mantap)');
+                } else {
+                    return redirect()->back()->with('error', 'Gagal Masuk! ID UMKM tidak ditemukan.');
+                }
                 return redirect()->route('umkm.dashboard')
                     ->with('success', 'Berhasil Masuk! (emote mantap)');
             } else {

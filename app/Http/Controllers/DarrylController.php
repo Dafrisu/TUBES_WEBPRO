@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -8,7 +9,8 @@ use Illuminate\Support\Facades\Log;
 
 class DarrylController extends Controller
 {
-    function daftar(Request $request) {
+    function daftar(Request $request)
+    {
         try {
             Log::info('Register Attempt', ['data' => $request->all()]);
 
@@ -45,7 +47,8 @@ class DarrylController extends Controller
         }
     }
 
-    function masuk(Request $request) {
+    function masuk(Request $request)
+    {
         try {
             Log::info('Login Attempt', ['data' => $request->all()]);
 
@@ -68,8 +71,8 @@ class DarrylController extends Controller
             $remember = $request->has('RememberMe');
             if ($remember) {
                 // isi cookie dengan session yang sudah disimpan kalo RememberMe
-                setcookie("LoginEmail", session('LoginEmail'), time()+3600); // set cookie expire sejam
-                setcookie("LoginPassword", session('LoginPassword'), time()+3600); // set cookie expire sejam
+                setcookie("LoginEmail", session('LoginEmail'), time() + 3600); // set cookie expire sejam
+                setcookie("LoginPassword", session('LoginPassword'), time() + 3600); // set cookie expire sejam
             } else {
                 // Kosongkan cookie kalo tidak RememberMe
                 setcookie("LoginEmail", "");
@@ -97,7 +100,7 @@ class DarrylController extends Controller
             }
         } catch (\Exception $e) {
             Log::error('Login failed', ['message' => $e->getMessage()]);
-            return redirect()->back()->with('error', 'Gagal total pokoknya dah' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal total pokoknya dah');
         }
     }
 }

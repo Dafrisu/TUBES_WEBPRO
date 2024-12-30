@@ -108,7 +108,7 @@
         <!-- NIK KTP -->
         <div class="mb-2">
           <label for="nikKtp" class="form-label">NIK KTP</label>
-          <input type="text" class="form-control" id="nikKtp" name="nikKtp">
+          <input type="number" class="form-control" id="nikKtp" name="nikKtp">
         </div>
 
         <!-- Button masuk -->

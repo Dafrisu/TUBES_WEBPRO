@@ -63,17 +63,24 @@
                 </tr>
             </thead>
             <tbody id="list-Pesanan">
-                @foreach ($pesananditolak as $pesananditolaks)
+                @if (isset($pesananditolak) && is_array($pesananditolak) && count($pesananditolak) > 0)
+                    @foreach ($pesananditolak as $pesananditolaks)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$pesananditolaks['id_pesanan']}}</td>
+                            <td>{{$pesananditolaks['status_pesanan']}}</td>
+                            <td>{{$pesananditolaks['nama_barang']}}</td>
+                            <td>{{$pesananditolaks['kuantitas_barang']}}</td>
+                            <td>{{$pesananditolaks['total_belanja']}}</td>
+                            <td>{{$pesananditolaks['alamat_pembeli']}}</td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$pesananditolaks['id_pesanan']}}</td>
-                        <td>{{$pesananditolaks['status_pesanan']}}</td>
-                        <td>{{$pesananditolaks['nama_barang']}}</td>
-                        <td>{{$pesananditolaks['kuantitas_barang']}}</td>
-                        <td>{{$pesananditolaks['total_belanja']}}</td>
-                        <td>{{$pesananditolaks['alamat_pembeli']}}</td>
+
+                        <td colspan="6" class="text-center">Tidak Ada Pesanan Yang Ditolak</td>
                     </tr>
-                @endforeach
+                @endif
             </tbody>
         </table>
     </div>

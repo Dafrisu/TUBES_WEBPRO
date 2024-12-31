@@ -33,7 +33,7 @@ function cekSama(p1, p2) {
   return true;
 }
 
-function valida() {
+function validate() {
   const currentPage = window.location.pathname;
 
   switch (currentPage) {

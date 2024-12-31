@@ -21,7 +21,7 @@
                 <a href="{{route('umkm.getprofileumkm', session('umkmID'))}}">
                     <img src="{{ asset('images/Profilepic.png') }}" alt="Profile Image">
                 </a>
-                <span>Frixky</span>
+                <span>{{$profile['username']}}</span>
             </div>
         </div>
         <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>

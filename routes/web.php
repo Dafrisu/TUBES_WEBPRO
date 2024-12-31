@@ -16,14 +16,15 @@ route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.regist
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 
 //Route Punya Dapa
-Route::view('/dashboard', 'Dafa_Dashboard')->name('umkm.dashboard');
+Route::get('/getprofilebar', [DafaController::class, 'getprofilebar'])->name('umkm.dashboard');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
 Route::get('/pesananselesai', [DafaController::class, 'getpesananselesai'])->name('umkm.pesananselesai');
 route::put('/updatestatuspesananditerima/{id}', [DafaController::class, 'updatestatuspesananditerima'])->name('umkm.updatestatuspesananditerima');
 route::put('/updatestatuspesananditolak/{id}', [DafaController::class, 'updatestatuspesananditolak'])->name('umkm.updatestatuspesananditolak');
-// Route::view('/pesanan_ditolak', 'Dafa_pesananDitolak')->name('umkm.pesananditolak');
+Route::get('/getprofileumkm/{id}', [DafaController::class, 'getprofileumkm'])->name('umkm.getprofileumkm');
+route::put('/editprofileumkm/{id}', [DafaController::class, 'editprofileumkm'])->name('umkm.editprofileumkm');
 // Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');
 //End Route Punya Dapa
 

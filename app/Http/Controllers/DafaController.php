@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Console\View\Components\Component;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
@@ -109,6 +110,70 @@ class DafaController extends Controller
             }
         } catch (\Exception $e) {
             return redirect()->route('umkm.kelolapesanan')->with('error', $e->getMessage());
+        }
+    }
+
+    public function editprofileumkm(Request $request, $id)
+    {
+        $id = session('umkmID');
+        try {
+            // Validasi semua input
+            $validatedData = $request->validate([
+                '*' => 'required' // Semua field harus ada dan tidak boleh kosong
+            ]);
+
+            // Kirim data ke API untuk update
+            $response = Http::withOptions(['verify' => false])
+                ->put("localhost/updatedataumkm/" . $id, $validatedData);
+
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm.dashboard', $id)->with('success', 'Profile Berhasil Di update');
+            } else {
+                throw new \Exception('Gagal memperbarui Profile di API');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.getprofileumkm', $id)->with('error', $e->getMessage());
+        }
+    }
+
+    public function getprofileumkm($id)
+    {
+        $id = session('umkmID');
+        try {
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
+            $respose = Http::withOptions(['verify' => false])->get('localhost/getprofileumkm/' . $id);
+
+            if ($respose->successful()) {
+                $profile = $respose->json();
+                return view('Dafa_editprofile', compact('profile'));
+            } else {
+                throw new \Exception('Profile tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.getprofileumkm')->with('error', $e->getMessage());
+        }
+    }
+
+    public function getprofilebar()
+    {
+        $id = session('umkmID');
+        try {
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
+            $respose = Http::withOptions(['verify' => false])->get('localhost/getprofileumkm/' . $id);
+
+            if ($respose->successful()) {
+                $profile = $respose->json();
+                return view('Dafa_Dashboard', compact('profile'));
+            } else {
+                throw new \Exception('Profile tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
 }

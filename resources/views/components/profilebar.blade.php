@@ -18,7 +18,9 @@
         <div class="header-bar">
             <h1>Welcome to Seller Dashboard</h1>
             <div class="profile">
-                <img src="{{ asset('images/Profilepic.png') }}" alt="Profile Image">
+                <a href="{{route('umkm.getprofileumkm', session('umkmID'))}}">
+                    <img src="{{ asset('images/Profilepic.png') }}" alt="Profile Image">
+                </a>
                 <span>Frixky</span>
             </div>
         </div>

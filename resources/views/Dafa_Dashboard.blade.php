@@ -16,7 +16,7 @@
 <body>
 
     <x-semua_-sidebar />
-    <x-profilebar />
+    <x-profilebar :profile='$profile'/>
 
 
     <!-- Content Area -->
@@ -29,6 +29,7 @@
         @endif
 
         <h2>Performansi Anda</h2>
+        
 
         <!-- Cards Section -->
         <div class="cards">

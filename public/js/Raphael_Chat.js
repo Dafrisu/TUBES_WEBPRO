@@ -37,7 +37,7 @@ async function loadMessages() {
         const customerChat = await response.json();
 
         // Sort messages by 'sent_at' in ascending order (oldest first)
-        customerChat.sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
+        customerChat.sort((a, b) => a.id_chat - b.id_chat);
 
         const chatWindow = document.getElementById("chatWindow");
         chatWindow.innerHTML = ""; // Clear any previous messages

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log; // Add this line
+use Illuminate\Support\Facades\Log; 
 use Carbon\Carbon;
 
 class RaphaelMessageController extends Controller
@@ -12,8 +12,7 @@ class RaphaelMessageController extends Controller
     // Show chat page with messages
     public function showChatPage(Request $request)
     {
-        $customerId = $request->query('customerId'); // Get the customerId from the URL
-        // Call the external API to fetch messages for the given customerId
+        $customerId = $request->query('customerId');
         $messages = $this->getMessagesFromAPI($customerId);
 
         return view('Raphael_message_chatPage', compact('messages', 'customerId'));
@@ -28,11 +27,11 @@ class RaphaelMessageController extends Controller
         $response = Http::get($apiUrl);
 
         if ($response->successful()) {
-            $messages = $response->json(); // Get the response as an array
+            $messages = $response->json(); 
 
             // Sort the messages by 'sent_at' in ascending order (oldest first)
             usort($messages, function ($a, $b) {
-                return strtotime($a['sent_at']) - strtotime($b['sent_at']);
+                return $a['id_chat'] - $b['id_chat'];
             });
 
             return $messages;

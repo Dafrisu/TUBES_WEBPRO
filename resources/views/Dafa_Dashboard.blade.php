@@ -14,19 +14,6 @@
 <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
 
 <body>
-    <!-- <script>
-        window.routes = {
-            umkm_dashboard: "{{ route('umkm.dashboard') }}",
-            umkm_managebarang: "{{ route('umkm.managebarang') }}",
-            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
-            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
-            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
-            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
-            umkm_statistik: "{{ route('umkm.statistik') }}",
-            umkm_message: "{{ route('umkm.message') }}",
-            umkm_inbox: "{{ route('umkm.inbox') }}"
-        };
-    </script> -->
 
     <x-semua_-sidebar />
     <x-profilebar />
@@ -34,6 +21,13 @@
 
     <!-- Content Area -->
     <div class="content">
+        @if (session('success'))
+            <div class="alert alert-success">{{session('success')}}</div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">{{session('error')}}</div>
+        @endif
+
         <h2>Performansi Anda</h2>
 
         <!-- Cards Section -->

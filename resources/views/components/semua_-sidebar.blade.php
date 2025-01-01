@@ -12,7 +12,6 @@
 
 <body>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
-
     <div class="sidebar">
         <h2>Seller Center</h2>
         <ul>
@@ -36,6 +35,8 @@
             <li><a href="{{ route('umkm.statistik') }}">Statistik</a></li>
             <li><a href="{{ route('umkm.message') }}">Kotak Masuk</a></li>
             <li><a href="{{ route('umkm.inbox') }}">Inbox Penjual</a></li>
+            <li><a href="{{ route('umkm.inbox') }}"><img src="{{ asset('images/log-out.png') }}" alt="dropdownArrow"
+                        id="dropdownArrow" style="margin-left: 8px;">Sign Out</a></li>
         </ul>
     </div>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>

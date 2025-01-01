@@ -157,7 +157,7 @@ class DafaController extends Controller
         }
     }
 
-    public function getprofilebar()
+    public function getdashboard()
     {
         $id = session('umkmID');
         try {

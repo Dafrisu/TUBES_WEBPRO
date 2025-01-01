@@ -18,28 +18,26 @@ function timeToDate(timeStr) {
 
 let currentMessages = [];
 
+// Fetch messages dynamically from the Laravel backend
 function showChatSection(section) {
   const filtersBar = document.getElementById("filtersBar");
-  const chatInterface = document.getElementById("chatInterface");
   const exampleMessages = document.getElementById("exampleMessages");
   const emptyMessage = document.getElementById("emptyMessage");
 
   filtersBar.style.display = "block";
-  chatInterface.style.display = "none";
-  exampleMessages.style.display = "block";
+  exampleMessages.innerHTML = ""; // Clear previous content
+  emptyMessage.style.display = "none"; // Hide empty message initially
 
-  // Fetch the messages from the JSON file
-  fetch("json/messages.json") // Adjust the path if necessary
-    .then((response) => response.json()) // Parse the JSON response
-    .then((data) => {
-      currentMessages = [...data[section]]; // Access the specific section (open, unread, unreplied)
-      displayMessages(currentMessages); // Display the messages
-    })
-    .catch((error) => {
-      console.error("Error loading messages:", error);
-      alert("Gagal memuat pesan, periksa kembali tautan file JSON.");
-    });
-
+  fetch(`/umkm/messages?section=${section}`)
+      .then((response) => response.json())
+      .then((data) => {
+          currentMessages = data.messages; // Update messages based on section
+          displayMessages(currentMessages);
+      })
+      .catch((error) => {
+          console.error("Error loading messages:", error);
+          alert("Gagal memuat pesan. Pastikan server berjalan dengan baik.");
+      });
   sortDropdown.selectedIndex = 0;
 }
 
@@ -96,19 +94,25 @@ function displayMessages(messageList) {
 }
 
 function loadChatMessages(userName) {
-  fetch("json/messages.json")
+  const umkmID = 123; // ID UMKM Anda
+  fetch(`/getmessageumkm/${umkmID}`)
     .then((response) => response.json())
     .then((data) => {
-      // Flatten all messages into a single list
-      const allMessages = [...data.open, ...data.unread, ...data.unreplied];
-      // Filter messages that belong to the specific user
-      currentMessages = allMessages.filter((msg) => msg.name === userName);
+      if (data.success) {
+        // Ambil semua pesan dari respons
+        const allMessages = [...data.messages[''], ...data.messages.unread];
+        // Filter pesan berdasarkan nama pengguna
+        currentMessages = allMessages.filter((msg) => msg.name === userName);
 
-      if (currentMessages.length > 0) {
-        displayChatMessages(currentMessages);
+        if (currentMessages.length > 0) {
+          displayChat(currentMessages);
+        } else {
+          document.getElementById("chatWindow").innerHTML =
+            "<p>No messages found for this user.</p>";
+        }
       } else {
-        document.getElementById("chatWindow").innerHTML =
-          "<p>No messages found for this user.</p>";
+        console.error("Error:", data.error);
+        alert(data.error);
       }
     })
     .catch((error) => {
@@ -116,78 +120,7 @@ function loadChatMessages(userName) {
     });
 }
 
-function displayChat(messages) {
-  const chatWindow = document.getElementById("chatWindow");
-  chatWindow.innerHTML = ""; // Clear existing messages
 
-  messages.forEach((msg) => {
-    const messageHTML = `
-        <div class="message left">
-            <img src="assets/Profilepic.png" alt="User Avatar" class="avatar">
-            <div class="message-bubble">
-                <p>${msg.message}</p>
-                <div class="message-time">${msg.time}</div>
-            </div>
-        </div>
-      `;
-    chatWindow.insertAdjacentHTML("beforeend", messageHTML);
-  });
-}
-loadChatMessages(chatUserName);
-
-// Hamburger menu toggle functionality
-const hamBurger = document.querySelector(".toggle-btn");
-
-if (hamBurger) {
-  hamBurger.addEventListener("click", function () {
-    document.querySelector("#sidebar").classList.toggle("expand");
-  });
-}
-
-function goBackDashboard() {
-  window.location.href = "Dafa_Dashboard.html";
-}
-
-const urlParams = new URLSearchParams(window.location.search);
-const chatUserName = urlParams.get("name") || "Unknown User";
-const chatUserMessage = urlParams.get("message") || "Online";
-document.getElementById("chatUserName").textContent = chatUserName;
-document.getElementById("chatUserMessage").textContent = chatUserMessage;
-
-
-
-// Initialize chat functionality
-const messageInput = document.getElementById("messageInput");
-const chatWindow = document.getElementById("chatWindow");
-
-function sendMessage() {
-  const message = messageInput.value.trim();
-  if (message) {
-    const timestamp = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const messageHTML = `
-                    <div class="message right">
-                        <div class="message-bubble">
-                            <p>${message}</p>
-                            <div class="message-time">${timestamp}</div>
-                        </div>
-                        <img src="profile2.jpg" alt="User Avatar" class="avatar">
-                    </div>
-                `;
-    chatWindow.insertAdjacentHTML("beforeend", messageHTML);
-    messageInput.value = "";
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  }
-}
-
-// Send message on Enter key press
-messageInput.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    sendMessage();
-  }
-});
 
 // Scroll to bottom on page load
 window.onload = function () {
@@ -200,8 +133,67 @@ function goBackChat() {
     window.history.back();
 }
 
+// Modify `navigateToChat` to use Laravel route
 function navigateToChat(name, message) {
-  const encodedName = encodeURIComponent(name);
-  const encodedMessage = encodeURIComponent(message);
-  window.location.href = `/umkm/message`;
+  window.location.href = `/umkm/chat?name=${encodeURIComponent(name)}&message=${encodeURIComponent(message)}`;
 }
+
+
+// Function to render chat cards for each buyer
+function renderChatCards(messages) {
+  const chatInterface = document.getElementById('chatInterface');
+  chatInterface.innerHTML = ''; // Clear the chat interface first
+
+  if (messages.length === 0) {
+      chatInterface.innerHTML = '<p class="text-center">Tidak ada pesan</p>';
+  } else {
+      // Group messages by buyer ID
+      const groupedMessages = messages.reduce((acc, message) => {
+          const buyerId = message.id_pembeli;
+          if (!acc[buyerId]) {
+              acc[buyerId] = [];
+          }
+          acc[buyerId].push(message);
+          return acc;
+      }, {});
+
+      // Loop through each buyer's messages
+      Object.keys(groupedMessages).forEach(buyerId => {
+          const buyerMessages = groupedMessages[buyerId];
+
+          // Create a card for the buyer
+          const card = document.createElement('div');
+          card.classList.add('card', 'mb-3');
+
+          // Add buyer info to the card (assuming you have a way to get buyer's name or other details)
+          const buyerInfo = document.createElement('div');
+          buyerInfo.classList.add('card-header');
+          buyerInfo.innerHTML = `Pembeli ${buyerId}`; // You can replace with actual buyer name if available
+          card.appendChild(buyerInfo);
+
+          // Add messages to the card
+          const cardBody = document.createElement('div');
+          cardBody.classList.add('card-body');
+          buyerMessages.forEach(message => {
+              const messageElement = document.createElement('p');
+              messageElement.classList.add('card-text');
+              messageElement.innerHTML = `${message.message} <small class="text-muted">- ${message.sent_at}</small>`;
+              cardBody.appendChild(messageElement);
+          });
+
+          card.appendChild(cardBody);
+          chatInterface.appendChild(card);
+      });
+  }
+}
+
+// Example data - you will get this from your backend
+const messages = [
+  { "sent_at": "12:30:00", "id_chat": 2, "message": "Hello, this is a test message.", "is_read": false, "id_umkm": 1, "id_pembeli": 1, "id_kurir": null },
+  { "sent_at": "12:35:00", "id_chat": 3, "message": "How can I help you?", "is_read": false, "id_umkm": 1, "id_pembeli": 2, "id_kurir": null },
+  { "sent_at": "12:40:00", "id_chat": 4, "message": "Can you help me with my order?", "is_read": false, "id_umkm": 1, "id_pembeli": 1, "id_kurir": null }
+];
+
+// Call the function to render chat cards
+renderChatCards(messages);
+

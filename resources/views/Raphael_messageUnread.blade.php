@@ -105,17 +105,34 @@
 
             <!-- Chat Interface -->
             <div class="chat-interface" id="chatInterface">
+                <div class="chat-interface" id="chatInterface">
+                    @if (isset($unreadMessages) && is_array($unreadMessages) && count($unreadMessages) > 0)
+                        @if ($unreadMessages['is_read'] == false)
+                            @foreach ($unreadMessages as $message)
+                                <div class="card mb-2" style="width: 100%;"
+                                    onclick="navigateToChat('${msg.name}', '${msg.message}')">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{$message['nama_lengkap']}}</h5>
+                                        <p class="card-text"></p>
+                                        <p class="text-muted"></p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    @else
+                        <tr>
+                            <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+                        </tr>
+                    @endif
+                </div>
 
-                <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
-            </div>
-
-            <!-- Example Message Section -->
-            <div class="example-messages-container">
-                <div class="example-messages" id="exampleMessages">
+                <!-- Example Message Section -->
+                <div class="example-messages-container">
+                    <div class="example-messages" id="exampleMessages">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

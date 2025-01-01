@@ -74,7 +74,12 @@
             <h2 id="headtitle">Tambah barang</h2>
 
         </div>
-        <form id="formbarang" method="post" action="{{route('umkm.addbarang')}}">
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+            </div>
+        @endif
+        <form id="formbarang" method="post" action="{{route('umkm.addbarang')}}" enctype="multipart/form-data">
             @csrf
             <div style="margin-bottom: 20px;">
                 <p><label for="id_namabarang">Nama Barang</label></p>
@@ -88,6 +93,11 @@
                 <p><label for="id_stok">Jumlah Barang</label></p>
                 <p><input type="number" name="stok" class="form-control" placeholder="QTY" id="id_stok" required></p>
             </div>
+            <label for="tipe_barang" class="form-label mt-3">Tipe Produk</label>
+            <select class="form-select border mb-5" id="tipe_barang" name="tipe_barang">
+                <option value="Makanan">Makanan</option>
+                <option value="Minuman">Minuman</option>
+            </select>
             <div style="margin-bottom: 20px;">
                 <label for="">Deskripsi</label>
                 <div class="form-floating w-50">
@@ -98,6 +108,15 @@
                 <label for="">Berat</label>
                 <input type="number" name="berat" class="form-control" placeholder="berat" id="id_berat" required>
             </div>
+            <div style="margin-bottom: 20px;">
+                <label for="id_gambar" class="form-label">Tambah Gambar</label>
+                <div id="upload-container" style="width: 200px; height: 200px; border: 2px dashed #658864; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden;">
+                    <span id="upload-icon" style="font-size: 48px; color: #658864;">+</span>
+                    <input type="file" name="foto" id="id_gambar" accept="image/*"
+                        style="opacity: 0; width: 100%; height: 100%; position: absolute; top: 0; left: 0; cursor: pointer;">
+                    <img id="preview-image" src="" alt="Preview" style="max-width: 100%; max-height: 100%; display: none; position: absolute; top: 0; left: 0; object-fit: cover;">
+                </div>
+            </div>
             <div>
                 <button type="submit" class="btn btn-primary" id="addbarangbtn">
                     Tambahkan Barang
@@ -106,6 +125,36 @@
         </form>
     </div>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
+
+    <!-- script untuk gambar -->
+    <script>
+        const fileInput = document.getElementById('id_gambar');
+        const previewImage = document.getElementById('preview-image');
+        const uploadIcon = document.getElementById('upload-icon');
+        const uploadContainer = document.getElementById('upload-container');
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    // Display the image preview
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                    uploadIcon.style.display = 'none'; // Hide the "+" icon
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                // Reset preview if no file is selected
+                previewImage.src = '';
+                previewImage.style.display = 'none';
+                uploadIcon.style.display = 'block'; // Show the "+" icon
+            }
+        });
+    </script>
 
 </body>
 

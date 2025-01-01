@@ -50,28 +50,28 @@
                                 </a>
 
                                 <!-- @if(isset($readMessages) && count($readMessages) > 0)
-                                                            @foreach($readMessages as $message)
-                                                                <a class="dropdown-item" href="#">
-                                                                    {{ $message['content'] }} - {{ $message['sent_at'] }}
-                                                                </a>
-                                                            @endforeach
-                                                        @else
-                                                            <p class="dropdown-item text-muted">Tidak ada pesan terbuka</p>
-                                                        @endif -->
+                                    @foreach($readMessages as $message)
+                                        <a class="dropdown-item" href="#">
+                                            {{ $message['content'] }} - {{ $message['sent_at'] }}
+                                        </a>
+                                    @endforeach
+                                @else
+                                    <p class="dropdown-item text-muted">Tidak ada pesan terbuka</p>
+                                @endif -->
                             </li>
                             <li>
                                 <a href="{{route('umkm.messages.unread')}}">
                                     <h6 class="dropdown-header">Belum Dibaca</h6>
                                 </a>
                                 <!-- @if(isset($unreadMessages) && count($unreadMessages) > 0)
-                                                            @foreach($unreadMessages as $message)
-                                                                <a class="dropdown-item" href="#">
-                                                                    {{ $message['content'] }} - {{ $message['sent_at'] }}
-                                                                </a>
-                                                            @endforeach
-                                                        @else
-                                                            <p class="dropdown-item text-muted">Tidak ada pesan belum dibaca</p>
-                                                        @endif -->
+                                    @foreach($unreadMessages as $message)
+                                        <a class="dropdown-item" href="#">
+                                            {{ $message['content'] }} - {{ $message['sent_at'] }}
+                                        </a>
+                                    @endforeach
+                                @else
+                                    <p class="dropdown-item text-muted">Tidak ada pesan belum dibaca</p>
+                                @endif -->
                             </li>
                         </ul>
                     </li>
@@ -105,8 +105,23 @@
 
             <!-- Chat Interface -->
             <div class="chat-interface" id="chatInterface">
-
-                <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+                @if (isset($readMessages) && is_array($readMessages) && count($readMessages) > 0)
+                    @if ($readMessages['is_read'] == true)
+                        @foreach ($readMessages as $message)
+                            <div class="card mb-2" style="width: 100%;" onclick="navigateToChat('${msg.name}', '${msg.message}')">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$message['nama_lengkap']}}</h5>
+                                    <p class="card-text"></p>
+                                    <p class="text-muted"></p>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                @else
+                    <tr>
+                        <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+                    </tr>
+                @endif
             </div>
 
             <!-- Example Message Section -->

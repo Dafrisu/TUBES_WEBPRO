@@ -16,7 +16,7 @@ class HaikalController extends Controller
     public function getviewproduk()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/produk');
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/produkumkm/' . session('umkmID'));
 
             if ($response->successful()) {
                 $produk = $response->json(); // Decode JSON
@@ -49,44 +49,81 @@ class HaikalController extends Controller
         }
     }
 
-    public function addproduk(Request $request)
-    {
-        try {
-            Log::info('addproduk called', ['data' => $request->all()]);
+    public function addproduk(Request $request){
+    try {
+        $uploadResult = null;
+        Log::info('addproduk called', ['data' => $request->all()]);
 
-            // Prepare data
-            $data = [
-                'nama_barang' => $request->input('nama_barang'),
-                'harga' => $request->input('harga'),
-                'deskripsi_barang' => $request->input('deskripsi_barang', ''), // kosong jika desc kosong
-                'stok' => $request->input('stok'),
-                'berat' => $request->input('berat'),
-                'id_umkm' => 1 // test only, id umkm masih static
-            ];
+        // Pakai guzzle
+        $client = new Client(['verify' => false]);
 
-            Log::info('Data prepared', ['data' => $data]);
+        // Validasi input
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'harga' => 'required|numeric',
+            'stok' => 'required|integer',
+            'tipe_barang' => 'required|string',
+            'berat' => 'required|numeric',
+            'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048', // Validasi file gambar
+        ]);
 
-            // pakai guzzle
-            $client = new Client(['verify' => false]);
+        
 
-            // Send the POST request using Guzzle
-            $response = $client->post('https://umkmapi.azurewebsites.net/produk', [
-                'json' => $data,
+        // Cek jika ada file gambar yang diunggah
+        if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+            $file = $request->file('foto');
+            // Upload file menggunakan Guzzle
+            $uploadResponse = $client->post('https://umkmapi.azurewebsites.net/upload', [
+                'multipart' => [
+                    [
+                        'name' => 'file',
+                        'contents' => fopen($file->getPathname(), 'r'),
+                        'filename' => $file->getClientOriginalName(),
+                    ],
+                ],
             ]);
 
-            // Check if the response is successful
-            if ($response->getStatusCode() == 200) {
-                return redirect()->route('umkm.managebarang')
-                    ->with('success', 'Produk berhasil ditambahkan.');
-            } else {
-                return redirect()->back()
-                    ->with('error', 'Gagal menambahkan produk: ' . $response->getBody());
-            }
-        } catch (\Exception $e) {
-            // Handle any exceptions that occur
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            // Parsing hasil upload
+            $uploadResult = json_decode($uploadResponse->getBody(), true);
+
+            Log::info('upload result:', $uploadResult);
+
+            
+        } else {
+            return redirect()->back()->with('error', 'File gambar tidak valid atau tidak ditemukan.');
         }
+
+        $data = [
+            'nama_barang' => $request->input('nama_barang'),
+            'harga' => $request->input('harga'),
+            'deskripsi_barang' => $request->input('deskripsi_barang', ''),
+            'stok' => $request->input('stok'),
+            'tipe_barang' => $request->input('tipe_barang'),
+            'image_url' => $uploadResult['blobUrl'],
+            'berat' => $request->input('berat'),
+            'id_umkm' => session('umkmID'),
+        ];
+
+        // Kirim data ke API
+        $response = $client->post('https://umkmapi.azurewebsites.net/produk', [
+            'json' => $data,
+        ]);
+
+        // Cek respons API
+        if ($response->getStatusCode() == 200) {
+            return redirect()->route('umkm.managebarang')
+                ->with('success', 'Produk berhasil ditambahkan.');
+        } else {
+            return redirect()->back()
+                ->with('error', 'Gagal menambahkan produk: ' . $response->getBody());
+        }
+
+    } catch (\Exception $e) {
+        // Tangani kesalahan
+        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
+}
+
 
     public function editproduk(Request $request, $id)
     {

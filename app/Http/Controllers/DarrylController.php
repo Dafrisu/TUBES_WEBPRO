@@ -88,7 +88,7 @@ class DarrylController extends Controller
                     Log::info('Session created', ['umkmID' => $responseData['id_umkm']]);
 
                     return redirect()->route('umkm.dashboard')
-                        ->with('success', 'Berhasil Masuk! (emote mantap)');
+                        ->with('success', 'Berhasil Masuk! 👍👍');
                 } else {
                     return redirect()->back()->with('error', 'Gagal Masuk! ID UMKM tidak ditemukan.');
                 }

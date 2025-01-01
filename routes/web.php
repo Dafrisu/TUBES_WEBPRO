@@ -6,6 +6,7 @@ use App\Http\Controllers\HaikalController;
 use App\Http\Controllers\FersyaController;
 use App\Http\Controllers\RaphaelMessageController;
 use App\Http\Controllers\DarrylController;
+use App\Http\Controllers\MahesaController;
 use Illuminate\Support\Facades\Http;
 
 
@@ -46,17 +47,26 @@ Route::get('/proxy/produk', function () {
 });
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');
+// Add these routes for daily and yearly stats
+Route::get('/daily-stats/{umkmId}', [MahesaController::class, 'getDailyStats'])->name('umkm.dailyStats');
+Route::get('/monthly-stats/{umkmId}', [MahesaController::class, 'getYearlyStats'])->name('umkm.yearlyStats');
 
 // // View routes (removed since they don't need dynamic data passing)
 Route::view('/message', 'Raphael_message_penjual')->name('message');
 Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('umkm.message');
+Route::get('/umkm/messages', [RaphaelMessageController::class, 'showmsgPage'])->name('umkm.messages');
 
 
 // Chat routes for dynamic content
 Route::get('/umkm/message', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
 Route::post('/send-message', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
 Route::get('/chat', [RaphaelMessageController::class, 'showChatPage'])->name('chatPage');
+Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 
+// Routing untuk pesan yang sudah dibaca
+Route::get('/umkm/messages/read', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
+// Routing untuk pesan yang belum dibaca
+Route::get('/umkm/messages/unread', [RaphaelMessageController::class, 'showUnreadMessages'])->name('umkm.messages.unread');
 
 //testing sidebar
 Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');

@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fungsi untuk load data menggunakan fetch
     function loadBarang() {
-        fetch('localhost/produk')
+        fetch('https://umkmapi.azurewebsites.net/produk')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);

@@ -30,7 +30,7 @@
     </script>
 
     <x-semua_-sidebar />
-    <x-profilebar />
+    <x-profilebar :profile='$profile' />
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -67,34 +67,34 @@
             </thead>
             <tbody id="list-Pesanan">
                 @if (isset($pesananmasuk) && is_array($pesananmasuk) && count($pesananmasuk) > 0)
-                    @foreach ($pesananmasuk as $pesananmasuks)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$pesananmasuks['id_pesanan']}}</td>
-                            <td>{{$pesananmasuks['status_pesanan']}}</td>
-                            <td>{{$pesananmasuks['nama_barang']}}</td>
-                            <td>{{$pesananmasuks['kuantitas_barang']}}</td>
-                            <td>{{$pesananmasuks['total_belanja']}}</td>
-                            <td>{{$pesananmasuks['alamat_pembeli']}}</td>
-                            <form method="POST"
-                                action="{{route('umkm.updatestatuspesananditerima', $pesananmasuks['id_pesanan'])}}">
-                                @csrf
-                                @METHOD('PUT')
-                                <td><button type="submit" class="btn btn-primary">Terima</button></td>
-                            </form>
-                            <form method="POST"
-                                action="{{route('umkm.updatestatuspesananditolak', $pesananmasuks['id_pesanan'])}}">
-                                @csrf
-                                @METHOD('PUT')
-                                <td><button type="submit" class="btn btn-danger">Ditolak</button></td>
-                            </form>
-                        </tr>
-                    @endforeach
+                @foreach ($pesananmasuk as $pesananmasuks)
+                <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$pesananmasuks['id_pesanan']}}</td>
+                    <td>{{$pesananmasuks['status_pesanan']}}</td>
+                    <td>{{$pesananmasuks['nama_barang']}}</td>
+                    <td>{{$pesananmasuks['kuantitas_barang']}}</td>
+                    <td>{{$pesananmasuks['total_belanja']}}</td>
+                    <td>{{$pesananmasuks['alamat_pembeli']}}</td>
+                    <form method="POST"
+                        action="{{route('umkm.updatestatuspesananditerima', $pesananmasuks['id_pesanan'])}}">
+                        @csrf
+                        @METHOD('PUT')
+                        <td><button type="submit" class="btn btn-primary">Terima</button></td>
+                    </form>
+                    <form method="POST"
+                        action="{{route('umkm.updatestatuspesananditolak', $pesananmasuks['id_pesanan'])}}">
+                        @csrf
+                        @METHOD('PUT')
+                        <td><button type="submit" class="btn btn-danger">Ditolak</button></td>
+                    </form>
+                </tr>
+                @endforeach
                 @else
-                    <tr>
+                <tr>
 
-                        <td colspan="6" class="text-center">Tidak Ada Pesanan Masuk</td>
-                    </tr>
+                    <td colspan="6" class="text-center">Tidak Ada Pesanan Masuk</td>
+                </tr>
                 @endif
             </tbody>
         </table>

@@ -61,7 +61,7 @@ class HaikalController extends Controller
                 'deskripsi_barang' => $request->input('deskripsi_barang', ''), // kosong jika desc kosong
                 'stok' => $request->input('stok'),
                 'berat' => $request->input('berat'),
-                'id_umkm' => 1 // test only, id umkm masih static
+                'id_umkm' => session('umkmID')
             ];
 
             Log::info('Data prepared', ['data' => $data]);

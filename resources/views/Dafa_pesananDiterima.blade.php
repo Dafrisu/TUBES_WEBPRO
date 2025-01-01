@@ -28,7 +28,7 @@
         };
     </script>
     <x-semua_-sidebar />
-    <x-profilebar />
+    <x-profilebar :profile='$profile' />
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -65,23 +65,23 @@
             </thead>
             <tbody id="list-Pesanan">
                 @if (isset($pesananditerima) && is_array($pesananditerima) && count($pesananditerima) > 0)
-                    @foreach ($pesananditerima as $pesananditerimas)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$pesananditerimas['id_pesanan']}}</td>
-                            <td>{{$pesananditerimas['status_pesanan']}}</td>
-                            <td>{{$pesananditerimas['nama_barang']}}</td>
-                            <td>{{$pesananditerimas['kuantitas_barang']}}</td>
-                            <td>{{$pesananditerimas['total_belanja']}}</td>
-                            <td>{{$pesananditerimas['alamat_pembeli']}}</td>
-                            <td>Menunggu Kurir Mengantar</td>
-                        </tr>
-                    @endforeach
+                @foreach ($pesananditerima as $pesananditerimas)
+                <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$pesananditerimas['id_pesanan']}}</td>
+                    <td>{{$pesananditerimas['status_pesanan']}}</td>
+                    <td>{{$pesananditerimas['nama_barang']}}</td>
+                    <td>{{$pesananditerimas['kuantitas_barang']}}</td>
+                    <td>{{$pesananditerimas['total_belanja']}}</td>
+                    <td>{{$pesananditerimas['alamat_pembeli']}}</td>
+                    <td>Menunggu Kurir Mengantar</td>
+                </tr>
+                @endforeach
                 @else
-                    <tr>
+                <tr>
 
-                        <td colspan="6" class="text-center">Tidak Ada Pesanan Yang Sudah Diterima</td>
-                    </tr>
+                    <td colspan="6" class="text-center">Tidak Ada Pesanan Yang Sudah Diterima</td>
+                </tr>
                 @endif
             </tbody>
         </table>

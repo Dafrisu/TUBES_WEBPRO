@@ -130,40 +130,84 @@ class RaphaelMessageController extends Controller
         return view('Raphael_message_penjual', compact('readMessages', 'unreadMessages'));
     }
 
-    public function showReadMessages(Request $request)
+    // public function showinbox()
+    // {
+    //     $id = session('umkmID');
+
+    //     try {
+    //         if (!$id) {
+    //             throw new \Exception('ID profile tidak ditemukan');
+    //         }
+    //         $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+    //         $profile = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id)->json();
+    //         if ($respose->successful()) {
+    //             $message = $respose->json();
+    //             return view('Raphael_message_penjual', compact('message', 'profile'));
+    //         } else {
+    //             throw new \Exception('Message UMKM tidak ditemukan');
+    //         }
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
+    //     }
+    // }
+
+    public function showinbox()
     {
-        $customerId = session('umkmID');
-        $messages = $this->getMessagesFromAPI($customerId); // Memanggil data pesan melalui API
-
-        // Add default status if missing
-        foreach ($messages as &$msg) {
-            if (!isset($msg['status'])) {
-                $msg['status'] = 'unknown'; // Default value
+        $id = session('umkmID');
+        try {
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
             }
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
+
+            if ($respose->successful()) {
+                $profile = $respose->json();
+                return view('Raphael_message_penjual', compact('profile'));
+            } else {
+                throw new \Exception('Profile tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
         }
-
-        // Filter read messages
-        $readMessages = array_filter($messages, fn($msg) => $msg['status'] === 'read');
-
-        return view('Raphael_messageRead', compact('readMessages'));
     }
 
-    public function showUnreadMessages(Request $request)
+    public function showReadMessages()
     {
-        $customerId = session('umkmID');
-        $messages = $this->getMessagesFromAPI($customerId);
-
-        // Add default status if missing
-        foreach ($messages as &$msg) {
-            if (!isset($msg['status'])) {
-                $msg['status'] = 'unknown'; // Default value
+        $id = session('umkmID');
+        try {
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
             }
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+
+            if ($respose->successful()) {
+                $message = $respose->json();
+                return view('Raphael_messageRead', compact('message'));
+            } else {
+                throw new \Exception('Message UMKM tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
         }
-
-        // Filter unread messages
-        $unreadMessages = array_filter($messages, fn($msg) => $msg['status'] === 'unread');
-
-        return view('Raphael_messageUnread', compact('unreadMessages'));
     }
 
+    public function showUnreadMessage($id)
+    {
+        $id = session('umkmID');
+        try {
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+
+            if ($respose->successful()) {
+                $message = $respose->json();
+                return view('Raphael_messageUnread', compact('message'));
+            } else {
+                throw new \Exception('Message UMKM tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
+        }
+    }
 }

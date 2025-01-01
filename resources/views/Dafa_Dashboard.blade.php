@@ -16,7 +16,7 @@
 <body>
 
     <x-semua_-sidebar />
-    <x-profilebar :profile='$profile'/>
+    <x-profilebar :profile='$profile' />
 
 
     <!-- Content Area -->
@@ -29,14 +29,15 @@
         @endif
 
         <h2>Performansi Anda</h2>
-        
+
 
         <!-- Cards Section -->
         <div class="cards">
             <div class="card">
-                <h3>Total Penjualan</h3>
-                <p>$10,000</p>
-                <a href="#" class="btn btn-success">View Details</a>
+                <h3>Produk Laris Manis!!!</h3>
+                <p>{{old('nama_barang', $datadashboard['nama_barang'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
+                </p>
+                <a href="{{ route('umkm.statistik') }}" class="btn btn-success">Lihat Statistik</a>
             </div>
             <div class="card">
                 <h3>Total Orderan</h3>

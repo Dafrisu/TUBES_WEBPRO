@@ -16,7 +16,7 @@ class HaikalController extends Controller
     public function getviewproduk()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/produk');
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/produkumkm/' . session('umkmID'));
 
             if ($response->successful()) {
                 $produk = $response->json(); // Decode JSON

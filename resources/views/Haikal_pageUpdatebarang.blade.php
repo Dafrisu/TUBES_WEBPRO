@@ -58,6 +58,11 @@
                             value="{{old('stok', $produk['stok'])}}"
                             required></p>
                 </div>
+                <label for="tipe_barang" class="form-label mt-3">Tipe Produk</label>
+                <select class="form-select border mb-5 w-50" id="tipe_barang" name="tipe_barang">
+                    <option value="Makanan" {{ old('tipe_barang', $produk['tipe_barang']) == 'Makanan' ? 'selected' : '' }}>Makanan</option>
+                    <option value="Minuman" {{ old('tipe_barang', $produk['tipe_barang']) == 'Minuman' ? 'selected' : '' }}>Minuman</option>
+                </select>
                 <div style="margin-bottom: 20px;">
                     <label for="">Deskripsi</label>
                     <div class="form-floating">

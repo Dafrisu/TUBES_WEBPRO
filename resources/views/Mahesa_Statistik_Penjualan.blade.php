@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="umkm-id" content="{{ session('umkmID') ?? 0 }}"> 
     <title>Dashboard Statistik</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -83,12 +84,11 @@
             umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
             umkm_statistik: "{{ route('umkm.statistik') }}",
             umkm_message: "{{ route('umkm.message') }}",
-            umkm_inbox: "{{ route('umkm.inbox') }}"
+            umkm_inbox: "{{ route('umkm.inbox') }}",
         };
     </script>
 
     <x-semua_-sidebar />
-    <x-profilebar />
 
     <div class="main-content">
         <div class="container-fluid">
@@ -118,7 +118,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="card stats-card border-primary border-top border-3">
                         <div class="card-body">
-                            <div class="text-muted mb-2">Total Penjualan</div>
+                            <div class="text-muted mb-2"> Total Penjualan</div>
                             <h3 class="mb-2" id="salesValue">Loading...</h3>
                         </div>
                     </div>

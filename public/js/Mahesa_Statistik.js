@@ -1,11 +1,12 @@
 $(document).ready(function () {
-    const umkmId = 1; // Hardcoded for now
     let salesChart;
+    const umkmId = parseInt($('meta[name="umkm-id"]').attr('content')) || 0;
 
     // Event listener for dropdown change
     $('#monthSelect').change(function () {
         const selectedValue = $(this).val();
-        const currentYear = new Date().getFullYear();
+        // const currentYear = new Date().getFullYear();
+        const currentYear = 2024; // Hardcoded year for testing
 
         // Check if the selected value is "yearly"
         if (selectedValue === "yearly") {
@@ -19,14 +20,20 @@ $(document).ready(function () {
     });
 
     function fetchDailyStats(umkmId, month, year) {
-        const url = `https://umkmapi.azurewebsites.net/daily-stats/${umkmId}?month=${month}&year=${year}`;
+        const url = `/daily-stats/${umkmId}?month=${month}&year=${year}`;
 
         $.ajax({
             url: url,
             method: 'GET',
             success: function (data) {
-                updateStats(data);
-                updateChart(data);
+                if (data.error) {
+                    console.error(data.error);
+                    $('#salesValue').text('Terjadi kesalahan');
+                    $('#ordersValue').text('Terjadi kesalahan');
+                } else {
+                    updateStats(data);
+                    updateChart(data);
+                }
             },
             error: function (error) {
                 console.error('Error fetching daily stats:', error);
@@ -37,14 +44,20 @@ $(document).ready(function () {
     }
 
     function fetchYearlyStats(umkmId) {
-        const url = `https://umkmapi.azurewebsites.net/monthly-stats/${umkmId}`;
+        const url = `/monthly-stats/${umkmId}`;
 
         $.ajax({
             url: url,
             method: 'GET',
             success: function (data) {
-                updateStats(data);
-                updateChart(data, 'yearly');
+                if (data.error) {
+                    console.error(data.error);
+                    $('#salesValue').text('Terjadi kesalahan');
+                    $('#ordersValue').text('Terjadi kesalahan');
+                } else {
+                    updateStats(data);
+                    updateChart(data, 'yearly');
+                }
             },
             error: function (error) {
                 console.error('Error fetching yearly stats:', error);

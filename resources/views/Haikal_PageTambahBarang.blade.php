@@ -88,6 +88,11 @@
                 <p><label for="id_stok">Jumlah Barang</label></p>
                 <p><input type="number" name="stok" class="form-control" placeholder="QTY" id="id_stok" required></p>
             </div>
+            <label for="tipe_barang" class="form-label mt-3">Tipe Produk</label>
+            <select class="form-select border mb-5" id="tipe_barang" name="tipe_barang">
+                <option value="Makanan">Makanan</option>
+                <option value="Minuman">Minuman</option>
+            </select>
             <div style="margin-bottom: 20px;">
                 <label for="">Deskripsi</label>
                 <div class="form-floating w-50">

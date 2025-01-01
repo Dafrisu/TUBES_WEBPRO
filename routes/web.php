@@ -6,7 +6,7 @@ use App\Http\Controllers\HaikalController;
 use App\Http\Controllers\FersyaController;
 use App\Http\Controllers\RaphaelMessageController;
 use App\Http\Controllers\DarrylController;
-use App\Http\Controllers\RaphaelController;
+use App\Http\Controllers\MahesaController;
 use Illuminate\Support\Facades\Http;
 
 
@@ -47,6 +47,9 @@ Route::get('/proxy/produk', function () {
 });
 
 Route::view('/statistik_penjualan', 'Mahesa_Statistik_Penjualan')->name('umkm.statistik');
+// Add these routes for daily and yearly stats
+Route::get('/daily-stats/{umkmId}', [MahesaController::class, 'getDailyStats'])->name('umkm.dailyStats');
+Route::get('/monthly-stats/{umkmId}', [MahesaController::class, 'getYearlyStats'])->name('umkm.yearlyStats');
 
 // // View routes (removed since they don't need dynamic data passing)
 Route::view('/message', 'Raphael_message_penjual')->name('message');

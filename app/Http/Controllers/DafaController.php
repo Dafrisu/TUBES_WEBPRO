@@ -105,7 +105,7 @@ class DafaController extends Controller
         try {
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id,);
+                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id, );
 
             // Periksa respon API
             if ($response->successful()) {
@@ -162,7 +162,7 @@ class DafaController extends Controller
         }
     }
 
-    public function getprofilebar()
+    public function getdashboard()
     {
         $id = session('umkmID');
         try {
@@ -170,12 +170,13 @@ class DafaController extends Controller
                 throw new \Exception('ID profile tidak ditemukan');
             }
             $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
-
+            $data = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboard/' . $id);
             if ($respose->successful()) {
                 $profile = $respose->json();
-                return view('Dafa_Dashboard', compact('profile'));
+                $datadashboard = $data->json();
+                return view('Dafa_Dashboard', compact('profile', 'datadashboard'));
             } else {
-                throw new \Exception('Profile tidak ditemukan');
+                throw new \Exception('data tidak ditemukan');
             }
         } catch (\Exception $e) {
             return redirect()->route('umkm.masuk')->with('error', $e->getMessage());

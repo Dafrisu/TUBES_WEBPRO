@@ -163,6 +163,10 @@ ul {
     rotate: 270deg;
 }
 
+.logout {
+    height: 1rem;
+}
+
 div span {
     color: #fff;
 }

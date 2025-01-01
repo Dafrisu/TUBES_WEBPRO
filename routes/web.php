@@ -17,7 +17,7 @@ route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.regist
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 
 //Route Punya Dapa
-Route::get('/getprofilebar', [DafaController::class, 'getprofilebar'])->name('umkm.dashboard');
+Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
@@ -64,9 +64,7 @@ Route::get('/chat', [RaphaelMessageController::class, 'showChatPage'])->name('ch
 Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 
 // Routing untuk pesan yang sudah dibaca
+Route::get('/umkm/messages/inbox', [RaphaelMessageController::class, 'showinbox'])->name('umkm.messages.inbox');
 Route::get('/umkm/messages/read', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
 // Routing untuk pesan yang belum dibaca
 Route::get('/umkm/messages/unread', [RaphaelMessageController::class, 'showUnreadMessages'])->name('umkm.messages.unread');
-
-//testing sidebar
-Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');

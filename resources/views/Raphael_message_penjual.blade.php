@@ -20,64 +20,7 @@
 <body>
     <div class="container-fluid d-inline-flex">
         <!-- Sidebar -->
-        <nav class="d-md-block bg-light sidebar">
-            <div class="position-sticky pt-3">
-                <!-- BackButton -->
-                <div class="col ms-auto px-10">
-                    <div class="back-button-container">
-                        <a href="{{ route('umkm.dashboard') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- Profile Section -->
-                <div class="profile-section text-center">
-                    <img src="images/Profilepic.png" alt="Profile Picture" class="rounded-circle mb-2" width="80" />
-                    <h6>Customer Service</h6>
-                    <p>Welcome, User</p>
-                </div>
-                <ul class="nav flex-column">
-                    <!-- Kotak Masuk with Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="inboxDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Kotak Masuk
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="inboxDropdown">
-                            <li>
-                                <a href="{{route('umkm.messages.read')}}">
-                                    <h6 class="dropdown-header">Terbuka</h6>
-                                </a>
-
-                                <!-- @if(isset($readMessages) && count($readMessages) > 0)
-                                                            @foreach($readMessages as $message)
-                                                                <a class="dropdown-item" href="#">
-                                                                    {{ $message['content'] }} - {{ $message['sent_at'] }}
-                                                                </a>
-                                                            @endforeach
-                                                        @else
-                                                            <p class="dropdown-item text-muted">Tidak ada pesan terbuka</p>
-                                                        @endif -->
-                            </li>
-                            <li>
-                                <a href="{{route('umkm.messages.unread')}}">
-                                    <h6 class="dropdown-header">Belum Dibaca</h6>
-                                </a>
-                                <!-- @if(isset($unreadMessages) && count($unreadMessages) > 0)
-                                                            @foreach($unreadMessages as $message)
-                                                                <a class="dropdown-item" href="#">
-                                                                    {{ $message['content'] }} - {{ $message['sent_at'] }}
-                                                                </a>
-                                                            @endforeach
-                                                        @else
-                                                            <p class="dropdown-item text-muted">Tidak ada pesan belum dibaca</p>
-                                                        @endif -->
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <x-chatsidebar />
 
         <div class="col ms-auto px-4">
             <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">

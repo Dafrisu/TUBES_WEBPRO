@@ -1,4 +1,4 @@
-<!-- Raphael_message_penjual.blade -->
+<!-- chatsidebar.blade -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +43,7 @@
                 </ul>
             </div>
         </nav>
+    </div>
 </body>
 
 </html>

@@ -13,35 +13,27 @@ class FersyaController extends Controller
 {
     public function getviewinbox()
     {
+        $id = session('umkmID');
         try {
             $response = Http::withOptions(['verify' => false,])->get('http://localhost/getinboxpesanan');
-
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
+            $datacampaign = Http::withOptions(['verify' => false])->get('http://localhost/getcampaign/'. $id);
+    
             if ($response->successful()) {
                 $inbox = $response->json(); // Decode JSON
-                return view('fersya_inbox', compact('inbox'));
+                $profile = $respose->json();
+                $campaign = $datacampaign->json();
+                return view('fersya_inbox', compact('inbox', 'campaign'), compact('profile'));
             } else {
                 return view('fersya_inbox')->with('error', 'Gagal mendapatkan inbox dari API');
             }
-        } catch (\Exception $e) {
+    } catch (\Exception $e) {
             return view('fersya_inbox')->with('error', $e->getMessage());
         }
     }
 
-    public function getviewcampaign(){
-        try {
-            // Replace with the correct API endpoint or local database query
-            $response = Http::withOptions(['verify' => false,])->get('http://localhost/campaign'); // Example API call
-            if ($response->successful()) {
-                $campaigns = $response->json(); // Decode JSON
-                return view('fersya_inbox', compact('campaigns'));
-            } else {
-                return view('fersya_inbox')->with('error', 'Gagal mendapatkan Campaign dari API');
-            }
-        } catch (\Exception $e) {
-            return view('fersya_campaigns')->with('error', $e->getMessage());
-        }
-    }
 
+    
     public function getUpdateCampaignView($id)
     {   
     try {
@@ -65,29 +57,85 @@ class FersyaController extends Controller
     }
     }
 
+    public function getCampaign($id)
+    {
+        try {
+            if (!$id) {
+                throw new \Exception('ID campaign tidak ditemukan');
+            }
+            $respose = Http::withOptions(['verify' => false])->get('localhost/getcampaign/' . $id);
+
+            if ($respose->successful()) {
+                $datacampaign = json_decode($respose, true);
+                return view('fersya_campaignEdit', compact('datacampaign'));
+            } else {
+                throw new \Exception('Campaign tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.editcampaign', ['id' => session('umkmID')])->with('error', $e->getMessage());
+
+        }
+    }
+
     public function editCampaign(Request $request, $id)
     {
+        try {
+            
+            $validatedData = $request->validate([
+                '*' => 'required' 
+            ]);
+
+            // Kirim data ke API untuk update
+            $response = Http::withOptions(['verify' => false])
+                ->put("localhost/campaignEdit/" . $id, $validatedData);
+
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm.inbox', $id)->with('success', 'Campaign Berhasil Di update');
+            } else {
+                throw new \Exception('Gagal memperbarui Campaign di API');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.inbox', $id)->with('error', $e->getMessage());
+        }
+    }
+
+    public function addCampaign(Request $request)
+{
     try {
-        // Validate all input fields to ensure they are not empty
+        // Validate input fields
         $validatedData = $request->validate([
-            '*' => 'required' // All fields must be present and not empty
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'end_date' => 'required|date',
+            'image_url' => 'nullable|image|max:2048', // Optional: for uploading images
         ]);
 
-        // Send the data to the API for updating the campaign
-        $response = Http::withOptions(['verify' => false])
-            ->put("http://localhost/campaign/{$id}" );
+        // Add the `id_umkm` from the session
+        $validatedData['id_umkm'] = session('umkmID');
 
-        // Check if the API response is successful
+        // Check if an image was uploaded
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $validatedData['image'] = base64_encode(file_get_contents($file->getRealPath())); // Convert image to Base64
+        }
+
+        // Send data to the API for creation
+        $response = Http::withOptions(['verify' => false])
+            ->post('http://localhost/addCampaign', $validatedData); // Replace with your API endpoint
+
+        // Check if the API request was successful
         if ($response->successful()) {
-            return redirect()->route('campaigns.index')->with('success', 'Campaign berhasil diperbarui');
+            return redirect()->route('umkm.inbox')->with('success', 'Campaign berhasil ditambahkan');
         } else {
-            throw new \Exception('Gagal memperbarui campaign di API');
+            throw new \Exception('Gagal menambahkan Campaign ke API');
         }
     } catch (\Exception $e) {
         // Return an error message if something goes wrong
-        return redirect()->route('campaigns.index')->with('error', $e->getMessage());
+        return redirect()->back()->withInput()->with('error', $e->getMessage());
     }
-    }
+}
+
 
     public function deleteCampaign($id)
 {
@@ -96,7 +144,7 @@ class FersyaController extends Controller
         $response = Http::withOptions(['verify' => false])
             ->delete("http://localhost/Campaign/{$id}" ); // Replace with your local API endpoint
 
-        // Check if the API response is successful
+
         if ($response->successful()) {
             return redirect()->route('campaigns.index')->with('success', 'Campaign berhasil dihapus');
         } else {

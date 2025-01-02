@@ -33,10 +33,12 @@ Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
 route::get('/inbox', [FersyaController::class, 'getviewinbox'])->name('umkm.inbox');
-Route::get('/campaign', [FersyaController::class, 'getviewcampaign'])->name('umkm.campaign'); 
-Route::put('/campaign/{id}', [FersyaController::class, 'edit'])->name('umkm.editcampaign'); 
-Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
-Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
+Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('umkm.getcampaign'); 
+Route::put('/campaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
+Route::post('/campaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
+Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
+// Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
+// Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
 
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');

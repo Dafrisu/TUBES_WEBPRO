@@ -68,12 +68,9 @@
                 <a href="{{ route('umkm.messages.inbox') }}" class="btn btn-success">Balas Pesan</a>
             </div>
             <div class="card">
-                <h3>Tambahin Campaign Supaya Jangkauan Customer Lebih Luas!</h3>
-                <p>Pesan Paling Baru : "
-                    {{old('message', $datadashboardpesanpalingbaru[0]['message'] ?? 'Kamu belum mendapatkan message')}}"
-                </p>
-                <p>
-                    {{old('sent_at', $datadashboardpesanpalingbaru[0]['sent_at'] ?? 'Waktu Error')}}
+                <h3>Tambahin Campaign Supaya Jangkauan Lebih Luas!</h3>
+                <p>Campain Kamu Yang paling Baru : "
+                    {{old('title', $datadashboardcampaignpalingbaru[0]['title'] ?? 'Kamu belum mendapatkan message')}}"
                 </p>
                 <a href="{{ route('umkm.messages.inbox') }}" class="btn btn-success">Balas Pesan</a>
             </div>

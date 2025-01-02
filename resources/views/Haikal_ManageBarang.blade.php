@@ -189,6 +189,8 @@
                     document.getElementById('modal-berat').textContent = data.berat || '-';
                     document.getElementById('modal-deskripsi').textContent = data.deskripsi_barang || '-';
                     document.getElementById('modal-tipe').textContent = data.tipe_barang || '-';
+                    document.getElementById('modal-image').src = data.image_url || 'default-image.jpg'; // URL gambar produk
+                    document.getElementById('modal-image').alt = data.nama_barang || 'Gambar Produk';
 
                     // tampilkan modal
                     $('#modalproduk').modal('show');

@@ -22,10 +22,10 @@
     <!-- Content Area -->
     <div class="content">
         @if (session('success'))
-        <div class="alert alert-success">{{session('success')}}</div>
+            <div class="alert alert-success">{{session('success')}}</div>
         @endif
         @if (session('error'))
-        <div class="alert alert-danger">{{session('error')}}</div>
+            <div class="alert alert-danger">{{session('error')}}</div>
         @endif
 
         <h2>Performansi Anda</h2>
@@ -35,22 +35,44 @@
         <div class="cards">
             <div class="card">
                 <h3>Produk Laris Manis!</h3>
-                <p>
-                    {{ old('nama_barang', $datadashboardproduklaris[0]["nama_barang"] ?? 'produk gak ada')   }}
+                <p>Nama :
+                    {{old('nama_barang', $datadashboardproduklaris[0]['nama_barang'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
+                </p>
+                <p>Total Dipesan :
+                    {{old('total_kuantitas', $datadashboardproduklaris[0]['total_kuantitas'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
                 </p>
                 <a href="{{ route('umkm.statistik') }}" class="btn btn-success">Lihat Statistik</a>
             </div>
             <div class="card">
-                <h3>Ayo Kelola Pesanan mu sekarang!</h3>
+                <h3>Ayo Kelola Pesananmu Sekarang!</h3>
                 <p>Jumlah Pesanan masuk:
-                    {{old('jumlah_Pesanan', $datadashboardpesananmasuk['nama_barang'] ?? 'Belum ada Pesanan yang masuk Womp Womp')}}
+                    {{old('jumlah_Pesanan', $datadashboardpesananmasuk[0]['jumlah_pesanan'] ?? 'Belum ada Pesanan yang masuk Womp Womp')}}
                 </p>
                 <a href="{{ route('umkm.pesananditerima') }}" class="btn btn-success">Kelola Pesanan</a>
             </div>
             <div class="card">
-                <h3>Produk Terjual</h3>
-                <p>80</p>
-                <a href="#" class="btn btn-success">View Details</a>
+                <h3>Mau Nambahin Produk Apa hari ini?</h3>
+                <p>Produk Terakhir yang Ditambahkan :
+                    {{old('nama_barang', $datadashboardprodukpalingbaru[0]['nama_barang'] ?? 'Kamu Belum Menambahkan produk')}}
+                </p>
+                <a href="{{ route('umkm.managebarang') }}" class="btn btn-success">Kelola Produk</a>
+            </div>
+            <div class="card">
+                <h3>Balesin Chatmu Yuk!</h3>
+                <p>Pesan Paling Baru : "
+                    {{old('message', $datadashboardpesanpalingbaru[0]['message'] ?? 'Kamu belum mendapatkan message')}}"
+                </p>
+                <p>
+                    {{old('sent_at', $datadashboardpesanpalingbaru[0]['sent_at'] ?? 'Waktu Error')}}
+                </p>
+                <a href="{{ route('umkm.messages.inbox') }}" class="btn btn-success">Balas Pesan</a>
+            </div>
+            <div class="card">
+                <h3>Tambahin Campaign Supaya Jangkauan Lebih Luas!</h3>
+                <p>Campain Kamu Yang paling Baru : "
+                    {{old('title', $datadashboardcampaignpalingbaru[0]['title'] ?? 'Kamu belum mendapatkan message')}}"
+                </p>
+                <a href="{{ route('umkm.messages.inbox') }}" class="btn btn-success">Balas Pesan</a>
             </div>
         </div>
     </div>

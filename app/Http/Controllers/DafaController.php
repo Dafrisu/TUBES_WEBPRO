@@ -172,11 +172,16 @@ class DafaController extends Controller
             $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
             $dataproduklaris = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardproduklaris/' . $id);
             $datapesananmasuk = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardpesananmasuk/' . $id);
+            $dataprodukpalingbaru = Http::withOptions(['verify' => false])->get('localhost/getdatadashboardprodukpalingbaru/' . $id);
+            $datapesanpalingbaru = Http::withOptions(['verify' => false])->get('localhost/getdatadashboardpesanpalingbaru/' . $id);
+
             if ($respose->successful()) {
                 $profile = $respose->json();
-                $datadashboardproduklaris = $dataproduklaris->json();
-                $datadashboardpesananmasuk = $datapesananmasuk->json();
-                return view('Dafa_Dashboard', compact('profile', 'datadashboardproduklaris', 'datadashboardpesananmasuk'));
+                $datadashboardproduklaris = json_decode($dataproduklaris, true);
+                $datadashboardpesananmasuk = json_decode($datapesananmasuk, true);
+                $datadashboardprodukpalingbaru = json_decode($dataprodukpalingbaru, true);
+                $datadashboardpesanpalingbaru = json_decode($datapesanpalingbaru, true);
+                return view('Dafa_Dashboard', compact('profile', 'datadashboardpesananmasuk', 'datadashboardprodukpalingbaru', 'datadashboardpesanpalingbaru'), compact('datadashboardproduklaris'));
             } else {
                 throw new \Exception('data tidak ditemukan');
             }

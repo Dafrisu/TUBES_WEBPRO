@@ -61,14 +61,14 @@
         <!-- Isi Email -->
         <div class="mb-2">
           <label for="inputEmail" class="form-label">Alamat email</label>
-          <input type="email" class="form-control" @if(isset($_COOKIE['LoginEmail'])) value="{{ $_COOKIE['LoginEmail'] ?? '' }}" @else value=""  @endif 
+          <input type="email" class="form-control" value="{{ Cookie::get('LoginEmail') ?? '' }}"
           id="inputEmail" name="inputEmail" required>
         </div>
 
         <!-- Isi kata sandi -->
         <div class="mb-2">
           <label for="inputPassword" class="form-label">Kata sandi</label>
-          <input type="password" class="form-control" @if(isset($_COOKIE['LoginPassword'])) value="{{ $_COOKIE['LoginPassword'] ?? '' }}" @else value="" @endif 
+          <input type="password" class="form-control" value="{{ Cookie::get('LoginPassword') ?? '' }}"
           id="inputPassword" name="inputPassword" required>
         </div>
 

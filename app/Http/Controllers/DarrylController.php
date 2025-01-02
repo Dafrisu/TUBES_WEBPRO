@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cookie;
 
 class DarrylController extends Controller
 {
@@ -65,12 +66,12 @@ class DarrylController extends Controller
             $remember = $request->has('RememberMe');
             if ($remember) {
                 // isi cookie dengan session yang sudah disimpan kalo RememberMe
-                setcookie("LoginEmail", $request->input('inputEmail'), time() + 3600); // set cookie expire sejam
-                setcookie("LoginPassword", $request->input('inputPassword'), time() + 3600); // set cookie expire sejam
+                Cookie::queue(Cookie::make('LoginEmail', $request->input('inputEmail'), 60)); // set cookie expire sejam
+                Cookie::queue(Cookie::make('LoginPassword', $request->input('inputPassword'), 60)); // set cookie expire sejam
             } else {
                 // Kosongkan cookie kalo tidak RememberMe
-                setcookie("LoginEmail", "", time() - 3600);
-                setcookie("LoginPassword", "", time() - 3600);
+                Cookie::expire('LoginEmail');
+                Cookie::expire('LoginPassword');
             }
 
             if ($response->getStatusCode() == 200) {

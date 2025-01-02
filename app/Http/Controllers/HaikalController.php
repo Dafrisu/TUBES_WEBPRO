@@ -101,7 +101,7 @@ class HaikalController extends Controller
 
                 Log::info('upload result:', $uploadResult);
             } else {
-                return redirect()->back()->with('error', 'File gambar tidak valid atau tidak ditemukan.');
+                $uploadResult = ['blobUrl' => 'https://imageumkmku.blob.core.windows.net/storeimg/defaultproducts.png'];
             }
 
             $data = [

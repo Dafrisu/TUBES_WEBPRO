@@ -6,6 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
             </div>
             <div class="modal-body">
+            <img id="modal-image" src="" alt="Gambar Produk" class="img-fluid w-75 text-center ms-5 border mb-3" style="object-fit: cover; max-height: 250px; justify-content:center;">
                 <div class="col-sm-12" id="body-modal">
                     <div class="row mb-3">
                         <span class="col-sm-3">Nama Barang</span>

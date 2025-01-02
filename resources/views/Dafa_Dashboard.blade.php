@@ -34,15 +34,17 @@
         <!-- Cards Section -->
         <div class="cards">
             <div class="card">
-                <h3>Produk Laris Manis!!!</h3>
-                <p>{{old('nama_barang', $datadashboard['nama_barang'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
+                <h3>Produk Laris Manis!</h3>
+                <p>{{old('nama_barang', $datadashboardproduklaris['nama_barang'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
                 </p>
                 <a href="{{ route('umkm.statistik') }}" class="btn btn-success">Lihat Statistik</a>
             </div>
             <div class="card">
-                <h3>Total Orderan</h3>
-                <p>120</p>
-                <a href="#" class="btn btn-success">View Details</a>
+                <h3>Ayo Kelola Pesanan mu sekarang!</h3>
+                <p>Jumlah Pesanan masuk:
+                    {{old('jumlah_Pesanan', $datadashboardpesananmasuk['nama_barang'] ?? 'Belum ada Pesanan yang masuk Womp Womp')}}
+                </p>
+                <a href="{{ route('umkm.pesananditerima') }}" class="btn btn-success">Kelola Pesanan</a>
             </div>
             <div class="card">
                 <h3>Produk Terjual</h3>

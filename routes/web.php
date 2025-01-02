@@ -18,6 +18,7 @@ route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 
 //Route Punya Dapa
 Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');
+Route::get('/getpesanread', [DafaController::class, 'getpesanread'])->name('umkm.pesanread');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');

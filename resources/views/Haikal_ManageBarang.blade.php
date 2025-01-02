@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -35,6 +36,14 @@
             background-color: #658864;
         }
 
+        #buka {
+            height: 1rem;
+        }
+
+        #modalproduk span {
+            color: black;
+            /* Warna teks hitam */
+        }
 
 
         /* not used, but just leave it there, just in case
@@ -52,6 +61,8 @@
 </head>
 
 <body>
+
+
     <!-- Sidebar -->
     <script>
         window.routes = {
@@ -69,6 +80,7 @@
 
 
     <x-semua_-sidebar />
+    <x-modal-produk />
 
 
 
@@ -138,11 +150,15 @@
                     <td>
                         <a href="{{route('umkm.viewupdate', $item['id'])}}"><button type="button"
                                 class="btn btn-warning">Edit</button></a>
-                        <form action="{{route('umkm.deletebarang', $item['id'])}}" method="post">
+                        <form action="{{route('umkm.deletebarang', $item['id'])}}" method="post" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+
+                        <button class="btn btn-sm btn-outline-primary" type="button" onclick="loadmodaldata({{ $item['id'] }})" data-bs-toggle="modal" data-bs-target="#modalproduk">
+                            <img src="{{asset('images/show.png')}}" alt="" id="buka">
+                        </button>
                     </td>
                 </tr>
                 @endforeach
@@ -155,6 +171,31 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function loadmodaldata(id) {
+            fetch(`/produk/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+                    console.log(data);
+
+                    // isikan data ke modal
+                    document.getElementById('modal-nama-barang').textContent = data.nama_barang || '-';
+                    document.getElementById('modal-harga').textContent = data.harga || '-';
+                    document.getElementById('modal-stok').textContent = data.stok || '-';
+                    document.getElementById('modal-berat').textContent = data.berat || '-';
+                    document.getElementById('modal-deskripsi').textContent = data.deskripsi_barang || '-';
+                    document.getElementById('modal-tipe').textContent = data.tipe_barang || '-';
+
+                    // tampilkan modal
+                    $('#modalproduk').modal('show');
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
@@ -164,6 +205,7 @@
     <!-- <script src="{{ asset('js/Haikal_managebarang.js') }}"></script> -->
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

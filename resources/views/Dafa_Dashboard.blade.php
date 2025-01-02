@@ -22,10 +22,10 @@
     <!-- Content Area -->
     <div class="content">
         @if (session('success'))
-            <div class="alert alert-success">{{session('success')}}</div>
+        <div class="alert alert-success">{{session('success')}}</div>
         @endif
         @if (session('error'))
-            <div class="alert alert-danger">{{session('error')}}</div>
+        <div class="alert alert-danger">{{session('error')}}</div>
         @endif
 
         <h2>Performansi Anda</h2>
@@ -35,11 +35,16 @@
         <div class="cards">
             <div class="card">
                 <h3>Produk Laris Manis!</h3>
+<<<<<<< HEAD
                 <p>Nama :
                     {{old('nama_barang', $datadashboardproduklaris[0]['nama_barang'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
                 </p>
                 <p>Total Dipesan :
                     {{old('total_kuantitas', $datadashboardproduklaris[0]['total_kuantitas'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
+=======
+                <p>
+                    {{ old('nama_barang', $datadashboardproduklaris[0]["nama_barang"] ?? 'produk gak ada')   }}
+>>>>>>> b885e02c9e2e7452a89754ad9b141cf3020d1684
                 </p>
                 <a href="{{ route('umkm.statistik') }}" class="btn btn-success">Lihat Statistik</a>
             </div>

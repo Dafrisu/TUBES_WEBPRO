@@ -40,6 +40,7 @@ route::get('/updatebarang/{id}', [HaikalController::class, 'getUpdateprodukview'
 route::put('/updateproduk/{id}', [HaikalController::class, 'editproduk'])->name('umkm.updateproduk');
 route::delete('/deleteproduk/{id}', [HaikalController::class, 'deleteProduk'])->name('umkm.deletebarang');
 Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
+route::get('/produk/{id}', [HaikalController::class, 'getmodal'])->name('umkm.getprodukbyID');
 Route::get('/proxy/produk', function () {
     $response = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/produk');
     return response($response->body(), $response->status())

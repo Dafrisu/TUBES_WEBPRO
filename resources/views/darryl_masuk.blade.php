@@ -31,7 +31,7 @@
     <div class="container-fluid">
 
       <!-- navigate to home/dashboard by clicking logo/name -->
-      <a class="navbar-brand brand-name" href="{{ route('umkm.dashboard') }}">
+      <a class="navbar-brand brand-name" href="{{ route('umkm.landing') }}">
         <img src="{{ asset('images/logoU.png') }}" alt="Logo" width="64" height="64" class="d-inline-block" />
         UMKMku
       </a>
@@ -56,34 +56,33 @@
       <!-- Insert bacotan formalitas -->
       <div class="fs-2 fw-bold text-center">Masuk</div>
       <div class="fs-4 fw-medium mb-4 text-center">Masuk ke akun UMKMku</div>
-      <form method="POST" action="{{ route('umkm.login') }}">
+      <form action="{{ route('umkm.login') }}" method="POST" onsubmit="return validate(event)">
         @csrf
         <!-- Isi Email -->
         <div class="mb-2">
           <label for="inputEmail" class="form-label">Alamat email</label>
-          <input type="email" class="form-control" @if(isset($_COOKIE['LoginEmail'])) value="{{ $_COOKIE['LoginEmail'] }}" @endif id="inputEmail" name="inputEmail">
+          <input type="email" class="form-control" @if(isset($_COOKIE['LoginEmail'])) value="{{ $_COOKIE['LoginEmail'] ?? '' }}" @else value=""  @endif 
+          id="inputEmail" name="inputEmail" required>
         </div>
 
         <!-- Isi kata sandi -->
-        <div class="mb-4">
+        <div class="mb-2">
           <label for="inputPassword" class="form-label">Kata sandi</label>
-          <input type="password" class="form-control" @if(isset($_COOKIE['LoginPassword'])) value="{{ $_COOKIE['LoginPassword'] }}" @endif id="inputPassword" name="inputPassword">
-          <input type="checkbox" id="RememberMe" name="RememberMe"> Remember me
-          <input type="checkbox" id="togglePassword"> Tunjukan sandi
-
-          <!-- Lempar ke ubah sandi !soon
-            <div class="d-flex justify-content-end mt-3">
-              <div class="fs-6">Lupa kata sandi?</div>
-              <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
-                href="#">
-                Ubah kata sandi
-              </a>
-            </div> -->
+          <input type="password" class="form-control" @if(isset($_COOKIE['LoginPassword'])) value="{{ $_COOKIE['LoginPassword'] ?? '' }}" @else value="" @endif 
+          id="inputPassword" name="inputPassword" required>
         </div>
 
+        <div class="mb-1">
+          <input type="checkbox" id="togglePassword"> Tunjukan sandi
+        </div>
+
+        <div class="mb-4">
+          <input type="checkbox" id="RememberMe" name="RememberMe"> Ingat Saya
+        </div>
+        
         <!-- Button masuk -->
         <div class="d-flex flex-column justify-content-center">
-          <button type="submit" class="btn" onclick="validate()">
+          <button type="submit" class="btn">
             Masuk
           </button>
         </div>

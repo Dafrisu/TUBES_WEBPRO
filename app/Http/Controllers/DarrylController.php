@@ -12,8 +12,6 @@ class DarrylController extends Controller
     function daftar(Request $request)
     {
         try {
-            Log::info('Register Attempt', ['data' => $request->all()]);
-
             $data = [
                 'nama_lengkap' => $request->input('namaLengkap'),
                 'nomor_telepon' => $request->input('nomorTelepon'),
@@ -24,13 +22,10 @@ class DarrylController extends Controller
                 'nama_usaha' => $request->input('namaUsaha'),
                 'NIK_KTP' => $request->input('nikKtp'),
             ];
-
-            Log::info('Data prepared', ['data' => $data]);
-
             // pakai guzzle
             $client = new Client(['verify' => false]);
 
-            // Send the POST request using Guzzle
+            // POST request Guzzle
             $response = $client->post('https://umkmapi.azurewebsites.net/umkm', [
                 'json' => $data,
             ]);
@@ -58,7 +53,6 @@ class DarrylController extends Controller
             ];
 
             Log::info('Data prepared', ['data' => $data]);
-
             // pakai guzzle
             $client = new Client(['verify' => false]);
 
@@ -71,12 +65,12 @@ class DarrylController extends Controller
             $remember = $request->has('RememberMe');
             if ($remember) {
                 // isi cookie dengan session yang sudah disimpan kalo RememberMe
-                setcookie("LoginEmail", session('LoginEmail'), time() + 3600); // set cookie expire sejam
-                setcookie("LoginPassword", session('LoginPassword'), time() + 3600); // set cookie expire sejam
+                setcookie("LoginEmail", $request->input('inputEmail'), time() + 3600); // set cookie expire sejam
+                setcookie("LoginPassword", $request->input('inputPassword'), time() + 3600); // set cookie expire sejam
             } else {
                 // Kosongkan cookie kalo tidak RememberMe
-                setcookie("LoginEmail", "");
-                setcookie("LoginPassword", "");
+                setcookie("LoginEmail", "", time() - 3600);
+                setcookie("LoginPassword", "", time() - 3600);
             }
 
             if ($response->getStatusCode() == 200) {
@@ -92,6 +86,34 @@ class DarrylController extends Controller
                 } else {
                     return redirect()->back()->with('error', 'Gagal Masuk! ID UMKM tidak ditemukan.');
                 }
+                return redirect()->route('umkm.dashboard')
+                    ->with('success', 'Berhasil Masuk! 👍👍');
+            } else {
+                return redirect()->back()
+                    ->with('error', 'Gagal Masuk! :(' . $response->getBody());
+            }
+        } catch (\Exception $e) {
+            Log::error('Login failed', ['message' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Gagal total pokoknya dah');
+        }
+    }
+
+    function cekEmail(Request $request)
+    {
+        try {
+            $data = [
+                'inputPassword' => $request->input('inputPassword'),
+            ];
+            // pakai guzzle
+            $client = new Client(['verify' => false]);
+
+            // POST request Guzzle
+            $response = $client->post('https://umkmapi.azurewebsites.net/login', [
+                'json' => $data,
+            ]);
+
+            if ($response->getStatusCode() == 200) {
+                $responseData = json_decode($response->getBody()->getContents(), true);
                 return redirect()->route('umkm.dashboard')
                     ->with('success', 'Berhasil Masuk! (emote mantap)');
             } else {

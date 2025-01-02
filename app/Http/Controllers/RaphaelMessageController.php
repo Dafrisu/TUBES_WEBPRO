@@ -85,7 +85,9 @@ class RaphaelMessageController extends Controller
     public function sendMessage(Request $request)
     {
         $id = session('umkmID');
-
+        $validatedData = $request->validate([
+            '*' => 'required' // Semua field harus ada dan tidak boleh kosong
+        ]);
         // Validate incoming request
         $currentTime = Carbon::now(timezone: 'Asia/Jakarta');
         $formattedTime = $currentTime->format('Y-m-d H:i:s');

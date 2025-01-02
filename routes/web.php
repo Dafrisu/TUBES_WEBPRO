@@ -32,6 +32,11 @@ Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
 route::get('/inbox', [FersyaController::class, 'getviewinbox'])->name('umkm.inbox');
+Route::get('/campaign', [FersyaController::class, 'getviewcampaign'])->name('umkm.campaign'); 
+Route::put('/campaign/{id}', [FersyaController::class, 'edit'])->name('umkm.editcampaign'); 
+Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
+Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
+
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
 route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm.addbarang');

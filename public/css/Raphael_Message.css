@@ -111,9 +111,31 @@ body {
 }
 
 .dropdown-menu {
-  background-color: #FFFFFF;
-  width: 200px;
+  background-color: #444444;
+  width: auto; /* Atur ukuran lebar menu dropdown */
+  max-width: 300px;
+  overflow-wrap: break-word;
 }
+
+.dropdown-item {
+  color: #000000; /* Warna teks hitam */
+  font-size: 14px; /* Ukuran teks */
+  padding: 10px 15px;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0; /* Warna latar belakang saat hover */
+  color: #658864; /* Warna teks saat hover */
+}
+
+.dropdown-header {
+  color: #444444; /* Warna header */
+  font-weight: bold;
+  font-size: 16px;
+}
+
+
+
 
 .filters-bar-container {
   width: 100%; /* Ensure full width of the container */

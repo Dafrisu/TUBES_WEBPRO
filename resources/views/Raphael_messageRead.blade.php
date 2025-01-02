@@ -20,7 +20,7 @@
 <body>
     <div class="container-fluid d-inline-flex">
         <!-- Sidebar -->
-        <x-chatsidebar />
+        <x-chatsidebar :messages="$messages" />
 
         <div class="col ms-auto px-4">
             <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">
@@ -48,8 +48,23 @@
 
             <!-- Chat Interface -->
             <div class="chat-interface" id="chatInterface">
-
-                <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+                @if (isset($readMessages) && is_array($readMessages) && count($readMessages) > 0)
+                    @if ($readMessages['is_read'] == true)
+                        @foreach ($readMessages as $message)
+                            <div class="card mb-2" style="width: 100%;" onclick="navigateToChat('${msg.name}', '${msg.message}')">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$message['nama_lengkap']}}</h5>
+                                    <p class="card-text"></p>
+                                    <p class="text-muted"></p>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                @else
+                    <tr>
+                        <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+                    </tr>
+                @endif
             </div>
 
             <!-- Example Message Section -->

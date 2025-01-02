@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class profilebar extends Component
 {
-    public $profile; 
+    public $profile;
 
     public function __construct($profile = null)
     {

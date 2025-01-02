@@ -105,7 +105,7 @@ class DafaController extends Controller
         try {
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id, );
+                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id,);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -175,7 +175,7 @@ class DafaController extends Controller
             if ($respose->successful()) {
                 $profile = $respose->json();
                 $datadashboardproduklaris = $dataproduklaris->json();
-                $datadashboardpesananmasuk = $datapesananmasuk->json();
+                $datadashboardpesananmasuk = json_decode($datapesananmasuk, true);
                 return view('Dafa_Dashboard', compact('profile', 'datadashboardproduklaris', 'datadashboardpesananmasuk'));
             } else {
                 throw new \Exception('data tidak ditemukan');

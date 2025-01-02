@@ -7,7 +7,7 @@ body {
   background-color: #FCFAFA;
   margin: 0;
   padding: 0;
-  display: flex;
+  display: block;
 }
 
 body {
@@ -33,19 +33,26 @@ body {
 
 .sidebar {
   background-color: #658864 !important;
-  width: 250px; /* Fixed width */
+  width: 250px;
+  /* Fixed width */
   min-height: 100vh;
   padding-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  position: sticky;
+  position: fixed;
+  /* Tetap di posisi layar */
   top: 0;
-  flex-shrink: 0;
-}  
+  left: 0;
+  /* Pastikan sidebar berada di kiri */
+  z-index: 1000;
+  /* Pastikan tidak menutupi elemen lainnya */
+}
+
+.submenu.collapsed {
+  display: none;
+}
 
 .container-fluid {
-  margin: 0;
-  padding: 0;
+  margin-left: 250px;
+  /* Sesuaikan dengan lebar sidebar */
 }
 
 .sidebar h6 {
@@ -138,15 +145,17 @@ body {
 
 
 .filters-bar-container {
-  width: 100%; /* Ensure full width of the container */
+  position: relative;
+  z-index: 500;
+  padding-left: 260px;
+  /* Sesuaikan dengan lebar sidebar */
 }
 
 .filters-bar {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
+  background-color: #f8f9fa;
+  /* Tambahkan warna latar belakang */
+  border: 1px solid #ced4da;
+  /* Tambahkan batas untuk kejelasan */
 }
 
 .filters-bar .form-control,
@@ -156,14 +165,14 @@ body {
 }
 
 .chat-interface {
-  height: 70vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #FFFFFF;
   border-radius: 8px;
-  border: 1px solid #dedede;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 2rem;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -194,4 +203,5 @@ body {
 .card:hover {
   transform: scale(1.02);
 }
+
 

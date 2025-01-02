@@ -191,7 +191,7 @@ class RaphaelMessageController extends Controller
         }
     }
 
-    public function showUnreadMessage($id)
+    public function showUnreadMessage()
     {
         $id = session('umkmID');
         try {

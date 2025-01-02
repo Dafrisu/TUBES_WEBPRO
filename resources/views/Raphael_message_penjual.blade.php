@@ -20,42 +20,69 @@
 <body>
     <div class="container-fluid d-inline-flex">
         <!-- Sidebar -->
-        <x-chatsidebar />
-
-        <div class="col ms-auto px-4">
-            <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">
-                <div class="header-logo">
-                    <img src="images/logoU.png" alt="UMKM Icon" width="80" />
-                    <h1 class="h2 mb-0">UMKM CHAT</h1>
+        <nav class="sidebar d-md-block bg-light" id="sidebar">
+            <div class="position-sticky pt-3">
+                <!-- BackButton -->
+                <div class="col ms-auto px-10">
+                    <div class="back-button-container">
+                        <a href="{{ route('umkm.dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Filters Bar -->
-            <div class="filters-bar-container" id="filtersBar">
-                <div class="filters-bar d-flex align-items-center">
-                    <input type="text" class="form-control flex-grow-1 me-3" placeholder="Cari semua chat"
-                        onkeyup="searchMessages(event)" />
-                    <select class="form-select" style="width: auto;" onchange="sortMessages(event)">
-                        <option value="">Urutkan</option>
-                        <option value="newest">Terbaru</option>
-                        <option value="oldest">Terlama</option>
-                    </select>
+                <!-- Profile Section -->
+                <div class="profile-section text-center">
+                    <img src="{{ asset('images/profile.png') }}" alt="Profile Picture" class="rounded-circle mb-2"
+                        width="80" />
+                    <h6>Customer Service</h6>
+                    <p>Welcome, user</p>
                 </div>
-                <p class="text-center" id="emptyMessage">
-                    Daftar ini kosong
-                </p>
+                <li onclick="toggledropdown()">
+                    <div class="container">
+                        Kotak Masuk
+                    </div>
+                </li>
+                <ul id="submenu" class=" submenu nav flex-column collapsed">
+                    <li><a href="{{ route('umkm.messages.inbox') }}">Inbox</a></li>
+                    <li><a href="{{ route('umkm.messages.read') }}">Sudah Dibaca</a></li>
+                    <li><a href="{{ route('umkm.messages.unread') }}">Belum Dibaca</a></li>
+                </ul>
             </div>
-
-            <!-- Chat Interface -->
-            <div class="chat-interface" id="chatInterface">
-
-                <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+        </nav>
+    </div>
+    <div class="col ms-auto px-4">
+        <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">
+            <div class="header-logo">
+                <img src="images/logoU.png" alt="UMKM Icon" width="80" />
+                <h1 class="h2 mb-0">UMKM CHAT</h1>
             </div>
+        </div>
 
-            <!-- Example Message Section -->
-            <div class="example-messages-container">
-                <div class="example-messages" id="exampleMessages">
-                </div>
+        <!-- Filters Bar -->
+        <div class="filters-bar-container" id="filtersBar">
+            <div class="filters-bar d-flex align-items-center">
+                <input type="text" class="form-control flex-grow-1 me-3" placeholder="Cari semua chat"
+                    onkeyup="searchMessages(event)" />
+                <select class="form-select" style="width: auto;" onchange="sortMessages(event)">
+                    <option value="">Urutkan</option>
+                    <option value="newest">Terbaru</option>
+                    <option value="oldest">Terlama</option>
+                </select>
+            </div>
+            <p class="text-center" id="emptyMessage">
+                Daftar ini kosong
+            </p>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="chat-interface" id="chatInterface">
+
+            <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
+        </div>
+
+        <!-- Example Message Section -->
+        <div class="example-messages-container">
+            <div class="example-messages" id="exampleMessages">
             </div>
         </div>
     </div>

@@ -105,7 +105,7 @@ class DafaController extends Controller
         try {
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id,);
+                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id, );
 
             // Periksa respon API
             if ($response->successful()) {
@@ -172,11 +172,18 @@ class DafaController extends Controller
             $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
             $dataproduklaris = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardproduklaris/' . $id);
             $datapesananmasuk = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardpesananmasuk/' . $id);
+            $dataprodukpalingbaru = Http::withOptions(['verify' => false])->get('localhost/getdatadashboardprodukpalingbaru/' . $id);
+            $datapesanpalingbaru = Http::withOptions(['verify' => false])->get('localhost/getdatadashboardpesanpalingbaru/' . $id);
+            $datacampaignpalingbaru = Http::withOptions(['verify' => false])->get('localhost/getdatadashboardcampaignpalingbaru/' . $id);
+
             if ($respose->successful()) {
                 $profile = $respose->json();
-                $datadashboardproduklaris = $dataproduklaris->json();
+                $datadashboardproduklaris = json_decode($dataproduklaris, true);
                 $datadashboardpesananmasuk = json_decode($datapesananmasuk, true);
-                return view('Dafa_Dashboard', compact('profile', 'datadashboardproduklaris', 'datadashboardpesananmasuk'));
+                $datadashboardprodukpalingbaru = json_decode($dataprodukpalingbaru, true);
+                $datadashboardpesanpalingbaru = json_decode($datapesanpalingbaru, true);
+                $datadashboardcampaignpalingbaru = json_decode($datacampaignpalingbaru, true);
+                return view('Dafa_Dashboard', compact('profile', 'datadashboardpesananmasuk', 'datadashboardprodukpalingbaru', 'datadashboardpesanpalingbaru', 'datadashboardcampaignpalingbaru'), compact('datadashboardproduklaris'));
             } else {
                 throw new \Exception('data tidak ditemukan');
             }

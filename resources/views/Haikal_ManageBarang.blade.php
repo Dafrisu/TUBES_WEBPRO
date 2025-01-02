@@ -110,17 +110,13 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#" id="brg-semua">Semua</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="brg-habis">Stok Habis</a>
-                        </li>
-
                     </ul>
                 </div>
-                <div class="col-auto ms-auto">
+                <!-- <div class="col-auto ms-auto">
                     <button id="refreshbutton" class="btn btn-outline-primary">
                         <i class="bi bi-arrow-clockwise"></i>
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- Tables -->

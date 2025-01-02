@@ -20,7 +20,6 @@
 <body>
     <div class="container-fluid d-inline-flex">
         <!-- Sidebar -->
-        <x-chatsidebar :messages="$messages" />
 
         <div class="col ms-auto px-4">
             <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">

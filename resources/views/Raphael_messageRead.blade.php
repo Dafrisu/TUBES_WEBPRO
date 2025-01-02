@@ -20,11 +20,39 @@
 <body>
     <div class="container-fluid d-inline-flex">
         <!-- Sidebar -->
-
+        <nav class="sidebar d-md-block bg-light" id="sidebar">
+            <div class="position-sticky pt-3">
+                <!-- BackButton -->
+                <div class="col ms-auto px-10">
+                    <div class="back-button-container">
+                        <a href="{{ route('umkm.dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Profile Section -->
+                <div class="profile-section text-center">
+                    <img src="{{ asset('images/profile.png') }}" alt="Profile Picture" class="rounded-circle mb-2"
+                        width="80" />
+                    <h6>Customer Service</h6>
+                    <p>Welcome, user</p>
+                </div>
+                <li onclick="toggledropdown()">
+                    <div class="container">
+                        Kotak Masuk
+                    </div>
+                </li>
+                <ul id="submenu" class=" submenu nav flex-column collapsed">
+                    <li><a href="{{ route('umkm.messages.inbox') }}">Inbox</a></li>
+                    <li><a href="{{ route('umkm.messages.read') }}">Sudah Dibaca</a></li>
+                    <li><a href="{{ route('umkm.messages.unread') }}">Belum Dibaca</a></li>
+                </ul>
+            </div>
+        </nav>
         <div class="col ms-auto px-4">
             <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">
                 <div class="header-logo">
-                    <img src="images/logoU.png" alt="UMKM Icon" width="80" />
+                    <img src="{{ asset('images/logoU.png') }}" alt="UMKM Icon" width="80" />
                     <h1 class="h2 mb-0">UMKM CHAT</h1>
                 </div>
             </div>
@@ -46,23 +74,21 @@
             </div>
 
             <!-- Chat Interface -->
-            <div class="chat-interface" id="chatInterface">
-                @if (isset($readMessages) && is_array($readMessages) && count($readMessages) > 0)
-                    @if ($readMessages['is_read'] == true)
-                        @foreach ($readMessages as $message)
-                            <div class="card mb-2" style="width: 100%;" onclick="navigateToChat('${msg.name}', '${msg.message}')">
+            <div class="chat-interface d-flex flex-column" id="chatInterface">
+                @if (!empty($readMessages))
+                    @foreach (collect($readMessages)->unique('id_pembeli') as $message)
+                        <a href="{{ route('messagepage', $message['id_pembeli']) }}">
+                            <div class="colspan-1 card mb-2" style="width: 100%;">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$message['nama_lengkap']}}</h5>
-                                    <p class="card-text"></p>
-                                    <p class="text-muted"></p>
+                                    <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>
+                                    <p class="card-text">{{ $message['message'] }}</p>
+                                    <p class="text-muted">{{ date('Y-m-d H:i:s', strtotime($message['sent_at'])) }}</p>
                                 </div>
                             </div>
-                        @endforeach
-                    @endif
+                        </a>
+                    @endforeach
                 @else
-                    <tr>
-                        <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
-                    </tr>
+                    <p>No read messages found.</p>
                 @endif
             </div>
 

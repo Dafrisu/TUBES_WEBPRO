@@ -20,7 +20,7 @@
 <body>
     <div class="container-fluid d-inline-flex">
         <!-- Sidebar -->
-        <nav class="d-md-block bg-light sidebar">
+        <nav class="sidebar d-md-block bg-light" id="sidebar">
             <div class="position-sticky pt-3">
                 <!-- BackButton -->
                 <div class="col ms-auto px-10">
@@ -32,57 +32,27 @@
                 </div>
                 <!-- Profile Section -->
                 <div class="profile-section text-center">
-                    <img src="images/Profilepic.png" alt="Profile Picture" class="rounded-circle mb-2" width="80" />
+                    <img src="{{ asset('images/profile.png') }}" alt="Profile Picture" class="rounded-circle mb-2"
+                        width="80" />
                     <h6>Customer Service</h6>
-                    <p>Welcome, User</p>
+                    <p>Welcome, user</p>
                 </div>
-                <ul class="nav flex-column">
-                    <!-- Kotak Masuk with Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="inboxDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Kotak Masuk
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="inboxDropdown">
-                            <li>
-                                <a href="{{route('umkm.messages.read')}}">
-                                    <h6 class="dropdown-header">Terbuka</h6>
-                                </a>
-
-                                <!-- @if(isset($readMessages) && count($readMessages) > 0)
-                                                            @foreach($readMessages as $message)
-                                                                <a class="dropdown-item" href="#">
-                                                                    {{ $message['content'] }} - {{ $message['sent_at'] }}
-                                                                </a>
-                                                            @endforeach
-                                                        @else
-                                                            <p class="dropdown-item text-muted">Tidak ada pesan terbuka</p>
-                                                        @endif -->
-                            </li>
-                            <li>
-                                <a href="{{route('umkm.messages.unread')}}">
-                                    <h6 class="dropdown-header">Belum Dibaca</h6>
-                                </a>
-                                <!-- @if(isset($unreadMessages) && count($unreadMessages) > 0)
-                                                            @foreach($unreadMessages as $message)
-                                                                <a class="dropdown-item" href="#">
-                                                                    {{ $message['content'] }} - {{ $message['sent_at'] }}
-                                                                </a>
-                                                            @endforeach
-                                                        @else
-                                                            <p class="dropdown-item text-muted">Tidak ada pesan belum dibaca</p>
-                                                        @endif -->
-                            </li>
-                        </ul>
-                    </li>
+                <li onclick="toggledropdown()">
+                    <div class="container">
+                        Kotak Masuk
+                    </div>
+                </li>
+                <ul id="submenu" class=" submenu nav flex-column collapsed">
+                    <li><a href="{{ route('umkm.messages.inbox') }}">Inbox</a></li>
+                    <li><a href="{{ route('umkm.messages.read') }}">Sudah Dibaca</a></li>
+                    <li><a href="{{ route('umkm.messages.unread') }}">Belum Dibaca</a></li>
                 </ul>
             </div>
         </nav>
-
         <div class="col ms-auto px-4">
             <div class="justify-content-between align-items-center pt-1 pb-1 mb-3 border-bottom">
                 <div class="header-logo">
-                    <img src="images/logoU.png" alt="UMKM Icon" width="80" />
+                    <img src="{{ asset('images/logoU.png') }}" alt="UMKM Icon" width="80" />
                     <h1 class="h2 mb-0">UMKM CHAT</h1>
                 </div>
             </div>
@@ -104,35 +74,31 @@
             </div>
 
             <!-- Chat Interface -->
-            <div class="chat-interface" id="chatInterface">
-                <div class="chat-interface" id="chatInterface">
-                    @if (isset($unreadMessages) && is_array($unreadMessages) && count($unreadMessages) > 0)
-                        @if ($unreadMessages['is_read'] == false)
-                            @foreach ($unreadMessages as $message)
-                                <div class="card mb-2" style="width: 100%;"
-                                    onclick="navigateToChat('${msg.name}', '${msg.message}')">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{$message['nama_lengkap']}}</h5>
-                                        <p class="card-text"></p>
-                                        <p class="text-muted"></p>
-                                    </div>
+            <div class="chat-interface d-flex flex-column" id="chatInterface">
+                @if (!empty($unreadMessages))
+                    @foreach (collect($unreadMessages)->unique('id_pembeli') as $message)
+                        <a href="{{ route('messagepage', $message['id_pembeli']) }}">
+                            <div class="colspan-1 card mb-2" style="width: 100%;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>
+                                    <p class="card-text">{{ $message['message'] }}</p>
+                                    <p class="text-muted">{{ date('Y-m-d H:i:s', strtotime($message['sent_at'])) }}</p>
                                 </div>
-                            @endforeach
-                        @endif
-                    @else
-                        <tr>
-                            <p class="text-center">Selamat Datang di Obrolan UMKM Shop</p>
-                        </tr>
-                    @endif
-                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                @else
+                    <p>No read messages found.</p>
+                @endif
+            </div>
 
-                <!-- Example Message Section -->
-                <div class="example-messages-container">
-                    <div class="example-messages" id="exampleMessages">
-                    </div>
+            <!-- Example Message Section -->
+            <div class="example-messages-container">
+                <div class="example-messages" id="exampleMessages">
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 </html>

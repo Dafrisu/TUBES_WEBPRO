@@ -7,13 +7,15 @@ body {
   background-color: #FCFAFA;
   margin: 0;
   padding: 0;
-  display: block;
+  display: flex;
 }
 
 body {
   display: block;
   align-items: center;
   background-color: #FCFAFA;
+  padding-left: 280px;
+  /* Add margin to account for the sidebar width */
 }
 
 .header-logo h1 {
@@ -33,27 +35,27 @@ body {
 
 .sidebar {
   background-color: #658864 !important;
-  width: 250px;
-  /* Fixed width */
-  min-height: 100vh;
-  padding-top: 1rem;
+  width: 280px;
+  padding: 20px;
+  color: #fff;
+  height: 100vh;
   position: fixed;
-  /* Tetap di posisi layar */
   top: 0;
   left: 0;
-  /* Pastikan sidebar berada di kiri */
   z-index: 1000;
-  /* Pastikan tidak menutupi elemen lainnya */
+  /* Ensures the sidebar stays on top */
+  overflow-y: scroll;
 }
 
 .submenu.collapsed {
   display: none;
 }
 
-.container-fluid {
-  margin-left: 250px;
-  /* Sesuaikan dengan lebar sidebar */
+.submenu{
+  background-color: #444444;
+  color: #FFFFFF;
 }
+
 
 .sidebar h6 {
   color: #FFFFFF !important;
@@ -81,15 +83,13 @@ body {
   color: #888;
 }
 
-
-
 .back-button-container {
   margin-bottom: 10px;
 }
 
 .back-button-container {
   margin-bottom: 10px;
-  padding-left: 10px; 
+  padding-left: 10px;
 }
 
 .back-button-container .btn {
@@ -106,62 +106,57 @@ body {
 }
 
 .back-button-container .btn:hover {
-  color: #d4d4d4; 
+  color: #d4d4d4;
 }
 
 .back-button-container .btn i {
   font-size: 1.5rem;
 }
 
-.back-button-container .btn i {
-  font-size: 1.5rem; 
-}
-
 .dropdown-menu {
   background-color: #444444;
-  width: auto; /* Atur ukuran lebar menu dropdown */
+  width: auto;
   max-width: 300px;
   overflow-wrap: break-word;
 }
 
 .dropdown-item {
-  color: #000000; /* Warna teks hitam */
-  font-size: 14px; /* Ukuran teks */
+  color: #000000;
+  font-size: 14px;
   padding: 10px 15px;
 }
 
 .dropdown-item:hover {
-  background-color: #f0f0f0; /* Warna latar belakang saat hover */
-  color: #658864; /* Warna teks saat hover */
+  background-color: #f0f0f0;
+  color: #658864;
 }
 
 .dropdown-header {
-  color: #444444; /* Warna header */
+  color: #444444;
   font-weight: bold;
   font-size: 16px;
 }
-
-
-
 
 .filters-bar-container {
   position: relative;
   z-index: 500;
   padding-left: 260px;
-  /* Sesuaikan dengan lebar sidebar */
+  /* Adjust the padding to fit the sidebar */
 }
 
 .filters-bar {
   background-color: #f8f9fa;
-  /* Tambahkan warna latar belakang */
   border: 1px solid #ced4da;
-  /* Tambahkan batas untuk kejelasan */
 }
 
-.filters-bar .form-control,
-.filters-bar .form-select {
+.form-control,
+.form-select {
   width: 100%;
   flex: 1;
+}
+
+.filters-bar-container {
+  width: 100%;
 }
 
 .chat-interface {
@@ -174,7 +169,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 
 .example-messages .card {
   border: 1px solid #ddd;
@@ -194,7 +188,6 @@ body {
   display: none;
 }
 
-
 .card {
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -203,5 +196,3 @@ body {
 .card:hover {
   transform: scale(1.02);
 }
-
-

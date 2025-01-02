@@ -31,11 +31,19 @@
         .btn-submit {
             width: 100%;
         }
+
+        #iconback {
+            height: 1rem;
+        }
     </style>
 </head>
 
 <body>
+
     <div class="form-container">
+        <a href="{{route('umkm.dashboard')}}">
+            <img src="{{asset('/images/backbutton.png')}}" alt="" id="iconback">
+        </a>
         <h2 class="form-header">Edit Profile UMKM</h2>
         <form id="formeditprofileumkm" method="POST" action="{{route('umkm.editprofileumkm', session('umkmID'))}}">
             @csrf

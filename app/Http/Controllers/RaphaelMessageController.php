@@ -10,14 +10,14 @@ use Carbon\Carbon;
 class RaphaelMessageController extends Controller
 {
     // Show chat page with messages
-    public function showChatPage(Request $request)
+    public function showChatPage(Request $request, $id_pembeli)
     {
         $id = session('umkmID');
         try {
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id, $id_pembeli);
 
 
             if ($response->successful()) {
@@ -35,66 +35,20 @@ class RaphaelMessageController extends Controller
         }
     }
 
-    // Get messages from external API
-    private function getMessagesFromAPI($customerId)
-    {
-        $customerId = session('umkmID');
-        $apiUrl = "localhost/message/msgUMKM/{$customerId}";
-
-        // Use Laravel's HTTP Client to fetch messages
-        $response = Http::get($apiUrl);
-
-        if ($response->successful()) {
-            $messages = $response->json();
-
-            // Sort the messages by 'sent_at' in ascending order (oldest first)
-            usort($messages, function ($a, $b) {
-                return $a['id_chat'] - $b['id_chat'];
-            });
-
-            return $messages;
-        } else {
-            // Handle error, log it, or return a default empty array
-            Log::error('Failed to fetch messages from API', ['customerId' => $customerId]);
-            return [];
-        }
-    }
-
-    public function getmessageumkm($id)
-    {
-        $id = session('umkmID');
-        try {
-            if (!$id) {
-                throw new \Exception('ID profile tidak ditemukan');
-            }
-            $response = Http::withOptions(['verify' => false])->get('localhost/message/msgUMKM/' . $id);
-
-            if ($response->successful()) {
-                $messages = $response->json();
-                return view('Raphael_messageRead', compact('messages'));
-            } else {
-                throw new \Exception('message tidak ditemukan');
-            }
-        } catch (\Exception $e) {
-            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
-        }
-    }
 
 
     // Send message via API
     public function sendMessage(Request $request)
     {
-        $id = session('umkmID');
-        $validatedData = $request->validate([
-            '*' => 'required' // Semua field harus ada dan tidak boleh kosong
-        ]);
+
+
         // Validate incoming request
         $currentTime = Carbon::now(timezone: 'Asia/Jakarta');
         $formattedTime = $currentTime->format('Y-m-d H:i:s');
 
         // Data from the request
+        $id = session('umkmID');
         $message = $request->input('message');
-        $id_umkm = $request->input('id_umkm');
         $id_pembeli = $request->input('id_pembeli');
         $receiverType = $request->input('receiver_type');
 
@@ -191,14 +145,14 @@ class RaphaelMessageController extends Controller
         }
     }
 
-    public function showReadMessages()
+    public function showReadMessages($id_pembeli)
     {
         $id = session('umkmID');
         try {
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id, $id_pembeli);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);

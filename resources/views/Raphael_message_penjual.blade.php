@@ -44,7 +44,7 @@
                 </li>
                 <ul id="submenu" class="submenu nav flex-column collapsed">
                     <li><a href="{{ route('umkm.messages.inbox') }}" class="submenu-item">Inbox</a></li>
-                    <li><a href="{{ route('umkm.messages.read') }}" class="submenu-item">Sudah Dibaca</a></li>
+                    <li><a href="{{ route('umkm.messages.read', ) }}" class="submenu-item">Sudah Dibaca</a></li>
                     <li><a href="{{ route('umkm.messages.unread') }}" class="submenu-item">Belum Dibaca</a></li>
                 </ul>
             </div>

@@ -43,6 +43,7 @@
             <div class="chat-input">
                 <input type="text" name="message" id="messageInput" placeholder="Type a message..." required />
                 <input type="hidden" name="receiver_type" value="Pembeli">
+                <input type="hidden" name="id_pembeli" value="{{}}">
                 <button type="submit" class="send-button">
                     <i class="fas fa-paper-plane"></i>
                 </button>

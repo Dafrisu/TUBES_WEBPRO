@@ -52,7 +52,7 @@
             <h3 style="color: white;">Inbox Penjual</h3>
             <div class="profile d-flex align-items-center">
                 <img src="assets/Profilepic.png" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-                <span style="color: white;">Frixky</span>
+                <span style="color: white;"> {{old('username', $profile['username'] ?? 'error')}}</span>
             </div>
         </div>
 
@@ -137,14 +137,44 @@
             </table>
         </div>
 
-        <!-- Card Pemasaran -->
+        <!-- Card Campaign -->
         <div id="pemasaranContent" style="display: none; margin-top: 20px;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Pemasaran</h4>
-            </div>
-            <div class="row" id="campaignContainer"></div>
-        </div>
-
+    <div class="row" id="campaignContainer">
+            <a class="mb-3" href="{{route('umkm.tambahcampaign')}}">
+                <button class="btn btn-success ">tambah campaign</button>
+            </a>
+    @foreach($campaign as $campaigns)
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ $campaigns['image']['url'] ?? '' }}" class="img-fluid rounded-start" alt="{{ $campaigns['title'] ?? 'No Title' }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $campaigns['title'] ?? 'No Title' }}</h5>
+                                <p class="card-text">{{ $campaigns['description'] ?? 'No Description' }}</p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary">Start date: {{ $campaigns['start_date'] ?? 'N/A' }}</small>
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary">End date: {{ $campaigns['end_date'] ?? 'N/A' }}</small>
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary">Status: {{ $campaigns['status'] ?? 'N/A' }}</small>
+                                </p>
+                                <button class="btn btn-light">
+                                    <a href="{{route('umkm.getcampaign', $campaigns['id_campaign'])}}">Edit</a>
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        @endforeach
+    </div>
+</div>
         <!-- Tab Settings -->
         <div class="mt-4" id="pilihTab" style="background-color: #658864; color: white; max-width: fit-content; padding: 8px;">
             <h5>Pilih Tab</h5>

@@ -33,6 +33,13 @@ Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
 route::get('/inbox', [FersyaController::class, 'getviewinbox'])->name('umkm.inbox');
+Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('umkm.getcampaign'); 
+Route::put('/campaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
+Route::post('/campaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
+Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
+// Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
+// Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
+
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
 route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm.addbarang');
@@ -55,13 +62,12 @@ Route::get('/monthly-stats/{umkmId}', [MahesaController::class, 'getYearlyStats'
 // // View routes (removed since they don't need dynamic data passing)
 Route::view('/message', 'Raphael_message_penjual')->name('message');
 Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('umkm.message');
-Route::get('/umkm/messages', [RaphaelMessageController::class, 'showmsgPage'])->name('umkm.messages');
 
 
 // Chat routes for dynamic content
-Route::get('/umkm/message', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
+Route::get('/umkm/message/{id}', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
 Route::post('/send-message', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
-Route::get('/chat', [RaphaelMessageController::class, 'showChatPage'])->name('chatPage');
+Route::get('/chat', [RaphaelMessageController::class, 'showChatPage'])->name(name: 'chatPage');
 Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 
 // Routing untuk pesan yang sudah dibaca

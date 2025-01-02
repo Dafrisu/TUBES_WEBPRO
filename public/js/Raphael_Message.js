@@ -137,11 +137,11 @@ function goBackChat() {
 }
 
 // Modify `navigateToChat` to use Laravel route
-function navigateToChat(name, message) {
-    window.location.href = `/umkm/chat?name=${encodeURIComponent(
-        name
-    )}&message=${encodeURIComponent(message)}`;
-}
+// function navigateToChat(name, message) {
+//     window.location.href = `/umkm/chat?name=${encodeURIComponent(
+//         name
+//     )}&message=${encodeURIComponent(message)}`;
+// }
 
 // Function to render chat cards for each buyer
 function renderChatCards(messages) {
@@ -227,13 +227,8 @@ renderChatCards(messages);
 
 function toggledropdown() {
     const submenu = document.getElementById("submenu");
-    submenu.classList.toggle("collapsed");
-}
+    const sidebarItem = submenu.parentElement;
 
-// Pastikan submenu tertutup saat halaman dimuat
-document.addEventListener("DOMContentLoaded", function () {
-    const submenu = document.getElementById("submenu");
-    if (!submenu.classList.contains("collapsed")) {
-        submenu.classList.add("collapsed");
-    }
-});
+    submenu.classList.toggle("collapsed");
+    sidebarItem.classList.toggle("active");
+}

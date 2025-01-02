@@ -18,6 +18,7 @@ route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 
 //Route Punya Dapa
 Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');
+Route::get('/getpesanread', [DafaController::class, 'getpesanread'])->name('umkm.pesanread');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
@@ -33,9 +34,10 @@ Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
 route::get('/inbox', [FersyaController::class, 'getviewinbox'])->name('umkm.inbox');
-Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('umkm.getcampaign'); 
+Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('umkm.getcampaign');
 Route::put('/campaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
-Route::post('/campaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
+Route::post('/campaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');
+;
 Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
 // Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
 // Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
@@ -72,6 +74,6 @@ Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->nam
 
 // Routing untuk pesan yang sudah dibaca
 Route::get('/umkm/messages/inbox', [RaphaelMessageController::class, 'showinbox'])->name('umkm.messages.inbox');
-Route::get('/umkm/messages/read', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
+Route::get('/umkm/messages/read/{id_pembeli}', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
 // Routing untuk pesan yang belum dibaca
 Route::get('/umkm/messages/unread', [RaphaelMessageController::class, 'showUnreadMessages'])->name('umkm.messages.unread');

@@ -13,26 +13,24 @@
 <body>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <div class="sidebar">
-        <h2>Seller Center</h2>
+        <h2>UMKM Center</h2>
         <ul>
             <li><a href="{{ route('umkm.dashboard') }}"><img src="/images/dashboard.png" alt="" id="icondashboard"
                         style="margin-left: 8px; margin-right:10px;">Dasbor</a></li>
             <li><a href="{{ route('umkm.managebarang') }}"><img src="/images/products.png" alt="" id="iconproducts"
                         style="margin-left: 8px; margin-right:10px;">Kelola Produk</a></li>
-            <ul>
-                <li onclick="toggleSubmenu()">
-                    <div class="container"><img src="{{asset('images/pesanan.png')}}" alt="" id="iconpesanan">
-                        Pesanan
-                        <img src="{{ asset('images/arrow-down-sign-to-navigate.png') }}" alt="dropdownArrow"
-                            id="dropdownArrow" style="margin-left: 8px; margin-right:10px;">
-                    </div>
-                </li>
-                <ul id="submenu" class="submenu">
-                    <li><a href="{{ route('umkm.kelolapesanan') }}">Pesanan masuk</a></li>
-                    <li><a href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a></li>
-                    <li><a href="{{ route('umkm.pesananditolak') }}">Pesanan Ditolak</a></li>
-                    <li><a href="{{ route('umkm.pesananselesai') }}">Pesanan Selesai</a></li>
-                </ul>
+            <li onclick="toggleSubmenu()" style="margin-left: 8px;">
+                <div class="container"><img src="{{asset('images/pesanan.png')}}" alt="" id="iconpesanan">
+                    Pesanan
+                    <img src="{{ asset('images/arrow-down-sign-to-navigate.png') }}" alt="dropdownArrow"
+                        id="dropdownArrow" style="margin-left: 8px; margin-right:10px;">
+                </div>
+            </li>
+            <ul id="submenu" class="submenu">
+                <li><a href="{{ route('umkm.kelolapesanan') }}">Pesanan masuk</a></li>
+                <li><a href="{{ route('umkm.pesananditerima') }}">Pesanan Diterima</a></li>
+                <li><a href="{{ route('umkm.pesananditolak') }}">Pesanan Ditolak</a></li>
+                <li><a href="{{ route('umkm.pesananselesai') }}">Pesanan Selesai</a></li>
             </ul>
             <li><a href="{{ route('umkm.statistik') }}"><img src="{{asset('images/statistic.png')}}" alt=""
                         id="iconstatistik" style="margin-left: 8px; margin-right:10px;">Statistik</a></li>

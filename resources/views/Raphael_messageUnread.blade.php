@@ -88,7 +88,7 @@
                         </a>
                     @endforeach
                 @else
-                    <p>No read messages found.</p>
+                    <p>No unread messages found.</p>
                 @endif
             </div>
 

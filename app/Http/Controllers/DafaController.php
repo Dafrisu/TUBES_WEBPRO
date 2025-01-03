@@ -191,4 +191,5 @@ class DafaController extends Controller
             return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
+
 }

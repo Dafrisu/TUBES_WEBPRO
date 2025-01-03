@@ -34,7 +34,9 @@
 
 <div class="container">
     <h2>Tambah Campaign</h2>
-
+    <a href="{{ route('umkm.inbox') }}" class="btn btn-secondary mb-3 ">
+        Kembali ke Inbox
+    </a>
     <!-- Form for Adding a New Campaign -->
     <form action="{{ route('umkm.addcampaign') }}" method="POST">
         @csrf
@@ -47,7 +49,7 @@
         <!-- Description Field -->
         <div class="form-group mb-3">
             <label for="description">Deskripsi</label>
-            <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description'),  }}</textarea>
+            <textarea name="description" id="description" class="form-control" rows="4" required>{{ old('description')}}</textarea>
         </div>
         <div class="form-group mb-3">
             <label for="start_date">Tanggal Mulai</label>
@@ -68,7 +70,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Tambah Campaign</button>
+        <button type="submit" class="btn btn-primary" id="btn_tambahcampaign">Tambah Campaign</button>
     </form>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

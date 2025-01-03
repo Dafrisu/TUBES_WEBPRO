@@ -140,9 +140,9 @@
         <!-- Card Campaign -->
         <div id="pemasaranContent" style="display: none; margin-top: 20px;">
     <div class="row" id="campaignContainer">
-            <a class="mb-3" href="{{route('umkm.tambahcampaign')}}">
+            <!-- <a class="mb-3" href="{{route('umkm.tambahcampaign')}}">
                 <button class="btn btn-success ">tambah campaign</button>
-            </a>
+            </a> -->
     @foreach($campaign as $campaigns)
             <div class="col-md-6  col-lg-4">
                 <div class="card mb-3"  style="width: 100%;">
@@ -164,7 +164,7 @@
                                     <small class="text-body-secondary">Status: {{ $campaigns['status'] ?? 'N/A' }}</small>
                                 </p>
                                 <button class="btn btn-light">
-                                    <a href="{{route('umkm.getcampaign', $campaigns['id_campaign'])}}" >Edit</a>
+                                    <a href="{{ route('umkm.getcampaign', $campaigns['id_campaign']) }}">Edit</a>
                                 </button>
                             </div>
                         </div>

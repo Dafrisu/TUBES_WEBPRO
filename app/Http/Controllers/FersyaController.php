@@ -22,7 +22,7 @@ class FersyaController extends Controller
             if ($response->successful()) {
                 $inbox = $response->json(); // Decode JSON
                 $profile = $respose->json();
-                $campaign = $datacampaign->json();
+                $campaign = json_decode($datacampaign, true);
                 return view('fersya_inbox', compact('inbox', 'campaign'), compact('profile'));
             } else {
                 return view('fersya_inbox')->with('error', 'Gagal mendapatkan inbox dari API');
@@ -63,7 +63,7 @@ class FersyaController extends Controller
             if (!$id) {
                 throw new \Exception('ID campaign tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('localhost/getcampaign/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('localhost/getcampaignbyid/' . $id);
 
             if ($respose->successful()) {
                 $datacampaign = json_decode($respose, true);
@@ -88,7 +88,7 @@ class FersyaController extends Controller
 
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("localhost/updatecampaign/" . $id_umkm. $id, $validatedData);
+                ->put("localhost/updatecampaign/" . $id_umkm.'/'.$id, $validatedData);
 
             // Periksa respon API
             if ($response->successful()) {

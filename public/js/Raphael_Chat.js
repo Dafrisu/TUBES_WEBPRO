@@ -3,8 +3,8 @@
 const API_BASE_URL = "https://umkmapi.azurewebsites.net/message";
 
 // Function to navigate to the chat page
-function navigateToChat(customerId) {
-    window.location.href = `{{ route('umkm.message') }}?customerId=${customerId}`;
+function navigateToChat() {
+    window.location.href = `{{ route('messagepage') }}`;
 }
 
 // Load messages when the page is loaded
@@ -44,11 +44,17 @@ async function loadMessages() {
 
         customerChat.forEach((chatItem) => {
             const messageHTML = `
-                <div class="message ${chatItem.sender_type === "self" ? "right" : "left"}">
-                    <img src="/images/${chatItem.sender_type === "self" ? "umkm" : "customer"}_Profilepic.png" alt="User Avatar" class="avatar">
+                <div class="message ${
+                    chatItem.sender_type === "self" ? "right" : "left"
+                }">
+                    <img src="/images/${
+                        chatItem.sender_type === "self" ? "umkm" : "customer"
+                    }_Profilepic.png" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
                         <p>${chatItem.message}</p>
-                        <div class="message-time">${new Date(chatItem.sent_at).toLocaleTimeString("en-US", {
+                        <div class="message-time">${new Date(
+                            chatItem.sent_at
+                        ).toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                             second: "2-digit",
@@ -83,7 +89,9 @@ async function sendMessage() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content, // CSRF token
+                    "X-CSRF-TOKEN": document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content, // CSRF token
                 },
                 body: JSON.stringify({
                     message,
@@ -106,7 +114,9 @@ async function sendMessage() {
                     <img src="/images/Profilepic.png" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
                         <p>${newMessage.message}</p>
-                        <div class="message-time">${new Date(newMessage.sent_at).toLocaleTimeString("en-US", {
+                        <div class="message-time">${new Date(
+                            newMessage.sent_at
+                        ).toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                             second: "2-digit",
@@ -128,12 +138,14 @@ async function sendMessage() {
 document.getElementById("sendButton").addEventListener("click", sendMessage);
 
 // Add event listener to "Enter" key to send the message
-document.getElementById("messageInput").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        document.getElementById("sendButton").click();
-    }
-});
+document
+    .getElementById("messageInput")
+    .addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            document.getElementById("sendButton").click();
+        }
+    });
 
 // Add event listener to back button
 document.getElementById("backButton").addEventListener("click", () => {

@@ -14,21 +14,20 @@
 </head>
 
 <body>
-    
+
     <div class="chat-container">
         <div class="chat-header">
             <a href="/message" class="back-button">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div class="chat-user-info">
-                <h1 id="userName">Customer {{ $customerId }}</h1>
-                <p id="userStatus">Online</p>
+                <h1 id="userName">Customer {{ $customerName }}</h1>
             </div>
         </div>
 
         <div class="chat-window" id="chatWindow">
-            @foreach($messages as $message)
-                <div class="message {{ $message['sender_type'] == 'UMKM' ? 'right' : 'left' }}">
+            @foreach($messageumkmandpembeli as $message)
+                <div class="message {{ $message['receiver_type'] == 'Pembeli' ? 'right' : 'left' }}">
                     <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
                         <p>{{ $message['message'] }}</p>
@@ -39,19 +38,18 @@
         </div>
 
         <!-- Message Form -->
-        <form action="{{ route('sendMessage') }}" method="POST">
-            @csrf
-            <div class="chat-input">
-                <input type="text" name="message" id="messageInput" placeholder="Type a message..." required />
-                <input type="hidden" name="sender_id" value=1>
-                <input type="hidden" name="sender_type" value="UMKM">
-                <input type="hidden" name="receiver_id" value="{{ $customerId }}">
-                <input type="hidden" name="receiver_type" value="Pembeli">
-                <button type="submit" class="send-button">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </form>
+        @if(!empty($messages))
+            @php    $lastMessage = end($messages); @endphp
+            <form action="{{ route('sendMessage', $lastMessage['id_pembeli']) }}" method="POST">
+                @csrf
+                <div class="chat-input">
+                    <input type="text" name="message" id="messageInput" placeholder="Type a message..." required />
+                    <button type="submit" class="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        @endif
     </div>
 </body>
 

@@ -137,11 +137,11 @@ function goBackChat() {
 }
 
 // Modify `navigateToChat` to use Laravel route
-function navigateToChat(name, message) {
-    window.location.href = `/umkm/chat?name=${encodeURIComponent(
-        name
-    )}&message=${encodeURIComponent(message)}`;
-}
+// function navigateToChat(name, message) {
+//     window.location.href = `/umkm/chat?name=${encodeURIComponent(
+//         name
+//     )}&message=${encodeURIComponent(message)}`;
+// }
 
 // Function to render chat cards for each buyer
 function renderChatCards(messages) {
@@ -191,49 +191,7 @@ function renderChatCards(messages) {
     }
 }
 
-// Example data - you will get this from your backend
-const messages = [
-    {
-        sent_at: "12:30:00",
-        id_chat: 2,
-        message: "Hello, this is a test message.",
-        is_read: false,
-        id_umkm: 1,
-        id_pembeli: 1,
-        id_kurir: null,
-    },
-    {
-        sent_at: "12:35:00",
-        id_chat: 3,
-        message: "How can I help you?",
-        is_read: false,
-        id_umkm: 1,
-        id_pembeli: 2,
-        id_kurir: null,
-    },
-    {
-        sent_at: "12:40:00",
-        id_chat: 4,
-        message: "Can you help me with my order?",
-        is_read: false,
-        id_umkm: 1,
-        id_pembeli: 1,
-        id_kurir: null,
-    },
-];
-
-// Call the function to render chat cards
-renderChatCards(messages);
-
 function toggledropdown() {
     const submenu = document.getElementById("submenu");
-    submenu.classList.toggle("collapsed");
+    submenu.classList.toggle("expanded");
 }
-
-// Pastikan submenu tertutup saat halaman dimuat
-document.addEventListener("DOMContentLoaded", function () {
-    const submenu = document.getElementById("submenu");
-    if (!submenu.classList.contains("collapsed")) {
-        submenu.classList.add("collapsed");
-    }
-});

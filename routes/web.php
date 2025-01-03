@@ -68,12 +68,11 @@ Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('
 
 // Chat routes for dynamic content
 Route::get('/umkm/message/{id}', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
-Route::post('/send-message', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
-Route::get('/chat', [RaphaelMessageController::class, 'showChatPage'])->name(name: 'chatPage');
+Route::post('/send-message/{id_pembeli}', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
 Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 
 // Routing untuk pesan yang sudah dibaca
 Route::get('/umkm/messages/inbox', [RaphaelMessageController::class, 'showinbox'])->name('umkm.messages.inbox');
-Route::get('/umkm/messages/read/{id_pembeli}', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
+Route::get('/umkm/messages/read', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
 // Routing untuk pesan yang belum dibaca
 Route::get('/umkm/messages/unread', [RaphaelMessageController::class, 'showUnreadMessages'])->name('umkm.messages.unread');

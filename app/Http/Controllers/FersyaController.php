@@ -22,7 +22,7 @@ class FersyaController extends Controller
             if ($response->successful()) {
                 $inbox = $response->json(); // Decode JSON
                 $profile = $respose->json();
-                $campaign = $datacampaign->json();
+                $campaign = json_decode($datacampaign, true);
                 return view('fersya_inbox', compact('inbox', 'campaign'), compact('profile'));
             } else {
                 return view('fersya_inbox')->with('error', 'Gagal mendapatkan inbox dari API');
@@ -63,7 +63,7 @@ class FersyaController extends Controller
             if (!$id) {
                 throw new \Exception('ID campaign tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('localhost/getcampaign/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('localhost/getcampaignbyid/' . $id);
 
             if ($respose->successful()) {
                 $datacampaign = json_decode($respose, true);
@@ -80,14 +80,15 @@ class FersyaController extends Controller
     public function editCampaign(Request $request, $id)
     {
         try {
-            
+            $id_umkm = session('umkmID');
+
             $validatedData = $request->validate([
                 '*' => 'required' 
             ]);
 
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("localhost/campaignEdit/" . $id, $validatedData);
+                ->put("localhost/updatecampaign/" . $id_umkm.'/'.$id, $validatedData);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -103,35 +104,34 @@ class FersyaController extends Controller
     public function addCampaign(Request $request)
 {
     try {
-        // Validate input fields
+        
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'end_date' => 'required|date',
-            'image_url' => 'nullable|image|max:2048', // Optional: for uploading images
+            'image_url' => 'nullable|file|mimes:jpg,jpeg,png|max:2048', 
         ]);
 
-        // Add the `id_umkm` from the session
+        
         $validatedData['id_umkm'] = session('umkmID');
 
-        // Check if an image was uploaded
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $validatedData['image'] = base64_encode(file_get_contents($file->getRealPath())); // Convert image to Base64
+            $validatedData['image'] = base64_encode(file_get_contents($file->getRealPath())); 
         }
 
-        // Send data to the API for creation
         $response = Http::withOptions(['verify' => false])
-            ->post('http://localhost/addCampaign', $validatedData); // Replace with your API endpoint
+            ->post('localhost/campaign', $validatedData); 
 
-        // Check if the API request was successful
+        
         if ($response->successful()) {
             return redirect()->route('umkm.inbox')->with('success', 'Campaign berhasil ditambahkan');
         } else {
             throw new \Exception('Gagal menambahkan Campaign ke API');
         }
     } catch (\Exception $e) {
-        // Return an error message if something goes wrong
+        
         return redirect()->back()->withInput()->with('error', $e->getMessage());
     }
 }

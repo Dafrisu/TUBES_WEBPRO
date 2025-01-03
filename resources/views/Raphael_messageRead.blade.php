@@ -1,4 +1,4 @@
-<!-- Raphael_message_penjual.blade -->
+<!-- Raphael_messageRead.blade -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +77,7 @@
             <div class="chat-interface d-flex flex-column" id="chatInterface">
                 @if (!empty($readMessages))
                     @foreach (collect($readMessages)->unique('id_pembeli') as $message)
-                        <a href="{{ route('messagepage', $message['id_pembeli']) }}">
+                    <a href="{{ route('messagepage', ['id' => $message['id_pembeli']]) }}">
                             <div class="colspan-1 card mb-2" style="width: 100%;">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>

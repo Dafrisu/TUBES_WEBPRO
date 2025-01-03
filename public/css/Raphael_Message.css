@@ -45,16 +45,52 @@ body {
   z-index: 1000;
   /* Ensures the sidebar stays on top */
   overflow-y: scroll;
+  cursor: pointer;
 }
 
-.submenu.collapsed {
-  display: none;
-}
 
-.submenu{
+
+.submenu {
   background-color: #444444;
   color: #FFFFFF;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  cursor: pointer;
 }
+
+.submenu.expanded {
+  opacity: 1;
+  max-height: 500px;
+}
+
+.submenu li {
+  margin-bottom: 5px;
+}
+
+.submenu li a {
+  text-decoration: none;
+  color: #FFFFFF;
+  display: flex;
+  padding: 5px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.submenu li a:hover {
+  background-color: #658864;
+  color: #FCFAFA;
+}
+
+li:hover .submenu {
+  max-height: 500px;
+  opacity: 1;
+}
+
 
 
 .sidebar h6 {
@@ -113,35 +149,11 @@ body {
   font-size: 1.5rem;
 }
 
-.dropdown-menu {
-  background-color: #444444;
-  width: auto;
-  max-width: 300px;
-  overflow-wrap: break-word;
-}
 
-.dropdown-item {
-  color: #000000;
-  font-size: 14px;
-  padding: 10px 15px;
-}
-
-.dropdown-item:hover {
-  background-color: #f0f0f0;
-  color: #658864;
-}
-
-.dropdown-header {
-  color: #444444;
-  font-weight: bold;
-  font-size: 16px;
-}
 
 .filters-bar-container {
   position: relative;
   z-index: 500;
-  padding-left: 260px;
-  /* Adjust the padding to fit the sidebar */
 }
 
 .filters-bar {
@@ -166,8 +178,7 @@ body {
   padding: 2rem;
   min-height: 70vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .example-messages .card {
@@ -188,11 +199,60 @@ body {
   display: none;
 }
 
+.card a {
+  text-decoration: none; 
+  color: inherit;
+}
+
+.card a:hover {
+  color: inherit;
+}
+
 .card {
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .card:hover {
-  transform: scale(1.02);
+  transform: scale(1.03); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card .card-body {
+  padding: 15px;
+}
+
+.card .card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card .card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px; 
+}
+
+.card .text-muted {
+  font-size: 0.9rem;
+  color: #888; 
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:active {
+  color: inherit;
 }

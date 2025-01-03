@@ -17,8 +17,8 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id);
-            $getmessages = Http::withOptions(['verify' => false])->get('http://localhost/getmessagebyumkmandpembeli/' . $id . '/' . $id_pembeli);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+            $getmessages = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getmessagebyumkmandpembeli/' . $id . '/' . $id_pembeli);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -52,7 +52,7 @@ class RaphaelMessageController extends Controller
         $message = $request->input('message');
 
         // API endpoint URL
-        $apiUrl = 'localhost/sendchat/' . $id . '/' . $id_pembeli;
+        $apiUrl = 'https://umkmapi.azurewebsites.net/sendchat/' . $id . '/' . $id_pembeli;
 
 
         // Prepare the data to send to the API
@@ -136,7 +136,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -158,7 +158,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);

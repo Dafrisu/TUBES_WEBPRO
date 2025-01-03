@@ -82,7 +82,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>
                                     <p class="card-text">{{ $message['message'] }}</p>
-                                    <p class="text-muted">{{ date('Y-m-d H:i:s', strtotime($message['sent_at'])) }}</p>
+                                    <p class="text-muted">{{ date('H:i:s', strtotime($message['sent_at'])) }}</p>
                                 </div>
                             </div>
                         </a>

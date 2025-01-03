@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class RaphaelMessageController extends Controller
 {
     // Show chat page with messages
-    public function showChatPage(Request $request)
+    public function showChatPage(Request $request, $id_pembeli)
     {
         $id = session('umkmID');
         try {
@@ -18,15 +18,16 @@ class RaphaelMessageController extends Controller
                 throw new \Exception('ID profile tidak ditemukan');
             }
             $response = Http::withOptions(['verify' => false])->get('http://localhost/message/msgUMKM/' . $id);
-
+            $getmessages = Http::withOptions(['verify' => false])->get('http://localhost/getmessagebyumkmandpembeli/' . $id . '/' . $id_pembeli);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
                 $customerName = isset($messages[0]['nama_lengkap']) ? $messages[0]['nama_lengkap'] : 'Customer Name';
+                $messageumkmandpembeli = $getmessages->json();
 
 
                 // $readMessages = array_filter($messages, fn($msg) => $msg['is_read']);
-                return view('Raphael_message_chatPage', compact('messages', 'customerName'));
+                return view('Raphael_message_chatPage', compact('messages', 'customerName', 'messageumkmandpembeli'));
             } else {
                 throw new \Exception('Message UMKM tidak ditemukan');
             }
@@ -35,78 +36,31 @@ class RaphaelMessageController extends Controller
         }
     }
 
-    // Get messages from external API
-    private function getMessagesFromAPI($customerId)
-    {
-        $customerId = session('umkmID');
-        $apiUrl = "localhost/message/msgUMKM/{$customerId}";
-
-        // Use Laravel's HTTP Client to fetch messages
-        $response = Http::get($apiUrl);
-
-        if ($response->successful()) {
-            $messages = $response->json();
-
-            // Sort the messages by 'sent_at' in ascending order (oldest first)
-            usort($messages, function ($a, $b) {
-                return $a['id_chat'] - $b['id_chat'];
-            });
-
-            return $messages;
-        } else {
-            // Handle error, log it, or return a default empty array
-            Log::error('Failed to fetch messages from API', ['customerId' => $customerId]);
-            return [];
-        }
-    }
-
-    public function getmessageumkm($id)
-    {
-        $id = session('umkmID');
-        try {
-            if (!$id) {
-                throw new \Exception('ID profile tidak ditemukan');
-            }
-            $response = Http::withOptions(['verify' => false])->get('localhost/message/msgUMKM/' . $id);
-
-            if ($response->successful()) {
-                $messages = $response->json();
-                return view('Raphael_messageRead', compact('messages'));
-            } else {
-                throw new \Exception('message tidak ditemukan');
-            }
-        } catch (\Exception $e) {
-            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
-        }
-    }
 
 
     // Send message via API
-    public function sendMessage(Request $request)
+    public function sendMessage(Request $request, $id_pembeli)
     {
-        $id = session('umkmID');
+
 
         // Validate incoming request
         $currentTime = Carbon::now(timezone: 'Asia/Jakarta');
         $formattedTime = $currentTime->format('Y-m-d H:i:s');
 
         // Data from the request
+        $id = session('umkmID');
         $message = $request->input('message');
-        $id_umkm = $request->input('id_umkm');
-        $id_pembeli = $request->input('id_pembeli');
-        $receiverType = $request->input('receiver_type');
 
         // API endpoint URL
-        $apiUrl = 'localhost/message/msgUMKM/' . $id;
+        $apiUrl = 'localhost/sendchat/' . $id . '/' . $id_pembeli;
 
 
         // Prepare the data to send to the API
         $data = [
             'message' => $message,
-            'id_umkm' => $id,
-            'id_pembeli' => $id_pembeli,
-            'receiver_type' => $receiverType,
             'sent_at' => $formattedTime,
+            "is_read" => false,
+            "id_kurir" => null
         ];
 
         // Send the message using Laravel's HTTP Client
@@ -117,7 +71,7 @@ class RaphaelMessageController extends Controller
             Log::info('Message sent successfully', ['response' => $response->json()]);
 
             // Redirect to the chat page with a success message
-            return redirect()->route('chatPage')
+            return redirect()->route('messagepage', $id_pembeli)
                 ->with('success', 'Message sent successfully!');
         } else {
             Log::error('Failed to send message', ['error' => $response->body()]);
@@ -131,21 +85,7 @@ class RaphaelMessageController extends Controller
 
     public function showmsgPage(Request $request)
     {
-        $customerId = session('umkmID');
-        $messages = $this->getMessagesFromAPI($customerId); // Memanggil data pesan melalui API
-
-        // Add default status if missing
-        foreach ($messages as &$msg) {
-            if (!isset($msg['status'])) {
-                $msg['status'] = 'unknown'; // Default value
-            }
-        }
-
-        // Filter messages
-        $readMessages = array_filter($messages, fn($msg) => $msg['status'] === 'read');
-        $unreadMessages = array_filter($messages, fn($msg) => $msg['status'] === 'unread');
-
-        return view('Raphael_message_penjual', compact('readMessages', 'unreadMessages'));
+        return view('Raphael_message_penjual');
     }
 
     // public function showinbox()

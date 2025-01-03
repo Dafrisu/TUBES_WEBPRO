@@ -18,6 +18,7 @@ route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 
 //Route Punya Dapa
 Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');
+Route::get('/getpesanread', [DafaController::class, 'getpesanread'])->name('umkm.pesanread');
 Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('umkm.kelolapesanan');
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
@@ -33,9 +34,10 @@ Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');
 
 Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name('umkm.inbox_penjual_prioritas');
 route::get('/inbox', [FersyaController::class, 'getviewinbox'])->name('umkm.inbox');
-Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('umkm.getcampaign'); 
+Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('umkm.getcampaign');
 Route::put('/campaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
-Route::post('/campaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
+Route::post('/campaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');
+;
 Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
 // Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
 // Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
@@ -66,8 +68,7 @@ Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('
 
 // Chat routes for dynamic content
 Route::get('/umkm/message/{id}', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
-Route::post('/send-message', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
-Route::get('/chat', [RaphaelMessageController::class, 'showChatPage'])->name(name: 'chatPage');
+Route::post('/send-message/{id_pembeli}', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
 Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 
 // Routing untuk pesan yang sudah dibaca

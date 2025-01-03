@@ -26,7 +26,7 @@
         </div>
 
         <div class="chat-window" id="chatWindow">
-            @foreach($messages as $message)
+            @foreach($messageumkmandpembeli as $message)
                 <div class="message {{ $message['receiver_type'] == 'Pembeli' ? 'right' : 'left' }}">
                     <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
@@ -38,17 +38,18 @@
         </div>
 
         <!-- Message Form -->
-        <form action="{{ route('sendMessage') }}" method="POST">
-            @csrf
-            <div class="chat-input">
-                <input type="text" name="message" id="messageInput" placeholder="Type a message..." required />
-                <input type="hidden" name="receiver_type" value="Pembeli">
-                <input type="hidden" name="id_pembeli" value="{{}}">
-                <button type="submit" class="send-button">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </form>
+        @if(!empty($messages))
+            @php    $lastMessage = end($messages); @endphp
+            <form action="{{ route('sendMessage', $lastMessage['id_pembeli']) }}" method="POST">
+                @csrf
+                <div class="chat-input">
+                    <input type="text" name="message" id="messageInput" placeholder="Type a message..." required />
+                    <button type="submit" class="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        @endif
     </div>
 </body>
 

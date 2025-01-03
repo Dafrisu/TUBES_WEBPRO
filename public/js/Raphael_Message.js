@@ -191,44 +191,7 @@ function renderChatCards(messages) {
     }
 }
 
-// Example data - you will get this from your backend
-const messages = [
-    {
-        sent_at: "12:30:00",
-        id_chat: 2,
-        message: "Hello, this is a test message.",
-        is_read: false,
-        id_umkm: 1,
-        id_pembeli: 1,
-        id_kurir: null,
-    },
-    {
-        sent_at: "12:35:00",
-        id_chat: 3,
-        message: "How can I help you?",
-        is_read: false,
-        id_umkm: 1,
-        id_pembeli: 2,
-        id_kurir: null,
-    },
-    {
-        sent_at: "12:40:00",
-        id_chat: 4,
-        message: "Can you help me with my order?",
-        is_read: false,
-        id_umkm: 1,
-        id_pembeli: 1,
-        id_kurir: null,
-    },
-];
-
-// Call the function to render chat cards
-renderChatCards(messages);
-
 function toggledropdown() {
     const submenu = document.getElementById("submenu");
-    const sidebarItem = submenu.parentElement;
-
-    submenu.classList.toggle("collapsed");
-    sidebarItem.classList.toggle("active");
+    submenu.classList.toggle("expanded");
 }

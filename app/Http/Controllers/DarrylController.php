@@ -46,8 +46,6 @@ class DarrylController extends Controller
     function masuk(Request $request)
     {
         try {
-            Log::info('Login Attempt', ['data' => $request->all()]);
-
             $data = [
                 'inputEmail' => $request->input('inputEmail'),
                 'inputPassword' => $request->input('inputPassword'),
@@ -80,8 +78,6 @@ class DarrylController extends Controller
                 if (isset($responseData['id_umkm'])) {
                     session(['umkmID' => $responseData['id_umkm']]);
 
-                    Log::info('Session created', ['umkmID' => $responseData['id_umkm']]);
-
                     return redirect()->route('umkm.dashboard')
                         ->with('success', 'Berhasil Masuk! 👍👍');
                 } else {
@@ -94,7 +90,6 @@ class DarrylController extends Controller
                     ->with('error', 'Gagal Masuk! :(' . $response->getBody());
             }
         } catch (\Exception $e) {
-            Log::error('Login failed', ['message' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Gagal total pokoknya dah');
         }
     }

@@ -93,32 +93,4 @@ class DarrylController extends Controller
             return redirect()->back()->with('error', 'Gagal total pokoknya dah');
         }
     }
-
-    function cekEmail(Request $request)
-    {
-        try {
-            $data = [
-                'inputPassword' => $request->input('inputPassword'),
-            ];
-            // pakai guzzle
-            $client = new Client(['verify' => false]);
-
-            // POST request Guzzle
-            $response = $client->post('https://umkmapi.azurewebsites.net/login', [
-                'json' => $data,
-            ]);
-
-            if ($response->getStatusCode() == 200) {
-                $responseData = json_decode($response->getBody()->getContents(), true);
-                return redirect()->route('umkm.dashboard')
-                    ->with('success', 'Berhasil Masuk! (emote mantap)');
-            } else {
-                return redirect()->back()
-                    ->with('error', 'Gagal Masuk! :(' . $response->getBody());
-            }
-        } catch (\Exception $e) {
-            Log::error('Login failed', ['message' => $e->getMessage()]);
-            return redirect()->back()->with('error', 'Gagal total pokoknya dah');
-        }
-    }
 }

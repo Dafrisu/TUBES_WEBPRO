@@ -62,13 +62,13 @@ Route::get('/daily-stats/{umkmId}', [MahesaController::class, 'getDailyStats'])-
 Route::get('/monthly-stats/{umkmId}', [MahesaController::class, 'getYearlyStats'])->name('umkm.yearlyStats');
 
 // // View routes (removed since they don't need dynamic data passing)
-Route::view('/message', 'Raphael_message_penjual')->name('message');
+Route::view('/messages', 'Raphael_message_penjual')->name('message');
 Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('umkm.message');
 
 
 // Chat routes for dynamic content
 Route::get('/umkm/message/{id}', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
-Route::post('/send-message/{id_pembeli}', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
+Route::post('/send-message/{id}', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
 Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 
 // Routing untuk pesan yang sudah dibaca dan belum dibaca

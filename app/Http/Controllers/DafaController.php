@@ -88,7 +88,7 @@ class DafaController extends Controller
             $id_umkm = session('umkmID');
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditerima/" . $id_umkm . '/' . $id_batch);
+                ->put("localhost/updatestatuspesananditerima/" . $id_umkm . '/' . $id_batch);
 
             // Periksa respon API
             if ($response->successful()) {

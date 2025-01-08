@@ -64,22 +64,22 @@
             </thead>
             <tbody id="list-Pesanan">
                 @if (isset($pesananditolak) && is_array($pesananditolak) && count($pesananditolak) > 0)
-                @foreach ($pesananditolak as $pesananditolaks)
-                <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$pesananditolaks['id_pesanan']}}</td>
-                    <td>{{$pesananditolaks['status_pesanan']}}</td>
-                    <td>{{$pesananditolaks['nama_barang']}}</td>
-                    <td>{{$pesananditolaks['kuantitas_barang']}}</td>
-                    <td>{{$pesananditolaks['total_belanja']}}</td>
-                    <td>{{$pesananditolaks['alamat_pembeli']}}</td>
-                </tr>
-                @endforeach
+                    @foreach ($pesananditolak as $pesananditolaks)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$pesananditolaks['id_batch']}}</td>
+                            <td>{{$pesananditolaks['status_pesanan']}}</td>
+                            <td>{{$pesananditolaks['nama_barang']}}</td>
+                            <td>{{$pesananditolaks['kuantitas']}}</td>
+                            <td>{{$pesananditolaks['total_belanja']}}</td>
+                            <td>{{$pesananditolaks['alamat_pembeli']}}</td>
+                        </tr>
+                    @endforeach
                 @else
-                <tr>
+                    <tr>
 
-                    <td colspan="6" class="text-center">Tidak Ada Pesanan Yang Ditolak</td>
-                </tr>
+                        <td colspan="6" class="text-center">Tidak Ada Pesanan Yang Ditolak</td>
+                    </tr>
                 @endif
             </tbody>
         </table>

@@ -67,7 +67,7 @@ Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('
 
 
 // Chat routes for dynamic content
-Route::get('/umkm/message/{id}', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
+Route::get('/umkm/message/{id_pembeli}', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
 Route::post('/send-message/{id_pembeli}', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
 Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 

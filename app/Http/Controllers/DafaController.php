@@ -81,13 +81,14 @@ class DafaController extends Controller
         }
     }
 
-    public function updatestatuspesananditerima($id)
+    public function updatestatuspesananditerima($id_batch)
     {
-        try {
 
+        try {
+            $id_umkm = session('umkmID');
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditerima/" . $id);
+                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditerima/" . $id_umkm . '/' . $id_batch);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -100,12 +101,14 @@ class DafaController extends Controller
         }
     }
 
-    public function updatestatuspesananditolak(Request $request, $id)
+    public function updatestatuspesananditolak($id_batch)
     {
+        $id_umkm = session('umkmID');
         try {
             // Kirim data ke API untuk update
+            $id_umkm = session('umkmID');
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id, );
+                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id_umkm . '/' . $id_batch);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -118,10 +121,10 @@ class DafaController extends Controller
         }
     }
 
-    public function editprofileumkm(Request $request, $id)
+    public function editprofileumkm(Request $request)
     {
-        $id = session('umkmID');
         try {
+            $id = session('umkmID');
             // Validasi semua input
             $validatedData = $request->validate([
                 '*' => 'required' // Semua field harus ada dan tidak boleh kosong
@@ -142,10 +145,10 @@ class DafaController extends Controller
         }
     }
 
-    public function getprofileumkm($id)
+    public function getprofileumkm()
     {
-        $id = session('umkmID');
         try {
+            $id = session('umkmID');
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
@@ -164,8 +167,8 @@ class DafaController extends Controller
 
     public function getdashboard()
     {
-        $id = session('umkmID');
         try {
+            $id = session('umkmID');
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }

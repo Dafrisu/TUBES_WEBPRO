@@ -11,28 +11,36 @@ class RaphaelMessageController extends Controller
 {
     // Show chat page with messages
     public function showChatPage(Request $request, $id_pembeli)
-    {
-        $id = session('umkmID');
-        try {
-            if (!$id) {
-                throw new \Exception('ID profile tidak ditemukan');
-            }
-            $response = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
-            $getmessages = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getmessagebyumkmandpembeli/' . $id . '/' . $id_pembeli);
+{
+    $id = session('umkmID');
+    try {
+        if (!$id) {
+            throw new \Exception('ID profile tidak ditemukan');
+        }
 
-            if ($response->successful() && $getmessages->successful()) {
-                $messages = json_decode($response->body(), true);
-                $customerName = isset($messages[0]['nama_lengkap']) ? $messages[0]['nama_lengkap'] : 'Customer Name';
-                $messageumkmandpembeli = $getmessages->json();
+        $response = Http::withOptions(['verify' => false])
+            ->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+        $getmessages = Http::withOptions(['verify' => false])
+            ->get('https://umkmapi.azurewebsites.net/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
 
-                return view('Raphael_message_chatPage', compact('messages', 'customerName', 'messageumkmandpembeli'));
-            } else {
+        
+        if ($response->successful()) {
+            $messages = json_decode($response->body(), true);
+            $messageumkmandpembeli = $getmessages->successful() ? $getmessages->json() : [];
+
+            if (empty($messages)) {
                 throw new \Exception('Message UMKM tidak ditemukan');
             }
-        } catch (\Exception $e) {
-            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
+
+            $customerName = isset($messages[0]['nama_lengkap']) ? $messages[0]['nama_lengkap'] : 'Customer Name';
+            return view('Raphael_message_chatPage', compact('messages', 'customerName', 'messageumkmandpembeli'));
+        } else {
+            throw new \Exception('Message UMKM tidak ditemukan');
         }
+    } catch (\Exception $e) {
+        return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
     }
+}
 
 
 
@@ -50,7 +58,7 @@ class RaphaelMessageController extends Controller
         $message = $request->input('message');
 
         // API endpoint URL
-        $apiUrl = 'https://umkmapi.azurewebsites.net/sendchat/' . $id . '/' . $id_pembeli;
+        $apiUrl = 'https://umkmapi.azurewebsites.net/sendchat/umkmkepembeli/' . $id . '/' . $id_pembeli;
 
 
         $data = [
@@ -123,7 +131,7 @@ class RaphaelMessageController extends Controller
                 throw new \Exception('Message UMKM tidak ditemukan');
             }
         } catch (\Exception $e) {
-            return redirect()->route('umkm.dashboard', ['id' => $id])->with('error', $e->getMessage());
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
         }
     }
 
@@ -145,7 +153,7 @@ class RaphaelMessageController extends Controller
                 throw new \Exception('Message UMKM tidak ditemukan');
             }
         } catch (\Exception $e) {
-            return redirect()->route('umkm.dashboard', ['id' => $id])->with('error', $e->getMessage());
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
         }
     }
 }

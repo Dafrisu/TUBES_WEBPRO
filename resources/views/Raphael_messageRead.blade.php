@@ -77,15 +77,17 @@
             <div class="chat-interface d-flex flex-column" id="chatInterface">
                 @if (!empty($readMessages))
                     @foreach (collect($readMessages)->unique('id_pembeli') as $message)
-                        <a href="{{ route('messagepage', ['id' => $message['id_pembeli']]) }}">
-                            <div class="colspan-1 card mb-2" style="width: 100%;">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>
-                                    <p class="card-text">{{ $message['message'] }}</p>
-                                    <p class="text-muted">{{ date('H:i:s', strtotime($message['sent_at'])) }}</p>
+                        @if (!empty($message['id_pembeli']))
+                            <a href="{{ route('messagepage', ['id' => $message['id_pembeli']]) }}">
+                                <div class="colspan-1 card mb-2" style="width: 100%;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>
+                                        <p class="card-text">{{ $message['message'] }}</p>
+                                        <p class="text-muted">{{ date('H:i:s', strtotime($message['sent_at'])) }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @endif
                     @endforeach
                 @else
                     <p>No read messages found.</p>

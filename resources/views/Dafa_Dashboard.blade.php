@@ -72,7 +72,7 @@
                 <p>Campain Kamu Yang paling Baru : "
                     {{old('title', $datadashboardcampaignpalingbaru[0]['title'] ?? 'Kamu belum mendapatkan message')}}"
                 </p>
-                <a href="{{ route('umkm.messages.inbox') }}" class="btn btn-success">Balas Pesan</a>
+                <a href="{{ route('umkm.inbox') }}" class="btn btn-success">Cek Inbox</a>
             </div>
         </div>
     </div>

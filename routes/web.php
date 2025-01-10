@@ -23,10 +23,10 @@ Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
 Route::get('/pesananselesai', [DafaController::class, 'getpesananselesai'])->name('umkm.pesananselesai');
-route::put('/updatestatuspesananditerima/{id}', [DafaController::class, 'updatestatuspesananditerima'])->name('umkm.updatestatuspesananditerima');
-route::put('/updatestatuspesananditolak/{id}', [DafaController::class, 'updatestatuspesananditolak'])->name('umkm.updatestatuspesananditolak');
-Route::get('/getprofileumkm/{id}', [DafaController::class, 'getprofileumkm'])->name('umkm.getprofileumkm');
-route::put('/editprofileumkm/{id}', [DafaController::class, 'editprofileumkm'])->name('umkm.editprofileumkm');
+route::put('/updatestatuspesananditerima/{id_batch}', [DafaController::class, 'updatestatuspesananditerima'])->name('umkm.updatestatuspesananditerima');
+route::put('/updatestatuspesananditolak/{id_batch}', [DafaController::class, 'updatestatuspesananditolak'])->name('umkm.updatestatuspesananditolak');
+Route::get('/getprofileumkm', [DafaController::class, 'getprofileumkm'])->name('umkm.getprofileumkm');
+route::put('/editprofileumkm', [DafaController::class, 'editprofileumkm'])->name('umkm.editprofileumkm');
 // Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');
 //End Route Punya Dapa
 
@@ -62,17 +62,16 @@ Route::get('/daily-stats/{umkmId}', [MahesaController::class, 'getDailyStats'])-
 Route::get('/monthly-stats/{umkmId}', [MahesaController::class, 'getYearlyStats'])->name('umkm.yearlyStats');
 
 // // View routes (removed since they don't need dynamic data passing)
-Route::view('/message', 'Raphael_message_penjual')->name('message');
+Route::view('/messages', 'Raphael_message_penjual')->name('message');
 Route::get('/message', [RaphaelMessageController::class, 'showmsgPage'])->name('umkm.message');
 
 
 // Chat routes for dynamic content
 Route::get('/umkm/message/{id}', [RaphaelMessageController::class, 'showChatPage'])->name('messagepage');
-Route::post('/send-message/{id_pembeli}', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
+Route::post('/send-message/{id}', [RaphaelMessageController::class, 'sendMessage'])->name('sendMessage');
 Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->name('msgumkm');
 
-// Routing untuk pesan yang sudah dibaca
+// Routing untuk pesan yang sudah dibaca dan belum dibaca
 Route::get('/umkm/messages/inbox', [RaphaelMessageController::class, 'showinbox'])->name('umkm.messages.inbox');
 Route::get('/umkm/messages/read', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
-// Routing untuk pesan yang belum dibaca
 Route::get('/umkm/messages/unread', [RaphaelMessageController::class, 'showUnreadMessages'])->name('umkm.messages.unread');

@@ -21,7 +21,7 @@
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div class="chat-user-info">
-                <h1 id="userName">Customer {{ $customerName }}</h1>
+                <h1 id="userName">{{ $customerName }}</h1>
             </div>
         </div>
 

@@ -70,20 +70,20 @@
                     @foreach ($pesananmasuk as $pesananmasuks)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$pesananmasuks['id_pesanan']}}</td>
+                            <td>{{$pesananmasuks['id_batch']}}</td>
                             <td>{{$pesananmasuks['status_pesanan']}}</td>
                             <td>{{$pesananmasuks['nama_barang']}}</td>
-                            <td>{{$pesananmasuks['kuantitas_barang']}}</td>
+                            <td>{{$pesananmasuks['kuantitas']}}</td>
                             <td>{{$pesananmasuks['total_belanja']}}</td>
                             <td>{{$pesananmasuks['alamat_pembeli']}}</td>
                             <form method="POST"
-                                action="{{route('umkm.updatestatuspesananditerima', $pesananmasuks['id_pesanan'])}}">
+                                action="{{route('umkm.updatestatuspesananditerima', $pesananmasuks['id_batch'])}}">
                                 @csrf
                                 @METHOD('PUT')
                                 <td><button type="submit" class="btn btn-primary">Terima</button></td>
                             </form>
                             <form method="POST"
-                                action="{{route('umkm.updatestatuspesananditolak', $pesananmasuks['id_pesanan'])}}">
+                                action="{{route('umkm.updatestatuspesananditolak', $pesananmasuks['id_batch'])}}">
                                 @csrf
                                 @METHOD('PUT')
                                 <td><button type="submit" class="btn btn-danger">Ditolak</button></td>

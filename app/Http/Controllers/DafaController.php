@@ -13,8 +13,8 @@ class DafaController extends Controller
     {
         try {
             $id = session("umkmID");
-            $profile = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id)->json();
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananmasuk/' . $id);
+            $profile = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id)->json();
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmkuapi.com/getpesananmasuk/' . $id);
 
             if ($response->successful()) {
                 $pesananmasuk = $response->json();
@@ -31,8 +31,8 @@ class DafaController extends Controller
     {
         try {
             $id = session('umkmID');
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananditerima/' . $id);
-            $profile = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id)->json();
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmkuapi.com/getpesananditerima/' . $id);
+            $profile = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id)->json();
             if ($response->successful()) {
                 $pesananditerima = $response->json();
 
@@ -49,8 +49,8 @@ class DafaController extends Controller
     {
         try {
             $id = session('umkmID');
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananditolak/' . $id);
-            $profile = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id)->json();
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmkuapi.com/getpesananditolak/' . $id);
+            $profile = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id)->json();
             if ($response->successful()) {
                 $pesananditolak = $response->json();
 
@@ -67,8 +67,8 @@ class DafaController extends Controller
     {
         try {
             $id = session('umkmID');
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/getpesananselesai/' . $id);
-            $profile = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id)->json();
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmkuapi.com/getpesananselesai/' . $id);
+            $profile = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id)->json();
             if ($response->successful()) {
                 $pesananselesai = $response->json();
 
@@ -88,7 +88,7 @@ class DafaController extends Controller
             $id_umkm = session('umkmID');
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("localhost/updatestatuspesananditerima/" . $id_umkm . '/' . $id_batch);
+                ->put("https://umkmkuapi.com/updatestatuspesananditerima/" . $id_umkm . '/' . $id_batch);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -108,7 +108,7 @@ class DafaController extends Controller
             // Kirim data ke API untuk update
             $id_umkm = session('umkmID');
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatestatuspesananditolak/" . $id_umkm . '/' . $id_batch);
+                ->put("https://umkmkuapi.com/updatestatuspesananditolak/" . $id_umkm . '/' . $id_batch);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -132,7 +132,7 @@ class DafaController extends Controller
 
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updatedataumkm/" . $id, $validatedData);
+                ->put("https://umkmkuapi.com/updatedataumkm/" . $id, $validatedData);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -152,7 +152,7 @@ class DafaController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
 
             if ($respose->successful()) {
                 $profile = $respose->json();
@@ -172,12 +172,12 @@ class DafaController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
-            $dataproduklaris = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardproduklaris/' . $id);
-            $datapesananmasuk = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardpesananmasuk/' . $id);
-            $dataprodukpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardprodukpalingbaru/' . $id);
-            $datapesanpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardpesanpalingbaru/' . $id);
-            $datacampaignpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getdatadashboardcampaignpalingbaru/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
+            $dataproduklaris = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getdatadashboardproduklaris/' . $id);
+            $datapesananmasuk = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getdatadashboardpesananmasuk/' . $id);
+            $dataprodukpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getdatadashboardprodukpalingbaru/' . $id);
+            $datapesanpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getdatadashboardpesanpalingbaru/' . $id);
+            $datacampaignpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getdatadashboardcampaignpalingbaru/' . $id);
 
             if ($respose->successful()) {
                 $profile = $respose->json();

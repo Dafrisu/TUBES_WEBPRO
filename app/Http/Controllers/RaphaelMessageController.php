@@ -19,9 +19,9 @@ class RaphaelMessageController extends Controller
         }
 
         $response = Http::withOptions(['verify' => false])
-            ->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+            ->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
         $getmessages = Http::withOptions(['verify' => false])
-            ->get('https://umkmapi.azurewebsites.net/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
+            ->get('https://umkmkuapi.com/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
 
         
         if ($response->successful()) {
@@ -58,7 +58,7 @@ class RaphaelMessageController extends Controller
         $message = $request->input('message');
 
         // API endpoint URL
-        $apiUrl = 'https://umkmapi.azurewebsites.net/sendchat/umkmkepembeli/' . $id . '/' . $id_pembeli;
+        $apiUrl = 'https://umkmkuapi.com/sendchat/umkmkepembeli/' . $id . '/' . $id_pembeli;
 
 
         $data = [
@@ -97,7 +97,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/getprofileumkm/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
 
             if ($respose->successful()) {
                 $profile = $respose->json();
@@ -117,7 +117,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -143,7 +143,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);

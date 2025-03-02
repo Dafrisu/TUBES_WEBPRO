@@ -15,7 +15,7 @@ class HaikalController extends Controller
     public function getmodal($id)
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/produk/' . $id);
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmkuapi.com/produk/' . $id);
             if ($response->successful()) {
                 $produkbyID = $response->json();
                 return response()->json($produkbyID);
@@ -28,7 +28,7 @@ class HaikalController extends Controller
     public function getviewproduk()
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi.azurewebsites.net/produkumkm/' . session('umkmID'));
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmkuapi.com/produkumkm/' . session('umkmID'));
 
             if ($response->successful()) {
                 $produk = $response->json(); // Decode JSON
@@ -48,7 +48,7 @@ class HaikalController extends Controller
                 throw new \Exception('ID Produk tidak ditemukan');
             }
 
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi.azurewebsites.net/produk/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/produk/' . $id);
 
             if ($respose->successful()) {
                 $produk = $respose->json();
@@ -86,7 +86,7 @@ class HaikalController extends Controller
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                 $file = $request->file('foto');
                 // Upload file menggunakan Guzzle
-                $uploadResponse = $client->post('https://umkmapi.azurewebsites.net/upload', [
+                $uploadResponse = $client->post('https://umkmkuapi.com/upload', [
                     'multipart' => [
                         [
                             'name' => 'file',
@@ -116,7 +116,7 @@ class HaikalController extends Controller
             ];
 
             // Kirim data ke API
-            $response = $client->post('https://umkmapi.azurewebsites.net/produk', [
+            $response = $client->post('https://umkmkuapi.com/produk', [
                 'json' => $data,
             ]);
 
@@ -145,7 +145,7 @@ class HaikalController extends Controller
 
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi.azurewebsites.net/updateproduk/" . $id, $validatedData);
+                ->put("https://umkmkuapi.com/updateproduk/" . $id, $validatedData);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -161,9 +161,9 @@ class HaikalController extends Controller
     public function deleteProduk($id)
     {
         try {
-            $response = Http::withOptions(['verify' => false])->get("https://umkmapi.azurewebsites.net/produk/" . $id);
+            $response = Http::withOptions(['verify' => false])->get("https://umkmkuapi.com/produk/" . $id);
             if ($response->successful()) {
-                $response = Http::withOptions(["verify" => false])->delete("https://umkmapi.azurewebsites.net/produk/" . $id);
+                $response = Http::withOptions(["verify" => false])->delete("https://umkmkuapi.com/produk/" . $id);
                 return redirect()->route("umkm.managebarang")->with("success", "Berhasil meghapus barang");
             } else {
                 return back()->with("error", "Barang Tidak ditemukan, gagal menghapus barang");

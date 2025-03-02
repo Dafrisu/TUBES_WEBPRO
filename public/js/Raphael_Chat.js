@@ -1,6 +1,6 @@
 // Raphael_Chat.js
 // Base API URL
-const API_BASE_URL = "https://umkmapi.azurewebsites.net/message";
+const API_BASE_URL = "https://umkmkuapi.com/message";
 
 // Function to navigate to the chat page
 function navigateToChat() {
@@ -44,22 +44,20 @@ async function loadMessages() {
 
         customerChat.forEach((chatItem) => {
             const messageHTML = `
-                <div class="message ${
-                    chatItem.sender_type === "self" ? "right" : "left"
+                <div class="message ${chatItem.sender_type === "self" ? "right" : "left"
                 }">
-                    <img src="/images/${
-                        chatItem.sender_type === "self" ? "umkm" : "customer"
-                    }_Profilepic.png" alt="User Avatar" class="avatar">
+                    <img src="/images/${chatItem.sender_type === "self" ? "umkm" : "customer"
+                }_Profilepic.png" alt="User Avatar" class="avatar">
                     <div class="message-bubble">
                         <p>${chatItem.message}</p>
                         <div class="message-time">${new Date(
-                            chatItem.sent_at
-                        ).toLocaleTimeString("en-US", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                            hour12: false,
-                        })}</div>
+                    chatItem.sent_at
+                ).toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false,
+                })}</div>
                     </div>
                 </div>
             `;
@@ -115,13 +113,13 @@ async function sendMessage() {
                     <div class="message-bubble">
                         <p>${newMessage.message}</p>
                         <div class="message-time">${new Date(
-                            newMessage.sent_at
-                        ).toLocaleTimeString("en-US", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                            hour12: false,
-                        })}</div>
+                newMessage.sent_at
+            ).toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false,
+            })}</div>
                     </div>
                 </div>
             `;

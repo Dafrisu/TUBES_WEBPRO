@@ -1,4 +1,4 @@
-<!-- Raphael_message_penjual.blade -->
+<!-- Raphael_messageUnread.blade -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,24 +59,40 @@
 
             <!-- Filters Bar -->
             <div class="filters-bar-container" id="filtersBar">
-                <div class="filters-bar d-flex align-items-center">
-                    <input type="text" class="form-control flex-grow-1 me-3" placeholder="Cari semua chat"
-                        onkeyup="searchMessages(event)" />
-                    <select class="form-select" style="width: auto;" onchange="sortMessages(event)">
-                        <option value="">Urutkan</option>
-                        <option value="newest">Terbaru</option>
-                        <option value="oldest">Terlama</option>
+                <form method="GET" action="{{ url()->current() }}" class="d-flex align-items-center">
+                    <input type="text" name="search" class="form-control flex-grow-1 me-3" placeholder="Cari semua chat"
+                        value="{{ request('search') }}" oninput="this.form.submit()">
+
+                    <select name="sort" class="form-select" style="width: auto;" onchange="this.form.submit()">
+                        <option value="" {{ request('sort') == '' ? 'selected' : '' }}>Urutkan</option>
+                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru
+                        </option>
+                        <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
                     </select>
-                </div>
-                <p class="text-center" id="emptyMessage">
-                    Daftar ini kosong
-                </p>
+                </form>
             </div>
 
             <!-- Chat Interface -->
             <div class="chat-interface d-flex flex-column" id="chatInterface">
-                @if (!empty($unreadMessages))
-                    @foreach (collect($unreadMessages)->unique('id_pembeli') as $message)
+                @php
+                    $filteredMessages = collect($unreadMessages);
+
+                    // Search Filter
+                    if (request('search')) {
+                        $filteredMessages = $filteredMessages->filter(function ($msg) {
+                            return stripos($msg['nama_lengkap'], request('search')) !== false;
+                        });
+                    }
+
+                    // Sorting
+                    if (request('sort', 'newest') == 'newest') {
+                        $filteredMessages = $filteredMessages->sortByDesc('id_chat');
+                    } elseif (request('sort') == 'oldest') {
+                        $filteredMessages = $filteredMessages->sortBy('id_chat');
+                    }
+                @endphp
+                @if ($filteredMessages->isNotEmpty())
+                    @foreach ($filteredMessages->unique('id_pembeli') as $message)
                         @if (!empty($message['id_pembeli']))
                             <a href="{{ route('messagepage', ['id' => $message['id_pembeli']]) }}">
                                 <div class="colspan-1 card mb-2" style="width: 100%;">
@@ -92,6 +108,7 @@
                 @else
                     <p>No read messages found.</p>
                 @endif
+
             </div>
 
             <!-- Example Message Section -->

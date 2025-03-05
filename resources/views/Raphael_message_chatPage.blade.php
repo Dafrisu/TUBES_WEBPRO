@@ -39,8 +39,7 @@
 
         <!-- Message Form -->
         @if(!empty($messages))
-            @php $lastMessage = end($messages); @endphp
-            <form action="{{ route('sendMessage', $lastMessage['id_pembeli']) }}" method="POST">
+            <form action="{{ route('sendMessage', $id_pembeli) }}" method="POST">
                 @csrf
                 <div class="chat-input">
                     <input type="text" name="message" id="messageInput" placeholder="Type a message..." required />

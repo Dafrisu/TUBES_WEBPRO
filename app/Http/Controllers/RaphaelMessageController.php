@@ -40,7 +40,7 @@ class RaphaelMessageController extends Controller
                     }
                 }
 
-                return view('Raphael_message_chatPage', compact('messages', 'customerName', 'messageumkmandpembeli'));
+                return view('Raphael_message_chatPage', compact('messages', 'customerName', 'messageumkmandpembeli', 'id_pembeli'));
             } else {
                 throw new \Exception('Message UMKM tidak ditemukan');
             }

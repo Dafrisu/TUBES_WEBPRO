@@ -73,43 +73,51 @@
             </div>
 
             <!-- Chat Interface -->
-            <div class="chat-interface d-flex flex-column" id="chatInterface">
-                @php
-                    $filteredMessages = collect($unreadMessages);
+            <form action="{{ route('message.read') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="chat-interface d-flex flex-column" id="chatInterface">
+                    @php
+                        $filteredMessages = collect($unreadMessages);
 
-                    // Search Filter
-                    if (request('search')) {
-                        $filteredMessages = $filteredMessages->filter(function ($msg) {
-                            return stripos($msg['nama_lengkap'], request('search')) !== false;
-                        });
-                    }
+                        // Search Filter
+                        if (request('search')) {
+                            $filteredMessages = $filteredMessages->filter(function ($msg) {
+                                return stripos($msg['nama_lengkap'], request('search')) !== false;
+                            });
+                        }
 
-                    // Sorting
-                    if (request('sort', 'newest') == 'newest') {
-                        $filteredMessages = $filteredMessages->sortByDesc('id_chat');
-                    } elseif (request('sort') == 'oldest') {
-                        $filteredMessages = $filteredMessages->sortBy('id_chat');
-                    }
-                @endphp
-                @if ($filteredMessages->isNotEmpty())
-                    @foreach ($filteredMessages->unique('id_pembeli') as $message)
-                        @if (!empty($message['id_pembeli']))
-                            <a href="{{ route('messagepage', ['id' => $message['id_pembeli']]) }}">
+                        // Sorting
+                        if (request('sort', 'newest') == 'newest') {
+                            $filteredMessages = $filteredMessages->sortByDesc('id_chat');
+                        } elseif (request('sort') == 'oldest') {
+                            $filteredMessages = $filteredMessages->sortBy('id_chat');
+                        }
+                    @endphp
+                    @if ($filteredMessages->isNotEmpty())
+                        @foreach ($filteredMessages->unique('id_pembeli') as $message)
+                            @if (!empty($message['id_pembeli']))
                                 <div class="colspan-1 card mb-2" style="width: 100%;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>
-                                        <p class="card-text">{{ $message['message'] }}</p>
-                                        <p class="text-muted">{{ date('H:i:s', strtotime($message['sent_at'])) }}</p>
+                                    <div class="card-body d-flex align-items-center">
+                                        <input type="checkbox" name="selected_messages[]" value="{{ $message['id_pembeli'] }}"
+                                            class="me-2">
+                                        <a href="{{ route('messagepage', ['id' => $message['id_pembeli']]) }}" class="w-100">
+                                            <div>
+                                                <h5 class="card-title">{{ $message['nama_lengkap'] }}</h5>
+                                                <p class="card-text">{{ $message['message'] }}</p>
+                                                <p class="text-muted">{{ date('H:i:s', strtotime($message['sent_at'])) }}</p>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                            </a>
-                        @endif
-                    @endforeach
-                @else
-                    <p>No read messages found.</p>
-                @endif
-
-            </div>
+                            @endif
+                        @endforeach
+                        <button type="submit" class="btn btn-primary mt-2">Mark as Read</button>
+                    @else
+                        <p>No unread messages found.</p>
+                    @endif
+                </div>
+            </form>
 
             <!-- Example Message Section -->
             <div class="example-messages-container">

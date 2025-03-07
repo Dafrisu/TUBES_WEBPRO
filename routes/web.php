@@ -75,3 +75,4 @@ Route::get('/msgumkm', [RaphaelMessageController::class, 'getmessageumkm'])->nam
 Route::get('/umkm/messages/inbox', [RaphaelMessageController::class, 'showinbox'])->name('umkm.messages.inbox');
 Route::get('/umkm/messages/read', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
 Route::get('/umkm/messages/unread', [RaphaelMessageController::class, 'showUnreadMessages'])->name('umkm.messages.unread');
+Route::put('/message/read/', [RaphaelMessageController::class, 'markMessageAsRead'])->name('message.read');

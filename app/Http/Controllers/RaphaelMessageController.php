@@ -164,4 +164,29 @@ class RaphaelMessageController extends Controller
             return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
         }
     }
+
+    public function markMessageAsRead(Request $request)
+    {
+        try {
+            $selectedMessages = $request->input('selected_messages', []);
+
+            if (empty($selectedMessages)) {
+                return redirect()->route('umkm.messages.unread')->with('error', 'No messages selected');
+            }
+
+            foreach ($selectedMessages as $id_pembeli) {
+                $response = Http::withOptions(['verify' => false])
+                    ->put("https://umkmkuapi.com/message/read/$id_pembeli");
+
+                if (!$response->successful()) {
+                    throw new \Exception("Failed to mark message for ID $id_pembeli as read");
+                }
+            }
+
+            return redirect()->route('umkm.messages.unread')->with('success', 'Selected messages marked as read');
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.messages.unread')->with('error', $e->getMessage());
+        }
+    }
+
 }

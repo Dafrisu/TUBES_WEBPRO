@@ -1,0 +1,17 @@
+#search_icon:hover .bi-search {
+    fill: #ffffff;
+}
+#search_icon:hover {
+    background-color:  #34C759;
+}
+
+
+#nav-item:hover {
+    fill: #34C759;
+}
+
+/* Table */
+table tbody td input[type="checkbox"] {
+    display: block;
+    margin: 0 auto;
+}

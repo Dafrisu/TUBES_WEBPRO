@@ -1,0 +1,154 @@
+{
+  "chats": [
+    {
+      "customerId": "Customer A",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Kapan barang saya dikirim?",
+          "time": "10:00 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer B",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Apakah produk ini tersedia?",
+          "time": "10:15 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer C",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Saya ingin mengubah alamat pengiriman.",
+          "time": "10:30 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer D",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Bisa tolong update status pesanan saya?",
+          "time": "10:45 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer E",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Ada promo untuk bulan ini?",
+          "time": "11:00 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer F",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Bagaimana cara mengklaim garansi?",
+          "time": "11:15 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer G",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Saya tertarik dengan produk ini, bisa minta detailnya?",
+          "time": "11:30 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer H",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Kapan pesanan saya akan tiba?",
+          "time": "11:45 AM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer I",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Apakah ada diskon untuk pembelian grosir?",
+          "time": "12:00 PM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer J",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Bisa tolong kirim faktur pembelian?",
+          "time": "12:15 PM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer K",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Saya ingin mengajukan retur barang.",
+          "time": "12:30 PM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer L",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Apakah produk ini asli?",
+          "time": "12:45 PM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer M",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Bisa bantu saya melacak pesanan?",
+          "time": "13:00 PM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer N",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Bagaimana cara pembayaran?",
+          "time": "13:15 PM"
+        }
+      ]
+    },
+    {
+      "customerId": "Customer O",
+      "messages": [
+        {
+          "sender": "other",
+          "message": "Apakah ada opsi pengiriman ekspres?",
+          "time": "13:30 PM"
+        }
+      ]
+    }
+  ]
+}

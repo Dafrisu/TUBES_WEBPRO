@@ -54,6 +54,8 @@ class RaphaelMessageController extends Controller
 
 
     // Send message via API
+    private $nodeApiUrl = "https://umkmkuapi.com"; // Railway Backend
+
     public function sendMessage(Request $request, $id_pembeli)
     {
 
@@ -83,13 +85,20 @@ class RaphaelMessageController extends Controller
         if ($response->successful()) {
             Log::info('Message sent successfully', ['response' => $response->json()]);
 
-            return redirect()->route('messagepage', $id_pembeli)
-                ->with('success', 'Message sent successfully!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Message sent successfully!',
+                'data' => $response->json()
+            ]);
         } else {
             Log::error('Failed to send message', ['error' => $response->body()]);
 
-            return redirect()->back()->with('error', 'Failed to send message');
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to send message',
+            ], 500);
         }
+
     }
 
 

@@ -13,7 +13,10 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/Raphael_Chat.css') }}">
-    <script src="http://127.0.0.1:80/socket.io/socket.io.js"></script>
+    <!-- <script src="http://127.0.0.1:80/socket.io/socket.io.js"></script> -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -36,8 +39,8 @@
         <div class="chat-window" id="chatWindow">
             @foreach($messageumkmandpembeli as $message)
                         @php
-    // Determine if the message is sent by the logged-in UMKM (right) or received from Pembeli (left)
-    $isSender = isset($message['receiver_type']) && $message['receiver_type'] == 'Pembeli';
+                            // Determine if the message is sent by the logged-in UMKM (right) or received from Pembeli (left)
+                            $isSender = isset($message['receiver_type']) && $message['receiver_type'] == 'Pembeli';
                         @endphp
                         <div class="message {{ $isSender ? 'right' : 'left' }}">
                             <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
@@ -67,101 +70,86 @@
 
     <!-- JavaScript for Real-Time Chat -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const chatWindow = document.getElementById("chatWindow");
-            const messageInput = document.getElementById("messageInput");
-            const sendMessageForm = document.getElementById("sendMessageForm");
-
-            let lastMessageId = null; // Store the last fetched message ID to prevent duplicates
-            
-
-
-            // Function to fetch new messages
-            function fetchMessages() {
-                fetch("{{ route('fetchMessages', $id_pembeli) }}")
-                    .then(response => response.json())
-                    .then(data => {
-                        data.messages.forEach(msg => {
-                            // Only append if the message is NEW (not in DOM)
-                            if (!document.getElementById(`msg-${msg.id}`)) {
-                                appendMessage(msg.message, msg.receiver_type === "Pembeli" ? "right" : "left", msg.id);
-                            }
-                        });
-
-                        // Update last message ID
-                        if (data.messages.length > 0) {
-                            lastMessageId = data.messages[data.messages.length - 1].id;
-                        }
-                    })
-                    .catch(error => console.error("Error fetching messages:", error));
-            }
-
-
-            // Function to append message
-            function appendMessage(message, position, id = null) {
-                const messageDiv = document.createElement("div");
-                messageDiv.classList.add("message", position);
-                if (id) messageDiv.id = `msg-${id}`;
-
-                // Get current time in HH:mm format
-                const now = new Date();
-                const formattedTime = now.getHours().toString().padStart(2, '0') + ":" +
-                    now.getMinutes().toString().padStart(2, '0') + ":" +
-                    now.getSeconds().toString().padStart(2, '0');
-
-                messageDiv.innerHTML = `
-                        <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                        <div class="message-bubble">
-                            <p>${message}</p>
-                            <div class="message-time">${formattedTime}</div>
-                        </div>
-                    `;
-
-                chatWindow.appendChild(messageDiv);
-                chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to latest message
-            }
-
-
-            // Auto-fetch new messages every 3 seconds
-            // setInterval(fetchMessages, 3000);
-
-            sendMessageForm.addEventListener("submit", function (e) {
-                e.preventDefault();
-
-                const message = messageInput.value.trim();
-                if (message === "") return;
-
-                // Optimistically append message
-                appendMessage(message, "right");
-
-                messageInput.value = "";
-                messageInput.dispatchEvent(new Event("input"));
-                sendMessageForm.reset();
-                messageInput.focus();
-
-                // Send message via API
-                fetch(sendMessageForm.action, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                    },
-                    body: JSON.stringify({ message: message }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.success) {
-                            console.error("Message not sent:", data);
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
-            });
-
-            // Initial fetch on page load
-            // fetchMessages();
+        const socket = io("https://umkmkuapi.com", {
+            transports: ["websocket", "polling"],
         });
 
+        $(document).ready(function () {
+            const userId = "{{ session('umkmID') }}";
+            const receiverId = "{{ $id_pembeli }}";
+            const chatWindow = $("#chatWindow");
+
+            function scrollToBottom() {
+                chatWindow.scrollTop(chatWindow[0].scrollHeight);
+            }
+
+            function getCurrentTime() {
+                return new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+            }
+
+            socket.on("newMessage", function (message) {
+                if (message.id_umkm == userId && message.id_pembeli == receiverId) {
+                    let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
+                    chatWindow.append(`
+                    <div class="message ${messageClass}">
+                        <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                        <div class="message-bubble">
+                            <p>${message.message}</p>
+                            <div class="message-time">${getCurrentTime()}</div>
+                        </div>
+                    </div>
+                `);
+                    scrollToBottom();
+                }
+            });
+
+            $("#sendMessageForm").submit(function (e) {
+                e.preventDefault(); // Stop form from redirecting
+
+                let messageText = $("#messageInput").val().trim();
+                if (messageText) {
+                    $.ajax({
+                        url: $(this).attr("action"),
+                        type: "POST",
+                        headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+                        data: { message: messageText },
+                        success: function (response) {
+                            console.log("Message sent successfully", response);
+
+                            // Append message instantly without AM/PM
+                            chatWindow.append(`
+                            <div class="message right">
+                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                                <div class="message-bubble">
+                                    <p>${messageText}</p>
+                                    <div class="message-time">${getCurrentTime()}</div>
+                                </div>
+                            </div>
+                        `);
+
+                            $("#messageInput").val(""); // Clear input field
+                            scrollToBottom();
+                        },
+                        error: function (xhr) {
+                            console.error("Error sending message:", xhr.responseText);
+                        }
+                    });
+                }
+            });
+
+            $("#messageInput").keypress(function (e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    $("#sendMessageForm").submit();
+                }
+            });
+
+            scrollToBottom();
+        });
     </script>
+
+
+
 
 </body>
 

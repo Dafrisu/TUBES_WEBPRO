@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
+
 class RaphaelMessageController extends Controller
 {
     // Show chat page with messages
@@ -188,5 +189,17 @@ class RaphaelMessageController extends Controller
             return redirect()->route('umkm.messages.unread')->with('error', $e->getMessage());
         }
     }
+
+    public function fetchMessages($id_pembeli)
+{
+    $id = session('umkmID');
+
+    $response = Http::withOptions(['verify' => false])
+        ->get('https://umkmkuapi.com/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
+
+    return response()->json(['messages' => $response->json()]);
+}
+
+
 
 }

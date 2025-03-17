@@ -39,7 +39,6 @@
         <div class="chat-window" id="chatWindow">
             @foreach($messageumkmandpembeli as $message)
                         @php
-                            // Determine if the message is sent by the logged-in UMKM (right) or received from Pembeli (left)
                             $isSender = isset($message['receiver_type']) && $message['receiver_type'] == 'Pembeli';
                         @endphp
                         <div class="message {{ $isSender ? 'right' : 'left' }}">
@@ -68,15 +67,21 @@
         @endif
     </div>
 
-    <!-- JavaScript for Real-Time Chat -->
+    <!-- JavaScript -->
     <script>
-        const socket = io("https://umkmkuapi.com", {
-            transports: ["websocket", "polling"],
+        var socket = io("https://umkmkuapi.com", {
+            transports: ["websocket"],
+            withCredentials: true
+        });
+
+        socket.on("connect", () => {
+            console.log("Connected to Socket.io server");
         });
 
         $(document).ready(function () {
             const userId = "{{ session('umkmID') }}";
             const receiverId = "{{ $id_pembeli }}";
+            const apiUrl = `https://umkmkuapi.com/getmsgUMKMPembeli/${userId}/${receiverId}`;
             const chatWindow = $("#chatWindow");
 
             function scrollToBottom() {
@@ -87,24 +92,63 @@
                 return new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
             }
 
+            let lastMessageId = null;
+
+            function fetchMessages() {
+                $.ajax({
+                    url: apiUrl,
+                    type: "GET",
+                    success: function (response) {
+                        console.log("Fetched messages:", response);
+
+                        if (Array.isArray(response) && response.length > 0) {
+                            let newMessages = response.filter(msg => msg.id !== lastMessageId);
+                            if (newMessages.length > 0) {
+                                newMessages.forEach(message => {
+                                    let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
+                                    chatWindow.append(`
+                            <div class="message ${messageClass}">
+                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                                <div class="message-bubble">
+                                    <p>${message.message}</p>
+                                    <div class="message-time">${message.sent_at ? message.sent_at : getCurrentTime()}</div>
+                                </div>
+                            </div>
+                        `);
+                                });
+                                lastMessageId = response[response.length - 1].id;
+                                scrollToBottom();
+                            }
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching messages:", xhr.responseText);
+                    }
+                });
+            }
+
+
             socket.on("newMessage", function (message) {
+                console.log("New message received:", message);
+
                 if (message.id_umkm == userId && message.id_pembeli == receiverId) {
                     let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
                     chatWindow.append(`
-                    <div class="message ${messageClass}">
-                        <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                        <div class="message-bubble">
-                            <p>${message.message}</p>
-                            <div class="message-time">${getCurrentTime()}</div>
-                        </div>
-                    </div>
-                `);
+            <div class="message ${messageClass}">
+                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                <div class="message-bubble">
+                    <p>${message.message}</p>
+                    <div class="message-time">${message.sent_at ? message.sent_at : getCurrentTime()}</div>
+                </div>
+            </div>
+        `);
                     scrollToBottom();
                 }
             });
 
+
             $("#sendMessageForm").submit(function (e) {
-                e.preventDefault(); // Stop form from redirecting
+                e.preventDefault();
 
                 let messageText = $("#messageInput").val().trim();
                 if (messageText) {
@@ -116,18 +160,17 @@
                         success: function (response) {
                             console.log("Message sent successfully", response);
 
-                            // Append message instantly without AM/PM
                             chatWindow.append(`
-                            <div class="message right">
-                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                                <div class="message-bubble">
-                                    <p>${messageText}</p>
-                                    <div class="message-time">${getCurrentTime()}</div>
-                                </div>
+                        <div class="message right">
+                            <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                            <div class="message-bubble">
+                                <p>${messageText}</p>
+                                <div class="message-time">${getCurrentTime()}</div>
                             </div>
-                        `);
+                        </div>
+                    `);
 
-                            $("#messageInput").val(""); // Clear input field
+                            $("#messageInput").val("");
                             scrollToBottom();
                         },
                         error: function (xhr) {
@@ -146,6 +189,7 @@
 
             scrollToBottom();
         });
+
     </script>
 
 

@@ -32,6 +32,7 @@ class RaphaelMessageController extends Controller
                     throw new \Exception('Message UMKM tidak ditemukan');
                 }
 
+
                 // Cari customerName berdasarkan id_pembeli
                 $customerName = 'Customer Name';
                 foreach ($messages as $message) {
@@ -76,7 +77,8 @@ class RaphaelMessageController extends Controller
             'message' => $message,
             'sent_at' => $formattedTime,
             "is_read" => false,
-            "id_kurir" => null
+            "id_kurir" => null,
+            "receiver_type" => "Pembeli",
         ];
 
         // Send the message using Laravel's HTTP Client
@@ -199,15 +201,21 @@ class RaphaelMessageController extends Controller
         }
     }
 
-    public function fetchMessages($id_pembeli)
-{
-    $id = session('umkmID');
+    public function getMessagesFromNode($umkmId, $pembeliId)
+    {
+        $url = "https://umkmkuapi.com/getmsgUMKMPembeli/$umkmId/$pembeliId";
 
-    $response = Http::withOptions(['verify' => false])
-        ->get('https://umkmkuapi.com/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
-
-    return response()->json(['messages' => $response->json()]);
-}
+        try {
+            $response = Http::get($url);
+            if ($response->successful()) {
+                return response()->json($response->json());
+            } else {
+                return response()->json(['error' => 'Failed to fetch messages'], $response->status());
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 
 
 

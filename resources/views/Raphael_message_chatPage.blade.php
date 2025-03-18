@@ -83,6 +83,8 @@
             const receiverId = "{{ $id_pembeli }}";
             const apiUrl = `https://umkmkuapi.com/getmsgUMKMPembeli/${userId}/${receiverId}`;
             const chatWindow = $("#chatWindow");
+            let lastMessageId = 0; // Store the last message ID to track changes
+
 
             function scrollToBottom() {
                 chatWindow.scrollTop(chatWindow[0].scrollHeight);
@@ -92,60 +94,37 @@
                 return new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
             }
 
-            let lastMessageId = null;
-
-            function fetchMessages() {
-                $.ajax({
-                    url: apiUrl,
-                    type: "GET",
-                    success: function (response) {
-                        console.log("Fetched messages:", response);
-
-                        if (Array.isArray(response) && response.length > 0) {
-                            let newMessages = response.filter(msg => msg.id !== lastMessageId);
-                            if (newMessages.length > 0) {
-                                newMessages.forEach(message => {
-                                    let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
-                                    chatWindow.append(`
-                            <div class="message ${messageClass}">
-                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                                <div class="message-bubble">
-                                    <p>${message.message}</p>
-                                    <div class="message-time">${message.sent_at ? message.sent_at : getCurrentTime()}</div>
-                                </div>
-                            </div>
-                        `);
-                                });
-                                lastMessageId = response[response.length - 1].id;
-                                scrollToBottom();
-                            }
-                        }
-                    },
-                    error: function (xhr) {
-                        console.error("Error fetching messages:", xhr.responseText);
-                    }
-                });
-            }
 
 
             socket.on("newMessage", function (message) {
                 console.log("New message received:", message);
 
-                if (message.id_umkm == userId && message.id_pembeli == receiverId) {
-                    let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
-                    chatWindow.append(`
-            <div class="message ${messageClass}">
-                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                <div class="message-bubble">
-                    <p>${message.message}</p>
-                    <div class="message-time">${message.sent_at ? message.sent_at : getCurrentTime()}</div>
-                </div>
-            </div>
-        `);
-                    scrollToBottom();
+                const userId = "{{ session('umkmID') }}";
+                const receiverId = "{{ $id_pembeli }}";
+
+                // Ensure the message is for this conversation
+                if ((message.id_umkm == userId && message.id_pembeli == receiverId) ||
+                    (message.id_umkm == receiverId && message.id_pembeli == userId)) {
+
+                    let messageClass = (message.id_pembeli == userId) ? "right" : "left";
+
+                    // Prevent duplicate message by checking last appended message
+                    let lastMessage = $("#chatWindow .message").last().find("p").text();
+                    if (lastMessage !== message.message) {
+                        $("#chatWindow").append(`
+                            < div class= "message ${messageClass}" >
+                            <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                                <div class="message-bubble">
+                                    <p>${message.message}</p>
+                                    <div class="message-time">${getCurrentTime()}</div>
+                                </div>
+                            </div>
+            `);
+
+                        scrollToBottom();
+                    }
                 }
             });
-
 
             $("#sendMessageForm").submit(function (e) {
                 e.preventDefault();
@@ -161,14 +140,14 @@
                             console.log("Message sent successfully", response);
 
                             chatWindow.append(`
-                        <div class="message right">
-                            <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                            <div class="message-bubble">
-                                <p>${messageText}</p>
-                                <div class="message-time">${getCurrentTime()}</div>
+                            <div class="message right">
+                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                                <div class="message-bubble">
+                                    <p>${messageText}</p>
+                                    <div class="message-time">${getCurrentTime()}</div>
+                                </div>
                             </div>
-                        </div>
-                    `);
+                        `);
 
                             $("#messageInput").val("");
                             scrollToBottom();
@@ -188,8 +167,43 @@
             });
 
             scrollToBottom();
-        });
 
+            // Fetch messages from API
+            function fetchMessages() {
+                $.ajax({
+                    url: apiUrl,
+                    type: "GET",
+                    success: function (response) {
+                        console.log("Fetched messages:", response);
+
+                        if (Array.isArray(response)) {
+                            response.forEach(message => {
+                                let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
+                                chatWindow.append(`
+                            <div class="message ${messageClass}">
+                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                                <div class="message-bubble">
+                                    <p>${message.message}</p>
+                                    <div class="message-time">${message.sent_at ? message.sent_at.split('.')[0] : getCurrentTime()}</div>                                </div>
+                            </div>
+                        `);
+                            });
+                            scrollToBottom();
+                        } else {
+                            console.error("Unexpected API response format:", response);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching messages:", xhr.responseText);
+                    }
+                });
+            }
+
+            // fetchMessages(); // Call function to load messages
+
+            // Refresh messages every 5 seconds (Optional)
+            setInterval(fetchMessages, 6000);
+        });
     </script>
 
 

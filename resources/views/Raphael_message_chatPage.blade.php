@@ -42,14 +42,20 @@
                             $isSender = isset($message['receiver_type']) && $message['receiver_type'] == 'Pembeli';
                         @endphp
                         <div class="message {{ $isSender ? 'right' : 'left' }}">
-                            <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                            @if(!$isSender)
+                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                            @endif
                             <div class="message-bubble">
                                 <p>{{ $message['message'] ?? 'No message content' }}</p>
                                 <div class="message-time">
                                     {{ isset($message['sent_at']) ? \Carbon\Carbon::parse($message['sent_at'])->format('H:i:s') : 'Unknown Time' }}
                                 </div>
                             </div>
+                            @if($isSender)
+                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+                            @endif
                         </div>
+
             @endforeach
         </div>
 
@@ -81,9 +87,9 @@
         $(document).ready(function () {
             const userId = "{{ session('umkmID') }}";
             const receiverId = "{{ $id_pembeli }}";
-            const apiUrl = `https://umkmkuapi.com/getmsgUMKMPembeli/${userId}/${receiverId}`;
+            const apiUrl = `https://umkmkuapi.com/getLatestMsgUMKMPembeli/${userId}/${receiverId}`;
             const chatWindow = $("#chatWindow");
-            let lastMessageId = 0; // Store the last message ID to track changes
+            let lastMessageId = 0;
 
 
             function scrollToBottom() {
@@ -93,6 +99,8 @@
             function getCurrentTime() {
                 return new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
             }
+
+
 
 
 
@@ -108,23 +116,24 @@
 
                     let messageClass = (message.id_pembeli == userId) ? "right" : "left";
 
-                    // Prevent duplicate message by checking last appended message
-                    let lastMessage = $("#chatWindow .message").last().find("p").text();
-                    if (lastMessage !== message.message) {
+                    // Prevent duplicate messages using message ID
+                    if ($("#chatWindow").find(`[data-id='${message.id_chat}']`).length === 0) {
                         $("#chatWindow").append(`
-                            < div class= "message ${messageClass}" >
-                            <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                                <div class="message-bubble">
-                                    <p>${message.message}</p>
-                                    <div class="message-time">${getCurrentTime()}</div>
-                                </div>
-                            </div>
+                <div class="message ${messageClass}" data-id="${message.id_chat}">
+                    ${messageClass === "left" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
+                    <div class="message-bubble">
+                        <p>${message.message}</p>
+                        <div class="message-time">${getCurrentTime()}</div>
+                    </div>
+                    ${messageClass === "right" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
+                </div>
             `);
 
                         scrollToBottom();
                     }
                 }
             });
+
 
             $("#sendMessageForm").submit(function (e) {
                 e.preventDefault();
@@ -139,15 +148,7 @@
                         success: function (response) {
                             console.log("Message sent successfully", response);
 
-                            chatWindow.append(`
-                            <div class="message right">
-                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
-                                <div class="message-bubble">
-                                    <p>${messageText}</p>
-                                    <div class="message-time">${getCurrentTime()}</div>
-                                </div>
-                            </div>
-                        `);
+                            fetchMessages();
 
                             $("#messageInput").val("");
                             scrollToBottom();
@@ -176,22 +177,30 @@
                     success: function (response) {
                         console.log("Fetched messages:", response);
 
-                        if (Array.isArray(response)) {
-                            response.forEach(message => {
+                        let messages = Array.isArray(response) ? response : [response];
+
+                        messages.forEach(message => {
+                            if (message.id_chat > lastMessageId) {
                                 let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
-                                chatWindow.append(`
-                            <div class="message ${messageClass}">
-                                <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
+
+                                // Check if the message already exists before appending
+                                if ($(`.message[data-id='${message.id_chat}']`).length === 0) {
+                                    $("#chatWindow").append(`
+                            <div class="message ${messageClass}" data-id="${message.id_chat}">
+                                ${messageClass === "left" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
                                 <div class="message-bubble">
                                     <p>${message.message}</p>
-                                    <div class="message-time">${message.sent_at ? message.sent_at.split('.')[0] : getCurrentTime()}</div>                                </div>
+                                    <div class="message-time">${message.sent_at ? message.sent_at.split('.')[0] : getCurrentTime()}</div>
+                                </div>
+                                ${messageClass === "right" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
                             </div>
                         `);
-                            });
-                            scrollToBottom();
-                        } else {
-                            console.error("Unexpected API response format:", response);
-                        }
+
+                                    lastMessageId = message.id_chat; // Update the last message ID
+                                    scrollToBottom();
+                                }
+                            }
+                        });
                     },
                     error: function (xhr) {
                         console.error("Error fetching messages:", xhr.responseText);
@@ -199,10 +208,10 @@
                 });
             }
 
-            // fetchMessages(); // Call function to load messages
+            fetchMessages();
+            // Run fetchMessages() only for real-time updates, NOT on page load
+            setInterval(fetchMessages, 2000);
 
-            // Refresh messages every 5 seconds (Optional)
-            setInterval(fetchMessages, 6000);
         });
     </script>
 

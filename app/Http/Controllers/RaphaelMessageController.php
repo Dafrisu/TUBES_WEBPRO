@@ -112,6 +112,7 @@ class RaphaelMessageController extends Controller
 
     public function showinbox()
     {
+        $this->getprofileumkm();
         $id = session('umkmID');
         try {
             if (!$id) {
@@ -132,6 +133,7 @@ class RaphaelMessageController extends Controller
 
     public function showReadMessages(Request $request)
     {
+        $this->getprofileumkm();
         $id = session('umkmID');
         try {
             if (!$id) {
@@ -158,6 +160,7 @@ class RaphaelMessageController extends Controller
 
     public function showUnreadMessages(Request $request)
     {
+        $this->getprofileumkm();
         $id = session('umkmID');
         try {
             if (!$id) {
@@ -217,6 +220,37 @@ class RaphaelMessageController extends Controller
         }
     }
 
+    public function getprofileumkm()
+    {
+        try {
+            $id = session('umkmID');
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
 
+            // Check if profile is already stored in session
+            if (session()->has('umkmProfile')) {
+                return session('umkmProfile');
+            }
+
+            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
+
+            if ($response->successful()) {
+                $profile = $response->json();
+                session(['umkmProfile' => $profile]); // Store profile in session
+                return $profile;
+            } else {
+                throw new \Exception('Profile tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    public function read()
+    {
+        $this->getprofileumkm(); // Fetch profile and store it in session
+        return view('Raphael_messageRead');
+    }
 
 }

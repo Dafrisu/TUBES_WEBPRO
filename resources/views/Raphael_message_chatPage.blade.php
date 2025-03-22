@@ -90,6 +90,23 @@
             const apiUrl = `https://umkmkuapi.com/getLatestMsgUMKMPembeli/${userId}/${receiverId}`;
             const chatWindow = $("#chatWindow");
             let lastMessageId = 0;
+            let fetchInterval = null;
+            const renderedMessageIds = new Set();
+
+            function initializeRenderedMessages() {
+                // First, add data-id attributes to existing messages rendered by the server
+                $("#chatWindow .message").each(function (index) {
+                    if (!$(this).attr('data-id')) {
+                        $(this).attr('data-id', 'server-rendered-' + index);
+                    }
+
+                    // Add the ID to our Set so we don't re-render it
+                    renderedMessageIds.add($(this).attr('data-id'));
+                });
+            }
+
+            // Memanggil function saat load page
+            initializeRenderedMessages();
 
 
             function scrollToBottom() {
@@ -99,9 +116,6 @@
             function getCurrentTime() {
                 return new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
             }
-
-
-
 
 
             socket.on("newMessage", function (message) {
@@ -177,30 +191,49 @@
                     success: function (response) {
                         console.log("Fetched messages:", response);
 
-                        let messages = Array.isArray(response) ? response : [response];
+                        // Response adalah array
+                        let messages = Array.isArray(response) ? response : (response ? [response] : []);
+
+                        //Tracker message baru
+                        let newMessagesAdded = false;
 
                         messages.forEach(message => {
-                            if (message.id_chat > lastMessageId) {
+                            const messageId = message.id_chat;
+                            const messageContent = message.message;
+
+                            let isDuplicate = false;
+                            $("#chatWindow .message p").each(function () {
+                                if ($(this).text() === messageContent) {
+                                    isDuplicate = true;
+                                    return false;
+                                }
+                            });
+
+                            // Check id_chat biar ga dupe
+                            if (!renderedMessageIds.has(messageId) && !isDuplicate) {
+                                renderedMessageIds.add(messageId);
+
                                 let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
 
-                                // Check if the message already exists before appending
-                                if ($(`.message[data-id='${message.id_chat}']`).length === 0) {
-                                    $("#chatWindow").append(`
-                            <div class="message ${messageClass}" data-id="${message.id_chat}">
+                                $("#chatWindow").append(`
+                            <div class="message ${messageClass}" data-id="${messageId}">
                                 ${messageClass === "left" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
                                 <div class="message-bubble">
-                                    <p>${message.message}</p>
+                                    <p>${messageContent}</p>
                                     <div class="message-time">${message.sent_at ? message.sent_at.split('.')[0] : getCurrentTime()}</div>
                                 </div>
                                 ${messageClass === "right" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
                             </div>
                         `);
 
-                                    lastMessageId = message.id_chat; // Update the last message ID
-                                    scrollToBottom();
-                                }
+                                newMessagesAdded = true;
                             }
                         });
+
+                        // Scroll ke paling bawah biar ga perlu scroll manual
+                        if (newMessagesAdded) {
+                            scrollToBottom();
+                        }
                     },
                     error: function (xhr) {
                         console.error("Error fetching messages:", xhr.responseText);
@@ -208,9 +241,10 @@
                 });
             }
 
-            fetchMessages();
-            // Run fetchMessages() only for real-time updates, NOT on page load
-            setInterval(fetchMessages, 2000);
+            // interval tiap 2 detik lek
+            setTimeout(() => {
+                setInterval(fetchMessages, 2000);
+            }, 1000);
 
         });
     </script>

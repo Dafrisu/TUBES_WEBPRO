@@ -45,7 +45,7 @@ return [
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
-            'host' => env('BEANSTALKD_QUEUE_HOST', 'https://umkmkuapi.com'),
+            'host' => env('BEANSTALKD_QUEUE_HOST', 'https://umkmapi-production.up.railway.app'),
             'queue' => env('BEANSTALKD_QUEUE', 'default'),
             'retry_after' => (int) env('BEANSTALKD_QUEUE_RETRY_AFTER', 90),
             'block_for' => 0,

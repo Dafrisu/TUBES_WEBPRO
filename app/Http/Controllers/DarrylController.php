@@ -27,7 +27,7 @@ class DarrylController extends Controller
             $client = new Client(['verify' => false]);
 
             // POST request Guzzle
-            $response = $client->post('https://umkmkuapi.com/umkm', [
+            $response = $client->post('https://umkmapi-production.up.railway.app/umkm', [
                 'json' => $data,
             ]);
 
@@ -56,7 +56,7 @@ class DarrylController extends Controller
             $client = new Client(['verify' => false]);
 
             // Send the POST request using Guzzle
-            $response = $client->post('https://umkmkuapi.com/login', [
+            $response = $client->post('https://umkmapi-production.up.railway.app/login', [
                 'json' => $data,
             ]);
 

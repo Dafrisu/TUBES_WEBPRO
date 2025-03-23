@@ -1,6 +1,6 @@
 // Raphael_Chat.js
 // Base API URL
-const API_BASE_URL = "https://umkmkuapi.com/message";
+const API_BASE_URL = "https://umkmapi-production.up.railway.app/message";
 
 // Function to navigate to the chat page
 function navigateToChat() {

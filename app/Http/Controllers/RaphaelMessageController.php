@@ -19,9 +19,9 @@ class RaphaelMessageController extends Controller
             }
 
             $response = Http::withOptions(['verify' => false])
-                ->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
+                ->get('https://umkmapi-production.up.railway.app/message/msgUMKM/' . $id);
             $getmessages = Http::withOptions(['verify' => false])
-                ->get('https://umkmkuapi.com/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
+                ->get('https://umkmapi-production.up.railway.app/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
 
             if ($response->successful() && $getmessages->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -66,7 +66,7 @@ class RaphaelMessageController extends Controller
         $message = $request->input('message');
 
         // API endpoint URL
-        $apiUrl = 'https://umkmkuapi.com/sendchat/umkmkepembeli/' . $id . '/' . $id_pembeli;
+        $apiUrl = 'https://umkmapi-production.up.railway.app/sendchat/umkmkepembeli/' . $id . '/' . $id_pembeli;
 
 
         $data = [
@@ -105,7 +105,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
 
             if ($respose->successful()) {
                 $profile = $respose->json();
@@ -125,7 +125,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -151,7 +151,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -176,7 +176,7 @@ class RaphaelMessageController extends Controller
 
             foreach ($selectedMessages as $id_pembeli) {
                 $response = Http::withOptions(['verify' => false])
-                    ->put("https://umkmkuapi.com/message/read/$id_pembeli");
+                    ->put("https://umkmapi-production.up.railway.app/message/read/$id_pembeli");
 
                 if (!$response->successful()) {
                     throw new \Exception("Failed to mark message for ID $id_pembeli as read");

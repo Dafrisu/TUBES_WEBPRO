@@ -20,9 +20,9 @@ class RaphaelMessageController extends Controller
             }
 
             $response = Http::withOptions(['verify' => false])
-                ->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
+                ->get('https://umkmapi-production.up.railway.app/message/msgUMKM/' . $id);
             $getmessages = Http::withOptions(['verify' => false])
-                ->get('https://umkmkuapi.com/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
+                ->get('https://umkmapi-production.up.railway.app/getmsgUMKMPembeli/' . $id . '/' . $id_pembeli);
 
             if ($response->successful() && $getmessages->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -55,7 +55,7 @@ class RaphaelMessageController extends Controller
 
 
     // Send message via API
-    private $nodeApiUrl = "https://umkmkuapi.com"; // Railway Backend
+    private $nodeApiUrl = "https://umkmapi-production.up.railway.app"; // Railway Backend
 
     public function sendMessage(Request $request, $id_pembeli)
     {
@@ -70,7 +70,7 @@ class RaphaelMessageController extends Controller
         $message = $request->input('message');
 
         // API endpoint URL
-        $apiUrl = 'https://umkmkuapi.com/sendchat/umkmkepembeli/' . $id . '/' . $id_pembeli;
+        $apiUrl = 'https://umkmapi-production.up.railway.app/sendchat/umkmkepembeli/' . $id . '/' . $id_pembeli;
 
 
         $data = [
@@ -118,7 +118,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
 
             if ($respose->successful()) {
                 $profile = $respose->json();
@@ -139,7 +139,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -166,7 +166,7 @@ class RaphaelMessageController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/message/msgUMKM/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/message/msgUMKM/' . $id);
 
             if ($response->successful()) {
                 $messages = json_decode($response->body(), true);
@@ -191,7 +191,7 @@ class RaphaelMessageController extends Controller
 
             foreach ($selectedMessages as $id_pembeli) {
                 $response = Http::withOptions(['verify' => false])
-                    ->put("https://umkmkuapi.com/message/read/$id_pembeli");
+                    ->put("https://umkmapi-production.up.railway.app/message/read/$id_pembeli");
 
                 if (!$response->successful()) {
                     throw new \Exception("Failed to mark message for ID $id_pembeli as read");
@@ -206,7 +206,7 @@ class RaphaelMessageController extends Controller
 
     public function getMessagesFromNode($umkmId, $pembeliId)
     {
-        $url = "https://umkmkuapi.com/getmsgUMKMPembeli/$umkmId/$pembeliId";
+        $url = "https://umkmapi-production.up.railway.app/getmsgUMKMPembeli/$umkmId/$pembeliId";
 
         try {
             $response = Http::get($url);
@@ -233,7 +233,7 @@ class RaphaelMessageController extends Controller
                 return session('umkmProfile');
             }
 
-            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
 
             if ($response->successful()) {
                 $profile = $response->json();

@@ -75,7 +75,7 @@
 
     <!-- JavaScript -->
     <script>
-        var socket = io("https://umkmkuapi.com", {
+        var socket = io("https://umkmapi-production.up.railway.app", {
             transports: ["websocket"],
             withCredentials: true
         });
@@ -87,7 +87,7 @@
         $(document).ready(function () {
             const userId = "{{ session('umkmID') }}";
             const receiverId = "{{ $id_pembeli }}";
-            const apiUrl = `https://umkmkuapi.com/getLatestMsgUMKMPembeli/${userId}/${receiverId}`;
+            const apiUrl = `https://umkmapi-production.up.railway.app/getLatestMsgUMKMPembeli/${userId}/${receiverId}`;
             const chatWindow = $("#chatWindow");
             let lastMessageId = 0;
             let fetchInterval = null;

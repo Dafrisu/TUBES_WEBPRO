@@ -15,9 +15,9 @@ class FersyaController extends Controller
     {
         $id = session('umkmID');
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmkuapi.com/getinboxpesanan');
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
-            $datacampaign = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getcampaign/'. $id);
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/getinboxpesanan');
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
+            $datacampaign = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getcampaign/'. $id);
     
             if ($response->successful()) {
                 $inbox = $response->json(); // Decode JSON
@@ -43,7 +43,7 @@ class FersyaController extends Controller
         }
 
         // Call the API to fetch the campaign details
-        $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/campaign/{$id}');
+        $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/campaign/{$id}');
 
         // Check if the API response is successful
         if ($response->successful()) {
@@ -63,7 +63,7 @@ class FersyaController extends Controller
             if (!$id) {
                 throw new \Exception('ID campaign tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getcampaignbyid/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getcampaignbyid/' . $id);
 
             if ($respose->successful()) {
                 $datacampaign = json_decode($respose, true);
@@ -88,7 +88,7 @@ class FersyaController extends Controller
 
             // Kirim data ke API untuk update
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmkuapi.com/updatecampaign/" . $id_umkm.'/'.$id, $validatedData);
+                ->put("https://umkmapi-production.up.railway.app/updatecampaign/" . $id_umkm.'/'.$id, $validatedData);
 
             // Periksa respon API
             if ($response->successful()) {
@@ -122,7 +122,7 @@ class FersyaController extends Controller
         }
 
         $response = Http::withOptions(['verify' => false])
-            ->post('https://umkmkuapi.com/campaign', $validatedData); 
+            ->post('https://umkmapi-production.up.railway.app/campaign', $validatedData); 
 
         
         if ($response->successful()) {
@@ -142,7 +142,7 @@ class FersyaController extends Controller
     try {
         // Send a DELETE request to the local API to delete the campaign
         $response = Http::withOptions(['verify' => false])
-            ->delete("https://umkmkuapi.com/Campaign/{$id}" ); // Replace with your local API endpoint
+            ->delete("https://umkmapi-production.up.railway.app/Campaign/{$id}" ); // Replace with your local API endpoint
 
 
         if ($response->successful()) {

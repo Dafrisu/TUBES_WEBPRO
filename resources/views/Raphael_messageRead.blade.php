@@ -32,10 +32,9 @@
                 </div>
                 <!-- Profile Section -->
                 <div class="profile-section text-center">
-                    <img src="{{ asset('images/profile.png') }}" alt="Profile Picture" class="rounded-circle mb-2"
-                        width="80" />
-                    <h6>Customer Service</h6>
-                    <p>Welcome, user</p>
+                    <img src="{{ asset('images/profile.png') }}" alt="Profile Picture" class="rounded-circle mb-2" width="80" />
+                    <h6>{{ session('umkmProfile.username') ?? 'UMKM' }}</h6>
+                    <p>Welcome, {{ session('umkmProfile.username') ?? 'User' }}</p>
                 </div>
                 <li onclick="toggledropdown()">
                     <div class="container">
@@ -75,22 +74,22 @@
             <!-- Chat Interface -->
             <div class="chat-interface d-flex flex-column" id="chatInterface">
                 @php
-                    $filteredMessages = collect($readMessages);
+$filteredMessages = collect($readMessages);
 
-                    // Search Filter
-                    if (request('search')) {
-                        $filteredMessages = $filteredMessages->filter(function ($msg) {
-                            return stripos($msg['nama_lengkap'], request('search')) !== false;
+// Search Filter
+if (request('search')) {
+    $filteredMessages = $filteredMessages->filter(function ($msg) {
+        return stripos($msg['nama_lengkap'], request('search')) !== false;
 
-                        });
-                    }
+    });
+}
 
-                    // Sorting
-                    if (request('sort', 'newest') == 'newest') {
-                        $filteredMessages = $filteredMessages->sortByDesc('id_chat');
-                    } elseif (request('sort') == 'oldest') {
-                        $filteredMessages = $filteredMessages->sortBy('id_chat');
-                    }
+// Sorting
+if (request('sort', 'newest') == 'newest') {
+    $filteredMessages = $filteredMessages->sortByDesc('id_chat');
+} elseif (request('sort') == 'oldest') {
+    $filteredMessages = $filteredMessages->sortBy('id_chat');
+}
                 @endphp
                 @if ($filteredMessages->isNotEmpty())
                     @foreach ($filteredMessages->unique('id_pembeli') as $message)

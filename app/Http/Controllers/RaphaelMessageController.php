@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
+
 class RaphaelMessageController extends Controller
 {
     // Show chat page with messages
@@ -31,6 +32,7 @@ class RaphaelMessageController extends Controller
                     throw new \Exception('Message UMKM tidak ditemukan');
                 }
 
+
                 // Cari customerName berdasarkan id_pembeli
                 $customerName = 'Customer Name';
                 foreach ($messages as $message) {
@@ -53,6 +55,8 @@ class RaphaelMessageController extends Controller
 
 
     // Send message via API
+    private $nodeApiUrl = "https://umkmkuapi.com"; // Railway Backend
+
     public function sendMessage(Request $request, $id_pembeli)
     {
 
@@ -73,7 +77,8 @@ class RaphaelMessageController extends Controller
             'message' => $message,
             'sent_at' => $formattedTime,
             "is_read" => false,
-            "id_kurir" => null
+            "id_kurir" => null,
+            "receiver_type" => "Pembeli",
         ];
 
         // Send the message using Laravel's HTTP Client
@@ -82,13 +87,20 @@ class RaphaelMessageController extends Controller
         if ($response->successful()) {
             Log::info('Message sent successfully', ['response' => $response->json()]);
 
-            return redirect()->route('messagepage', $id_pembeli)
-                ->with('success', 'Message sent successfully!');
+            return response()->json([
+                'success' => true,
+                'message' => 'Message sent successfully!',
+                'data' => $response->json()
+            ]);
         } else {
             Log::error('Failed to send message', ['error' => $response->body()]);
 
-            return redirect()->back()->with('error', 'Failed to send message');
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to send message',
+            ], 500);
         }
+
     }
 
 
@@ -100,6 +112,7 @@ class RaphaelMessageController extends Controller
 
     public function showinbox()
     {
+        $this->getprofileumkm();
         $id = session('umkmID');
         try {
             if (!$id) {
@@ -120,6 +133,7 @@ class RaphaelMessageController extends Controller
 
     public function showReadMessages(Request $request)
     {
+        $this->getprofileumkm();
         $id = session('umkmID');
         try {
             if (!$id) {
@@ -146,6 +160,7 @@ class RaphaelMessageController extends Controller
 
     public function showUnreadMessages(Request $request)
     {
+        $this->getprofileumkm();
         $id = session('umkmID');
         try {
             if (!$id) {
@@ -187,6 +202,55 @@ class RaphaelMessageController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('umkm.messages.unread')->with('error', $e->getMessage());
         }
+    }
+
+    public function getMessagesFromNode($umkmId, $pembeliId)
+    {
+        $url = "https://umkmkuapi.com/getmsgUMKMPembeli/$umkmId/$pembeliId";
+
+        try {
+            $response = Http::get($url);
+            if ($response->successful()) {
+                return response()->json($response->json());
+            } else {
+                return response()->json(['error' => 'Failed to fetch messages'], $response->status());
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getprofileumkm()
+    {
+        try {
+            $id = session('umkmID');
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
+
+            // Check if profile is already stored in session
+            if (session()->has('umkmProfile')) {
+                return session('umkmProfile');
+            }
+
+            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
+
+            if ($response->successful()) {
+                $profile = $response->json();
+                session(['umkmProfile' => $profile]); // Store profile in session
+                return $profile;
+            } else {
+                throw new \Exception('Profile tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    public function read()
+    {
+        $this->getprofileumkm(); // Fetch profile and store it in session
+        return view('Raphael_messageRead');
     }
 
 }

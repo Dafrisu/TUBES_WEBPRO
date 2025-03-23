@@ -55,7 +55,7 @@ class RaphaelMessageController extends Controller
 
 
     // Send message via API
-    private $nodeApiUrl = "https://umkmkuapi.com"; // Railway Backend
+    private $nodeApiUrl = "https://umkmapi-production.up.railway.app"; // Railway Backend
 
     public function sendMessage(Request $request, $id_pembeli)
     {
@@ -206,7 +206,7 @@ class RaphaelMessageController extends Controller
 
     public function getMessagesFromNode($umkmId, $pembeliId)
     {
-        $url = "https://umkmkuapi.com/getmsgUMKMPembeli/$umkmId/$pembeliId";
+        $url = "https://umkmapi-production.up.railway.app/getmsgUMKMPembeli/$umkmId/$pembeliId";
 
         try {
             $response = Http::get($url);
@@ -233,7 +233,7 @@ class RaphaelMessageController extends Controller
                 return session('umkmProfile');
             }
 
-            $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
+            $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
 
             if ($response->successful()) {
                 $profile = $response->json();

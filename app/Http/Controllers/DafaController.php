@@ -153,7 +153,6 @@ class DafaController extends Controller
                 throw new \Exception('ID profile tidak ditemukan');
             }
             $respose = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/getprofileumkm/' . $id);
-
             if ($respose->successful()) {
                 $profile = $respose->json();
                 return view('Dafa_editprofile', compact('profile'));

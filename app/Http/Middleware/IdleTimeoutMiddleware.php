@@ -18,17 +18,16 @@ class IdleTimeoutMiddleware
     {
         if (Auth::check()) {
             $lastActivity = Session::get('last_activity');
-            $timeout = 30; // Waktu idle dalam detik
+            $timeout = 15; // Waktu idle dalam detik
 
             if ($lastActivity && (time() - $lastActivity > $timeout)) {
                 Auth::logout(); // Logout user
                 Session::flush();
-                return redirect('/login')->withErrors(['message' => 'Session expired due to inactivity.']);
+                return redirect('/masuk')->withErrors(['message' => 'Session expired due to inactivity.']);
             }
 
             Session::put('last_activity', time()); // Reset timer
         }
-
         return $next($request);
     }
 }

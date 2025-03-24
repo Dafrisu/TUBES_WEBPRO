@@ -52,7 +52,7 @@ route::delete('/deleteproduk/{id}', [HaikalController::class, 'deleteProduk'])->
 Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
 route::get('/produk/{id}', [HaikalController::class, 'getmodal'])->name('umkm.getprodukbyID');
 Route::get('/proxy/produk', function () {
-    $response = Http::withOptions(['verify' => false])->get('https://umkmkuapi.com/produk');
+    $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/produk');
     return response($response->body(), $response->status())
         ->header('Content-Type', $response->header('Content-Type')[0]);
 });
@@ -77,3 +77,4 @@ Route::get('/umkm/messages/inbox', [RaphaelMessageController::class, 'showinbox'
 Route::get('/umkm/messages/read', [RaphaelMessageController::class, 'showReadMessages'])->name('umkm.messages.read');
 Route::get('/umkm/messages/unread', [RaphaelMessageController::class, 'showUnreadMessages'])->name('umkm.messages.unread');
 Route::put('/message/read/', [RaphaelMessageController::class, 'markMessageAsRead'])->name('message.read');
+Route::get('/messages/{umkmId}/{pembeliId}', [RaphaelMessageController::class, 'getMessagesFromNode']);

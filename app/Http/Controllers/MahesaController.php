@@ -16,7 +16,7 @@ class MahesaController extends Controller
             $year = $request->query('year');
 
             $response = Http::withOptions(['verify' => false])
-                ->get("https://umkmkuapi.com/daily-stats/{$id}?month={$month}&year={$year}");
+                ->get("https://umkmapi-production.up.railway.app/daily-stats/{$id}?month={$month}&year={$year}");
 
             if ($response->successful()) {
                 return response()->json($response->json());
@@ -34,7 +34,7 @@ class MahesaController extends Controller
             $id = session('umkmID');
 
             $response = Http::withOptions(['verify' => false])
-                ->get("https://umkmkuapi.com/monthly-stats/{$id}");
+                ->get("https://umkmapi-production.up.railway.app/monthly-stats/{$id}");
 
             if ($response->successful()) {
                 return response()->json($response->json());

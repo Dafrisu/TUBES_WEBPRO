@@ -34,8 +34,8 @@
                 <div class="profile-section text-center">
                     <img src="{{ asset('images/profile.png') }}" alt="Profile Picture" class="rounded-circle mb-2"
                         width="80" />
-                    <h6>Customer Service</h6>
-                    <p>Welcome, user</p>
+                    <h6>{{ session('umkmProfile.username') ?? 'UMKM' }}</h6>
+                    <p>Welcome, {{ session('umkmProfile.username') ?? 'User' }}</p>
                 </div>
                 <li onclick="toggledropdown()" class="sidebar-item">
                     <div class="container">

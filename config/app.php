@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://https://umkmkuapi.com'),
+    'url' => env('APP_URL', 'http://https://umkmapi-production.up.railway.app'),
 
     /*
     |--------------------------------------------------------------------------

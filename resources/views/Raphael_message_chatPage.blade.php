@@ -118,35 +118,35 @@
             }
 
 
-            socket.on("newMessage", function (message) {
-                console.log("New message received:", message);
+            // socket.on("newMessage", function (message) {
+            //     console.log("New message received:", message);
 
-                const userId = "{{ session('umkmID') }}";
-                const receiverId = "{{ $id_pembeli }}";
+            //     const userId = "{{ session('umkmID') }}";
+            //     const receiverId = "{{ $id_pembeli }}";
 
-                // Ensure the message is for this conversation
-                if ((message.id_umkm == userId && message.id_pembeli == receiverId) ||
-                    (message.id_umkm == receiverId && message.id_pembeli == userId)) {
+            //     // Ensure the message is for this conversation
+            //     if ((message.id_umkm == userId && message.id_pembeli == receiverId) ||
+            //         (message.id_umkm == receiverId && message.id_pembeli == userId)) {
 
-                    let messageClass = (message.id_pembeli == userId) ? "right" : "left";
+            //         let messageClass = (message.id_pembeli == userId) ? "right" : "left";
 
-                    // Prevent duplicate messages using message ID
-                    if ($("#chatWindow").find(`[data-id='${message.id_chat}']`).length === 0) {
-                        $("#chatWindow").append(`
-                <div class="message ${messageClass}" data-id="${message.id_chat}">
-                    ${messageClass === "left" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
-                    <div class="message-bubble">
-                        <p>${message.message}</p>
-                        <div class="message-time">${getCurrentTime()}</div>
-                    </div>
-                    ${messageClass === "right" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
-                </div>
-            `);
+            //         // Prevent duplicate messages using message ID
+            //         if ($("#chatWindow").find(`[data-id='${message.id_chat}']`).length === 0) {
+            //             $("#chatWindow").append(`
+            //     <div class="message ${messageClass}" data-id="${message.id_chat}">
+            //         ${messageClass === "left" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
+            //         <div class="message-bubble">
+            //             <p>${message.message}</p>
+            //             <div class="message-time">${getCurrentTime()}</div>
+            //         </div>
+            //         ${messageClass === "right" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
+            //     </div>
+            // `);
 
-                        scrollToBottom();
-                    }
-                }
-            });
+            //             scrollToBottom();
+            //         }
+            //     }
+            // });
 
 
             $("#sendMessageForm").submit(function (e) {

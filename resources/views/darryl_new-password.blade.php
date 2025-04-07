@@ -59,15 +59,15 @@
         @csrf
         <!-- Isi Email -->
         <div class="mb-2">
-          <label for="inputEmail" class="form-label">Kata sandi baru</label>
-          <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Masukan kata sandi baru anda" required>
+          <label for="inputPassword" class="form-label">Kata sandi baru</label>
+          <input type="email" class="form-control" id="inputPassword" name="inputPassword" placeholder="Masukan kata sandi baru anda" required>
 
           <!-- <img src="{{ asset('images/show.png') }}" alt="hide"> -->
         </div>
 
         <div class="mb-2">
-          <label for="inputEmail" class="form-label">Konfirmasi sandi</label>
-          <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Ulangi kata sandi baru" required>
+          <label for="konfirmasiSandi" class="form-label">Konfirmasi sandi</label>
+          <input type="email" class="form-control" id="konfirmasiSandi" name="konfirmasiSandi" placeholder="Ulangi kata sandi baru" required>
 
           <!-- <img src="{{ asset('images/show.png') }}" alt="hide"> -->
         </div>

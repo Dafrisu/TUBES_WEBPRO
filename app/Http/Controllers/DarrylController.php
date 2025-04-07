@@ -94,6 +94,15 @@ class DarrylController extends Controller
         }
     }
 
+    function resetPassword(Request $request)
+    {
+        try {
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
+        }
+    }
+
     function auth(Request $request)
     {
         try {

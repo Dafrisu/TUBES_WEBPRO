@@ -53,15 +53,14 @@
       </div>
       @endif
       <!-- Insert bacotan formalitas -->
-      <div class="fs-2 fw-bold text-center">Masuk</div>
-      <div class="fs-4 fw-medium mb-4 text-center">Kirim kode verifikasi ke email anda</div>
-      <form action="" method="POST" onsubmit="return validate(event)">
+      <div class="fs-2 fw-bold text-center">Autentifikasi</div>
+      <div class="fs-4 fw-medium mb-4 text-center">Kirim kode autentifikasi ke email anda</div>
+      <form action="" method="POST" onsubmit="">
         @csrf
         <!-- Isi Email -->
         <div class="mb-2">
           <label for="inputEmail" class="form-label">Alamat email</label>
-          <input type="email" class="form-control" value="{{ Cookie::get('LoginEmail') ?? '' }}"
-          id="inputEmail" name="inputEmail" required>
+          <input type="email" class="form-control" id="inputEmail" name="inputEmail" required>
         </div>
         
         <!-- Button masuk -->
@@ -75,7 +74,7 @@
         <div class="d-flex justify-content-center mt-2">
           <div class="fs-6">Tidak mendapat email?</div>
           <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
-            href="{{ route('umkm.landing') }}">
+            href="{{ route('umkm.auth') }}">
             Kirim ulang
           </a>
         </div>

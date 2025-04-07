@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Password;
 
 class DarrylController extends Controller
 {
@@ -97,6 +98,15 @@ class DarrylController extends Controller
     function resetPassword(Request $request)
     {
         try {
+            $request->validate(['inputEmail' => 'required|email']);
+
+            $status = Password::sendResetLink(
+                $request->only('inputEmail')
+            );
+
+            return $status === Password::ResetLinkSent
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
             
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal verifikasi akun anda');

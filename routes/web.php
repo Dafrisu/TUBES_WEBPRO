@@ -21,6 +21,9 @@ route::post('/new-password', [DarrylController::class, 'newPassword'])->name('um
 route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.register');
 route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('umkm.new-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
 
 //Route Punya Dapa
 Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');

@@ -35,9 +35,9 @@ class TwoFactor extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Kode verifikasi anda adalah { $$notifiable->two_factor }')
+                    ->action('Verifikasi diri anda melalui link ini', url('/'))
+                    ->line('Kode verifikasi anda akan expire dalam 5 menit!');
     }
 
     /**

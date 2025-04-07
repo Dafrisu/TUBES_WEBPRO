@@ -15,6 +15,7 @@ Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
 Route::view('/auth', 'darryl_2fa')->name('umkm.2fa');
 route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.register');
+route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 
 //Route Punya Dapa

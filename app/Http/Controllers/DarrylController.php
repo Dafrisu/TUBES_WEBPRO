@@ -97,6 +97,15 @@ class DarrylController extends Controller
     function resetPassword(Request $request)
     {
         try {
+            $request->validate(['email' => 'required|email']);
+
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+            
+            return $status === Password::ResetLinkSent
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
             
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal verifikasi akun anda');

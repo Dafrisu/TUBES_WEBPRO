@@ -47,14 +47,16 @@
   <!-- Wrapper untuk form masuk -->
   <div class="container content1">
     <div class="container" id="form_box">
+      <!-- Insert bacotan formalitas -->
+      <div class="fs-2 fw-bold text-center">Lupa kata sandi?</div>
+      <div class="fs-4 fw-medium mb-4 text-center">Masukan email untuk mengubah kata sandi</div>
+
       @if (session('error'))
       <div class="alert alert-danger">
         {{session('error')}}
       </div>
       @endif
-      <!-- Insert bacotan formalitas -->
-      <div class="fs-2 fw-bold text-center">Lupa kata sandi?</div>
-      <div class="fs-4 fw-medium mb-4 text-center">Masukan email untuk mengubah kata sandi</div>
+
       <form action="{{ route('umkm.lupa-password') }}" method="POST">
         @csrf
         <!-- Isi Email -->

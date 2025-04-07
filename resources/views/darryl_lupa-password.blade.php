@@ -55,7 +55,7 @@
       <!-- Insert bacotan formalitas -->
       <div class="fs-2 fw-bold text-center">Lupa kata sandi?</div>
       <div class="fs-4 fw-medium mb-4 text-center">Masukan email untuk mengubah kata sandi</div>
-      <form action="" method="POST" onsubmit="">
+      <form action="{{ route('umkm.lupa-password') }}" method="POST">
         @csrf
         <!-- Isi Email -->
         <div class="mb-2">
@@ -74,7 +74,7 @@
         <div class="d-flex justify-content-center mt-2">
           <div class="fs-6">Tidak mendapat email?</div>
           <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
-            href="{{ route('umkm.auth') }}">
+            href="{{ route('umkm.lupa-password') }}">
             Kirim ulang
           </a>
         </div>

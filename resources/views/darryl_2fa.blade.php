@@ -44,6 +44,45 @@
     </div>
   </nav>
 
+  <!-- Wrapper untuk form masuk -->
+  <div class="container content1">
+    <div class="container" id="form_box">
+      @if (session('error'))
+      <div class="alert alert-danger">
+        {{session('error')}}
+      </div>
+      @endif
+      <!-- Insert bacotan formalitas -->
+      <div class="fs-2 fw-bold text-center">Masuk</div>
+      <div class="fs-4 fw-medium mb-4 text-center">Kirim kode verifikasi ke email anda</div>
+      <form action="" method="POST" onsubmit="return validate(event)">
+        @csrf
+        <!-- Isi Email -->
+        <div class="mb-2">
+          <label for="inputEmail" class="form-label">Alamat email</label>
+          <input type="email" class="form-control" value="{{ Cookie::get('LoginEmail') ?? '' }}"
+          id="inputEmail" name="inputEmail" required>
+        </div>
+        
+        <!-- Button masuk -->
+        <div class="d-flex flex-column justify-content-center">
+          <button type="submit" class="btn">
+            Kirim
+          </button>
+        </div>
+
+        <!-- Lempar ke daftar -->
+        <div class="d-flex justify-content-center mt-2">
+          <div class="fs-6">Tidak mendapat email?</div>
+          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
+            href="{{ route('umkm.landing') }}">
+            Kirim ulang
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Connect Bootsrap bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

@@ -53,14 +53,27 @@
       </div>
       @endif
       <!-- Insert bacotan formalitas -->
-      <div class="fs-2 fw-bold text-center">Autentifikasi</div>
-      <div class="fs-4 fw-medium mb-4 text-center">Kirim kode autentifikasi ke email anda</div>
+      <div class="fs-2 fw-bold text-center">Lupa kata sandi?</div>
+      <div class="fs-4 fw-medium mb-4 text-center">Masukan email untuk mengubah kata sandi</div>
       <form action="" method="POST" onsubmit="">
         @csrf
         <!-- Isi Email -->
         <div class="mb-2">
-          <label for="inputEmail" class="form-label">Alamat email</label>
-          <input type="email" class="form-control" id="inputEmail" name="inputEmail" required>
+          <label for="inputPassword" class="form-label">Kata sandi baru</label>
+          <input type="email" class="form-control" id="inputPassword" name="inputPassword" placeholder="Masukan kata sandi baru anda" required>
+
+          <!-- <img src="{{ asset('images/show.png') }}" alt="hide"> -->
+        </div>
+
+        <div class="mb-2">
+          <label for="konfirmasiSandi" class="form-label">Konfirmasi sandi</label>
+          <input type="email" class="form-control" id="konfirmasiSandi" name="konfirmasiSandi" placeholder="Ulangi kata sandi baru" required>
+
+          <!-- <img src="{{ asset('images/show.png') }}" alt="hide"> -->
+        </div>
+
+        <div class="mb-2">
+          <input type="checkbox" id="togglePassword"> Tunjukan sandi
         </div>
         
         <!-- Button masuk -->

@@ -93,4 +93,40 @@ class DarrylController extends Controller
             return redirect()->back()->with('error', 'Gagal total pokoknya dah');
         }
     }
+
+    function resetPassword(Request $request)
+    {
+        try {
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
+        }
+    }
+
+    function newPassword(Request $request)
+    {
+        try {
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
+        }
+    }
+
+    function auth(Request $request)
+    {
+        try {
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
+        }
+    }
+
+    function generateCode(Request $request)
+    {
+        try {
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal kirim ulang code');
+        }
+    }
 }

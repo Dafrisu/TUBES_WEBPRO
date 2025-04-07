@@ -14,7 +14,9 @@ function toggler() {
   }
 }
 
-togglesandi.addEventListener("change", toggler);
+if (togglesandi) {
+  togglesandi.addEventListener("change", toggler);
+}
 
 function cekEmail(email) {
   const constraints = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;

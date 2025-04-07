@@ -95,6 +95,15 @@
             Daftar
           </a>
         </div>
+
+
+        <div class="d-flex justify-content-center mt-2">
+          <div class="fs-6">Lupa kata sandi?</div>
+          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
+            href="{{ route('umkm.lupa-password') }}">
+            Ganti
+          </a>
+        </div>
       </form>
     </div>
   </div>

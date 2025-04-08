@@ -18,6 +18,10 @@ class FersyaController extends Controller
             $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/getinboxpesanan');
             $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
             $datacampaign = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getcampaign/'. $id);
+
+            // $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/getinboxpesanan');
+            // $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
+            // $datacampaign = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getcampaign/'. $id);
     
             if ($response->successful()) {
                 $inbox = $response->json(); // Decode JSON

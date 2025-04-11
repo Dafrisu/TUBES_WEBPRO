@@ -194,5 +194,9 @@ class DafaController extends Controller
             return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
-
+    
+    public function konfirmasikurir()
+    {
+       return view('Dafa_konfirmasiKurir');
+    }
 }

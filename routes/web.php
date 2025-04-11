@@ -27,7 +27,7 @@ route::put('/updatestatuspesananditerima/{id_batch}', [DafaController::class, 'u
 route::put('/updatestatuspesananditolak/{id_batch}', [DafaController::class, 'updatestatuspesananditolak'])->name('umkm.updatestatuspesananditolak');
 Route::get('/getprofileumkm', [DafaController::class, 'getprofileumkm'])->name('umkm.getprofileumkm');
 route::put('/editprofileumkm', [DafaController::class, 'editprofileumkm'])->name('umkm.editprofileumkm');
-route::put('/konfirmasiKurir', [DafaController::class, 'konfirmasiKurir'])->name('umkm.konfirmasiKurir');
+route::get('/konfirmasiKurir', [DafaController::class, 'konfirmasikurir'])->name('umkm.konfirmasiKurir');
 // Route::view('/pesanan_selesai', 'Dafa_pesananSelesai')->name('umkm.pesananselesai');
 //End Route Punya Dapa
 

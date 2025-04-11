@@ -13,8 +13,17 @@ use Illuminate\Support\Facades\Http;
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
+Route::view('/auth', 'darryl_2fa')->name('umkm.2fa');
+Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password');
+Route::view('/new-password', 'darryl_new-password')->name('umkm.new-password');
+route::post('/lupa-password', [DarrylController::class, 'resetPassword'])->name('umkm.lupa-password');
+route::post('/new-password', [DarrylController::class, 'newPassword'])->name('umkm.new-password');
 route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.register');
+route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('umkm.new-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
 
 //Route Punya Dapa
 Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');

@@ -165,6 +165,103 @@ class DafaController extends Controller
         }
     }
 
+    public function getdatakurir()
+    {
+        try {
+            $id = session('umkmID');
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
+            $respose = Http::withOptions(['verify' => false])->get('localhost/getdaftarkurir/' . $id);
+
+            if ($respose->successful()) {
+                $datakurir = $respose->json();
+                return view('Dafa_konfirmasiKurir', compact('datakurir'));
+            } else {
+                throw new \Exception('Data kurir tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
+        }
+    }
+
+    public function getumkmkurir()
+    {
+        try {
+            $id = session('umkmID');
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
+            $respose = Http::withOptions(['verify' => false])->get('localhost/getumkmkurir/' . $id);
+
+            if ($respose->successful()) {
+                $datakurir = $respose->json();
+                return view('Dafa_pecatKurir', compact('datakurir'));
+            } else {
+                throw new \Exception('Data kurir tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
+        }
+    }
+
+    public function terimakurir($id_kurir)
+    {
+        $id_umkm = session('umkmID');
+        try {
+            // Kirim data ke API untuk update
+            $id_umkm = session('umkmID');
+            $response = Http::withOptions(['verify' => false])
+                ->put("localhost/updateStatusKurirTerdaftar/" . $id_kurir);
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm.konfimasiKurir')->with('success', 'Kurir telah diterima');
+            } else {
+                throw new \Exception('Kurir gagal diterima womp womp');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.konfirmasiKurir')->with('error', $e->getMessage());
+        }
+    }
+
+    public function tolakKurir($id_kurir)
+    {
+        $id_umkm = session('umkmID');
+        try {
+            // Kirim data ke API untuk update
+            $id_umkm = session('umkmID');
+            $response = Http::withOptions(['verify' => false])
+                ->put("localhost/updateStatusKurirDitolak/" . $id_kurir);
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm.konfimasiKurir')->with('success', 'Kurir telah ditolak');
+            } else {
+                throw new \Exception('Kurir gagal ditolak womp womp');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.konfirmasiKurir')->with('error', $e->getMessage());
+        }
+    }
+
+    public function deleteKurir($id_kurir)
+    {
+        $id_umkm = session('umkmID');
+        try {
+            // Kirim data ke API untuk update
+            $id_umkm = session('umkmID');
+            $response = Http::withOptions(['verify' => false])
+                ->put("localhost/updateStatusKurirTerdaftar/" . $id_kurir);
+            // Periksa respon API
+            if ($response->successful()) {
+                return redirect()->route('umkm_')->with('success', 'Kurir telah dipecat');
+            } else {
+                throw new \Exception('Kurir gagal dipecat womp womp');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.pecatKurir')->with('error', $e->getMessage());
+        }
+    }
+
     public function getdashboard()
     {
         try {
@@ -194,5 +291,4 @@ class DafaController extends Controller
             return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
-
 }

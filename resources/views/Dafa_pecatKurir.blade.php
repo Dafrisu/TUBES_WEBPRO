@@ -11,13 +11,20 @@
 </head>
 
 <body>
+<x-semua_-sidebar />
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <div class="container">
-    <h2 class="mb-4">Daftar Pendaftaran Kurir</h2>
+    <h2 class="mb-4">Daftar Kurir</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link"  href="{{ route('umkm.konfirmasiKurir') }}">Kurir ingin Daftar</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ route('umkm.getumkmkurir') }}">Kurir aktif</a>
+        </li>
+    </ul>
 
     <table class="table table-bordered">
         <thead class="table-dark">
@@ -30,31 +37,26 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($kurirList as $index => $kurir)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $kurir->name }}</td>
-                    <td>{{ $kurir->email }}</td>
-                    <td>{{ $kurir->phone }}</td>
+        @if(isset($datakurir)&& is_array($datakurir) && count($datakurir) > 0)
+        @foreach($datakurir as $kurir)
+        <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $kurir['nama_kurir'] }}</td>
+                    <td>{{ $kurir['email'] }}</td>
+                    <td>{{ $kurir['nomor_telepon']}}</td>
                     <td>
-                        <form action="{{ route('kurir.terima', $kurir->id) }}" method="POST" class="d-inline">
+                        <form action="{{route('umkm.tolakKurir', $kurir['id_kurir'])}}" method="POST" class="d-inline">
                             @csrf
                             @method('PUT')
-                            <button type="submit" class="btn btn-success">Terima</button>
-                        </form>
-                        
-                        <form action="{{ route('kurir.tolak', $kurir->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Tolak</button>
+                            <button type="submit" class="btn btn-danger">Pecat</button>
                         </form>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="text-center">Tidak ada pendaftaran kurir.</td>
-                </tr>
-            @endforelse
+            @endforeach
+            @else
+            <tr>
+                <td colspan="5" class="text-center">Tidak ada data kurir yang tersedia.</td>
+        @endif
         </tbody>
     </table>
 </div>

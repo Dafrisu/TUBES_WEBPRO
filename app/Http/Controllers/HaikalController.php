@@ -15,7 +15,7 @@ class HaikalController extends Controller
     public function getmodal($id)
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/produk/' . $id);
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/Produk/' . $id);
             if ($response->successful()) {
                 $produkbyID = $response->json();
                 return response()->json($produkbyID);
@@ -48,13 +48,12 @@ class HaikalController extends Controller
                 throw new \Exception('ID Produk tidak ditemukan');
             }
 
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/produk/' . $id);
-
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/Produk/' . $id);
             if ($respose->successful()) {
                 $produk = $respose->json();
                 return view('Haikal_pageUpdatebarang', compact('produk'));
             } else {
-                throw new \Exception('Tidak menemukan barang ang dicari');
+                throw new \Exception('Tidak menemukan barang yang dicari');
             }
         } catch (\Exception $e) {
             return redirect()->route('umkm.managebarang')->with('error', $e->getMessage());
@@ -101,7 +100,7 @@ class HaikalController extends Controller
 
                 Log::info('upload result:', $uploadResult);
             } else {
-                $uploadResult = ['blobUrl' => 'https://imageumkmku.blob.core.windows.net/storeimg/defaultproducts.png'];
+                $uploadResult = ['blobUrl' => "https://umkmkuapi.com/default_product.jpeg"];
             }
 
             $data = [

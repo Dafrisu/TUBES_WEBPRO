@@ -205,6 +205,26 @@ class DafaController extends Controller
         }
     }
 
+    public function gethistorykurirumkm()
+    {
+        try {
+            $id = session('umkmID');
+            if (!$id) {
+                throw new \Exception('ID profile tidak ditemukan');
+            }
+            $respose = Http::withOptions(['verify' => false])->get('localhost/gethistorykurirumkm/' . $id);
+
+            if ($respose->successful()) {
+                $datakurir = $respose->json();
+                return view('Dafa_historyKurir', compact('datakurir'));
+            } else {
+                throw new \Exception('Data kurir tidak ditemukan');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.dashboard')->with('error', $e->getMessage());
+        }
+    }
+
     public function terimakurir($id_kurir)
     {
         $id_umkm = session('umkmID');

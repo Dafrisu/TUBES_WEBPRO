@@ -16,19 +16,16 @@
     <div class="container">
     <h2 class="mb-4">Daftar Kurir</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ route('umkm.konfirmasiKurir') }}">Kurir ingin Daftar</a>
+            <a class="nav-link"  href="{{ route('umkm.konfirmasiKurir') }}">Kurir ingin Daftar</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('umkm.getumkmkurir') }}">Kurir aktif</a>
+            <a class="nav-link" aria-current="page" href="{{ route('umkm.getumkmkurir') }}">Kurir aktif</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{ route('umkm.gethistorykurirumkm') }}">History Kurir</a>
+            <a class="nav-link active" aria-current="page" href="{{ route('umkm.gethistorykurirumkm') }}">History Kurir</a>
         </li>
     </ul>
 
@@ -39,7 +36,6 @@
                 <th>Nama Kurir</th>
                 <th>Email</th>
                 <th>Nomor HP</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -50,19 +46,6 @@
                     <td>{{ $kurir['nama_kurir'] }}</td>
                     <td>{{ $kurir['email'] }}</td>
                     <td>{{ $kurir['nomor_telepon']}}</td>
-                    <td>
-                        <form action="{{route('umkm.terimakurir', $kurir['id_kurir'])}}" method="POST" class="d-inline">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-success">Terima</button>
-                        </form>
-                        
-                        <form action="{{route('umkm.tolakKurir', $kurir['id_kurir'])}}" method="POST" class="d-inline">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form>
-                    </td>
                 </tr>
             @endforeach
             @else

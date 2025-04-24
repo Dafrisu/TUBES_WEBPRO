@@ -39,6 +39,9 @@
             <li><a href="{{ route('umkm.inbox') }}"><img src="{{asset('images/inbox.png')}}" alt=""
                         id="iconinboxpenjual" style="margin-left: 8px; margin-right:10px;">Inbox Penjual</a>
             </li>
+            <li><a href="{{ route('umkm.konfirmasiKurir') }}"><img src="{{ asset('') }}" alt=""
+                        id="kelolaKurir" style="margin-left: 8px; margin-right:10px;">Kelola Kurir</a></li>
+
             <li><a href="{{ route('umkm.masuk') }}"><img src="{{ asset('images/log-out.png') }}" alt="logout"
                         id="logout" style="margin-left: 8px; margin-right:10px;">Keluar</a></li>
         </ul>

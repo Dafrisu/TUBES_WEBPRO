@@ -27,6 +27,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('umkm.getumkmkurir') }}">Kurir aktif</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{ route('umkm.gethistorykurirumkm') }}">History Kurir</a>
+        </li>
     </ul>
 
     <table class="table table-bordered">

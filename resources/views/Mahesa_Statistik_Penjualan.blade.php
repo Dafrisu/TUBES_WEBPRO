@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="umkm-id" content="{{ session('umkmID') ?? 0 }}"> 
+    <meta name="umkm-id" content="{{ session('umkmID') ?? 0 }}">
     <title>Dashboard Statistik</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -95,23 +95,32 @@
             <h1 class="mb-4">Statistik Penjualan dan Pesanan</h1>
 
             <div class="mb-4">
-                <label for="monthSelect" class="form-label">Pilih Bulan atau Tahun</label>
-                <select id="monthSelect" class="form-select">
-                    <option value="">-- Pilih Bulan atau Tahun --</option>
-                    <option value="yearly">Tahunan</option>
-                    <option value="1">Januari</option>
-                    <option value="2">Februari</option>
-                    <option value="3">Maret</option>
-                    <option value="4">April</option>
-                    <option value="5">Mei</option>
-                    <option value="6">Juni</option>
-                    <option value="7">Juli</option>
-                    <option value="8">Agustus</option>
-                    <option value="9">September</option>
-                    <option value="10">Oktober</option>
-                    <option value="11">November</option>
-                    <option value="12">Desember</option>
-                </select>
+                <label class="form-label">Pilih Periode</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <select id="yearSelect" class="form-select mb-2 mb-md-0">
+                            <option value="">-- Pilih Tahun --</option>
+                            <!-- Years will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="monthSelect" class="form-select">
+                            <option value="">-- Pilih Bulan (Opsional) --</option>
+                            <option value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="row">

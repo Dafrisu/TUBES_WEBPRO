@@ -39,7 +39,7 @@
         <div class="chat-window" id="chatWindow">
             @foreach($messageumkmandpembeli as $message)
                         @php
-                            $isSender = isset($message['receiver_type']) && $message['receiver_type'] == 'Pembeli';
+    $isSender = isset($message['receiver_type']) && $message['receiver_type'] == 'Pembeli';
                         @endphp
                         <div class="message {{ $isSender ? 'right' : 'left' }}">
                             @if(!$isSender)
@@ -242,9 +242,7 @@
             }
 
             // interval tiap 2 detik lek
-            setTimeout(() => {
-                setInterval(fetchMessages, 2000);
-            }, 1000);
+            setInterval(fetchMessages, 1000);
 
         });
     </script>

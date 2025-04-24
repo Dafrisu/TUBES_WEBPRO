@@ -124,10 +124,18 @@ class DafaController extends Controller
     public function editprofileumkm(Request $request)
     {
         try {
+
             $id = session('umkmID');
             // Validasi semua input
             $validatedData = $request->validate([
-                '*' => 'required' // Semua field harus ada dan tidak boleh kosong
+                'nama_lengkap' => '', // Semua field harus ada dan tidak boleh kosong
+                'nomor_telepon' => '', // Semua field harus ada dan tidak boleh kosong
+                'alamat' => '', // Semua field harus ada dan tidak boleh kosong
+                'username' => '', // Semua field harus ada dan tidak boleh kosong
+                'email' => '', // Semua field harus ada dan tidak boleh kosong
+                'password' => '', // Semua field harus ada dan tidak boleh kosong
+                'nama_usaha' => '', // Semua field harus ada dan tidak boleh kosong
+                'NIK_KTP' => '' // Semua field harus ada dan tidak boleh kosong
             ]);
 
             // Kirim data ke API untuk update
@@ -141,7 +149,7 @@ class DafaController extends Controller
                 throw new \Exception('Gagal memperbarui Profile di API');
             }
         } catch (\Exception $e) {
-            return redirect()->route('umkm.getprofileumkm', $id)->with('error', $e->getMessage());
+            return redirect()->route('umkm.dashboard', $id)->with('error', $e->getMessage());
         }
     }
 

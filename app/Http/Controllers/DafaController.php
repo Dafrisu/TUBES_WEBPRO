@@ -212,7 +212,7 @@ class DafaController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            $respose = Http::withOptions(['verify' => false])->get('localhost/gethistorykurirumkm/' . $id);
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/gethistorykurirumkm/' . $id);
 
             if ($respose->successful()) {
                 $datakurir = $respose->json();

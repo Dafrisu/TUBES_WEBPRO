@@ -84,8 +84,8 @@ class HaikalController extends Controller
             // Cek jika ada file gambar yang diunggah
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                 $file = $request->file('foto');
-                // Upload file menggunakan Guzzle
-                $uploadResponse = $client->post('https://umkmapi-production.up.railway.app/upload', [
+
+                $uploadResponse = $client->post('https://umkmapi-production.up.railway.app/uploadfile', [
                     'multipart' => [
                         [
                             'name' => 'file',
@@ -95,12 +95,16 @@ class HaikalController extends Controller
                     ],
                 ]);
 
-                // Parsing hasil upload
-                $uploadResult = json_decode($uploadResponse->getBody(), true);
+                $responseBody = json_decode($uploadResponse->getBody(), true);
+                if($uploadResponse && isset($responseBody['url'])){
+                    $uploadResult = ['url' => $responseBody['url']];
+                }else{
+                    return redirect()->back()->with('error', 'gagal menambahkan gambar');
+                }
 
                 Log::info('upload result:', $uploadResult);
             } else {
-                $uploadResult = ['blobUrl' => "https://umkmkuapi.com/default_product.jpeg"];
+                $uploadResult = ['url' => "https://umkmkuapi.com/default_product.jpeg"];
             }
 
             $data = [
@@ -109,7 +113,7 @@ class HaikalController extends Controller
                 'deskripsi_barang' => $request->input('deskripsi_barang', ''),
                 'stok' => $request->input('stok'),
                 'tipe_barang' => $request->input('tipe_barang'),
-                'image_url' => $uploadResult['blobUrl'],
+                'image_url' => $uploadResult['url'],
                 'berat' => $request->input('berat'),
                 'id_umkm' => session('umkmID'),
             ];

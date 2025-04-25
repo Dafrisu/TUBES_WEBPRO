@@ -49,11 +49,12 @@
     <div class="content">
         <h2>Pesanan Diterima</h2>
     </div>
-    <div class="container-fluid">
-        <table class="table table-hover table-stripped">
+    <div class="container">
+        <div class="table-responsive">
+        <table class="table-hover">
             <thead>
                 <tr>
-                    <th scope="col">NO</th>
+                    <th scope="col" style="width: 80px">NO</th>
                     <th scope="col">ID Pesanan</th>
                     <th scope="col">Status Pesanan</th>
                     <th scope="col">Nama Barang</th>
@@ -85,6 +86,7 @@
                 @endif
             </tbody>
         </table>
+        </div>
     </div>
     </div>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>

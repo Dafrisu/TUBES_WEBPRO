@@ -10,24 +10,9 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
+<script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
+<script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 <body>
-    <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
-    <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
-
-    <script>
-        window.routes = {
-            umkm_dashboard: "{{ route('umkm.dashboard') }}",
-            umkm_managebarang: "{{ route('umkm.managebarang') }}",
-            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
-            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
-            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
-            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
-            umkm_statistik: "{{ route('umkm.statistik') }}",
-            umkm_message: "{{ route('umkm.message') }}",
-            umkm_inbox: "{{ route('umkm.inbox') }}"
-        };
-    </script>
 
     <x-semua_-sidebar />
     <x-profilebar :profile='$profile' />
@@ -51,11 +36,12 @@
     <div class="content">
         <h2>Pesanan masuk</h2>
     </div>
-    <div class="container-fluid">
-        <table class="table table-hover">
+    <div class="container">
+        <div class="table-responsive">
+        <table class="table-hover">
             <thead>
                 <tr>
-                    <th scope="col">NO</th>
+                    <th scope="col" style="width: 80px">NO</th>
                     <th scope="col">ID Pesanan</th>
                     <th scope="col">Status Pesanan</th>
                     <th scope="col">Nama Barang</th>
@@ -98,6 +84,7 @@
                 @endif
             </tbody>
         </table>
+        </div>
     </div>
     </div>
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>

@@ -15,7 +15,7 @@ class HaikalController extends Controller
     public function getmodal($id)
     {
         try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/produk/' . $id);
+            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/Produk/' . $id);
             if ($response->successful()) {
                 $produkbyID = $response->json();
                 return response()->json($produkbyID);
@@ -48,13 +48,12 @@ class HaikalController extends Controller
                 throw new \Exception('ID Produk tidak ditemukan');
             }
 
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/produk/' . $id);
-
+            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/Produk/' . $id);
             if ($respose->successful()) {
                 $produk = $respose->json();
                 return view('Haikal_pageUpdatebarang', compact('produk'));
             } else {
-                throw new \Exception('Tidak menemukan barang ang dicari');
+                throw new \Exception('Tidak menemukan barang yang dicari');
             }
         } catch (\Exception $e) {
             return redirect()->route('umkm.managebarang')->with('error', $e->getMessage());
@@ -85,8 +84,8 @@ class HaikalController extends Controller
             // Cek jika ada file gambar yang diunggah
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                 $file = $request->file('foto');
-                // Upload file menggunakan Guzzle
-                $uploadResponse = $client->post('https://umkmapi-production.up.railway.app/upload', [
+
+                $uploadResponse = $client->post('https://umkmapi-production.up.railway.app/uploadfile', [
                     'multipart' => [
                         [
                             'name' => 'file',
@@ -96,12 +95,16 @@ class HaikalController extends Controller
                     ],
                 ]);
 
-                // Parsing hasil upload
-                $uploadResult = json_decode($uploadResponse->getBody(), true);
+                $responseBody = json_decode($uploadResponse->getBody(), true);
+                if($uploadResponse && isset($responseBody['url'])){
+                    $uploadResult = ['url' => $responseBody['url']];
+                }else{
+                    return redirect()->back()->with('error', 'gagal menambahkan gambar');
+                }
 
                 Log::info('upload result:', $uploadResult);
             } else {
-                $uploadResult = ['blobUrl' => 'https://imageumkmku.blob.core.windows.net/storeimg/defaultproducts.png'];
+                $uploadResult = ['url' => "https://umkmkuapi.com/default_product.jpeg"];
             }
 
             $data = [
@@ -110,7 +113,7 @@ class HaikalController extends Controller
                 'deskripsi_barang' => $request->input('deskripsi_barang', ''),
                 'stok' => $request->input('stok'),
                 'tipe_barang' => $request->input('tipe_barang'),
-                'image_url' => $uploadResult['blobUrl'],
+                'image_url' => $uploadResult['url'],
                 'berat' => $request->input('berat'),
                 'id_umkm' => session('umkmID'),
             ];

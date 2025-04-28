@@ -41,7 +41,7 @@
                         @php
                             $isSender = isset($message['receiver_type']) && $message['receiver_type'] == 'Pembeli';
                         @endphp
-                        <div class="message {{ $isSender ? 'right' : 'left' }}">
+                        <div class="message {{ $isSender ? 'right' : 'left' }}" data-id="{{ $message['id_chat'] }}">
                             @if(!$isSender)
                                 <img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">
                             @endif
@@ -89,19 +89,18 @@
             const receiverId = "{{ $id_pembeli }}";
             const apiUrl = `https://umkmapi-production.up.railway.app/getLatestMsgUMKMPembeli/${userId}/${receiverId}`;
             const chatWindow = $("#chatWindow");
-            let lastMessageId = 0;
             let fetchInterval = null;
             const renderedMessageIds = new Set();
 
             function initializeRenderedMessages() {
                 // First, add data-id attributes to existing messages rendered by the server
-                $("#chatWindow .message").each(function (index) {
-                    if (!$(this).attr('data-id')) {
-                        $(this).attr('data-id', 'server-rendered-' + index);
-                    }
-
-                    // Add the ID to our Set so we don't re-render it
-                    renderedMessageIds.add($(this).attr('data-id'));
+                $(document).ready(function () {
+                    $("#chatWindow .message").each(function () {
+                        const id = $(this).data("id");
+                        if (id) {
+                            renderedMessageIds.add(id);
+                        }
+                    });
                 });
             }
 
@@ -117,36 +116,6 @@
                 return new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
             }
 
-
-            // socket.on("newMessage", function (message) {
-            //     console.log("New message received:", message);
-
-            //     const userId = "{{ session('umkmID') }}";
-            //     const receiverId = "{{ $id_pembeli }}";
-
-            //     // Ensure the message is for this conversation
-            //     if ((message.id_umkm == userId && message.id_pembeli == receiverId) ||
-            //         (message.id_umkm == receiverId && message.id_pembeli == userId)) {
-
-            //         let messageClass = (message.id_pembeli == userId) ? "right" : "left";
-
-            //         // Prevent duplicate messages using message ID
-            //         if ($("#chatWindow").find(`[data-id='${message.id_chat}']`).length === 0) {
-            //             $("#chatWindow").append(`
-            //     <div class="message ${messageClass}" data-id="${message.id_chat}">
-            //         ${messageClass === "left" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
-            //         <div class="message-bubble">
-            //             <p>${message.message}</p>
-            //             <div class="message-time">${getCurrentTime()}</div>
-            //         </div>
-            //         ${messageClass === "right" ? `<img src="{{ asset('images/Profilepic.png') }}" alt="User Avatar" class="avatar">` : ""}
-            //     </div>
-            // `);
-
-            //             scrollToBottom();
-            //         }
-            //     }
-            // });
 
 
             $("#sendMessageForm").submit(function (e) {
@@ -201,16 +170,9 @@
                             const messageId = message.id_chat;
                             const messageContent = message.message;
 
-                            let isDuplicate = false;
-                            $("#chatWindow .message p").each(function () {
-                                if ($(this).text() === messageContent) {
-                                    isDuplicate = true;
-                                    return false;
-                                }
-                            });
 
                             // Check id_chat biar ga dupe
-                            if (!renderedMessageIds.has(messageId) && !isDuplicate) {
+                            if (!renderedMessageIds.has(messageId)) {
                                 renderedMessageIds.add(messageId);
 
                                 let messageClass = message.receiver_type === "Pembeli" ? "right" : "left";
@@ -242,9 +204,7 @@
             }
 
             // interval tiap 2 detik lek
-            setTimeout(() => {
-                setInterval(fetchMessages, 2000);
-            }, 1000);
+            setInterval(fetchMessages, 1000);
 
         });
     </script>

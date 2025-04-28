@@ -7,18 +7,18 @@
   <title>UMKMku</title>
   <!-- External buat background -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
-  
+
   <!-- Conect CSS bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
   <!-- Connect CSS -->
   <link rel="stylesheet" href="{{ asset('css/darryl.css') }}">
-  
+
   <!-- Import Fonts -->
   <link
-  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap"
-  rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
@@ -52,17 +52,22 @@
         {{session('error')}}
       </div>
       @endif
+      @if (session('status'))
+      <div class="alert alert-success">
+        {{ session('status') }}
+      </div>
+      @endif
       <!-- Insert bacotan formalitas -->
       <div class="fs-2 fw-bold text-center">Autentifikasi</div>
       <div class="fs-4 fw-medium mb-4 text-center">Kirim kode autentifikasi ke email anda</div>
-      <form action="" method="POST" onsubmit="">
+      <form action="{{ route('umkm.lupa-password') }}" method="POST">
         @csrf
         <!-- Isi Email -->
         <div class="mb-2">
           <label for="inputEmail" class="form-label">Alamat email</label>
           <input type="email" class="form-control" id="inputEmail" name="inputEmail" required>
         </div>
-        
+
         <!-- Button masuk -->
         <div class="d-flex flex-column justify-content-center">
           <button type="submit" class="btn">

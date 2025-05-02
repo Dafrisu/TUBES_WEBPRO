@@ -31,7 +31,7 @@ class HaikalController extends Controller
         $id_umkm = session('umkmID');
         try {
             $response = Http::withOptions(['verify' => false])
-                ->get("http://localhost/search/{$id_umkm}?search=" . urlencode($input));
+                ->get("https://umkmapi-production.up.railway.app/search/{$id_umkm}?search=" . urlencode($input));
 
             $produk = $response->json();
 

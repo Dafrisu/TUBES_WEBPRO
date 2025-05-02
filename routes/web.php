@@ -64,6 +64,7 @@ route::put('/updateproduk/{id}', [HaikalController::class, 'editproduk'])->name(
 route::delete('/deleteproduk/{id}', [HaikalController::class, 'deleteProduk'])->name('umkm.deletebarang');
 Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
 route::get('/produk/{id}', [HaikalController::class, 'getmodal'])->name('umkm.getprodukbyID');
+Route::get('/searchproduk', [HaikalController::class, 'searchproduk'])->name('umkm.search');
 Route::get('/proxy/produk', function () {
     $response = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/produk');
     return response($response->body(), $response->status())

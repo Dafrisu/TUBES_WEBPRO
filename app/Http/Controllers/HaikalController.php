@@ -25,6 +25,22 @@ class HaikalController extends Controller
         }
     }
 
+    public function searchproduk(Request $request)
+    {
+        $input = $request->query('search');
+        $id_umkm = session('umkmID');
+        try {
+            $response = Http::withOptions(['verify' => false])
+                ->get("http://localhost/search/{$id_umkm}?search=" . urlencode($input));
+
+            $produk = $response->json();
+
+            return view('partials.tabelproduk', ['produk' => $produk]);
+        } catch (\exception $e) {
+            return response("<tr><td colspan='7' class='text-center text-danger'>Gagal: {$e->getMessage()}</td></tr>");
+        }
+    }
+
     public function getviewproduk()
     {
         try {
@@ -32,7 +48,9 @@ class HaikalController extends Controller
 
             if ($response->successful()) {
                 $produk = $response->json(); // Decode JSON
-                return view('Haikal_managebarang', compact('produk'));
+                $produkmakanan = array_filter($produk, fn($item) => $item["tipe_barang"] === "Makanan");
+                $produkminuman = array_filter($produk, fn($item) => $item["tipe_barang"] === "Minuman");
+                return view('Haikal_managebarang', compact('produk', 'produkmakanan', 'produkminuman'));
             } else {
                 return view('Haikal_managebarang')->with('error', 'Gagal mendapatkan produk dari API');
             }
@@ -96,9 +114,9 @@ class HaikalController extends Controller
                 ]);
 
                 $responseBody = json_decode($uploadResponse->getBody(), true);
-                if($uploadResponse && isset($responseBody['url'])){
+                if ($uploadResponse && isset($responseBody['url'])) {
                     $uploadResult = ['url' => $responseBody['url']];
-                }else{
+                } else {
                     return redirect()->back()->with('error', 'gagal menambahkan gambar');
                 }
 

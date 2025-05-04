@@ -125,7 +125,7 @@
         </form>
     </div>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
-
+    @include('components.idle-timeout');
     <!-- script untuk gambar -->
     <script>
         const fileInput = document.getElementById('id_gambar');

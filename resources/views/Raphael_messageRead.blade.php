@@ -117,6 +117,7 @@ if (request('sort', 'newest') == 'newest') {
             </div>
         </div>
     </div>
+    @include('components.idle-timeout');
 </body>
 
 </html>

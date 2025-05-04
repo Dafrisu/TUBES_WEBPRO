@@ -100,6 +100,7 @@
             <button type="submit" class="btn btn-primary btn-submit">Simpan Perubahan</button>
         </form>
     </div>
+    @include('components.idle-timeout');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-zJ5rcOfKLiE3AcIshe6EEkzwDM98IJM3Gs3gR4kEHyDiUHCpD3Wn8KVpjTAxgITP"
         crossorigin="anonymous"></script>

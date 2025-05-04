@@ -48,7 +48,7 @@
                     <td>{{ $kurir['email'] }}</td>
                     <td>{{ $kurir['nomor_telepon']}}</td>
                     <td>
-                        <form action="{{route('umkm.tolakKurir', $kurir['id_kurir'])}}" method="POST" class="d-inline">
+                        <form action="{{route('umkm.deletekurir', $kurir['id_kurir'])}}" method="POST" class="d-inline">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-danger">Pecat</button>

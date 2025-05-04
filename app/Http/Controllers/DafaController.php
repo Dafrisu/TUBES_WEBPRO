@@ -278,7 +278,7 @@ class DafaController extends Controller
             // Kirim data ke API untuk update
             $id_umkm = session('umkmID');
             $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi-production.up.railway.app/updateStatusKurirTerdaftar/" . $id_kurir);
+                ->put("https://umkmapi-production.up.railway.app/updateStatusKurirDipecat/" . $id_kurir);
             // Periksa respon API
             if ($response->successful()) {
                 return redirect()->route('umkm_')->with('success', 'Kurir telah dipecat');
@@ -286,7 +286,7 @@ class DafaController extends Controller
                 throw new \Exception('Kurir gagal dipecat womp womp');
             }
         } catch (\Exception $e) {
-            return redirect()->route('umkm.pecatKurir')->with('error', $e->getMessage());
+            return redirect()->route('umkm.getumkmkurir')->with('error', $e->getMessage());
         }
     }
 

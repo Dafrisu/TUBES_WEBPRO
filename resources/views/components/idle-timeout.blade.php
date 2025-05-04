@@ -14,7 +14,7 @@
     setInterval(() => {
         idleTime++;
         if (idleTime >= timeoutSeconds) {
-            window.location.href = "/masuk";
+            window.location.href = "/masuk?reason=timeout";
         }
     }, 1000);
 </script>

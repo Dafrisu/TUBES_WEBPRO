@@ -100,14 +100,23 @@ class DarrylController extends Controller
         try {
             $request->validate(['inputEmail' => 'required|email']);
 
-            $status = Password::sendResetLink(
-                $request->only('inputEmail')
-            );
+            // pakai guzzle
+            $client = new Client(['verify' => false]);
 
-            return $status === Password::ResetLinkSent
-                ? back()->with(['status' => __($status)])
-                : back()->withErrors(['email' => __($status)]);
-            
+            // Send the POST request using Guzzle
+            $response = $client->post('https://umkmapi-production.up.railway.app/login', [
+                'json' => [
+                    'email' => $request->input('inputEmail')
+                ]
+            ]);
+
+            $body = json_decode((string) $response->getBody(), true);
+
+            if (isset($body['message'])) {
+                return back()->with('status', $body['message']);
+            } else {
+                return back()->withErrors(['email' => 'Failed to send reset link']);
+            }
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
         }
@@ -116,7 +125,6 @@ class DarrylController extends Controller
     function newPassword(Request $request)
     {
         try {
-            
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
         }
@@ -125,7 +133,6 @@ class DarrylController extends Controller
     function auth(Request $request)
     {
         try {
-            
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
         }
@@ -134,7 +141,6 @@ class DarrylController extends Controller
     function generateCode(Request $request)
     {
         try {
-            
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal kirim ulang code');
         }

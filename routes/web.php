@@ -40,6 +40,7 @@ route::put('/terimakurir/{id_kurir}', [DafaController::class, 'terimakurir'])->n
 route::put('/tolakKurir/{id_kurir}', [DafaController::class, 'tolakKurir'])->name('umkm.tolakKurir');
 route::get('/getumkmkurir', [DafaController::class, 'getumkmkurir'])->name('umkm.getumkmkurir');
 route::put('/pecatKurir/{id_kurir}', [DafaController::class, 'pecatKurir'])->name('umkm.pecatKurir');
+route::put('/deletekurir/{id_kurir}', [DafaController::class, 'deleteKurir'])->name('umkm.deletekurir');
 route::get('/konfirmasiKurir', [DafaController::class, 'getdatakurir'])->name('umkm.konfirmasiKurir');
 route::get('/historyKurirUmkm', [DafaController::class, 'gethistorykurirumkm'])->name('umkm.gethistorykurirumkm');
 //End Route Punya Dapa

@@ -50,14 +50,14 @@
             @method('PUT')
             <!-- Nama Lengkap -->
             <div class="mb-3">
-                <label for="namaLengkap" class="form-label">Nama Lengkap</label>
-                <input type="text" id="namaLengkap" name="namaLengkap"
+                <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap"
                     value="{{old('nama_lengkap', $profile['nama_lengkap'])}}" class="form-control" required>
             </div>
             <!-- Nomor Telepon -->
             <div class="mb-3">
-                <label for="nomorTelepon" class="form-label">Nomor Telepon</label>
-                <input type="tel" id="nomorTelepon" name="nomorTelepon"
+                <label for="nomor_telepon" class="form-label">Nomor Telepon</label>
+                <input type="tel" id="nomor_telepon" name="nomor_telepon"
                     value="{{old('nomor_telepon', $profile['nomor_telepon'])}}" class="form-control" required>
             </div>
             <!-- Alamat -->
@@ -86,14 +86,14 @@
             </div>
             <!-- Nama Usaha -->
             <div class="mb-3">
-                <label for="namaUsaha" class="form-label">Nama Usaha</label>
-                <input type="text" id="namaUsaha" name="namaUsaha" value="{{old('nama_usaha', $profile['nama_usaha'])}}"
+                <label for="nama_usaha" class="form-label">Nama Usaha</label>
+                <input type="text" id="nama_usaha" name="nama_usaha" value="{{old('nama_usaha', $profile['nama_usaha'])}}"
                     class="form-control" required>
             </div>
             <!-- NIK KTP -->
             <div class="mb-3">
-                <label for="nikKtp" class="form-label">NIK KTP</label>
-                <input type="text" id="nikKtp" name="nikKtp" value="{{old('NIK_KTP', $profile['NIK_KTP'])}}"
+                <label for="NIK_KTP" class="form-label">NIK KTP</label>
+                <input type="text" id="NIK_KTP" name="NIK_KTP" value="{{old('NIK_KTP', $profile['NIK_KTP'])}}"
                     class="form-control">
             </div>
             <!-- Submit Button -->

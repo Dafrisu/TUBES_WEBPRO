@@ -43,6 +43,7 @@ route::put('/pecatKurir/{id_kurir}', [DafaController::class, 'pecatKurir'])->nam
 route::put('/deletekurir/{id_kurir}', [DafaController::class, 'deleteKurir'])->name('umkm.deletekurir');
 route::get('/konfirmasiKurir', [DafaController::class, 'getdatakurir'])->name('umkm.konfirmasiKurir');
 route::get('/historyKurirUmkm', [DafaController::class, 'gethistorykurirumkm'])->name('umkm.gethistorykurirumkm');
+Route::get('/logout-timeout', function () {session()->flush();return redirect('/masuk?session=timeout')->with('timeout', true);});
 //End Route Punya Dapa
 
 Route::view('/sidebar', 'Dafa_Sidebar')->name('umkm.sidebar');

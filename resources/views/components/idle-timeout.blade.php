@@ -1,6 +1,6 @@
 <script>
     let idleTime = 0;
-    const timeoutSeconds = 30;
+    const timeoutSeconds = 15;
 
     function resetTimer() {
         idleTime = 0;
@@ -14,7 +14,7 @@
     setInterval(() => {
         idleTime++;
         if (idleTime >= timeoutSeconds) {
-            window.location.href = "/masuk?reason=timeout";
+            window.location.href = "/masuk?session=timeout";
         }
     }, 1000);
 </script>

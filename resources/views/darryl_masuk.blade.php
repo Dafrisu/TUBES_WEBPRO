@@ -53,6 +53,12 @@
         {{session('error')}}
       </div>
       @endif
+
+      @if(request()->query('session') === 'timeout')
+        <div class="alert alert-warning">
+          Anda telah logout karena tidak ada aktivitas (Idle Timeout).
+        </div>
+      @endif
       <!-- Insert bacotan formalitas -->
       <div class="fs-2 fw-bold text-center">Masuk</div>
       <div class="fs-4 fw-medium mb-4 text-center">Masuk ke akun UMKMku</div>

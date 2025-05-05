@@ -29,6 +29,9 @@ class HaikalController extends Controller
     {
         $input = $request->query('search');
         $id_umkm = session('umkmID');
+        if (!$id_umkm) {
+            throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+        }
         try {
             $response = Http::withOptions(['verify' => false])
                 ->get("https://umkmapi-production.up.railway.app/search/{$id_umkm}?search=" . urlencode($input));
@@ -41,9 +44,27 @@ class HaikalController extends Controller
         }
     }
 
+    public function getviewtambahproduk()
+    {
+        try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
+
+            return view("Haikal_PageTambahBarang");
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
+        }
+    }
+
     public function getviewproduk()
     {
         try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
             $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/produkumkm/' . session('umkmID'));
 
             if ($response->successful()) {
@@ -55,13 +76,17 @@ class HaikalController extends Controller
                 return view('Haikal_managebarang')->with('error', 'Gagal mendapatkan produk dari API');
             }
         } catch (\Exception $e) {
-            return view('Haikal_managebarang')->with('error', $e->getMessage());
+            return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
 
     public function getUpdateprodukview($id)
     {
         try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
             if (!$id) {
                 throw new \Exception('ID Produk tidak ditemukan');
             }
@@ -74,13 +99,17 @@ class HaikalController extends Controller
                 throw new \Exception('Tidak menemukan barang yang dicari');
             }
         } catch (\Exception $e) {
-            return redirect()->route('umkm.managebarang')->with('error', $e->getMessage());
+            return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
 
     public function addproduk(Request $request)
     {
         try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
             $uploadResult = null;
             Log::info('addproduk called', ['data' => $request->all()]);
 

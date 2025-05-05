@@ -51,8 +51,7 @@ Route::view('/inbox_penjual_prioritas', 'fersya_inbox_penjual_prioritas')->name(
 route::get('/inbox', [FersyaController::class, 'getviewinbox'])->name('umkm.inbox');
 Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('umkm.getcampaign');
 Route::put('/editcampaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
-Route::post('/addcampaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');
-;
+Route::post('/addcampaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
 Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
 // Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
 // Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
@@ -63,7 +62,7 @@ route::post('/managebarang', [HaikalController::class, 'addproduk'])->name('umkm
 route::get('/updatebarang/{id}', [HaikalController::class, 'getUpdateprodukview'])->name('umkm.viewupdate');
 route::put('/updateproduk/{id}', [HaikalController::class, 'editproduk'])->name('umkm.updateproduk');
 route::delete('/deleteproduk/{id}', [HaikalController::class, 'deleteProduk'])->name('umkm.deletebarang');
-Route::view('/tambahbarang', 'Haikal_PageTambahBarang')->name('umkm.tambahbarang');
+Route::get('/tambahbarang', [HaikalController::class, 'getviewtambahproduk'])->name('umkm.tambahbarang');
 route::get('/produk/{id}', [HaikalController::class, 'getmodal'])->name('umkm.getprodukbyID');
 Route::get('/searchproduk', [HaikalController::class, 'searchproduk'])->name('umkm.search');
 Route::get('/proxy/produk', function () {

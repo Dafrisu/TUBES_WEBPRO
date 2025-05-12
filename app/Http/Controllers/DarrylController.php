@@ -90,7 +90,7 @@ class DarrylController extends Controller
             $client = new Client(['verify' => false]);
 
             // Send the POST request using Guzzle
-            $response = $client->post('https://umkmapi-production.up.railway.app/login', [
+            $response = $client->post('https://umkmapi-production.up.railway.app/reset-password', [
                 'json' => [
                     'email' => $request->input('inputEmail')
                 ]

@@ -1,6 +1,6 @@
 <script>
     let idleTime = 0;
-    const timeoutSeconds = 15;
+    const timeoutSeconds = 300;
 
     function resetTimer() {
         idleTime = 0;

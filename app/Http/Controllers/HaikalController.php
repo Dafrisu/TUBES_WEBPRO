@@ -126,13 +126,24 @@ class HaikalController extends Controller
                 'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048', // Validasi file gambar
             ]);
 
-
+            // Validasi tambahan untuk harga
+            if ($request->input('harga') > 100000000) {
+                return redirect()->back()->with('error', 'Harga tidak boleh lebih dari 100.000.000');
+            }
 
             // Cek jika ada file gambar yang diunggah
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                 $file = $request->file('foto');
 
-                $uploadResponse = $client->post('https://umkmapi-production.up.railway.app/uploadfile', [
+                // Validasi tambahan untuk ukuran file (dalam KB)
+                if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+                    $fileSizeKB = $request->file('foto')->getSize() / 1024;
+                    if ($fileSizeKB > 1024) {
+                        return redirect()->back()->with('error', 'Ukuran gambar tidak boleh lebih dari 1024 KB (1MB)');
+                    }
+                }
+
+                $uploadResponse = $client->post('http://localhost/uploadfile', [
                     'multipart' => [
                         [
                             'name' => 'file',

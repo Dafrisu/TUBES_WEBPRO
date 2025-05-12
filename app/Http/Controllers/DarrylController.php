@@ -40,7 +40,7 @@ class DarrylController extends Controller
                     ->with('error', 'Gagal Mendaftar! :(' . $response->getBody());
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal total pokoknya dah' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal melakukan pendaftaran' . $e->getMessage());
         }
     }
 
@@ -52,46 +52,32 @@ class DarrylController extends Controller
                 'inputPassword' => $request->input('inputPassword'),
             ];
 
-            Log::info('Data prepared', ['data' => $data]);
-            // pakai guzzle
             $client = new Client(['verify' => false]);
-
-            // Send the POST request using Guzzle
             $response = $client->post('https://umkmapi-production.up.railway.app/login', [
                 'json' => $data,
             ]);
 
             // check RememberMe
             $remember = $request->has('RememberMe');
-            if ($remember) {
-                // isi cookie dengan session yang sudah disimpan kalo RememberMe
-                Cookie::queue(Cookie::make('LoginEmail', $request->input('inputEmail'), 60)); // set cookie expire sejam
-                Cookie::queue(Cookie::make('LoginPassword', $request->input('inputPassword'), 60)); // set cookie expire sejam
-            } else {
-                // Kosongkan cookie kalo tidak RememberMe
-                Cookie::expire('LoginEmail');
-                Cookie::expire('LoginPassword');
+            Cookie::queue(Cookie::make('LoginEmail', $remember ? $data['inputEmail'] : '', 60));
+            Cookie::queue(Cookie::make('LoginPassword', $remember ? $data['inputPassword'] : '', 60));
+
+            // jika error di bagian API
+            if ($response->getStatusCode() !== 200) {
+                return back()->with('error', 'Gagal Masuk! (code error)');
             }
 
-            if ($response->getStatusCode() == 200) {
-                $responseData = json_decode($response->getBody()->getContents(), true);
+            $responseData = json_decode($response->getBody(), true);
 
-                if (isset($responseData['id_umkm'])) {
-                    session(['umkmID' => $responseData['id_umkm']]);
-
-                    return redirect()->route('umkm.dashboard')
-                        ->with('success', 'Berhasil Masuk! 👍👍');
-                } else {
-                    return redirect()->back()->with('error', 'Gagal Masuk! ID UMKM tidak ditemukan.');
-                }
-                return redirect()->route('umkm.dashboard')
-                    ->with('success', 'Berhasil Masuk! 👍👍');
-            } else {
-                return redirect()->back()
-                    ->with('error', 'Gagal Masuk! :(' . $response->getBody());
+            // Jika id_umkm tidak ditemukan (user tidak terdaftar)
+            if (!isset($responseData['id_umkm'])) {
+                return back()->with('error', 'Gagal Masuk! ID UMKM tidak ditemukan.');
             }
+
+            session(['umkmID' => $responseData['id_umkm']]);
+            return redirect()->route('umkm.dashboard')->with('success', 'Berhasil Masuk! 👍👍');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal total pokoknya dah');
+            return redirect()->back()->with('error', 'Terjadi Kesalahan! Masukan data yang sesuai!');
         }
     }
 

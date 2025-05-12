@@ -14,7 +14,7 @@
     setInterval(() => {
         idleTime++;
         if (idleTime >= timeoutSeconds) {
-            window.location.href = "/masuk?session=timeout";
+            window.location.href = "/logout-timeout";
         }
     }, 1000);
 </script>

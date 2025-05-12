@@ -86,7 +86,7 @@
             </div>
         </div>
     </div>
-
+    @include('components.idle-timeout');
 </body>
 
 </html>

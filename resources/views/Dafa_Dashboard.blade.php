@@ -33,9 +33,11 @@
 
 
             <!-- Cards Section -->
-            <div class="cards">
-                <div class="card">
-                    <h3>Produk Laris Manis!</h3>
+             <div class="row">
+                <div class="col-sm-10">
+                    <div class="cards">
+                        <div class="card">
+                        <h3>Produk Laris Manis!</h3>
                     <p>Nama :
                         {{old('nama_barang', $datadashboardproduklaris[0]['nama_barang'] ?? 'Belum ada Produk yang terjual Womp Womp')}}
                     </p>
@@ -76,11 +78,12 @@
                     <a href="{{ route('umkm.inbox') }}" class="btn btn-success">Cek Inbox</a>
                 </div>
             </div>
+                </div>
+             </div>
         </div>
         </div>
     </div>
-    
-
+    @include('components.idle-timeout');
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>

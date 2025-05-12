@@ -72,7 +72,7 @@
             </form>
         @endif
     </div>
-
+    @include('components.idle-timeout');
     <!-- JavaScript -->
     <script>
         var socket = io("https://umkmapi-production.up.railway.app", {

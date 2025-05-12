@@ -25,25 +25,68 @@ class HaikalController extends Controller
         }
     }
 
+    public function searchproduk(Request $request)
+    {
+        $input = $request->query('search');
+        $id_umkm = session('umkmID');
+        if (!$id_umkm) {
+            throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+        }
+        try {
+            $response = Http::withOptions(['verify' => false])
+                ->get("https://umkmapi-production.up.railway.app/search/{$id_umkm}?search=" . urlencode($input));
+
+            $produk = $response->json();
+
+            return view('partials.tabelproduk', ['produk' => $produk]);
+        } catch (\exception $e) {
+            return response("<tr><td colspan='7' class='text-center text-danger'>Gagal: {$e->getMessage()}</td></tr>");
+        }
+    }
+
+    public function getviewtambahproduk()
+    {
+        try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
+
+            return view("Haikal_PageTambahBarang");
+        } catch (\Exception $e) {
+            return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
+        }
+    }
+
     public function getviewproduk()
     {
         try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
             $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/produkumkm/' . session('umkmID'));
 
             if ($response->successful()) {
                 $produk = $response->json(); // Decode JSON
-                return view('Haikal_managebarang', compact('produk'));
+                $produkmakanan = array_filter($produk, fn($item) => $item["tipe_barang"] === "Makanan");
+                $produkminuman = array_filter($produk, fn($item) => $item["tipe_barang"] === "Minuman");
+                return view('Haikal_managebarang', compact('produk', 'produkmakanan', 'produkminuman'));
             } else {
                 return view('Haikal_managebarang')->with('error', 'Gagal mendapatkan produk dari API');
             }
         } catch (\Exception $e) {
-            return view('Haikal_managebarang')->with('error', $e->getMessage());
+            return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
 
     public function getUpdateprodukview($id)
     {
         try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
             if (!$id) {
                 throw new \Exception('ID Produk tidak ditemukan');
             }
@@ -56,13 +99,17 @@ class HaikalController extends Controller
                 throw new \Exception('Tidak menemukan barang yang dicari');
             }
         } catch (\Exception $e) {
-            return redirect()->route('umkm.managebarang')->with('error', $e->getMessage());
+            return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
         }
     }
 
     public function addproduk(Request $request)
     {
         try {
+            $id_umkm = session('umkmID');
+            if (!$id_umkm) {
+                throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
+            }
             $uploadResult = null;
             Log::info('addproduk called', ['data' => $request->all()]);
 
@@ -79,13 +126,24 @@ class HaikalController extends Controller
                 'foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048', // Validasi file gambar
             ]);
 
-
+            // Validasi tambahan untuk harga
+            if ($request->input('harga') > 100000000) {
+                return redirect()->back()->with('error', 'Harga tidak boleh lebih dari 100.000.000');
+            }
 
             // Cek jika ada file gambar yang diunggah
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
                 $file = $request->file('foto');
 
-                $uploadResponse = $client->post('https://umkmapi-production.up.railway.app/uploadfile', [
+                // Validasi tambahan untuk ukuran file (dalam KB)
+                if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+                    $fileSizeKB = $request->file('foto')->getSize() / 1024;
+                    if ($fileSizeKB > 1024) {
+                        return redirect()->back()->with('error', 'Ukuran gambar tidak boleh lebih dari 1024 KB (1MB)');
+                    }
+                }
+
+                $uploadResponse = $client->post('http://localhost/uploadfile', [
                     'multipart' => [
                         [
                             'name' => 'file',
@@ -96,9 +154,9 @@ class HaikalController extends Controller
                 ]);
 
                 $responseBody = json_decode($uploadResponse->getBody(), true);
-                if($uploadResponse && isset($responseBody['url'])){
+                if ($uploadResponse && isset($responseBody['url'])) {
                     $uploadResult = ['url' => $responseBody['url']];
-                }else{
+                } else {
                     return redirect()->back()->with('error', 'gagal menambahkan gambar');
                 }
 

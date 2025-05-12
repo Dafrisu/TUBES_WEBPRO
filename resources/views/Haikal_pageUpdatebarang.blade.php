@@ -83,7 +83,7 @@
             </form>
         </div>
     </div>
-
+    @include('components.idle-timeout');
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>
 </body>
 

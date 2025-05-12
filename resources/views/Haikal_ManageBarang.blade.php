@@ -95,76 +95,79 @@
         <!-- container dan opsi -->
         <div class="container mt-3">
             @if (session('success'))
-                <div class="alert alert-success" , role="alert">
-                    {{session('success')}}
-                </div>
+            <div class="alert alert-success" , role="alert">
+                {{session('success')}}
+            </div>
             @endif
             @if (session('error'))
-                <div class="alert alert-danger">
-                    {{session('error')}}
-                </div>
+            <div class="alert alert-danger">
+                {{session('error')}}
+            </div>
             @endif
             <div class="row d-flex">
                 <div class="col-auto">
-                    <ul class="nav nav-underline d-flex overflow-auto" style="white-space: nowrap;">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" id="brg-semua">Semua</a>
+                    <ul class="nav nav-underline d-flex overflow-auto" style="white-space: nowrap;" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#semua" role="tab" id="brg-semua-tab" aria-controls="semua" aria-selected="true">
+                                Semua
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#makanan" role="tab" id="brg-makanan-tab" aria-controls="makanan" aria-selected="false">
+                                Makanan
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#minuman" role="tab" id="brg-minuman-tab" aria-controls="minuman" aria-selected="false">
+                                Minuman
+                            </a>
                         </li>
                     </ul>
+                </div>
+                <div class="col-auto ms-auto"> <!-- Align to the right -->
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-2">
+                        <input type="text" class="form-control w-auto" id="searchInput" placeholder="Cari produk...">
+                        <button class="btn btn-primary mb-2" id="searchButton">Cari</button>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Tables -->
-        <table class="table table-hover mt-3">
-            <thead>
-                <tr>
-                    <th scope="col">NO</th>
-                    <th scope="col">ID Barang</th>
-                    <th scope="col">Nama Barang</th>
-                    <th scope="col">Harga</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Berat</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody id="produktable">
-                <!-- isi tabel dari json dan js -->
-                @if (isset($produk) && is_array($produk) && count($produk) > 0)
-                    @foreach ($produk as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item['id'] }}</td>
-                            <td>{{ $item['nama_barang'] }}</td>
-                            <td>{{ number_format($item['harga'], 0, ',', '.') }}</td>
-                            <td>{{ $item['stok'] }}</td>
-                            <td>{{ $item['berat'] }} kg</td>
-                            <td>
-                                <a href="{{route('umkm.viewupdate', $item['id'])}}"><button type="button"
-                                        class="btn btn-warning">Edit</button></a>
-                                <form action="{{route('umkm.deletebarang', $item['id'])}}" method="post"
-                                    style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="semua" role="tabpanel" aria-labelledby="brg-semua-tab">
+                @include('partials.tabelproduk', ['produk' => $produk])
 
-                                <button class="btn btn-sm btn-outline-primary" type="button"
-                                    onclick="loadmodaldata({{ $item['id'] }})" data-bs-toggle="modal"
-                                    data-bs-target="#modalproduk">
-                                    <img src="{{asset('images/show.png')}}" alt="" id="buka">
-                                </button>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-
-                        <td colspan="6" class="text-center">Data produk tidak tersedia.</td>
-                    </tr>
-                @endif
-            </tbody>
-        </table>
+            </div>
+            <div class="tab-pane fade" id="makanan" role="tabpanel" aria-labelledby="brg-makanan-tab">
+                @include('partials.tabelproduk', ['produk' => $produkmakanan])
+            </div>
+            <div class="tab-pane fade" id="minuman" role="tabpanel" aria-labelledby="brg-minuman-tab">
+                @include('partials.tabelproduk', ['produk' => $produkminuman])
+            </div>
+        </div>
     </div>
+
+    <!-- Script buat table -->
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function() {
+            const keyword = document.getElementById('searchInput').value;
+            if (!keyword) {
+                alert("masukan keyword untuk search produk");
+                return;
+            }
+
+            fetch(`/searchproduk?search=${encodeURIComponent(keyword)}`)
+                .then(res => res.text())
+                .then(html => {
+                    document.querySelector("#semua").innerHTML = html;
+                })
+                .catch(err => {
+                    console.error("Gagal:", err);
+                    alert("terjadi kesalahan ketika cari produk");
+                });
+        });
+    </script>
+
     <script>
         function loadmodaldata(id) {
             fetch(`/produk/${id}`)
@@ -192,11 +195,10 @@
                 .catch(error => console.error('Error:', error));
         }
     </script>
-
+    @include('components.idle-timeout');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
-
+    </script>
     <!-- Script buat pills -->
     <!-- <script src="{{ asset('js/Haikal_managebarang.js') }}"></script> -->
     <script src="{{ asset('js/Dafa_Sidebar.js') }}"></script>

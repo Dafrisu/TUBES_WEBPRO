@@ -72,6 +72,7 @@
         </tbody>
     </table>
 </div>
+    @include('components.idle-timeout');
     <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>
 </body>
 

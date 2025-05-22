@@ -127,13 +127,14 @@
                 <div class="col-auto ms-auto"> <!-- Align to the right -->
                     <div class="d-flex justify-content-end align-items-center gap-2 mt-2">
                         <input type="text" class="form-control w-auto" id="searchInput" placeholder="Cari produk...">
-                        <button class="btn btn-primary mb-2" id="searchButton">Cari</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Tables -->
         <div class="tab-content">
+            <!-- Search results -->
+            <div id="search-result-container" class="mt-3" style="display: none;"></div>
             <div class="tab-pane fade show active" id="semua" role="tabpanel" aria-labelledby="brg-semua-tab">
                 @include('partials.tabelproduk', ['produk' => $produk])
 
@@ -147,26 +148,7 @@
         </div>
     </div>
 
-    <!-- Script buat table -->
-    <script>
-        document.getElementById("searchButton").addEventListener("click", function() {
-            const keyword = document.getElementById('searchInput').value;
-            if (!keyword) {
-                alert("masukan keyword untuk search produk");
-                return;
-            }
-
-            fetch(`/searchproduk?search=${encodeURIComponent(keyword)}`)
-                .then(res => res.text())
-                .then(html => {
-                    document.querySelector("#semua").innerHTML = html;
-                })
-                .catch(err => {
-                    console.error("Gagal:", err);
-                    alert("terjadi kesalahan ketika cari produk");
-                });
-        });
-    </script>
+    <script src="{{ asset('js/Haikal_livesearch.js') }}"></script>
 
     <script>
         function loadmodaldata(id) {

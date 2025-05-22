@@ -33,10 +33,16 @@ class HaikalController extends Controller
             throw new \Exception('Tidak menemukan ID, silahkan lakukan Login');
         }
         try {
-            $response = Http::withOptions(['verify' => false])
-                ->get("https://umkmapi-production.up.railway.app/search/{$id_umkm}?search=" . urlencode($input));
-
-            $produk = $response->json();
+            $search = $request->input('search');
+            if ($search) {
+                $response = Http::withOptions(['verify' => false])
+                    ->get("https://umkmapi-production.up.railway.app/search/{$id_umkm}?search=" . urlencode($input)); // ini fetch by keyword
+                $produk = $response->json();
+            } else {
+                $response = Http::withOptions(['verify' => false])
+                    ->get("https://umkmapi-production.up.railway.app/produkumkm/" . $id_umkm); // ini fetch all
+                $produk = $response->json();
+            }
 
             return view('partials.tabelproduk', ['produk' => $produk]);
         } catch (\exception $e) {

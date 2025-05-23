@@ -122,36 +122,40 @@ class DafaController extends Controller
     }
 
     public function editprofileumkm(Request $request)
-    {
-        try {
+{
+    try {
+        $id = session('umkmID');
 
-            $id = session('umkmID');
-            // Validasi semua input
-            $validatedData = $request->validate([
-                'nama_lengkap' => '', // Semua field harus ada dan tidak boleh kosong
-                'nomor_telepon' => '', // Semua field harus ada dan tidak boleh kosong
-                'alamat' => '', // Semua field harus ada dan tidak boleh kosong
-                'username' => '', // Semua field harus ada dan tidak boleh kosong
-                'email' => '', // Semua field harus ada dan tidak boleh kosong
-                'password' => '', // Semua field harus ada dan tidak boleh kosong
-                'nama_usaha' => '', // Semua field harus ada dan tidak boleh kosong
-                'NIK_KTP' => '' // Semua field harus ada dan tidak boleh kosong
-            ]);
+        $validatedData = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'nomor_telepon' => 'required|string|max:15',
+            'alamat' => 'required|string|max:255',
+            'username' => 'required|string|max:50',
+            'email' => 'required|email|max:255',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*?&]/',
+            ],
+            'nama_usaha' => 'required|string|max:255',
+            'NIK_KTP' => 'required|string|max:20'
+        ]);
 
-            // Kirim data ke API untuk update
-            $response = Http::withOptions(['verify' => false])
-                ->put("https://umkmapi-production.up.railway.app/updatedataumkm/" . $id, $validatedData);
+        $response = Http::withOptions(['verify' => false])
+            ->put("https://umkmapi-production.up.railway.app/updatedataumkm/" . $id, $validatedData);
 
-            // Periksa respon API
-            if ($response->successful()) {
-                return redirect()->route('umkm.dashboard', $id)->with('success', 'Profile Berhasil Di update');
-            } else {
-                throw new \Exception('Gagal memperbarui Profile di API');
-            }
-        } catch (\Exception $e) {
-            return redirect()->route('umkm.dashboard', $id)->with('error', $e->getMessage());
+        if ($response->successful()) {
+            return redirect()->route('umkm.dashboard', $id)->with('success', 'Profile Berhasil Di update');
+        } else {
+            throw new \Exception('Gagal memperbarui Profile di API');
         }
+    } catch (\Exception $e) {
+        return redirect()->route('umkm.dashboard', $id)->with('error', $e->getMessage());
     }
+}
 
     public function getprofileumkm()
     {

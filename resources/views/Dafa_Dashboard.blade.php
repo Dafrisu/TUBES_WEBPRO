@@ -17,8 +17,6 @@
 
     <x-semua_-sidebar />
     <x-profilebar :profile='$profile' />
-
-
     <!-- Content Area -->
      <div class="container">
         <div class="content">
@@ -30,8 +28,6 @@
             @endif
 
             <h2>Performansi Anda</h2>
-
-
             <!-- Cards Section -->
              <div class="row">
                 <div class="col-sm-10">
@@ -60,7 +56,11 @@
                     </p>
                     <a href="{{ route('umkm.managebarang') }}" class="btn btn-success">Kelola Produk</a>
                 </div>
-                <div class="card">
+            </div>
+            <div class='col'>
+                <div class='row'>
+                    <div class='cards'>
+                    <div class="card">
                     <h3>Balesin Chatmu Yuk!</h3>
                     <p>Pesan Paling Baru : "
                         {{old('message', $datadashboardpesanpalingbaru[0]['message'] ?? 'Kamu belum mendapatkan message')}}"
@@ -77,6 +77,7 @@
                     </p>
                     <a href="{{ route('umkm.inbox') }}" class="btn btn-success">Cek Inbox</a>
                 </div>
+                    </div>
             </div>
                 </div>
              </div>

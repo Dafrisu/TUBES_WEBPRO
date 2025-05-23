@@ -18,10 +18,11 @@
         <div class="header-bar">
             <h1>Welcome to Seller Dashboard</h1>
             <div class="profile">
-                <a href="{{route('umkm.getprofileumkm', session('umkmID'))}}">
+                <a
+                    href="{{ route('umkm.getprofileumkm', session('umkmID')) }}">
                     <img src="{{ asset('images/profile.png') }}" alt="Profile Image">
                 </a>
-                <span>{{$profile['username']}}</span>
+                <span>{{ $profile['username'] }}</span>
             </div>
         </div>
         <script src="{{ asset('js/Dafa_Dashboard.js') }}"></script>

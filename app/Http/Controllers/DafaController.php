@@ -153,7 +153,7 @@ class DafaController extends Controller
             throw new \Exception('Gagal memperbarui Profile di API');
         }
     } catch (\Exception $e) {
-        return redirect()->route('umkm.dashboard', $id)->with('error', $e->getMessage());
+        return redirect()->route('umkm.getprofileumkm', $id)->with('error', $e->getMessage());
     }
 }
 

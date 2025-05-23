@@ -13,15 +13,13 @@ body {
 
 /* Sidebar styling */
 .sidebar {
-    width: 280px;
+    width: 300px;
     background-color: #658864;
     padding: 20px;
     color: #fff;
     height: 100dvh;
-    position: sticky;
     top: 0;
     left: 0;
-    overflow-y: scroll;
 }
 
 .sidebar h2 {

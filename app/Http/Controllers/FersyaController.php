@@ -11,32 +11,34 @@ use Illuminate\Support\Facades\Log;
 
 class FersyaController extends Controller
 {
-    public function getviewinbox()
+   public function getviewinbox()
     {
         $id = session('umkmID');
-        try {
-            $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/getinboxpesanan');
-            $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
-            $datacampaign = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getcampaign/'. $id);
+        $pesananMasuk = []; 
+        $pesananDiterima = []; 
 
-            // $response = Http::withOptions(['verify' => false,])->get('https://umkmapi-production.up.railway.app/getinboxpesanan');
-            // $respose = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getprofileumkm/' . $id);
-            // $datacampaign = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getcampaign/'. $id);
-    
-            if ($response->successful()) {
-                $inbox = $response->json(); // Decode JSON
-                $profile = $respose->json();
-                $campaign = json_decode($datacampaign, true);
-                return view('fersya_inbox', compact('inbox', 'campaign'), compact('profile'));
+        try {
+            $pesananMasukResponse = Http::withOptions(['verify' => false])
+                ->get('http://localhost/getinboxpesananmasuk', ['id_umkm' => $id]);
+
+            $pesananDiterimaResponse = Http::withOptions(['verify' => false])
+                ->get('http://localhost/getinboxpesanan', ['id_umkm' => $id]);
+
+            if ($pesananMasukResponse->successful() && $pesananDiterimaResponse->successful()) {
+                $pesananMasuk = $pesananMasukResponse->json();
+                $pesananDiterima = $pesananDiterimaResponse->json();
             } else {
-                return view('fersya_inbox')->with('error', 'Gagal mendapatkan inbox dari API');
+                return view('fersya_inbox')->with('error', 'Gagal mendapatkan data dari API');
             }
-    } catch (\Exception $e) {
+        } catch (\Exception $e) {
             return view('fersya_inbox')->with('error', $e->getMessage());
         }
+
+        return view('fersya_inbox', compact('pesananMasuk', 'pesananDiterima'));
     }
 
 
+    
     
     public function getUpdateCampaignView($id)
     {   

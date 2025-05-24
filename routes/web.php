@@ -54,6 +54,8 @@ Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('um
 Route::put('/editcampaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
 Route::post('/addcampaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
 Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
+Route::get('/pesanan-masuk', [FersyaController::class, 'getviewinboxmasuk'])->name('pesanan.masuk');
+Route::get('/pesanan-diterima', [FersyaController::class, 'getviewinboxditerima'])->name('pesanan.diterima');
 // Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
 // Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
 

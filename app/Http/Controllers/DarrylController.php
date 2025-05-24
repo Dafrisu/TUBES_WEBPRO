@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Password;
@@ -13,6 +13,29 @@ class DarrylController extends Controller
 {
     function daftar(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'namaLengkap' => 'required|string|min:3',
+            'nomorTelepon' => 'required|string|regex:/^[0-9]+$/',
+            'alamat' => 'nullable|string',
+            'username' => 'required|string|min:3',
+            'inputEmail' => 'required|email',
+            'inputPassword' => 'required|string|min:6',
+            'konfirmasiSandi' => 'required|string|same:inputPassword',
+            'namaUsaha' => 'nullable|string',
+            'nikKtp' => 'required|numeric|min:10',
+        ], [
+            'namaLengkap.required' => 'Nama lengkap wajib diisi.',
+            'nomorTelepon.regex' => 'Nomor telepon hanya boleh berisi angka.',
+            'inputEmail.email' => 'Email tidak valid.',
+            'inputPassword.min' => 'Password minimal 6 karakter.',
+            'konfirmasiSandi.same' => 'Konfirmasi sandi tidak sesuai.',
+            'nikKtp.min' => 'NIK KTP harus 10 digit.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         try {
             $data = [
                 'nama_lengkap' => $request->input('namaLengkap'),
@@ -24,23 +47,26 @@ class DarrylController extends Controller
                 'nama_usaha' => $request->input('namaUsaha'),
                 'NIK_KTP' => $request->input('nikKtp'),
             ];
-            // pakai guzzle
+
+            // Pakai guzzle
             $client = new Client(['verify' => false]);
 
-            // POST request Guzzle
-            $response = $client->post('https://umkmapi-production.up.railway.app/umkm', [
+            $response = $client->post('https://umkmapi-production.up.railway.app/api/registrasi-umkm', [
                 'json' => $data,
             ]);
 
-            if ($response->getStatusCode() == 200) {
+            if ($response->getStatusCode() == 201) {
                 return redirect()->route('umkm.masuk')
-                    ->with('success', 'Berhasil Mendaftar! (emote mantap)');
+                    ->with('success', 'Berhasil Mendaftar! 🎉');
             } else {
-                return redirect()->back()
-                    ->with('error', 'Gagal Mendaftar! :(' . $response->getBody());
+                $error = json_decode($response->getBody(), true)['error'] ?? 'Unknown error';
+                return redirect()->back()->with('error', 'Gagal Mendaftar: ' . $error)->withInput();
             }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $error = json_decode($e->getResponse()->getBody(), true)['error'] ?? $e->getMessage();
+            return redirect()->back()->with('error', 'Gagal Mendaftar: ' . $error)->withInput();
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal melakukan pendaftaran' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal melakukan pendaftaran: ' . $e->getMessage())->withInput();
         }
     }
 

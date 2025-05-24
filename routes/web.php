@@ -18,7 +18,7 @@ Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password'
 Route::view('/new-password', 'darryl_new-password')->name('umkm.new-password');
 route::post('/lupa-password', [DarrylController::class, 'resetPassword'])->name('umkm.lupa-password');
 route::post('/new-password', [DarrylController::class, 'newPassword'])->name('umkm.new-password');
-route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.register');
+route::post('/daftar', [DarrylController::class, 'daftar'])->name('umkm.daftar');
 route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 Route::get('/reset-password/{token}', function (string $token) {
@@ -57,8 +57,8 @@ Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('um
 Route::put('/editcampaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
 Route::post('/addcampaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
 Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
-// Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
-// Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
+// Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign');
+// Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign');
 
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');

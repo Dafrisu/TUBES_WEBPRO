@@ -16,22 +16,9 @@
 </head>
 <body>
     <!-- Sidebar Component -->
-    <script>
-        window.routes = {
-            umkm_dashboard: "{{ route('umkm.dashboard') }}",
-            umkm_managebarang: "{{ route('umkm.managebarang') }}",
-            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
-            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
-            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
-            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
-            umkm_statistik: "{{ route('umkm.statistik') }}",
-            umkm_message: "/message",
-            umkm_inbox: "{{ route('umkm.inbox') }}"
-        };
-    </script>
-
 
     <x-semua_-sidebar />
+  
 
     <!-- Announcement Bar -->
     <!-- <div class="announcement-bar fixed-top p-3 mb-3" style="background-color: #ffb700; text-align: center;">
@@ -44,140 +31,101 @@
     </div> -->
 
     <!-- Main Content -->
+  
     <div class="col-md-10 main-content mx-auto border" style="border: 1px solid #ddd; border-radius: 10px; padding: 20px;">
-        <h2 style="color: white; background-color: #658864; padding: 1rem; max-width: fit-content;">Informasi Pesanan Masuk</h2>
-        
         <!-- Header Bar -->
-        <div class="header-bar d-flex justify-content-between align-items-center mb-3">
-            <h3 style="color: white;">Inbox Penjual</h3>
-            <div class="profile d-flex align-items-center">
+        <!-- <div class="header-bar d-flex justify-content-between align-items-center mb-3"> -->
+            <!-- <h3 style="color: white;">Table Penjual</h3> -->
+            <!-- <div class="profile d-flex align-items-center">
                 <img src="assets/Profilepic.png" alt="Profile Image" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
                 <span style="color: white;"> {{old('username', $profile['username'] ?? 'error')}}</span>
-            </div>
-        </div>
+            </div> -->
+        <!-- </div> -->
 
         <!-- Navigation Tabs -->
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="showPesananMasuk()">Inbox Masuk</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="showPesananPrioritas()">Prioritas Pesanan</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" onclick="showPemasaran()">Pemasaran</a>
-            </li>
-        </ul>
+        <!-- Navigation Tabs -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link " href="#" onclick="showPesananMasuk()"> Masuk</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" onclick="showPesananDiterima()"> Diterima</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" onclick="showTabOptions()"> Pengaturan Inbox</a>
+    </li>
+</ul>
+        <!-- Tab Content -->
 
         <!-- Table for Pesanan Masuk -->
-        <div id="pesananMasukTable" style="display: none; margin-top: 20px;">
-            <h3>Table Inbox</h3>
-            <table class="table table-hover">
-                <thead>
+    <div id="pesananMasukTable" style="display: block; margin-top: 20px;">
+        <h3>Pesanan Masuk</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Order ID</th>
+                    <th>Nama Customer</th>
+                    <th>Produk</th>
+                    <th>Status Pesanan</th>
+                    <th>Waktu Pesanan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($pesananMasuk ?? [] as $item)
                     <tr>
-                        <th>No</th>
-                        <th>ID Pesanan</th>
-                        <th>Customer Name</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item['id_pesanan'] }}</td>
+                        <td>{{ $item['nama_lengkap'] }}</td>
+                        <td>{{ $item['Nama_Barang'] }}</td>
+                        <td>{{ $item['status_pesanan'] }}</td>
+                        <td>{{ date('d-m-Y H:i', strtotime($item['histori_pesanan'])) }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($inbox as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item['id_pesanan'] }}</td>
-                            <td>{{ $item['nama_lengkap'] }}</td>
-                            <td>{{ $item['Nama_Barang'] }}</td>
-                            <td>{{ $item['quantity'] }}</td>
-                            <td>{{ $item['status_pesanan'] }}</td>
-                        </tr>
-                    @endforeach
-               
-    
-            
-        </tbody>
-            </table>
-        </div>
-
-        <!-- Table for Prioritas Pesanan -->
-        <div id="prioritasPesananTable" style="display: none; margin-top: 20px;">
-            <h3>Table Prioritas Pesanan</h3>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Order ID</th>
-                        <th>Customer Name</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                        <th>Prioritas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($inbox as $item)
-                        <tr id="row-{{ $item['id_pesanan'] }}">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item['id_pesanan'] }}</td>
-                            <td>{{ $item['nama_lengkap'] }}</td>
-                            <td>{{ $item['Nama_Barang'] }}</td>
-                            <td>{{ $item['quantity'] }}</td>
-                            <td>{{ $item['status_pesanan'] }}</td>
-                                        <td>
-                                <input type="checkbox" id="checkbox-{{ $item['id_pesanan'] }}" 
-                                    class="prioritas-checkbox" 
-                                    data-id="{{ $item['id_pesanan'] }}"> <!-- Checkbox for setting priority -->
-                            </td>
-                            
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Card Campaign -->
-        <div id="pemasaranContent" style="display: none; margin-top: 20px;">
-    <div class="row" id="campaignContainer">
-            <!-- <a class="mb-3" href="{{route('umkm.tambahcampaign')}}">
-                <button class="btn btn-success ">tambah campaign</button>
-            </a> -->
-    @foreach($campaign as $campaigns)
-            <div class="col-md-6  col-lg-4">
-                <div class="card mb-3"  style="width: 100%;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{{ $campaigns['image']['url'] ?? '' }}" class="img-fluid rounded-start" alt="{{ $campaigns['title'] ?? 'No Title' }}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $campaigns['title'] ?? 'No Title' }}</h5>
-                                <p class="card-text">{{ $campaigns['description'] ?? 'No Description' }}</p>
-                                <p class="card-text">
-                                    <small class="text-body-secondary">Start date: {{ $campaigns['start_date'] ?? 'N/A' }}</small>
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-body-secondary">End date: {{ $campaigns['end_date'] ?? 'N/A' }}</small>
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-body-secondary">Status: {{ $campaigns['status'] ?? 'N/A' }}</small>
-                                </p>
-                                <button class="btn btn-light">
-                                    <a href="{{ route('umkm.getcampaign', $campaigns['id_campaign']) }}">Edit</a>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>    
-        @endforeach
+                @endforeach
+            </tbody>
+        </table>
     </div>
-</div>
+
+    <!-- Table for Pesanan Diterima -->
+    <div id="pesananDiterimaTable" style="display: none; margin-top: 20px;">
+        <h3>Pesanan Diterima</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Order ID</th>
+                    <th>Nama Customer</th>
+                    <th>Produk</th>
+                    <th>Status Pesanan</th>
+                    <th>Waktu Pesanan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($pesananDiterima ?? [] as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item['id_pesanan'] }}</td>
+                        <td>{{ $item['nama_lengkap'] }}</td>
+                        <td>{{ $item['Nama_Barang'] }}</td>
+                        <td>{{ $item['status_pesanan'] }}</td>
+                        <td>{{ date('d-m-Y H:i', strtotime($item['histori_pesanan'])) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+        <!-- tab options -->
+        <div id="tabOption" style="display: none; margin-top: 20px;">
+            <h3>Plihan Inbox</h3>
+            <p>Ini adalah tab Options yang hanya berisi teks.</p>
+        </div>
+
         <!-- Tab Settings -->
         <div class="mt-4" id="pilihTab" style="background-color: #658864; color: white; max-width: fit-content; padding: 8px;">
             <h5>Pilih Tab</h5>
         </div>
+
     </div>
     @include('components.idle-timeout');
     <!-- Scripts -->

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,20 +23,6 @@
 </head>
 
 <body>
-    <script>
-        window.routes = {
-            umkm_dashboard: "{{ route('umkm.dashboard') }}",
-            umkm_managebarang: "{{ route('umkm.managebarang') }}",
-            umkm_kelolapesanan: "{{ route('umkm.kelolapesanan') }}",
-            umkm_pesananditerima: "{{ route('umkm.pesananditerima') }}",
-            umkm_pesananditolak: "{{ route('umkm.pesananditolak') }}",
-            umkm_pesananselesai: "{{ route('umkm.pesananselesai') }}",
-            umkm_statistik: "{{ route('umkm.statistik') }}",
-            umkm_message: "/message",
-            umkm_inbox: "{{ route('umkm.inbox') }}"
-        };
-    </script>
-
     <x-semua_-sidebar />
 
 <div class="container">

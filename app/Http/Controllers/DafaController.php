@@ -265,12 +265,12 @@ class DafaController extends Controller
             }
             $id_umkm = session('umkmID');
             $response = Http::withOptions(['verify' => false])
-                ->put("localhost/updateStatusKurirTerdaftar/" . $id_kurir);
+                ->put("https://umkmapi-production.up.railway.app/updateStatusKurirTerdaftar/" . $id_kurir);
             // Periksa respon API
             if ($response->successful()) {
-                return redirect()->route('umkm.konfimasiKurir')->with('success', 'Kurir telah diterima');
+                return redirect()->route('umkm.konfirmasiKurir')->with('success', 'Kurir telah diterima');
             } else {
-                return redirect()->route('umkm.konfimasiKurir')->with('error', 'Kurir gagal diterima');
+                return redirect()->route('umkm.konfirmasiKurir')->with('error', 'Kurir gagal diterima');
             }
         } catch (\Exception $e) {
             return redirect()->route('umkm.masuk')->with('error', $e->getMessage());
@@ -284,7 +284,6 @@ class DafaController extends Controller
             if (!$id) {
                 throw new \Exception('ID profile tidak ditemukan');
             }
-            // Kirim data ke API untuk update
             $id_umkm = session('umkmID');
             $response = Http::withOptions(['verify' => false])
                 ->put("https://umkmapi-production.up.railway.app/updateStatusKurirDitolak/" . $id_kurir);

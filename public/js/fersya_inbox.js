@@ -3,27 +3,38 @@ function toggleSubmenu() {
     submenu.style.display = submenu.style.display === "block" ? "none" : "block";
 }
 
-function showPesananMasuk() {
-    document.getElementById('prioritasPesananTable').style.display = 'none';
-    document.getElementById('pesananMasukTable').style.display = 'block';
-    document.getElementById("pemasaranContent").style.display = 'none';
-    document.getElementById('pilihTab').style.display = 'none';
-}
-
-function showPesananPrioritas() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Sembunyikan kedua tabel saat halaman dimuat
     document.getElementById('pesananMasukTable').style.display = 'none';
-    document.getElementById('prioritasPesananTable').style.display = 'block';
-    document.getElementById("pemasaranContent").style.display = "none";
-    document.getElementById('pilihTab').style.display = 'none';
+    document.getElementById('pesananDiterimaTable').style.display = 'none';
+    document.getElementById('tabOption').style.display = 'none';
+    // Tampilkan elemen "Pilih Tab"
+    document.getElementById('pilihTab').style.display = 'block';
+});
+
+function showPesananMasuk() {
+    document.getElementById('pesananMasukTable').style.display = 'block';
+    document.getElementById('pesananDiterimaTable').style.display = 'none';
+    document.getElementById('tabOption').style.display = 'none';
+    document.getElementById('pilihTab').style.display = 'none'; // Sembunyikan elemen "Pilih Tab"
+    document.getElementById('pesananMasukTable').scrollIntoView({ behavior: 'smooth' }); // Scroll ke tabel Pesanan Masuk
 }
 
-function showPemasaran() {
-    document.getElementById("pemasaranContent").style.display = "block";
-    document.getElementById("pesananMasukTable").style.display = "none";
-    document.getElementById("prioritasPesananTable").style.display = "none";
-    document.getElementById('pilihTab').style.display = 'none';
-    loadCampaigns();
+function showPesananDiterima() {
+    document.getElementById('pesananMasukTable').style.display = 'none';
+    document.getElementById('pesananDiterimaTable').style.display = 'block';
+    document.getElementById('tabOption').style.display = 'none';
+    document.getElementById('pilihTab').style.display = 'none'; // Sembunyikan elemen "Pilih Tab"
+    document.getElementById('pesananDiterimaTable').scrollIntoView({ behavior: 'smooth' }); // Scroll ke tabel Pesanan Diterima
 }
+
+function showTabOptions() {
+    document.getElementById('pesananMasukTable').style.display = 'none';
+    document.getElementById('pesananDiterimaTable').style.display = 'none';
+    document.getElementById('tabOption').style.display = 'block';
+    document.getElementById('pilihTab').style.display = 'none'; // Sembunyikan elemen "Pilih Tab"
+}
+
 
 // function loadCampaigns() {
 //     fetch('/json/dataPemasaran.json') 
@@ -61,24 +72,24 @@ function showPemasaran() {
 //         .catch(error => console.error('Error loading campaigns:', error));
 // }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const checkboxes = document.querySelectorAll(".prioritas-checkbox");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const checkboxes = document.querySelectorAll(".prioritas-checkbox");
 
-    checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener("change", function(event) {
-            const orderId = event.target.dataset.id; 
-            const isChecked = event.target.checked; 
-            const row = document.getElementById(`row-${orderId}`);
-            const tbody = row.closest("tbody");
+//     checkboxes.forEach(function(checkbox) {
+//         checkbox.addEventListener("change", function(event) {
+//             const orderId = event.target.dataset.id; 
+//             const isChecked = event.target.checked; 
+//             const row = document.getElementById(`row-${orderId}`);
+//             const tbody = row.closest("tbody");
 
-            if (isChecked) {
+//             if (isChecked) {
                 
-                tbody.insertBefore(row, tbody.firstChild); 
-            } else {
+//                 tbody.insertBefore(row, tbody.firstChild); 
+//             } else {
                 
-                const originalPosition = Array.from(tbody.rows).findIndex(r => r.id === `row-${orderId}`);
-                tbody.appendChild(row); 
-            }
-        });
-    });
-});
+//                 const originalPosition = Array.from(tbody.rows).findIndex(r => r.id === `row-${orderId}`);
+//                 tbody.appendChild(row); 
+//             }
+//         });
+//     });
+// });

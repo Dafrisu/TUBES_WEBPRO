@@ -36,17 +36,18 @@ Route::get('/kelolapesanan', [DafaController::class, 'getpesananmasuk'])->name('
 Route::get('/pesananditerima', [DafaController::class, 'getpesananditerima'])->name('umkm.pesananditerima');
 Route::get('/pesananditolak', [DafaController::class, 'getpesananditolak'])->name('umkm.pesananditolak');
 Route::get('/pesananselesai', [DafaController::class, 'getpesananselesai'])->name('umkm.pesananselesai');
-route::put('/updatestatuspesananditerima/{id_batch}', [DafaController::class, 'updatestatuspesananditerima'])->name('umkm.updatestatuspesananditerima');
-route::put('/updatestatuspesananditolak/{id_batch}', [DafaController::class, 'updatestatuspesananditolak'])->name('umkm.updatestatuspesananditolak');
+Route::put('/updatestatuspesananditerima/{id_batch}', [DafaController::class,
+'updatestatuspesananditerima'])->name('umkm.updatestatuspesananditerima');
+Route::put('/updatestatuspesananditolak/{id_batch}', [DafaController::class, 'updatestatuspesananditolak'])->name('umkm.updatestatuspesananditolak');
 Route::get('/getprofileumkm', [DafaController::class, 'getprofileumkm'])->name('umkm.getprofileumkm');
-route::put('/editprofileumkm', [DafaController::class, 'editprofileumkm'])->name('umkm.editprofileumkm');
-route::put('/terimakurir/{id_kurir}', [DafaController::class, 'terimakurir'])->name('umkm.terimakurir');
-route::put('/tolakKurir/{id_kurir}', [DafaController::class, 'tolakKurir'])->name('umkm.tolakKurir');
-route::get('/getumkmkurir', [DafaController::class, 'getumkmkurir'])->name('umkm.getumkmkurir');
-route::put('/pecatKurir/{id_kurir}', [DafaController::class, 'pecatKurir'])->name('umkm.pecatKurir');
-route::put('/deletekurir/{id_kurir}', [DafaController::class, 'deleteKurir'])->name('umkm.deletekurir');
-route::get('/konfirmasiKurir', [DafaController::class, 'getdatakurir'])->name('umkm.konfirmasiKurir');
-route::get('/historyKurirUmkm', [DafaController::class, 'gethistorykurirumkm'])->name('umkm.gethistorykurirumkm');
+Route::put('/editprofileumkm', [DafaController::class, 'editprofileumkm'])->name('umkm.editprofileumkm');
+Route::put('/terimakurir/{id_kurir}', [DafaController::class, 'terimakurir'])->name('umkm.terimakurir');
+Route::put('/tolakKurir/{id_kurir}', [DafaController::class, 'tolakKurir'])->name('umkm.tolakKurir');
+Route::get('/getumkmkurir', [DafaController::class, 'getumkmkurir'])->name('umkm.getumkmkurir');
+Route::put('/pecatKurir/{id_kurir}', [DafaController::class, 'pecatKurir'])->name('umkm.pecatKurir');
+Route::put('/deletekurir/{id_kurir}', [DafaController::class, 'deleteKurir'])->name('umkm.deletekurir');
+Route::get('/konfirmasiKurir', [DafaController::class, 'getdatakurir'])->name('umkm.konfirmasiKurir');
+Route::get('/historyKurirUmkm', [DafaController::class, 'gethistorykurirumkm'])->name('umkm.gethistorykurirumkm');
 Route::get('/logout-timeout', function () {
     session()->flush();
     return redirect('/masuk?session=timeout')->with('timeout', true);
@@ -61,6 +62,8 @@ Route::get('/campaign/{id}', [FersyaController::class, 'getCampaign'])->name('um
 Route::put('/editcampaign/{id}', [FersyaController::class, 'editCampaign'])->name('umkm.editcampaign');
 Route::post('/addcampaign', [FersyaController::class, 'addCampaign'])->name('umkm.addcampaign');;
 Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
+Route::get('/pesanan-masuk', [FersyaController::class, 'getviewinboxmasuk'])->name('pesanan.masuk');
+Route::get('/pesanan-diterima', [FersyaController::class, 'getviewinboxditerima'])->name('pesanan.diterima');
 // Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign');
 // Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign');
 

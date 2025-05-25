@@ -4,19 +4,15 @@ const konfirmasiSandi = document.getElementById("konfirmasiSandi");
 
 const togglesandi = document.getElementById("togglePassword");
 
-function toggler() {
-    if (togglesandi.checked) {
-        inputSandi.type = "text";
-        konfirmasiSandi.type = "text";
-    } else {
-        inputSandi.type = "password";
-        konfirmasiSandi.type = "password";
-    }
-}
-
-if (togglesandi) {
-    togglesandi.addEventListener("change", toggler);
-}
+document
+    .getElementById("togglePassword")
+    .addEventListener("change", function () {
+        const passwordInput = document.getElementById("inputPassword");
+        passwordInput.type = this.checked ? "text" : "password";
+    });
+document.querySelector("form").addEventListener("submit", () => {
+    console.log("Form submitted");
+});
 
 function cekEmail(email) {
     const constraints = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;

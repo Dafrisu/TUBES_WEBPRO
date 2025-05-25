@@ -72,38 +72,68 @@ class DarrylController extends Controller
 
     function masuk(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'inputEmail' => 'required|email',
+            'inputPassword' => 'required|string|min:6',
+        ], [
+            'inputEmail.required' => 'Email wajib diisi.',
+            'inputEmail.email' => 'Email tidak valid.',
+            'inputPassword.required' => 'Kata sandi wajib diisi.',
+            'inputPassword.min' => 'Kata sandi minimal 6 karakter.',
+        ]);
+
+        if ($validator->fails()) {
+            Log::warning('Validation failed:', $validator->errors()->toArray());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         try {
             $data = [
-                'inputEmail' => $request->input('inputEmail'),
-                'inputPassword' => $request->input('inputPassword'),
+                'email' => strtolower($request->input('inputEmail')),
+                'password' => $request->input('inputPassword'),
             ];
 
+            Log::info('UMKM Login Data:', $data);
+
+            Log::info('JSON Payload to API:', $data);
             $client = new Client(['verify' => false]);
-            $response = $client->post('https://umkmapi-production.up.railway.app/login', [
+            $response = $client->post('https://umkmapi-production.up.railway.app/api/masuk-umkm', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                    'User-Agent' => 'LaravelApp',
+                ],
                 'json' => $data,
             ]);
 
             // check RememberMe
-            $remember = $request->has('RememberMe');
-            Cookie::queue(Cookie::make('LoginEmail', $remember ? $data['inputEmail'] : '', 60));
-            Cookie::queue(Cookie::make('LoginPassword', $remember ? $data['inputPassword'] : '', 60));
+            // $remember = $request->has('RememberMe');
+            // Cookie::queue(Cookie::make('LoginEmail', $remember ? $data['inputEmail'] : '', 60));
+            // Cookie::queue(Cookie::make('LoginPassword', $remember ? $data['inputPassword'] : '', 60));
 
-            // jika error di bagian API
-            if ($response->getStatusCode() !== 200) {
-                return back()->with('error', 'Gagal Masuk! (code error)');
-            }
+            $result = json_decode($response->getBody()->getContents(), true);
+            Log::info('API Response:', $result);
+            Log::info('API Response from UMKM server:', $result);
 
-            $responseData = json_decode($response->getBody(), true);
+            // simpan id_umkm and email untuk page otp
+            session([
+                'id_umkm' => $result['id_umkm'],
+                'email' => $data['email'],
+            ]);
 
-            // Jika id_umkm tidak ditemukan (user tidak terdaftar)
-            if (!isset($responseData['id_umkm'])) {
-                return back()->with('error', 'Gagal Masuk! ID UMKM tidak ditemukan.');
-            }
-
-            session(['umkmID' => $responseData['id_umkm']]);
-            return redirect()->route('umkm.dashboard')->with('success', 'Berhasil Masuk! 👍👍');
+            return redirect()->route('umkm.auth')->with('success', 'OTP telah dikirim ke email Anda.');
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            $error = $e->hasResponse() ? json_decode($e->getResponse()->getBody()->getContents(), true)['error'] ?? $e->getMessage() : 'Tidak dapat terhubung ke server';
+            Log::error('UMKM Login RequestException: ' . $error, ['status' => $e->hasResponse() ? $e->getResponse()->getStatusCode() : null]);
+            Log::error('Guzzle Exception:', [
+                'message' => $e->getMessage(),
+                'request' => (string) $e->getRequest()->getBody(),
+                'response' => $e->hasResponse() ? (string) $e->getResponse()->getBody() : null
+            ]);
+            return redirect()->back()->with('error', $error)->withInput();
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi Kesalahan! Masukan data yang sesuai!');
+            Log::error('UMKM Login Exception: ' . $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage())->withInput();
         }
     }
 
@@ -150,7 +180,7 @@ class DarrylController extends Controller
         }
     }
 
-    function generateCode(Request $request)
+    function kirimCode(Request $request)
     {
         try {
         } catch (\Exception $e) {

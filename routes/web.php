@@ -19,7 +19,11 @@ Route::view('/new-password', 'darryl_new-password')->name('umkm.new-password');
 route::post('/lupa-password', [DarrylController::class, 'resetPassword'])->name('umkm.lupa-password');
 route::post('/new-password', [DarrylController::class, 'newPassword'])->name('umkm.new-password');
 route::post('/daftar', [DarrylController::class, 'daftar'])->name('umkm.daftar');
-route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
+
+// auth
+Route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
+Route::post('/auth/kirim-code', [DarrylController::class, 'kirimCode'])->name('umkm.kirim-code');
+
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 Route::get('/reset-password/{token}', function (string $token) {
     return view('umkm.new-password', ['token' => $token]);

@@ -4,26 +4,22 @@ function toggleSubmenu() {
 }
 
 function showPesananMasuk() {
-    document.getElementById('prioritasPesananTable').style.display = 'none';
     document.getElementById('pesananMasukTable').style.display = 'block';
-    document.getElementById("pemasaranContent").style.display = 'none';
-    document.getElementById('pilihTab').style.display = 'none';
+    document.getElementById('pesananDiterimaTable').style.display = 'none';
+    document.getElementById('tabOptions').style.display = 'none';
 }
 
-function showPesananPrioritas() {
+function showPesananDiterima() {
     document.getElementById('pesananMasukTable').style.display = 'none';
-    document.getElementById('prioritasPesananTable').style.display = 'block';
-    document.getElementById("pemasaranContent").style.display = "none";
-    document.getElementById('pilihTab').style.display = 'none';
+    document.getElementById('pesananDiterimaTable').style.display = 'block';
+    document.getElementById('tabOptions').style.display = 'none';
 }
 
-function showPemasaran() {
-    document.getElementById("pemasaranContent").style.display = "block";
-    document.getElementById("pesananMasukTable").style.display = "none";
-    document.getElementById("prioritasPesananTable").style.display = "none";
-    document.getElementById('pilihTab').style.display = 'none';
+function showTabOptions() {
+    document.getElementById('pesananMasukTable').style.display = 'none';
+    document.getElementById('pesananDiterimaTable').style.display = 'none';
+    document.getElementById('tabOptions').style.display = 'block';
 }
-
 // function loadCampaigns() {
 //     fetch('dataPemasaran.json')
 //         .then(response => response.json())
@@ -56,10 +52,10 @@ function showPemasaran() {
 // }
 
 
-function showPemasaran() {
-    document.getElementById("pemasaranContent").style.display = "block";
-    loadCampaigns();
-}
+// function showPemasaran() {
+//     document.getElementById("pemasaranContent").style.display = "block";
+//     loadCampaigns();
+// }
 
 
 // function showAktivitas() {

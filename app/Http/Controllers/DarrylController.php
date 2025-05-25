@@ -95,6 +95,9 @@ class DarrylController extends Controller
 
             Log::info('UMKM Login Data:', $data);
 
+            // cek is_verified untuk menentukan apakah harus 2fa atau tidak
+            $is_verified = $result['is_verified'] ?? null;
+
             Log::info('JSON Payload to API:', $data);
             $client = new Client(['verify' => false]);
             $response = $client->post('https://umkmapi-production.up.railway.app/api/masuk-umkm', [
@@ -119,7 +122,13 @@ class DarrylController extends Controller
             session([
                 'umkmID' => $result['id_umkm'],
                 'email' => $data['email'],
+                'is_verified' => $is_verified,
             ]);
+
+            // langsung ke dashboard jika is_verified == 1 (true)
+            if ($is_verified) {
+                return redirect()->route('umkm.dashboard')->with('success', 'Login berhasil.');
+            }
 
             return redirect()->route('umkm.auth')->with('success', 'OTP telah dikirim ke email Anda.');
         } catch (\GuzzleHttp\Exception\RequestException $e) {

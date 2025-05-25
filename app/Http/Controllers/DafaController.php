@@ -98,7 +98,7 @@ class DafaController extends Controller
 
         try {
             $id_umkm = session('umkmID');
-            if (!$id) {
+            if (!$id_umkm) {
             throw new \Exception('ID profile tidak ditemukan');
             }
             // Kirim data ke API untuk update
@@ -121,7 +121,7 @@ class DafaController extends Controller
         try {
             // Kirim data ke API untuk update
             $id_umkm = session('umkmID');
-            if (!$id) {
+            if (!$id_umkm) {
             throw new \Exception('ID profile tidak ditemukan');
             }
             $response = Http::withOptions(['verify' => false])
@@ -281,7 +281,7 @@ class DafaController extends Controller
     {
         try {
             $id_umkm = session('umkmID');
-            if (!$id) {
+            if (!$id_umkm) {
             throw new \Exception('ID profile tidak ditemukan');
             }
             // Kirim data ke API untuk update
@@ -303,7 +303,7 @@ class DafaController extends Controller
     {
         try {
             $id_umkm = session('umkmID');
-            if (!$id) {
+            if (!$id_umkm) {
             throw new \Exception('ID profile tidak ditemukan');
             }
             // Kirim data ke API untuk update

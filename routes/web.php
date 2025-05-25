@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Http;
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
-Route::view('/auth', 'darryl_2fa')->name('umkm.2fa');
 Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password');
 Route::view('/new-password', 'darryl_new-password')->name('umkm.new-password');
 route::post('/lupa-password', [DarrylController::class, 'resetPassword'])->name('umkm.lupa-password');
@@ -21,7 +20,8 @@ route::post('/new-password', [DarrylController::class, 'newPassword'])->name('um
 route::post('/daftar', [DarrylController::class, 'daftar'])->name('umkm.daftar');
 
 // auth
-Route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
+Route::view('/auth', 'darryl_2fa')->name('umkm.auth');
+Route::post('/auth/verifikasi-otp', [DarrylController::class, 'verifikasiOTP'])->name('umkm.verifikasi');
 Route::post('/auth/kirim-code', [DarrylController::class, 'kirimCode'])->name('umkm.kirim-code');
 
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');

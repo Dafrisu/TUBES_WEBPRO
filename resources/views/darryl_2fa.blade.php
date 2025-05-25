@@ -65,7 +65,7 @@
             <div class="fs-4 fw-medium mb-4 text-center">Masukkan kode OTP yang dikirim ke email Anda</div>
 
             {{-- forms --}}
-            <form action="{{ route('umkm.auth') }}" method="POST">
+            <form action="{{ route('umkm.verifikasi') }}" method="POST">
                 @csrf
                 <!-- Isi Email -->
                 <div class="mb-2">
@@ -80,7 +80,7 @@
                 <div class="mb-2">
                     <label for="inputOtp" class="form-label">Kode OTP</label>
                     <input type="text" class="form-control @error('inputOtp') is-invalid @enderror" id="inputOtp"
-                        name="inputOtp" required>
+                        name="inputOtp">
                     @error('inputOtp')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -92,8 +92,9 @@
                 <!-- Resend OTP -->
                 <div class="d-flex justify-content-center mt-2">
                     <div class="fs-6">Tidak menerima OTP?</div>
-                    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
-                        href="{{ route('umkm.kirim-code') }}">Kirim ulang</a>
+                    <button type="submit" name="action" value="kirim-ulang" class="btn btn-link p-0 align-baseline">
+                        Kirim ulang
+                    </button>
                 </div>
             </form>
         </div>

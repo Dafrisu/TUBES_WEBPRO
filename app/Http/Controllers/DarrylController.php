@@ -162,41 +162,6 @@ class DarrylController extends Controller
         }
     }
 
-    function resetPassword(Request $request)
-    {
-        try {
-            $request->validate(['inputEmail' => 'required|email']);
-
-            // pakai guzzle
-            $client = new Client(['verify' => false]);
-
-            // Send the POST request using Guzzle
-            $response = $client->post('https://umkmapi-production.up.railway.app/reset-password', [
-                'json' => [
-                    'email' => $request->input('inputEmail')
-                ]
-            ]);
-
-            $body = json_decode((string) $response->getBody(), true);
-
-            if (isset($body['message'])) {
-                return back()->with('status', $body['message']);
-            } else {
-                return back()->withErrors(['email' => 'Failed to send reset link']);
-            }
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
-        }
-    }
-
-    function newPassword(Request $request)
-    {
-        try {
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal verifikasi akun anda');
-        }
-    }
-
     public function verifikasiOTP(Request $request)
     {
         $action = $request->input('action');
@@ -312,5 +277,129 @@ class DarrylController extends Controller
             Log::error('Resend OTP Exception: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal mengirim ulang OTP: ' . $e->getMessage());
         }
+    }
+
+    function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'inputEmail' => 'required|email',
+            'token' => 'required|string',
+            'inputPassword' => 'required|string|min:6|confirmed',
+        ], [
+            'inputEmail.required' => 'Email wajib diisi.',
+            'inputEmail.email' => 'Email tidak valid.',
+            'token.required' => 'Token wajib diisi.',
+            'inputPassword.required' => 'Kata sandi wajib diisi.',
+            'inputPassword.min' => 'Kata sandi minimal 6 karakter.',
+            'inputPassword.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+        ]);
+
+        if ($validator->fails()) {
+            Log::warning('Reset Password Validation failed:', $validator->errors()->toArray());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $data = [
+                'email' => strtolower($request->input('inputEmail')),
+                'token' => $request->input('token'),
+                'password' => $request->input('inputPassword'),
+            ];
+
+            Log::info('Reset Password Data:', $data);
+
+            $client = new Client(['verify' => false]);
+            $response = $client->post('https://umkmapi-production.up.railway.app/api/reset-password', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                    'User-Agent' => 'LaravelApp',
+                ],
+                'json' => $data,
+            ]);
+
+            $result = json_decode($response->getBody()->getContents(), true);
+            Log::info('Reset Password API Response:', [
+                'status' => $response->getStatusCode(),
+                'body' => $result
+            ]);
+
+            session()->flush();
+            return redirect()->route('umkm.login')->with('status', 'Kata sandi berhasil direset. Silakan login.');
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            $error = $e->hasResponse() ? json_decode($e->getResponse()->getBody()->getContents(), true)['error'] ?? $e->getMessage() : 'Tidak dapat terhubung ke server';
+            Log::error('Reset Password RequestException: ' . $error, [
+                'status' => $e->hasResponse() ? $e->getResponse()->getStatusCode() : null,
+                'response_body' => $e->hasResponse() ? (string) $e->getResponse()->getBody() : null
+            ]);
+            return redirect()->back()->with('error', $error)->withInput();
+        } catch (\Exception $e) {
+            Log::error('Reset Password Exception: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal mereset kata sandi: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function lupaPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'inputEmail' => 'required|email',
+        ], [
+            'inputEmail.required' => 'Email wajib diisi.',
+            'inputEmail.email' => 'Email tidak valid.',
+        ]);
+
+        if ($validator->fails()) {
+            Log::warning('Forgot Password Validation failed:', $validator->errors()->toArray());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $email = strtolower($request->input('inputEmail'));
+
+            Log::info('Forgot Password Request:', ['email' => $email]);
+
+            $client = new Client(['verify' => false]);
+            $response = $client->post('https://umkmapi-production.up.railway.app/api/forgot-password', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                    'User-Agent' => 'LaravelApp',
+                ],
+                'json' => [
+                    'email' => $email,
+                ],
+            ]);
+
+            $result = json_decode($response->getBody()->getContents(), true);
+            Log::info('Forgot Password API Response:', [
+                'status' => $response->getStatusCode(),
+                'body' => $result
+            ]);
+
+            return redirect()->route('umkm.lupa-password')->with('status', 'Link reset kata sandi telah dikirim ke email Anda.');
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            $error = $e->hasResponse() ? json_decode($e->getResponse()->getBody()->getContents(), true)['error'] ?? $e->getMessage() : 'Tidak dapat terhubung ke server';
+            Log::error('Forgot Password RequestException: ' . $error, [
+                'status' => $e->hasResponse() ? $e->getResponse()->getStatusCode() : null,
+                'response_body' => $e->hasResponse() ? (string) $e->getResponse()->getBody() : null
+            ]);
+            return redirect()->back()->with('error', $error)->withInput();
+        } catch (\Exception $e) {
+            Log::error('Forgot Password Exception: ' . $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage())->withInput();
+        }
+    }
+
+    // Show reset password form
+    public function showResetPasswordForm(Request $request)
+    {
+        $email = $request->query('email');
+        $token = $request->query('token');
+
+        if (!$email || !$token) {
+            return redirect()->route('umkm.lupa-password')->with('error', 'Link reset tidak valid.');
+        }
+
+        return view('umkm.reset-password', compact('email', 'token'));
     }
 }

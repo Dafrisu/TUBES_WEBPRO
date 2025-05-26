@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\Http;
 
 Route::view('/', 'darryl_landing')->name('umkm.landing');
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
-Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password');
-Route::view('/new-password', 'darryl_new-password')->name('umkm.new-password');
-route::post('/lupa-password', [DarrylController::class, 'resetPassword'])->name('umkm.lupa-password');
-route::post('/new-password', [DarrylController::class, 'newPassword'])->name('umkm.new-password');
 route::post('/daftar', [DarrylController::class, 'daftar'])->name('umkm.daftar');
+
+// reset password
+Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password');
+Route::view('/reset-password', 'darryl_reset-password')->name('umkm.reset-password');
+route::post('/lupa-password', [DarrylController::class, 'lupaPassword'])->name('umkm.lupa-password');
+route::post('/reset-password', [DarrylController::class, 'resetPassword'])->name('umkm.reset-password');
 
 // auth
 Route::view('/auth', 'darryl_2fa')->name('umkm.auth');

@@ -68,20 +68,32 @@
                 <input type="hidden" name="token" value="{{ request()->query('token') }}">
                 <input type="hidden" name="inputEmail" value="{{ request()->query('email') }}">
 
-                <div class="mb-2">
+                <div class="mb-2 position-relative">
                     <label for="inputPassword" class="form-label">Kata sandi baru</label>
                     <input type="password" class="form-control @error('inputPassword') is-invalid @enderror"
                         id="inputPassword" name="inputPassword" placeholder="Masukkan kata sandi baru" required>
+                    <img src="{{ asset('images/show.png') }}" alt="Show password" class="password-toggle"
+                        id="togglePasswordIcon" aria-label="Show password">
                     @error('inputPassword')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="mb-2">
+                <div class="mb-2 position-relative">
                     <label for="inputPasswordConfirmation" class="form-label">Konfirmasi kata sandi</label>
-                    <input type="password" class="form-control @error('inputPassword') is-invalid @enderror"
+                    <input type="password"
+                        class="form-control @error('inputPassword_confirmation') is-invalid @enderror"
                         id="inputPasswordConfirmation" name="inputPassword_confirmation"
                         placeholder="Konfirmasi kata sandi" required>
+                    <img src="{{ asset('images/show.png') }}" alt="Show password" class="password-toggle"
+                        id="toggleConfirmPasswordIcon" aria-label="Show password">
+                    @error('inputPassword_confirmation')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-2">
+                    <input type="checkbox" id="togglePassword"> Tunjukkan sandi
                 </div>
 
                 <div class="d-flex flex-column justify-content-center">
@@ -91,10 +103,38 @@
 
             <div class="d-flex justify-content-center mt-2">
                 <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                    href="{{ route('umkm.login') }}">Kembali ke login</a>
+                    href="{{ route('umkm.masuk') }}">Kembali ke login</a>
             </div>
         </div>
     </div>
+
+    <style>
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('change', function() {
+            const passwordInput = document.getElementById('inputPassword');
+            const confirmPasswordInput = document.getElementById('inputPasswordConfirmation');
+            const passwordIcon = document.getElementById('togglePasswordIcon');
+            const confirmPasswordIcon = document.getElementById('toggleConfirmPasswordIcon');
+
+            const type = this.checked ? 'text' : 'password';
+            passwordInput.type = type;
+            confirmPasswordInput.type = type;
+
+            const iconSrc = this.checked ? '{{ asset('images/hide.png') }}' : '{{ asset('images/show.png') }}';
+            passwordIcon.src = iconSrc;
+            confirmPasswordIcon.src = iconSrc;
+        });
+    </script>
 
     <!-- Connect Bootsrap bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

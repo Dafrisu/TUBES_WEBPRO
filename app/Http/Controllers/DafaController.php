@@ -332,6 +332,11 @@ class DafaController extends Controller
             $dataprodukpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getdatadashboardprodukpalingbaru/' . $id);
             $datapesanpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getdatadashboardpesanpalingbaru/' . $id);
             $datacampaignpalingbaru = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getdatadashboardcampaignpalingbaru/' . $id);
+            $datapesananmasuk = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getdatadashboardpesananmasuk/' . $id);
+            $pesananMasukResponse = Http::withOptions(['verify' => false])->get('https://umkmapi-production.up.railway.app/getinboxpesananmasuk', ['id_umkm' => $id]);
+            $pesananMasuk = [];
+            $waktuPesananTerbaru = null;
+            $jumlahPesananMasuk = 0;
 
             if ($respose->successful()) {
                 $profile = $respose->json();
@@ -340,7 +345,16 @@ class DafaController extends Controller
                 $datadashboardprodukpalingbaru = json_decode($dataprodukpalingbaru, true);
                 $datadashboardpesanpalingbaru = json_decode($datapesanpalingbaru, true);
                 $datadashboardcampaignpalingbaru = json_decode($datacampaignpalingbaru, true);
-                return view('Dafa_Dashboard', compact('profile', 'datadashboardpesananmasuk', 'datadashboardprodukpalingbaru', 'datadashboardpesanpalingbaru', 'datadashboardcampaignpalingbaru'), compact('datadashboardproduklaris'));
+
+
+                if ($pesananMasukResponse->successful()) {
+                    $pesananMasuk = $pesananMasukResponse->json();
+                    $jumlahPesananMasuk = count($pesananMasuk);
+                    if (!empty($pesananMasuk)) {
+                        $waktuPesananTerbaru = $pesananMasuk[0]['histori_pesanan'] ?? null;
+                    }
+                }
+                return view('Dafa_Dashboard', compact('profile', 'datadashboardpesananmasuk', 'datadashboardprodukpalingbaru', 'datadashboardpesanpalingbaru', 'datadashboardcampaignpalingbaru', 'waktuPesananTerbaru'), compact('datadashboardproduklaris'));
             } else {
                 throw new \Exception('data tidak ditemukan');
             }

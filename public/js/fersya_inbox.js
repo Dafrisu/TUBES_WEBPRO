@@ -35,6 +35,24 @@ function showTabOptions() {
     document.getElementById('pilihTab').style.display = 'none'; // Sembunyikan elemen "Pilih Tab"
 }
 
+  document.addEventListener('DOMContentLoaded', function () {
+        // Ambil status toggle dari localStorage
+        const toggleDashboardAlert = document.getElementById('toggleDashboardAlert');
+        const alertStatus = localStorage.getItem('dashboardAlertStatus') === 'true';
+
+        // Set status awal toggle
+        toggleDashboardAlert.checked = alertStatus;
+
+        // Simpan status toggle ke localStorage saat diubah
+        toggleDashboardAlert.addEventListener('change', function () {
+            localStorage.setItem('dashboardAlertStatus', this.checked);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // Hapus localStorage saat login
+    localStorage.clear();
+});
 
 // function loadCampaigns() {
 //     fetch('/json/dataPemasaran.json') 

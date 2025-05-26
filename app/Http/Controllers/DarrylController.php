@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Password;
 
@@ -95,10 +96,6 @@ class DarrylController extends Controller
 
             Log::info('UMKM Login Data:', $data);
 
-            // cek is_verified untuk menentukan apakah harus 2fa atau tidak
-            $is_verified = $result['is_verified'] ?? null;
-
-            Log::info('JSON Payload to API:', $data);
             $client = new Client(['verify' => false]);
             $response = $client->post('https://umkmapi-production.up.railway.app/api/masuk-umkm', [
                 'headers' => [
@@ -115,6 +112,17 @@ class DarrylController extends Controller
             // Cookie::queue(Cookie::make('LoginPassword', $remember ? $data['inputPassword'] : '', 60));
 
             $result = json_decode($response->getBody()->getContents(), true);
+            Log::info('API Response from masuk-umkm:', [
+                'status' => $response->getStatusCode(),
+                'body' => $result
+            ]);
+
+            // simpan id_umkm dan status verified dari response API
+            $id_umkm = $result['id_umkm'] ?? null;
+
+            // cek is_verified untuk menentukan apakah harus 2fa atau tidak
+            $is_verified = $result['is_verified'] ?? null;
+
             Log::info('API Response:', $result);
             Log::info('API Response from UMKM server:', $result);
 
@@ -127,9 +135,17 @@ class DarrylController extends Controller
 
             // langsung ke dashboard jika is_verified == 1 (true)
             if ($is_verified) {
+                Log::info('User is verified, redirecting to dashboard', [
+                    'id_umkm' => $id_umkm,
+                    'email' => $data['email']
+                ]);
                 return redirect()->route('umkm.dashboard')->with('success', 'Login berhasil.');
             }
 
+            Log::info('User is not verified, redirecting to OTP', [
+                'id_umkm' => $id_umkm,
+                'email' => $data['email']
+            ]);
             return redirect()->route('umkm.auth')->with('success', 'OTP telah dikirim ke email Anda.');
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             $error = $e->hasResponse() ? json_decode($e->getResponse()->getBody()->getContents(), true)['error'] ?? $e->getMessage() : 'Tidak dapat terhubung ke server';

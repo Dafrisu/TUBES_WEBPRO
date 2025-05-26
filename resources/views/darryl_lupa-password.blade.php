@@ -48,8 +48,8 @@
     <!-- Wrapper untuk form masuk -->
     <div class="container content1">
         <div class="container" id="form_box">
-            <div class="fs-2 fw-bold text-center">Ubah Kata Sandi</div>
-            <div class="fs-4 fw-medium mb-4 text-center">Masukkan kata sandi baru</div>
+            <div class="fs-2 fw-bold text-center">Lupa Kata Sandi?</div>
+            <div class="fs-4 fw-medium mb-4 text-center">Masukkan email untuk mengubah kata sandi</div>
 
             @if (session('error'))
                 <div class="alert alert-danger">
@@ -63,35 +63,31 @@
                 </div>
             @endif
 
-            <form action="{{ route('umkm.reset-password') }}" method="POST">
+            <form action="{{ route('umkm.lupa-password') }}" method="POST">
                 @csrf
-                <input type="hidden" name="token" value="{{ request()->query('token') }}">
-                <input type="hidden" name="inputEmail" value="{{ request()->query('email') }}">
-
                 <div class="mb-2">
-                    <label for="inputPassword" class="form-label">Kata sandi baru</label>
-                    <input type="password" class="form-control @error('inputPassword') is-invalid @enderror"
-                        id="inputPassword" name="inputPassword" placeholder="Masukkan kata sandi baru" required>
-                    @error('inputPassword')
+                    <label for="inputEmail" class="form-label">Alamat email</label>
+                    <input type="email" class="form-control @error('inputEmail') is-invalid @enderror" id="inputEmail"
+                        name="inputEmail" placeholder="Masukkan email anda" value="{{ old('inputEmail') }}" required>
+                    @error('inputEmail')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="mb-2">
-                    <label for="inputPasswordConfirmation" class="form-label">Konfirmasi kata sandi</label>
-                    <input type="password" class="form-control @error('inputPassword') is-invalid @enderror"
-                        id="inputPasswordConfirmation" name="inputPassword_confirmation"
-                        placeholder="Konfirmasi kata sandi" required>
+                <div class="d-flex flex-column justify-content-center">
+                    <button type="submit" class="btn btn-primary">Kirim</button>
                 </div>
 
-                <div class="d-flex flex-column justify-content-center">
-                    <button type="submit" class="btn btn-primary">Ubah Kata Sandi</button>
+                <div class="d-flex justify-content-center mt-2">
+                    <div class="fs-6">Tidak mendapat email?</div>
+                    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
+                        href="{{ route('umkm.lupa-password') }}">Kirim ulang</a>
                 </div>
             </form>
 
             <div class="d-flex justify-content-center mt-2">
                 <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                    href="{{ route('umkm.login') }}">Kembali ke login</a>
+                    href="{{ route('umkm.masuk') }}">Kembali ke login</a>
             </div>
         </div>
     </div>

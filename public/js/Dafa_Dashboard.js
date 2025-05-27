@@ -12,7 +12,25 @@ function toggleSubmenu() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const alertStatus = localStorage.getItem('dashboardAlertStatus') === 'true'; 
+    const dashboardAlert = document.getElementById('dashboardAlert'); 
 
+    // Tampilkan alert jika status toggle ON
+    if (alertStatus && dashboardAlert) {
+        dashboardAlert.style.display = 'block';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Hapus localStorage saat login kembali 
+    localStorage.clear();
+});
+
+ function clearLocalStorage() {
+        // Hapus localStorage saat logout
+        localStorage.clear();
+    }
 // $(document).ready(function () {
 //     loadPesanan();
 

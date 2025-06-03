@@ -13,6 +13,9 @@ class TrustProxies
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+
+    // Ubah ini menjadi '*' untuk memercayai semua proxy (cocok untuk Railway)
+    protected $proxies = '*';
     public function handle(Request $request, Closure $next): Response
     {
         return $next($request);

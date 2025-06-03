@@ -1,0 +1,14 @@
+/* resources/css/app.css */
+
+/* Import Bootstrap dari node_modules jika Anda menginstalnya via npm */
+@import 'bootstrap/dist/css/bootstrap.css';
+
+/* Import semua file CSS kustom Anda yang lain */
+@import './Dafa_Dashboard.css';
+@import './darryl_chat.css';
+@import './darryl.css';
+@import './fersya_inbox_2.css';
+@import './fersya_inbox.css';
+@import './haikal_manage.css';
+@import './Raphael_Chat.css';
+@import './Raphael_Message.css';

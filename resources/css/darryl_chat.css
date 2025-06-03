@@ -1,0 +1,145 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  width: 100%;
+  color: #FCFAFA;
+  display: flex;
+}
+
+body main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#sidebar {
+  background-color: #658864;
+  height: 100vh;
+  margin: 0;
+  min-width: 250px;
+  max-width: 300px;
+  padding: 1rem;
+  align-items: center;
+}
+
+#sidebar h2 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+li a {
+  text-decoration: none;
+  color: #FCFAFA;
+  vertical-align: middle;
+}
+
+li {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  align-items: center;
+}
+
+li svg {
+  margin-right: 8px;
+  width: 28px;
+  height: 28px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul ul li {
+  padding-left: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+li:hover {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  align-items: center;
+  border-radius: 10px;
+  opacity: 0.5;
+}
+
+#list-pembeli {
+  background-color: aqua;
+  display: inline;
+  height: 100vh;
+  max-width: fit-content;
+  padding: 1rem;
+  margin: 0;
+}
+
+#list-pembeli a{
+  display: block;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#chat-interface {
+  display: inline;
+  background-color: antiquewhite;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#chat-interface header {
+  background-color: brown;
+}
+
+header #info {
+  background-color: aliceblue;
+}
+
+footer {
+  position: bottom;
+}
+
+#chat-interface header {
+  align-items: center;
+  display: flex;
+  padding: 1rem;
+}
+
+#chat-interface header svg {
+  width: 24px;
+  height: 24px;
+}
+
+header img {
+  height: 48px;
+}
+
+.UMKMku {
+  align-self: self-end;
+}
+
+.keyboard svg {
+  width: 24px;
+  height: 24px;
+}
+.keyboard {
+  padding: 1rem;
+}

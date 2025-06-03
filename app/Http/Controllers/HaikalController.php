@@ -77,9 +77,9 @@ class HaikalController extends Controller
                 $produk = $response->json(); // Decode JSON
                 $produkmakanan = array_filter($produk, fn($item) => $item["tipe_barang"] === "Makanan");
                 $produkminuman = array_filter($produk, fn($item) => $item["tipe_barang"] === "Minuman");
-                return view('Haikal_managebarang', compact('produk', 'produkmakanan', 'produkminuman'));
+                return view('Haikal_ManageBarang', compact('produk', 'produkmakanan', 'produkminuman'));
             } else {
-                return view('Haikal_managebarang')->with('error', 'Gagal mendapatkan produk dari API');
+                return view('Haikal_ManageBarang')->with('error', 'Gagal mendapatkan produk dari API');
             }
         } catch (\Exception $e) {
             return redirect()->route('umkm.masuk')->with('error', $e->getMessage());

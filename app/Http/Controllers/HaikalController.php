@@ -86,6 +86,7 @@ class HaikalController extends Controller
         }
     }
 
+
     public function getUpdateprodukview($id)
     {
         try {

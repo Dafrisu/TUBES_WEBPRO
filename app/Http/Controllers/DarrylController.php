@@ -325,7 +325,7 @@ class DarrylController extends Controller
             ]);
 
             session()->flush();
-            return redirect()->route('umkm.login')->with('status', 'Kata sandi berhasil direset. Silakan login.');
+            return redirect()->route('umkm.masuk')->with('success', 'Kata sandi berhasil direset. Silakan login.');
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             $error = $e->hasResponse() ? json_decode($e->getResponse()->getBody()->getContents(), true)['error'] ?? $e->getMessage() : 'Tidak dapat terhubung ke server';
             Log::error('Reset Password RequestException: ' . $error, [

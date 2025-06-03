@@ -10,22 +10,25 @@ use App\Http\Controllers\MahesaController;
 use Illuminate\Support\Facades\Http;
 
 
-
+// landing/register
 Route::view('/', 'darryl_landing')->name('umkm.landing');
-Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
 route::post('/daftar', [DarrylController::class, 'daftar'])->name('umkm.daftar');
 
-// reset password
-Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password');
-Route::view('/reset-password', 'darryl_reset-password')->name('umkm.reset-password');
+// lupa password
+Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password.form');
 route::post('/lupa-password', [DarrylController::class, 'lupaPassword'])->name('umkm.lupa-password');
+
+// reset password
 route::post('/reset-password', [DarrylController::class, 'resetPassword'])->name('umkm.reset-password');
+Route::view('/reset-password', 'darryl_reset-password')->name('umkm.reset-password.form');
 
 // auth
 Route::view('/auth', 'darryl_2fa')->name('umkm.auth');
 Route::post('/auth/verifikasi-otp', [DarrylController::class, 'verifikasiOTP'])->name('umkm.verifikasi');
 Route::post('/auth/kirim-code', [DarrylController::class, 'kirimCode'])->name('umkm.kirim-code');
 
+// masuk
+Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 Route::get('/reset-password/{token}', function (string $token) {
     return view('umkm.new-password', ['token' => $token]);

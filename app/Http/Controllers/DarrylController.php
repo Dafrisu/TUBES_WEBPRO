@@ -107,9 +107,18 @@ class DarrylController extends Controller
             ]);
 
             // check RememberMe
-            // $remember = $request->has('RememberMe');
-            // Cookie::queue(Cookie::make('LoginEmail', $remember ? $data['inputEmail'] : '', 60));
-            // Cookie::queue(Cookie::make('LoginPassword', $remember ? $data['inputPassword'] : '', 60));
+            $remember = $request->has('RememberMe');
+            if ($remember) {
+                Cookie::queue(Cookie::make('LoginEmail', $data['inputEmail'], 60, null, null, true, true, false, 'Strict'));
+                Cookie::queue(Cookie::make('LoginPassword', $data['inputPassword'], 60, null, null, true, true, false, 'Strict'));
+            } else {
+                // Clear cookies if RememberMe is not checked
+                Cookie::queue(Cookie::forget('LoginEmail'));
+                Cookie::queue(Cookie::forget('LoginPassword'));
+            }
+
+            // untuk simpan email user ketika terjadi kesalahan pada saat input form
+            session()->flash('inputEmail', $data['inputEmail']);
 
             $result = json_decode($response->getBody()->getContents(), true);
             Log::info('API Response from masuk-umkm:', [

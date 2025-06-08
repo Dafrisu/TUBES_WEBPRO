@@ -15,6 +15,9 @@
     <!-- Connect CSS -->
     <link rel="stylesheet" href="{{ asset('css/darryl.css') }}">
 
+    {{-- Connect icons bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
     <!-- Import Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap"
@@ -72,8 +75,8 @@
                     <label for="inputPassword" class="form-label">Kata sandi baru</label>
                     <input type="password" class="form-control @error('inputPassword') is-invalid @enderror"
                         id="inputPassword" name="inputPassword" placeholder="Masukkan kata sandi baru" required>
-                    <img src="{{ asset('images/show.png') }}" alt="Show password" class="password-toggle"
-                        id="togglePasswordIcon" aria-label="Show password">
+                    <i class="bi bi-eye-slash-fill password-toggle" id="togglePasswordIcon"
+                        aria-label="Toggle password visibility"></i>
                     @error('inputPassword')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -85,15 +88,11 @@
                         class="form-control @error('inputPassword_confirmation') is-invalid @enderror"
                         id="inputPasswordConfirmation" name="inputPassword_confirmation"
                         placeholder="Konfirmasi kata sandi" required>
-                    <img src="{{ asset('images/show.png') }}" alt="Show password" class="password-toggle"
-                        id="toggleConfirmPasswordIcon" aria-label="Show password">
+                    <i class="bi bi-eye-slash-fill password-toggle" id="toggleConfirmPasswordIcon"
+                        aria-label="Toggle password visibility"></i>
                     @error('inputPassword_confirmation')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
-
-                <div class="mb-2">
-                    <input type="checkbox" id="togglePassword"> Tunjukkan sandi
                 </div>
 
                 <div class="d-flex flex-column justify-content-center">
@@ -109,32 +108,15 @@
     </div>
 
     <style>
+        /* untuk toggle show password pake icons */
         .password-toggle {
             position: absolute;
             right: 10px;
-            top: 38px;
+            top: 50%;
             cursor: pointer;
-            width: 20px;
-            height: 20px;
+            font-size: 20px;
         }
     </style>
-
-    <script>
-        document.getElementById('togglePassword').addEventListener('change', function() {
-            const passwordInput = document.getElementById('inputPassword');
-            const confirmPasswordInput = document.getElementById('inputPasswordConfirmation');
-            const passwordIcon = document.getElementById('togglePasswordIcon');
-            const confirmPasswordIcon = document.getElementById('toggleConfirmPasswordIcon');
-
-            const type = this.checked ? 'text' : 'password';
-            passwordInput.type = type;
-            confirmPasswordInput.type = type;
-
-            const iconSrc = this.checked ? '{{ asset('images/hide.png') }}' : '{{ asset('images/show.png') }}';
-            passwordIcon.src = iconSrc;
-            confirmPasswordIcon.src = iconSrc;
-        });
-    </script>
 
     <!-- Connect Bootsrap bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

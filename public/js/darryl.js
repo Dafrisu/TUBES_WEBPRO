@@ -4,14 +4,35 @@ const konfirmasiSandi = document.getElementById("konfirmasiSandi");
 
 const togglesandi = document.getElementById("togglePassword");
 
-document
-    .getElementById("togglePassword")
-    .addEventListener("change", function () {
-        const passwordInput = document.getElementById("inputPassword");
-        passwordInput.type = this.checked ? "text" : "password";
+// document
+//     .getElementById("togglePassword")
+//     .addEventListener("change", function () {
+//         const passwordInput = document.getElementById("inputPassword");
+//         passwordInput.type = this.checked ? "text" : "password";
+//     });
+// document.querySelector("form").addEventListener("submit", () => {
+//     console.log("Form submitted");
+// });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('inputPassword');
+    const confirmPasswordInput = document.getElementById('inputPasswordConfirmation');
+    const passwordIcon = document.getElementById('togglePasswordIcon');
+    const confirmPasswordIcon = document.getElementById('toggleConfirmPasswordIcon');
+
+    // Toggle password field
+    passwordIcon.addEventListener('click', function() {
+        const isVisible = passwordInput.type === 'password';
+        passwordInput.type = isVisible ? 'text' : 'password';
+        passwordIcon.className = `password-toggle bi ${isVisible ? 'bi-eye-fill' : ' bi-eye-slash-fill'}`;
     });
-document.querySelector("form").addEventListener("submit", () => {
-    console.log("Form submitted");
+
+    // Toggle confirm password field
+    confirmPasswordIcon.addEventListener('click', function() {
+        const isVisible = confirmPasswordInput.type === 'password';
+        confirmPasswordInput.type = isVisible ? 'text' : 'password';
+        confirmPasswordIcon.className = `password-toggle bi ${isVisible ? 'bi-eye-fill' : ' bi-eye-slash-fill'}`;
+    });
 });
 
 function cekEmail(email) {

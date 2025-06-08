@@ -107,9 +107,18 @@ class DarrylController extends Controller
             ]);
 
             // check RememberMe
-            // $remember = $request->has('RememberMe');
-            // Cookie::queue(Cookie::make('LoginEmail', $remember ? $data['inputEmail'] : '', 60));
-            // Cookie::queue(Cookie::make('LoginPassword', $remember ? $data['inputPassword'] : '', 60));
+            $remember = $request->has('RememberMe');
+            if ($remember) {
+                Cookie::queue(Cookie::make('LoginEmail', $data['email'], 60, null, null, true, true, false, 'Strict'));
+                Cookie::queue(Cookie::make('LoginPassword', $data['password'], 60, null, null, true, true, false, 'Strict'));
+            } else {
+                // Clear cookies if RememberMe is not checked
+                Cookie::queue(Cookie::forget('LoginEmail'));
+                Cookie::queue(Cookie::forget('LoginPassword'));
+            }
+
+            // untuk simpan email user ketika terjadi kesalahan pada saat input form
+            session()->flash('inputEmail', $data['email']);
 
             $result = json_decode($response->getBody()->getContents(), true);
             Log::info('API Response from masuk-umkm:', [
@@ -388,6 +397,17 @@ class DarrylController extends Controller
             Log::error('Forgot Password Exception: ' . $e->getMessage());
             return redirect()->back()->with('error', $e->getMessage())->withInput();
         }
+    }
+
+    public function logout(Request $request)
+    {
+        session()->flush(); // clear session data
+
+        // forget cookie
+        Cookie::queue(Cookie::forget('LoginEmail'));
+        Cookie::queue(Cookie::forget('LoginPassword'));
+
+        return redirect()->route('umkm.masuk');
     }
 
     // Show reset password form

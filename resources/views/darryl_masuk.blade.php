@@ -70,7 +70,8 @@
                 <div class="mb-2">
                     <label for="inputEmail" class="form-label">Alamat email</label>
                     <input type="email" class="form-control @error('inputEmail') is-invalid @enderror" id="inputEmail"
-                        name="inputEmail" value="{{ old('inputEmail') }}" required>
+                        name="inputEmail" value="{{ old('inputEmail', Cookie::get('LoginEmail', '')) }}"
+                        placeholder="Masukan email" required>
                     @error('inputEmail')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -79,7 +80,8 @@
                 <div class="mb-2 position-relative">
                     <label for="inputPassword" class="form-label">Kata sandi</label>
                     <input type="password" class="form-control @error('inputPassword') is-invalid @enderror"
-                        id="inputPassword" name="inputPassword" placeholder="Masukkan kata sandi" required>
+                        id="inputPassword" value="{{ old('inputPassword', Cookie::get('LoginPassword', '')) }}"
+                        name="inputPassword" placeholder="Masukkan kata sandi" required>
                     <i class="bi bi-eye-slash-fill password-toggle" id="togglePasswordIcon"
                         aria-label="Toggle password visibility"></i>
                     @error('inputPassword')

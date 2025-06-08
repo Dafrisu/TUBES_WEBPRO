@@ -34,6 +34,9 @@ Route::get('/reset-password/{token}', function (string $token) {
     return view('umkm.new-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
+// logout
+Route::post('/logout', [DarrylController::class, 'logout'])->name('umkm.logout');
+
 //Route Punya Dapa
 Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');
 Route::get('/getpesanread', [DafaController::class, 'getpesanread'])->name('umkm.pesanread');

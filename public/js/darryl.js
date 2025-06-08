@@ -16,7 +16,7 @@ const togglesandi = document.getElementById("togglePassword");
 
 document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('inputPassword');
-    const confirmPasswordInput = document.getElementById('inputPasswordConfirmation');
+    const confirmPasswordInput = document.getElementById('konfirmasiSandi');
     const passwordIcon = document.getElementById('togglePasswordIcon');
     const confirmPasswordIcon = document.getElementById('toggleConfirmPasswordIcon');
 

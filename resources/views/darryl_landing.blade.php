@@ -106,20 +106,28 @@
                     @enderror
                 </div>
 
-                <!-- Password -->
-                <div class="mb-2">
+                <div class="mb-2 position-relative">
                     <label for="inputPassword" class="form-label">Kata sandi</label>
                     <input type="password" class="form-control @error('inputPassword') is-invalid @enderror"
-                        id="inputPassword" name="inputPassword" required>
+                        id="inputPassword" name="inputPassword" placeholder="Masukkan kata sandi" required>
+                    <i class="bi bi-eye-slash-fill password-toggle" id="togglePasswordIcon"
+                        aria-label="Toggle password visibility"></i>
                     @error('inputPassword')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <!-- Confirm Password -->
-                <div class="mb-2">
-                    <label for="konfirmasiSandi" class="form-label">Konfirmasi sandi</label>
-                    <input type="password" class="form-control" id="konfirmasiSandi" name="konfirmasiSandi" required>
+                <div class="mb-2 position-relative">
+                    <label for="konfirmasiSandi" class="form-label">Konfirmasi kata sandi</label>
+                    <input type="password"
+                        class="form-control @error('konfirmasiSandi_confirmation') is-invalid @enderror"
+                        id="konfirmasiSandi" name="konfirmasiSandi"
+                        placeholder="Konfirmasi kata sandi" required>
+                    <i class="bi bi-eye-slash-fill password-toggle" id="toggleConfirmPasswordIcon"
+                        aria-label="Toggle password visibility"></i>
+                    @error('konfirmasiSandi_confirmation')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-2">

@@ -83,14 +83,14 @@
                 </div>
 
                 <div class="mb-2 position-relative">
-                    <label for="inputPasswordConfirmation" class="form-label">Konfirmasi kata sandi</label>
+                    <label for="konfirmasiSandi" class="form-label">Konfirmasi kata sandi</label>
                     <input type="password"
-                        class="form-control @error('inputPassword_confirmation') is-invalid @enderror"
-                        id="inputPasswordConfirmation" name="inputPassword_confirmation"
+                        class="form-control @error('konfirmasiSandi_confirmation') is-invalid @enderror"
+                        id="konfirmasiSandi" name="konfirmasiSandi"
                         placeholder="Konfirmasi kata sandi" required>
                     <i class="bi bi-eye-slash-fill password-toggle" id="toggleConfirmPasswordIcon"
                         aria-label="Toggle password visibility"></i>
-                    @error('inputPassword_confirmation')
+                    @error('konfirmasiSandi_confirmation')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -106,17 +106,6 @@
             </div>
         </div>
     </div>
-
-    <style>
-        /* untuk toggle show password pake icons */
-        .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            cursor: pointer;
-            font-size: 20px;
-        }
-    </style>
 
     <!-- Connect Bootsrap bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

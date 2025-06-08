@@ -399,6 +399,17 @@ class DarrylController extends Controller
         }
     }
 
+    public function logout(Request $request)
+    {
+        session()->flush(); // clear session data
+
+        // forget cookie
+        Cookie::queue(Cookie::forget('LoginEmail'));
+        Cookie::queue(Cookie::forget('LoginPassword'));
+
+        return redirect()->route('umkm.masuk');
+    }
+
     // Show reset password form
     public function showResetPasswordForm(Request $request)
     {

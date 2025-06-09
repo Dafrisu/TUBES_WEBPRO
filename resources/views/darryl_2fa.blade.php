@@ -90,11 +90,11 @@
                     <button type="submit" class="btn">Verifikasi</button>
                 </div>
                 <!-- Resend OTP -->
-                <div class="d-flex justify-content-center mt-2">
+                {{-- <div class="d-flex justify-content-center mt-2">
                     <div class="fs-6">Tidak menerima OTP?</div>
                     <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover ms-1"
                         href="{{ route('umkm.kirim-code') }}">Kirim ulang</a>
-                </div>
+                </div> --}}
             </form>
         </div>
     </div>

@@ -130,10 +130,6 @@
                     @enderror
                 </div>
 
-                <div class="mb-2">
-                    <input type="checkbox" id="togglePassword"> Tunjukan sandi
-                </div>
-
                 <!-- Nomor Telepon -->
                 <div class="mb-2">
                     <label for="nomorTelepon" class="form-label">Nomor Telepon</label>

@@ -55,15 +55,15 @@
             <div class="fs-4 fw-medium mb-4 text-center">Masukkan kata sandi baru</div>
 
             @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
             @endif
 
             @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
             @endif
 
             <form action="{{ route('umkm.reset-password') }}" method="POST">
@@ -78,22 +78,23 @@
                     <i class="bi bi-eye-slash-fill password-toggle" id="togglePasswordIcon"
                         aria-label="Toggle password visibility"></i>
                     @error('inputPassword')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-2 position-relative">
-                    <label for="konfirmasiSandi" class="form-label">Konfirmasi kata sandi</label>
+                    <label for="inputPassword_confirmation" class="form-label">Konfirmasi kata sandi</label>
                     <input type="password"
-                        class="form-control @error('konfirmasiSandi_confirmation') is-invalid @enderror"
-                        id="konfirmasiSandi" name="konfirmasiSandi"
+                        class="form-control @error('inputPassword_confirmation') is-invalid @enderror"
+                        id="inputPassword_confirmation" name="inputPassword_confirmation"
                         placeholder="Konfirmasi kata sandi" required>
                     <i class="bi bi-eye-slash-fill password-toggle" id="toggleConfirmPasswordIcon"
                         aria-label="Toggle password visibility"></i>
-                    @error('konfirmasiSandi_confirmation')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    @error('inputPassword_confirmation')
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
 
                 <div class="d-flex flex-column justify-content-center">
                     <button type="submit" class="btn btn-primary">Ubah Kata Sandi</button>

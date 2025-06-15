@@ -16,17 +16,27 @@ class FersyaController extends Controller
         $id = session('umkmID');
         $pesananMasuk = []; 
         $pesananDiterima = []; 
+        $jumlahPesananMasuk = 0;
+        $jumlahPesananDiterima = 0;
+        $waktuPesananTerbaru = null;
 
         try {
             $pesananMasukResponse = Http::withOptions(['verify' => false])
-                ->get('http://localhost/getinboxpesananmasuk', ['id_umkm' => $id]);
+                ->get('https://umkmapi-production.up.railway.app/getinboxpesananmasuk', ['id_umkm' => $id]);
 
             $pesananDiterimaResponse = Http::withOptions(['verify' => false])
-                ->get('http://localhost/getinboxpesanan', ['id_umkm' => $id]);
+                ->get('https://umkmapi-production.up.railway.app/getinboxpesanan', ['id_umkm' => $id]);
 
             if ($pesananMasukResponse->successful() && $pesananDiterimaResponse->successful()) {
                 $pesananMasuk = $pesananMasukResponse->json();
                 $pesananDiterima = $pesananDiterimaResponse->json();
+
+                $jumlahPesananMasuk = count($pesananMasuk);
+                $jumlahPesananDiterima = count($pesananDiterima);
+
+                if (!empty($pesananMasuk)) {
+                    $waktuPesananTerbaru = $pesananMasuk[0]['histori_pesanan'] ?? null;
+                }
             } else {
                 return view('fersya_inbox')->with('error', 'Gagal mendapatkan data dari API');
             }
@@ -34,7 +44,7 @@ class FersyaController extends Controller
             return view('fersya_inbox')->with('error', $e->getMessage());
         }
 
-        return view('fersya_inbox', compact('pesananMasuk', 'pesananDiterima'));
+        return view('fersya_inbox', compact('pesananMasuk', 'pesananDiterima','jumlahPesananMasuk', 'jumlahPesananDiterima', 'waktuPesananTerbaru'));
     }
 
 

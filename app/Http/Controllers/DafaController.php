@@ -289,9 +289,9 @@ class DafaController extends Controller
                 ->put("https://umkmapi-production.up.railway.app/updateStatusKurirDitolak/" . $id_kurir);
             // Periksa respon API
             if ($response->successful()) {
-                return redirect()->route('umkm.konfimasiKurir')->with('success', 'Kurir telah ditolak');
+                return redirect()->route('umkm.konfirmasiKurir')->with('success', 'Kurir telah ditolak');
             } else {
-                return redirect()->route('umkm.konfimasiKurir')->with('error', 'Kurir gagal ditolak');
+                return redirect()->route('umkm.konfirmasiKurir')->with('error', 'Kurir gagal ditolak');
             }
         } catch (\Exception $e) {
             return redirect()->route('umkm.masuk')->with('error', $e->getMessage());

@@ -10,20 +10,32 @@ use App\Http\Controllers\MahesaController;
 use Illuminate\Support\Facades\Http;
 
 
-
+// landing/register
 Route::view('/', 'darryl_landing')->name('umkm.landing');
+route::post('/daftar', [DarrylController::class, 'daftar'])->name('umkm.daftar');
+
+// lupa password
+Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password.form');
+route::post('/lupa-password', [DarrylController::class, 'lupaPassword'])->name('umkm.lupa-password');
+
+// reset password
+route::post('/reset-password', [DarrylController::class, 'resetPassword'])->name('umkm.reset-password');
+Route::view('/reset-password', 'darryl_reset-password')->name('umkm.reset-password.form');
+
+// auth
+Route::view('/auth', 'darryl_2fa')->name('umkm.auth');
+Route::post('/auth/verifikasi-otp', [DarrylController::class, 'verifikasiOTP'])->name('umkm.verifikasi');
+Route::post('/auth/kirim-code', [DarrylController::class, 'kirimCode'])->name('umkm.kirim-code');
+
+// masuk
 Route::view('/masuk', 'darryl_masuk')->name('umkm.masuk');
-Route::view('/auth', 'darryl_2fa')->name('umkm.2fa');
-Route::view('/lupa-password', 'darryl_lupa-password')->name('umkm.lupa-password');
-Route::view('/new-password', 'darryl_new-password')->name('umkm.new-password');
-route::post('/lupa-password', [DarrylController::class, 'resetPassword'])->name('umkm.lupa-password');
-route::post('/new-password', [DarrylController::class, 'newPassword'])->name('umkm.new-password');
-route::post('/register', [DarrylController::class, 'daftar'])->name('umkm.register');
-route::post('/auth', [DarrylController::class, 'auth'])->name('umkm.auth');
 route::post('/login', [DarrylController::class, 'masuk'])->name('umkm.login');
 Route::get('/reset-password/{token}', function (string $token) {
     return view('umkm.new-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
+
+// logout
+Route::post('/logout', [DarrylController::class, 'logout'])->name('umkm.logout');
 
 //Route Punya Dapa
 Route::get('/getdashboard', [DafaController::class, 'getdashboard'])->name('umkm.dashboard');
@@ -60,8 +72,8 @@ Route::post('/addcampaign', [FersyaController::class, 'addCampaign'])->name('umk
 Route::view('/tambahcampaign', 'fersya_campaignTambah')->name('umkm.tambahcampaign');
 Route::get('/pesanan-masuk', [FersyaController::class, 'getviewinboxmasuk'])->name('pesanan.masuk');
 Route::get('/pesanan-diterima', [FersyaController::class, 'getviewinboxditerima'])->name('pesanan.diterima');
-// Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign'); 
-// Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign'); 
+// Route::delete('/campaign/{id}', [FersyaController::class, 'deleteCampaign'])->name('umkm.deletecampaign');
+// Route::get('/campaign/{id}'  , [FersyaController::class, 'getUpdateCampaignView'])->name('umkm.updatecampaign');
 
 
 route::get('/managebarang', [HaikalController::class, 'getviewproduk'])->name('umkm.managebarang');
